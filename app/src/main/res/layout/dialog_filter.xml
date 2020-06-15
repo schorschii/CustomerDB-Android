@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingEnd="12dp"
+                    android:text="@string/group"
+                    android:layout_row="0"
+                    android:layout_column="0" />
+                <Spinner
+                    android:id="@+id/spinnerGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_spinner"
+                    android:spinnerMode="dropdown"
+                    android:minWidth="200dp"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:layout_gravity="fill_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingEnd="12dp"
+                    android:text="@string/city"
+                    android:layout_row="1"
+                    android:layout_column="0" />
+                <Spinner
+                    android:id="@+id/spinnerCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_spinner"
+                    android:spinnerMode="dropdown"
+                    android:minWidth="200dp"
+                    android:layout_row="1"
+                    android:layout_column="1"
+                    android:layout_gravity="fill_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingEnd="12dp"
+                    android:text="@string/country"
+                    android:layout_row="2"
+                    android:layout_column="0" />
+                <Spinner
+                    android:id="@+id/spinnerCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_spinner"
+                    android:spinnerMode="dropdown"
+                    android:minWidth="200dp"
+                    android:layout_row="2"
+                    android:layout_column="1"
+                    android:layout_gravity="fill_horizontal" />
+            </GridLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="16dp" />
+
+            <Button
+                android:id="@+id/buttonGroupSelect"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/filter" />
+
+            <Button
+                android:id="@+id/buttonAllSelect"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/show_all" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

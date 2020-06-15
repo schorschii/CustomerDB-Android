@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="de.georgsieber.customerdb.MainActivity">
+    <item
+        android:id="@+id/action_id"
+        android:enabled="false"
+        android:title="@string/id"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_redeem"
+        android:icon="@drawable/ic_card_giftcard_white_24dp"
+        android:title="@string/redeem"
+        app:showAsAction="ifRoom" />
+    <!--
+    <item
+        android:id="@+id/action_export"
+        android:icon="@drawable/ic_import_export_white_24dp"
+        android:title="@string/exportcustomer"
+        app:showAsAction="ifRoom" />
+        -->
+    <item
+        android:id="@+id/action_print"
+        android:icon="@drawable/ic_print_white_24dp"
+        android:title="@string/print"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_remove"
+        android:icon="@drawable/ic_delete_forever_black_24dp"
+        android:title="@string/remove_voucher"
+        app:showAsAction="never" />
+</menu>

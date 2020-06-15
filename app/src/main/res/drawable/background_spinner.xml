@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="4dp"
+        android:left="4dp"
+        android:right="4dp"
+        android:top="4dp"
+        android:gravity="fill">
+        <shape>
+            <solid android:color="#00000000" />
+            <stroke
+                android:width="2dp"
+                android:color="#5A595A" />
+            <padding
+                android:bottom="5dp"
+                android:left="5dp"
+                android:right="5dp"
+                android:top="5dp" />
+            <corners
+                android:bottomLeftRadius="4dp"
+                android:bottomRightRadius="4dp"
+                android:topLeftRadius="4dp"
+                android:topRightRadius="4dp" />
+        </shape>
+    </item>
+    <item
+        android:gravity="center_vertical|right"
+        android:drawable="@drawable/background_spinner_arrow">
+    </item>
+</layer-list>

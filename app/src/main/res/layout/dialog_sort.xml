@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radioButtonSortLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/last_name_default"
+            android:checked="true" />
+        <RadioButton
+            android:id="@+id/radioButtonSortFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/firstname" />
+        <RadioButton
+            android:id="@+id/radioButtonSortCustomField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/custom_field" />
+    </RadioGroup>
+    <Spinner
+        android:id="@+id/spinnerSort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="200dp"
+        android:background="@drawable/background_spinner"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radioButtonSortAsc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_asc"
+            android:checked="true" />
+        <RadioButton
+            android:id="@+id/radioButtonSortDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_desc" />
+    </RadioGroup>
+    <Button
+        android:id="@+id/buttonSort"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sort" />
+    <Button
+        android:id="@+id/buttonSortCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/abort" />
+
+</LinearLayout>

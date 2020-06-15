@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/general">
+        <menu>
+            <item
+                android:id="@+id/nav_information"
+                android:icon="@drawable/ic_info_outline_white_24dp"
+                android:title="@string/information" />
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings_white_24dp"
+                android:title="@string/settings" />
+        </menu>
+    </item>
+
+    <item android:title="@string/restrict_access">
+        <menu>
+            <item
+                android:id="@+id/nav_input_only_mode"
+                android:icon="@drawable/ic_lock_outline_white_24dp"
+                android:title="@string/input_only_mode" />
+            <item
+                android:id="@+id/nav_lock"
+                android:icon="@drawable/ic_lock_gray_24dp"
+                android:title="@string/lock_app" />
+        </menu>
+    </item>
+
+    <item android:title="@string/additional_features">
+        <menu>
+            <item
+                android:id="@+id/nav_sort"
+                android:icon="@drawable/ic_sort_by_alpha_white_24dp"
+                android:title="@string/sort" />
+            <item
+                android:id="@+id/nav_filter"
+                android:icon="@drawable/ic_filter_list_white_24dp"
+                android:title="@string/filter" />
+            <item
+                android:id="@+id/nav_newsletter"
+                android:icon="@drawable/ic_markunread_mailbox_white_24dp"
+                android:title="@string/newsletter" />
+            <item
+                android:id="@+id/nav_birthdays"
+                android:icon="@drawable/ic_cake_white_24dp"
+                android:title="@string/birthdays" />
+            <item
+                android:id="@+id/nav_import_export"
+                android:icon="@drawable/ic_import_export_white_24dp"
+                android:title="@string/im_export" />
+            <item
+                android:id="@+id/nav_remove_selected"
+                android:icon="@drawable/remove"
+                android:title="@string/remove_selected" />
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/ic_power_white_24dp"
+                android:title="@string/closedb" />
+        </menu>
+    </item>
+
+</menu>

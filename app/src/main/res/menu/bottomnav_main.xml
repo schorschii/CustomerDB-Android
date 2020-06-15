@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/bottomnav_customers"
+        android:enabled="true"
+        android:title="@string/customers"
+        android:icon="@drawable/ic_people_white_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/bottomnav_vouchers"
+        android:enabled="true"
+        android:title="@string/vouchers"
+        android:icon="@drawable/ic_card_giftcard_white_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:visible="false"
+        android:enabled="true"
+        android:title="@string/vouchers"
+        android:icon="@drawable/ic_card_giftcard_white_24dp"
+        app:showAsAction="ifRoom" />
+</menu>

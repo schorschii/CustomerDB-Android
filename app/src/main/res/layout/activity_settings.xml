@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="de.georgsieber.customerdb.SettingsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/toolbarStyle" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apiconnection"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/radioButtonNoSync"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="showHideSyncOptions"
+                        android:text="@string/disabled" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonCloudSync"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="showHideSyncOptions"
+                        android:text="@string/use_cloud_service" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonOwnServerSync"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="showHideSyncOptions"
+                        android:text="@string/use_own_server" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonOwnServerLegacySync"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="showHideSyncOptions"
+                        android:text="@string/use_own_server_legacy" />
+                </RadioGroup>
+
+                <EditText
+                    android:id="@+id/editTextURL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/apiurl"
+                    android:inputType="textUri" />
+
+                <EditText
+                    android:id="@+id/editTextUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/apiusername"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/apipassword"
+                    android:inputType="textPassword" />
+
+                <Button
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onApiHelpButtonClick"
+                    android:text="@string/more_info_register" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/various"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/currency"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="1" />
+
+                    <EditText
+                        android:id="@+id/editTextCurrency"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_column="2"
+                        android:layout_gravity="fill_horizontal"
+                        android:hint="@string/currency"
+                        android:inputType="text" />
+
+                    <TextView
+                        android:id="@+id/textViewInputOnlyModePassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:maxWidth="110dp"
+                        android:text="@string/password"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"
+                        android:layout_row="1"
+                        android:layout_column="1" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutInputOnlyModePassword"
+                        android:layout_width="0dp"
+                        android:layout_row="1"
+                        android:layout_column="2"
+                        android:layout_gravity="fill_horizontal"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/editTextInputOnlyModePassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/password"
+                            android:inputType="textPassword" />
+
+                        <EditText
+                            android:id="@+id/editTextInputOnlyModePasswordConfirm"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/confirm"
+                            android:inputType="textPassword" />
+                    </LinearLayout>
+                </GridLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/design_options"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                    <Button
+                        android:id="@+id/buttonSettingsSetLogo"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onChooseLogoButtonClick"
+                        android:text="@string/choose_logo" />
+
+                    <Button
+                        android:id="@+id/buttonSettingsRemoveLogo"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRemoveLogoButtonClick"
+                        android:text="@string/remove_logo" />
+
+                    <Button
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onResetColorButtonClick"
+                        android:text="@string/reset_color" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <GridLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="fill_horizontal"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:layout_row="0"
+                                android:layout_column="0"
+                                android:text="@string/red" />
+
+                            <SeekBar
+                                android:id="@+id/seekBarRed"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_row="0"
+                                android:layout_column="1"
+                                android:layout_gravity="fill_horizontal"
+                                android:max="255" />
+
+                            <TextView
+                                android:layout_row="1"
+                                android:layout_column="0"
+                                android:text="@string/green" />
+
+                            <SeekBar
+                                android:id="@+id/seekBarGreen"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_row="1"
+                                android:layout_column="1"
+                                android:layout_gravity="fill_horizontal"
+                                android:max="255" />
+
+                            <TextView
+                                android:layout_row="2"
+                                android:layout_column="0"
+                                android:text="@string/blue" />
+
+                            <SeekBar
+                                android:id="@+id/seekBarBlue"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_row="2"
+                                android:layout_column="1"
+                                android:layout_gravity="fill_horizontal"
+                                android:max="255" />
+                        </GridLayout>
+
+                        <View
+                            android:id="@+id/viewColorPreview"
+                            android:layout_width="26dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorPrimary" />
+                    </LinearLayout>
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+                            <RadioButton
+                                android:id="@+id/radioButtonDarkModeSystem"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/system_default" />
+                            <RadioButton
+                                android:id="@+id/radioButtonDarkModeOn"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/dark_mode" />
+                            <RadioButton
+                                android:id="@+id/radioButtonDarkModeOff"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/light_mode" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_templates"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeDefaultCustomerTitle"
+                    android:text="@string/default_customer_title" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeDefaultCustomerCity"
+                    android:text="@string/default_customer_city" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeDefaultCustomerCountry"
+                    android:text="@string/default_customer_country" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeDefaultCustomerGroup"
+                    android:text="@string/default_customer_group" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeEmailSubject"
+                    android:text="@string/email_subject" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeEmailTemplate"
+                    android:text="@string/email_template" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeNewsletterTemplate"
+                    android:text="@string/newsletter_template" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeExportSubject"
+                    android:text="@string/email_export_subject" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeExportTemplate"
+                    android:text="@string/email_export_template" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/field_config"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxAllowTextInPhoneNumbers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/allow_text_in_phone_numbers" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxShowPhoneField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_phone_fields" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxShowEmailField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_email_field" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxShowAddressField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_address_field" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxShowGroupField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_group_field" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxShowNotesField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_notes_field" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxShowNewsletterField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_newsletter_field" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxShowBirthdayField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_birthday_field" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxShowConsentField"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_data_processing_consent_checkbox_in_input_only_mode" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/custom_fields"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                    <Spinner
+                        android:id="@+id/spinnerCustomField"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_spinner"
+                        android:spinnerMode="dropdown" />
+
+                    <Button
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onAddCustomFieldButtonClick"
+                        android:text="@string/new_custom_field" />
+
+                    <Button
+                        android:id="@+id/buttonEditCustomFieldSettings"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onEditCustomFieldButtonClick"
+                        android:text="@string/edit_custom_field" />
+
+                    <Button
+                        android:id="@+id/buttonRemoveCustomFieldSettings"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRemoveCustomFieldButtonClick"
+                        android:text="@string/remove_custom_field" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutCustomFieldsSettingsDropDownValues"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="12dp" />
+
+                        <Spinner
+                            android:id="@+id/spinnerCustomFieldDropDownValues"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_spinner"
+                            android:spinnerMode="dropdown" />
+
+                        <Button
+                            style="@style/Widget.AppCompat.Button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="onAddCustomFieldValueButtonClick"
+                            android:text="@string/new_drop_down_value" />
+
+                        <Button
+                            style="@style/Widget.AppCompat.Button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="onRemoveCustomFieldValueButtonClick"
+                            android:text="@string/remove_drop_down_value" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/allow_overlay_on_incoming_phone_calls"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/call_log_permission_note" />
+
+                <TextView
+                    android:id="@+id/textViewLastCallReceived"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/last_call" />
+
+                <Button
+                    style="@style/Widget.AppCompat.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClickInstallPluginApp"
+                    android:text="@string/install_plugin_app" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

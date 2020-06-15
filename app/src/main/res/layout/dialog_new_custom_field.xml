@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editTextCustomFieldTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/custom_field_title"
+        android:minWidth="200dp"
+        android:maxLength="20"
+        android:inputType="text"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radioButtonNewFieldAlphanumeric"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alphanumeric"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/radioButtonNewFieldAlphanumericMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alphanumeric_multi_line"/>
+        <RadioButton
+            android:id="@+id/radioButtonNewFieldNumeric"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/numeric"/>
+        <RadioButton
+            android:id="@+id/radioButtonNewFieldDropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/drop_down"/>
+        <RadioButton
+            android:id="@+id/radioButtonNewFieldDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/date"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonNewCustomFieldOK"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ok" />
+</LinearLayout>
