@@ -14,7 +14,6 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -49,7 +48,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.SearchView;
@@ -67,8 +65,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import de.georgsieber.customerdb.importexport.CsvBuilder;
-import de.georgsieber.customerdb.importexport.VcfBuilder;
+import de.georgsieber.customerdb.importexport.CustomerCsvBuilder;
+import de.georgsieber.customerdb.importexport.CustomerVcfBuilder;
+import de.georgsieber.customerdb.importexport.VoucherCsvBuilder;
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.Voucher;
@@ -113,12 +112,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final static int NEW_CUSTOMER_REQUEST = 0;
     private final static int VIEW_CUSTOMER_REQUEST = 1;
     private final static int SETTINGS_REQUEST = 2;
-    private final static int PICK_VCF_REQUEST = 4;
-    private final static int PICK_CSV_REQUEST = 5;
+    private final static int PICK_CUSTOMER_VCF_REQUEST = 4;
+    private final static int PICK_CUSTOMER_CSV_REQUEST = 5;
     private final static int BIRTHDAY_REQUEST = 6;
     private final static int ABOUT_REQUEST = 7;
     private final static int NEW_VOUCHER_REQUEST = 8;
     private final static int VIEW_VOUCHER_REQUEST = 9;
+    private final static int PICK_VOUCHER_CSV_REQUEST = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -281,7 +281,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mDrawerMenu.findItem(R.id.nav_sort).setEnabled(state);
             mDrawerMenu.findItem(R.id.nav_newsletter).setEnabled(state);
             mDrawerMenu.findItem(R.id.nav_birthdays).setEnabled(state);
-            mDrawerMenu.findItem(R.id.nav_import_export).setEnabled(state);
         }
         refreshSelectedCountInfo(itemId);
     }
@@ -486,7 +485,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_import_export:
                 drawer.closeDrawer(GravityCompat.START);
-                menuImportExport();
+                if(mBottomNavigationView.getSelectedItemId() == R.id.bottomnav_customers)
+                    menuImportExportCustomer();
+                else if(mBottomNavigationView.getSelectedItemId() == R.id.bottomnav_vouchers)
+                    menuImportExportVoucher();
                 break;
             case R.id.nav_remove_selected:
                 drawer.closeDrawer(GravityCompat.START);
@@ -1132,10 +1134,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(Intent.createChooser(intent, getResources().getString(R.string.emailtocustomer)));
     }
 
-    private void menuImportExport() {
+    private void menuImportExportCustomer() {
         final Dialog ad = new Dialog(this);
         ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        ad.setContentView(R.layout.dialog_import_export);
+        ad.setContentView(R.layout.dialog_import_export_customer);
         if(mCurrentCustomerAdapter.getCheckedItems().size() == 0)
             ad.findViewById(R.id.checkBoxExportOnlySelected).setEnabled(false);
         ad.findViewById(R.id.buttonImportVCF).setOnClickListener(new View.OnClickListener() {
@@ -1145,7 +1147,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent();
                 intent.setType("text/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select VCF file"), PICK_VCF_REQUEST);
+                startActivityForResult(Intent.createChooser(intent, "Select VCF file"), PICK_CUSTOMER_VCF_REQUEST);
             }
         });
         ad.findViewById(R.id.buttonImportCSV).setOnClickListener(new View.OnClickListener() {
@@ -1162,7 +1164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Intent intent = new Intent();
                         intent.setType("text/*");
                         intent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(Intent.createChooser(intent, "Select CSV file"), PICK_CSV_REQUEST);
+                        startActivityForResult(Intent.createChooser(intent, "Select CSV file"), PICK_CUSTOMER_CSV_REQUEST);
                     }
                 });
                 ad2.show();
@@ -1174,11 +1176,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 ad.dismiss();
                 boolean onlySelected = ((CheckBox) ad.findViewById(R.id.checkBoxExportOnlySelected)).isChecked();
                 boolean sendEmail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmail)).isChecked();
-                VcfBuilder content;
+                CustomerVcfBuilder content;
                 if(onlySelected)
-                    content = new VcfBuilder(mCurrentCustomerAdapter.getCheckedItems());
+                    content = new CustomerVcfBuilder(mCurrentCustomerAdapter.getCheckedItems());
                 else
-                    content = new VcfBuilder(mCustomers);
+                    content = new CustomerVcfBuilder(mCustomers);
                 File f = StorageControl.getStorageExportVcf(me);
                 if(content.saveVcfFile(f)) {
                     if(sendEmail) {
@@ -1198,11 +1200,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 ad.dismiss();
                 boolean onlySelected = ((CheckBox) ad.findViewById(R.id.checkBoxExportOnlySelected)).isChecked();
                 boolean sendEmail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmail)).isChecked();
-                CsvBuilder content;
+                CustomerCsvBuilder content;
                 if(onlySelected)
-                    content = new CsvBuilder(mCurrentCustomerAdapter.getCheckedItems(), mDb.getCustomFields());
+                    content = new CustomerCsvBuilder(mCurrentCustomerAdapter.getCheckedItems(), mDb.getCustomFields());
                 else
-                    content = new CsvBuilder(mCustomers, mDb.getCustomFields());
+                    content = new CustomerCsvBuilder(mCustomers, mDb.getCustomFields());
                 File f = StorageControl.getStorageExportCsv(me);
                 if(content.saveCsvFile(f)) {
                     if(sendEmail) {
@@ -1230,6 +1232,64 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     CommonDialog.show(me, getResources().getString(R.string.not_supported), getResources().getString(R.string.not_supported_printing), CommonDialog.TYPE.FAIL, false);
                 }
+            }
+        });
+        ad.findViewById(R.id.buttonExportCancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+            }
+        });
+        ad.show();
+    }
+    private void menuImportExportVoucher() {
+        final Dialog ad = new Dialog(this);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_import_export_voucher);
+        if(mCurrentVoucherAdapter.getCheckedItems().size() == 0)
+            ad.findViewById(R.id.checkBoxExportOnlySelected).setEnabled(false);
+        ad.findViewById(R.id.buttonImportCSV).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                AlertDialog.Builder ad2 = new AlertDialog.Builder(me);
+                ad2.setMessage(getResources().getString(R.string.import_csv_note_voucher));
+                ad2.setNegativeButton(getResources().getString(R.string.abort), null);
+                ad2.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent intent = new Intent();
+                        intent.setType("text/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select CSV file"), PICK_VOUCHER_CSV_REQUEST);
+                    }
+                });
+                ad2.show();
+            }
+        });
+        ad.findViewById(R.id.buttonExportCSV).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                boolean onlySelected = ((CheckBox) ad.findViewById(R.id.checkBoxExportOnlySelected)).isChecked();
+                boolean sendEmail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmail)).isChecked();
+                VoucherCsvBuilder content;
+                if(onlySelected)
+                    content = new VoucherCsvBuilder(mCurrentVoucherAdapter.getCheckedItems());
+                else
+                    content = new VoucherCsvBuilder(mVouchers);
+                File f = StorageControl.getStorageExportCsv(me);
+                if(content.saveCsvFile(f)) {
+                    if(sendEmail) {
+                        emailFile(f);
+                    } else {
+                        CommonDialog.show(me, getResources().getString(R.string.export_ok), f.getPath(), CommonDialog.TYPE.OK, false);
+                    }
+                } else {
+                    CommonDialog.show(me, getResources().getString(R.string.export_fail), f.getPath(), CommonDialog.TYPE.FAIL, false);
+                }
+                StorageControl.scanFile(f, me);
             }
         });
         ad.findViewById(R.id.buttonExportCancel).setOnClickListener(new View.OnClickListener() {
@@ -1543,10 +1603,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
             }
-            case(PICK_VCF_REQUEST): {
+            case(PICK_CUSTOMER_VCF_REQUEST): {
                 if(resultCode == Activity.RESULT_OK && data.getData() != null) {
                     try {
-                        List<Customer> newCustomers = VcfBuilder.readVcfFile(new InputStreamReader(getContentResolver().openInputStream(data.getData())));
+                        List<Customer> newCustomers = CustomerVcfBuilder.readVcfFile(new InputStreamReader(getContentResolver().openInputStream(data.getData())));
                         if(newCustomers.size() > 0) {
                             int counter = 0;
                             for(Customer c : newCustomers) {
@@ -1566,10 +1626,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 break;
             }
-            case(PICK_CSV_REQUEST): {
+            case(PICK_CUSTOMER_CSV_REQUEST): {
                 if(resultCode == Activity.RESULT_OK && data.getData() != null) {
                     try {
-                        List<Customer> newCustomers = CsvBuilder.readCsvFile(new InputStreamReader(getContentResolver().openInputStream(data.getData())));
+                        List<Customer> newCustomers = CustomerCsvBuilder.readCsvFile(new InputStreamReader(getContentResolver().openInputStream(data.getData())));
                         if(newCustomers.size() > 0) {
                             int counter = 0;
                             for(Customer c : newCustomers) {
@@ -1582,6 +1642,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
                             refreshCustomersFromLocalDatabase();
                             CommonDialog.show(this, getResources().getString(R.string.import_ok),getResources().getQuantityString(R.plurals.imported, newCustomers.size(), newCustomers.size()), CommonDialog.TYPE.OK, false);
+                            MainActivity.setUnsyncedChanges(this);
+                        } else
+                            CommonDialog.show(this, getResources().getString(R.string.import_fail),getResources().getString(R.string.import_fail_no_entries), CommonDialog.TYPE.FAIL, false);
+                    } catch(Exception e) {
+                        CommonDialog.show(this, getResources().getString(R.string.import_fail), e.getMessage(), CommonDialog.TYPE.FAIL, false);
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            }
+            case(PICK_VOUCHER_CSV_REQUEST): {
+                if(resultCode == Activity.RESULT_OK && data.getData() != null) {
+                    try {
+                        List<Voucher> newVouchers = VoucherCsvBuilder.readCsvFile(new InputStreamReader(getContentResolver().openInputStream(data.getData())));
+                        if(newVouchers.size() > 0) {
+                            int counter = 0;
+                            for(Voucher v : newVouchers) {
+                                if(v.mId < 1 || mDb.getVoucherById(v.mId, true) != null) {
+                                    v.mId = Voucher.generateID(counter);
+                                }
+                                mDb.addVoucher(v);
+                                counter ++;
+                            }
+                            refreshVouchersFromLocalDatabase();
+                            CommonDialog.show(this, getResources().getString(R.string.import_ok),getResources().getQuantityString(R.plurals.imported, newVouchers.size(), newVouchers.size()), CommonDialog.TYPE.OK, false);
                             MainActivity.setUnsyncedChanges(this);
                         } else
                             CommonDialog.show(this, getResources().getString(R.string.import_fail),getResources().getString(R.string.import_fail_no_entries), CommonDialog.TYPE.FAIL, false);

@@ -18,16 +18,16 @@ import de.georgsieber.customerdb.CustomerDatabase;
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
 
-public class CsvBuilder {
+public class CustomerCsvBuilder {
 
     private List<Customer> mCustomers = new ArrayList<>();
     private List<CustomField> mAllCustomFields;
 
-    public CsvBuilder(List<Customer> _customers, List<CustomField> _allCustomFields) {
+    public CustomerCsvBuilder(List<Customer> _customers, List<CustomField> _allCustomFields) {
         mCustomers = _customers;
         mAllCustomFields = _allCustomFields;
     }
-    public CsvBuilder(Customer _customer, List<CustomField> _allCustomFields) {
+    public CustomerCsvBuilder(Customer _customer, List<CustomField> _allCustomFields) {
         mCustomers.add(_customer);
         mAllCustomFields = _allCustomFields;
     }

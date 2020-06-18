@@ -20,7 +20,7 @@ import java.util.List;
 
 import de.georgsieber.customerdb.model.Customer;
 
-public class VcfBuilder {
+public class CustomerVcfBuilder {
 
     static class VcfEntry {
         ArrayList<VcfField> mFields = new ArrayList<>();
@@ -39,10 +39,10 @@ public class VcfBuilder {
 
     private List<Customer> mCustomers = new ArrayList<>();
 
-    public VcfBuilder(List<Customer> _customers) {
+    public CustomerVcfBuilder(List<Customer> _customers) {
         mCustomers = _customers;
     }
-    public VcfBuilder(Customer _customer) {
+    public CustomerVcfBuilder(Customer _customer) {
         mCustomers.add(_customer);
     }
 

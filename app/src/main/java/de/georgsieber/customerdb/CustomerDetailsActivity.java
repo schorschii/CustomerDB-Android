@@ -50,8 +50,8 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
-import de.georgsieber.customerdb.importexport.CsvBuilder;
-import de.georgsieber.customerdb.importexport.VcfBuilder;
+import de.georgsieber.customerdb.importexport.CustomerCsvBuilder;
+import de.georgsieber.customerdb.importexport.CustomerVcfBuilder;
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.print.CustomerPrintDocumentAdapter;
@@ -500,7 +500,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ad.dismiss();
                 boolean sendMail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmailSingle)).isChecked();
-                if(new CsvBuilder(mCurrentCustomer, mDb.getCustomFields()).saveCsvFile(getStorageExportCSV())) {
+                if(new CustomerCsvBuilder(mCurrentCustomer, mDb.getCustomFields()).saveCsvFile(getStorageExportCSV())) {
                     if(sendMail) {
                         emailFile(getStorageExportCSV());
                     } else {
@@ -517,7 +517,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ad.dismiss();
                 boolean sendMail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmailSingle)).isChecked();
-                if(new VcfBuilder(mCurrentCustomer).saveVcfFile(getStorageExportVCF())) {
+                if(new CustomerVcfBuilder(mCurrentCustomer).saveVcfFile(getStorageExportVCF())) {
                     if(sendMail) {
                         emailFile(getStorageExportVCF());
                     } else {

@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/im_export_all_text"
+                android:text="@string/im_export_all_voucher_text"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
 
             <Space
@@ -51,23 +51,18 @@
                 <Space
                     android:layout_height="match_parent"
                     android:layout_width="10dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/im_export_all_text_additional"
-                    android:textAppearance="@style/TextAppearance.AppCompat" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small" />
             </LinearLayout>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="16dp" />
 
-            <Button
-                android:id="@+id/buttonImportVCF"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/import_from_vcf_file" />
             <Button
                 android:id="@+id/buttonImportCSV"
                 style="@style/Widget.AppCompat.Button.Colored"
@@ -87,23 +82,11 @@
                 android:layout_height="8dp" />
 
             <Button
-                android:id="@+id/buttonExportVCF"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/export_as_vcf_file" />
-            <Button
                 android:id="@+id/buttonExportCSV"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/export_as_csv_file" />
-            <Button
-                android:id="@+id/buttonExportPDF"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/export_as_pdf_file" />
             <CheckBox
                 android:id="@+id/checkBoxExportOnlySelected"
                 android:layout_width="match_parent"

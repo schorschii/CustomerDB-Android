@@ -71,6 +71,12 @@ public class Voucher implements Parcelable {
         }
         return Long.parseLong(idFormat.format(new Date())+random);
     }
+    public static long generateID(int suffix) {
+        /* specific suffix for bulk import */
+        @SuppressLint("SimpleDateFormat")
+        DateFormat idFormat = new SimpleDateFormat("yyyyMMddkkmmss");
+        return Long.parseLong(idFormat.format(new Date())+suffix);
+    }
 
     public void putVoucherAttribute(String key, String value) {
         switch(key) {

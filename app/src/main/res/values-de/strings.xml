@@ -358,4 +358,6 @@
     <string name="legacy_sync_warning_text">Diese Funktion wird in einem kommenden Update entfernt! Bitte wechseln Sie zu dem neuen Cloud-Dienst oder aktualisieren Sie Ihren eigenen Datenbankserver auf die neue Server-Software. Bitte besuchen Sie die Einstellungen für mehr Informationen.</string>
     <string name="app_store">App Store</string>
     <string name="ios_app">iOS-App:</string>
+    <string name="im_export_all_voucher_text">Mit dieser Funktion können Sie Gutscheindaten importieren oder alle Datensätze in eine Datei exportieren.</string>
+    <string name="import_csv_note_voucher">Bitte beachten Sie folgende wichtige Hinweise zum CSV-Import.\n\nDie erste Zeile wird als Spaltentitel interpretiert. Ihre CSV-Datei sollte folgende Spalten enthalten: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nWichtig: Bitte verwenden Sie als Feldtrennzeichen ein Komma (,). Die Kunden-ID wird generiert wenn das Feld leer ist oder die ID bereits existiert. Als Datumsformat muss \"YYYY-MM-DD HH:MM:SS\" verwendet werden.\n\nSie können Ihre CSV-Datei z.B. mit einer Software wie LibreOffice Calc vorher bearbeiten, bevor Sie den Import starten.</string>
 </resources>

@@ -451,6 +451,19 @@ public class CustomerDatabase {
         return null;
     }
 
+    Voucher getVoucherById(long id) {
+        return getVoucherById(id, false);
+    }
+    Voucher getVoucherById(long id, boolean showDeleted) {
+        List<Voucher> vouchers = getVouchers(null, showDeleted);
+        for(Voucher v : vouchers) {
+            if(v.mId == id) {
+                return v;
+            }
+        }
+        return null;
+    }
+
     List<Customer> getAllCustomers() {
         Cursor cursor = db.rawQuery("SELECT id, title, first_name, last_name, phone_home, phone_mobile, phone_work, email, street, zipcode, city, country, birthday, customer_group, newsletter, notes, custom_fields, last_modified, removed, image, consent FROM customer", null);
 

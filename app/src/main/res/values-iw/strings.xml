@@ -163,8 +163,8 @@
     <string name="show_on_map">הראה במפה</string>
     <string name="import_from_csv_file">ייבוא קובץ CSV</string>
     <string name="import_csv_note">Please note the following important information for the CSV import.\n\nThe first line is interpreted as column title. Your CSV file should contain the following columns: id, title, first_name, last_name, phone_home, phone_mobile, phone_work, email, street, zipcode, city, country, customer_group, newsletter, birthday, last_modified, notes\n\nOther columns are imported as custom fields.\n\nImportant: Please use a comma (,) as field separator. The customer ID is generated when the field is empty or the ID already exists. The field "newsletter" may only contain 0 or 1. The date format must be \"YYYY-MM-DD HH:MM:SS\".\n\nYou can edit your CSV file for example with a software like LibreOffice Calc before you start the import.</string>
-    <string name="rate_customerdb_title">Do you like this app? Please submit a review.</string>
-    <string name="rate_customerdb">Rate now at the PlayStore…</string>
+    <string name="rate_customerdb_title">האם אתה אוהב את האפליקציה הזו? אנא שלח סקירה.</string>
+    <string name="rate_customerdb">דרג עכשיו ב- PlayStore …</string>
     <string name="various">שונות</string>
     <string name="allow_text_in_phone_numbers">לאפשר טקסט במספרי טלפון</string>
     <string name="apply">להחיל</string>
@@ -353,7 +353,7 @@
     <string name="success">הצלחה</string>
     <string name="error">שגיאה</string>
     <string name="please_check_inbox">אנא בדוק את תיבת הדואר הנכנס שלך</string>
-    <string name="i_accept_cloud_terms">I accept the terms of service and privacy policy</string>
+    <string name="i_accept_cloud_terms">אני מקבל את תנאי השירות ומדיניות הפרטיות</string>
     <string name="please_accept_privacy_policy">אנא קבל את תנאי השירות ומדיניות הפרטיות</string>
     <string name="how_does_the_sync_function_work">כיצד פועלת הסנכרון?</string>
     <string name="data_processing_consent">הסכמה לעיבוד נתונים</string>
@@ -371,4 +371,6 @@
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
     <string name="app_store">חנות אפליקציות</string>
     <string name="ios_app">אפליקציית iOS:</string>
+    <string name="im_export_all_voucher_text">בעזרת פונקציה זו תוכלו לייבא שוברים או לייצא את כל הרשומות לקובץ יחיד.</string>
+    <string name="import_csv_note_voucher">Please note the following important information for the CSV import.\n\nThe first line is interpreted as column title. Your CSV file should contain the following columns: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportant: Please use a comma (,) as field separator. The customer ID is generated when the field is empty or the ID already exists. The date format must be \"YYYY-MM-DD HH:MM:SS\".\n\nYou can edit your CSV file for example with a software like LibreOffice Calc before you start the import.</string>
 </resources>
