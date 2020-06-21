@@ -1,5 +1,6 @@
 package de.georgsieber.customerdb;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -16,7 +17,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.print.PrintAttributes;
 import android.print.PrintManager;
-import android.provider.MediaStore;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -27,14 +27,14 @@ import androidx.appcompat.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.URLSpan;
-import android.util.Base64;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,11 +42,8 @@ import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -54,8 +51,8 @@ import de.georgsieber.customerdb.importexport.CustomerCsvBuilder;
 import de.georgsieber.customerdb.importexport.CustomerVcfBuilder;
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
+import de.georgsieber.customerdb.model.CustomerFile;
 import de.georgsieber.customerdb.print.CustomerPrintDocumentAdapter;
-import de.georgsieber.customerdb.tools.BitmapCompressor;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
 import de.georgsieber.customerdb.tools.StorageControl;
@@ -63,14 +60,15 @@ import de.georgsieber.customerdb.tools.DateControl;
 
 
 public class CustomerDetailsActivity extends AppCompatActivity {
-    private CustomerDatabase mDb;
-    Customer mCurrentCustomer = null;
-    CustomerDetailsActivity me;
-    SharedPreferences mSettings;
 
-    private final static int PICK_CONSENT_IMAGE_REQUEST = 1;
-    private final static int TAKE_CONSENT_IMAGE_REQUEST = 3;
-    private final static int DRAW_CONSENT_IMAGE_REQUEST = 4;
+    private CustomerDetailsActivity me;
+
+    private CustomerDatabase mDb;
+    private long mCurrentCustomerId = -1;
+    private Customer mCurrentCustomer = null;
+    private SharedPreferences mSettings;
+    private boolean mChanged = false;
+
     private final static int EDIT_CUSTOMER_REQUEST = 2;
 
     TextView mTextViewName;
@@ -124,7 +122,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         mTextViewAddress = findViewById(R.id.textViewAddress);
         mTextViewGroup = findViewById(R.id.textViewGroup);
         mTextViewNotes = findViewById(R.id.textViewNotes);
-        mTextViewNewsletter = findViewById(R.id.textViewAdditional);
+        mTextViewNewsletter = findViewById(R.id.textViewNewsletter);
         mTextViewBirthday = findViewById(R.id.textViewBirthday);
         mTextViewLastChanged = findViewById(R.id.textViewLastModified);
         mButtonPhoneHomeMore = findViewById(R.id.buttonPhoneHomeMore);
@@ -186,20 +184,23 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(me, CustomerEditActivity.class);
-                myIntent.putExtra("customer", mCurrentCustomer);
+                myIntent.putExtra("customer-id", mCurrentCustomerId);
                 me.startActivityForResult(myIntent, EDIT_CUSTOMER_REQUEST);
             }
         });
 
-        // fill fields
+        // get current customer
         Intent intent = getIntent();
-        mCurrentCustomer = mDb.getCustomerById( // load current values from database with images
-                ((Customer)intent.getParcelableExtra("customer")).mId
-        );
+        mCurrentCustomerId = intent.getLongExtra("customer-id", -1);
+        loadCustomer();
+    }
+
+    private void loadCustomer() {
+        // load current values from database with images and files
+        mCurrentCustomer = mDb.getCustomerById(mCurrentCustomerId, false, true);
         if(mCurrentCustomer == null) {
             finish();
         } else {
-            mCurrentCustomer = mDb.readCustomerImages(mCurrentCustomer);
             createListEntries(mCurrentCustomer);
         }
     }
@@ -213,7 +214,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     @Override
     public void finish() {
         // report MainActivity to update customer list
-        if(changed) {
+        if(mChanged) {
             Intent output = new Intent();
             output.putExtra("action", "update");
             setResult(RESULT_OK, output);
@@ -225,75 +226,15 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode) {
-            case(TAKE_CONSENT_IMAGE_REQUEST) : {
-                if(resultCode == RESULT_OK && data != null && data.getExtras() != null) {
-                    try {
-                        Log.e("extra", "START");
-                        Bitmap photo = (Bitmap) data.getExtras().get("data");
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        photo.compress(Bitmap.CompressFormat.JPEG, 90, stream);
-                        byte[] byteArray = stream.toByteArray();
-                        photo.recycle();
-                        mCurrentCustomer.mConsentImage = byteArray;
-                        Log.e("extra", byteArray.length+"");
-                        setUpdateAfterFinish();
-                    } catch(Exception ignored) {}
-                }
-                break;
-            }
-            case(PICK_CONSENT_IMAGE_REQUEST) : {
-                if(resultCode == RESULT_OK && data != null && data.getData() != null) {
-                    mCurrentCustomer.mConsentImage = getDataBytes(data);
-                    setUpdateAfterFinish();
-                }
-                break;
-            }
-            case(DRAW_CONSENT_IMAGE_REQUEST) : {
-                if(resultCode == RESULT_OK && data != null && data.getExtras() != null) {
-                    mCurrentCustomer.mConsentImage = android.util.Base64.decode(
-                            data.getExtras().getString("image"), Base64.DEFAULT
-                    );
-                    setUpdateAfterFinish();
-                }
-                break;
-            }
             case(EDIT_CUSTOMER_REQUEST) : {
                 if(resultCode == Activity.RESULT_OK) {
-                    mCurrentCustomer = data.getParcelableExtra("customer");
-                    setUpdateAfterFinish();
+                    // update view
+                    mChanged = true;
+                    loadCustomer();
                 }
                 break;
             }
         }
-    }
-
-    private byte[] getDataBytes(Intent data) {
-        try {
-            InputStream inputStream = this.getContentResolver().openInputStream(data.getData());
-            byte[] targetArray = new byte[inputStream.available()];
-            inputStream.read(targetArray);
-
-            // write temp image file and scan it
-            File fl = StorageControl.getStorageImageTemp(this);
-            FileOutputStream stream = new FileOutputStream(fl);
-            stream.write(targetArray);
-            stream.flush(); stream.close();
-            StorageControl.scanFile(fl, this);
-
-            // compress image
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            BitmapCompressor.getSmallBitmap(fl).compress(Bitmap.CompressFormat.JPEG, 25, out);
-
-            // is compressed image smaller than original?
-            if(out.toByteArray().length > targetArray.length) {
-                return targetArray;
-            } else {
-                return out.toByteArray();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new byte[0];
     }
 
     @Override
@@ -307,9 +248,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
-            case R.id.action_consent:
-                consentMenu();
-                return true;
             case R.id.action_remove:
                 confirmRemove();
                 return true;
@@ -330,12 +268,12 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("changed", changed);
+        outState.putBoolean("changed", mChanged);
     }
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        changed = savedInstanceState.getBoolean("changed");
+        mChanged = savedInstanceState.getBoolean("changed");
     }
 
     private final static int CMI_PHOME_CALL = 1;
@@ -460,19 +398,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         return false;
     }
 
-    private boolean changed = false;
-    private void setUpdateAfterFinish() {
-        // update last modified
-        changed = true;
-        mCurrentCustomer.mLastModified = new Date();
-
-        // update in database
-        mDb.updateCustomer(mCurrentCustomer);
-
-        // update view
-        createListEntries(mCurrentCustomer);
-    }
-
     private void print() {
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
@@ -573,7 +498,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         ad.setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 mDb.removeCustomer(mCurrentCustomer);
-                changed = false;
+                mChanged = false;
                 Intent output = new Intent();
                 output.putExtra("action", "update");
                 setResult(RESULT_OK, output);
@@ -586,141 +511,18 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         ad.show();
     }
 
-    private void confirmRemoveConsent() {
-        new AlertDialog.Builder(this)
-                .setMessage(getResources().getString(R.string.consent_remove_text))
-                .setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        mCurrentCustomer.mConsentImage = new byte[0];
-                        setUpdateAfterFinish();
-                    }})
-                .setNegativeButton(getResources().getString(R.string.abort), null).show();
-    }
-
-    private void consentMenu() {
-        if(mCurrentCustomer.getConsent().length == 0) {
-
-            final Dialog ad = new Dialog(this);
-            ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            ad.setContentView(R.layout.dialog_consentmenu_create);
-            ad.findViewById(R.id.buttonConsentFromCamera).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ad.dismiss();
-                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    /*
-                    Uri photoURI = FileProvider.getUriForFile(me,
-                            "systems.sieber.itinventory.tmpimgprovider",
-                            StorageManager.getTempImageStorage(me)
-                    );
-                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                    */
-                    me.startActivityForResult(cameraIntent, CustomerDetailsActivity.TAKE_CONSENT_IMAGE_REQUEST);
-                }
-            });
-            ad.findViewById(R.id.buttonConsentFromGallery).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ad.dismiss();
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(Intent.createChooser(intent, getString(R.string.choose_from_gallery)), PICK_CONSENT_IMAGE_REQUEST);
-                }
-            });
-            ad.findViewById(R.id.buttonConsentFromTouchscreen).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ad.dismiss();
-                    Intent intent = new Intent(me, DrawActivity.class);
-                    startActivityForResult(intent, CustomerDetailsActivity.DRAW_CONSENT_IMAGE_REQUEST);
-                }
-            });
-            ad.findViewById(R.id.buttonConsentCancel).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ad.dismiss();
-                }
-            });
-            ad.show();
-
-        } else {
-
-            final Dialog ad = new Dialog(this);
-            ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            ad.setContentView(R.layout.dialog_consentmenu_exists);
-            ad.findViewById(R.id.buttonConsentExistsView).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ad.dismiss();
-                    if(mCurrentCustomer.getConsent().length != 0) {
-                        try {
-                            FileOutputStream stream = new FileOutputStream(StorageControl.getStorageImageTemp(me));
-                            stream.write(mCurrentCustomer.getConsent());
-                            stream.flush(); stream.close();
-
-                            Uri openUri = FileProvider.getUriForFile(
-                                    me,
-                                    "de.georgsieber.customerdb.provider",
-                                    StorageControl.getStorageImageTemp(me)
-                            );
-
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(openUri, "image/*");
-                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            startActivity(intent);
-                            //Bitmap bitmap = BitmapFactory.decodeByteArray(mCurrentCustomer.mConsentImage, 0, mCurrentCustomer.mConsentImage.length);
-                            //mImage.setImageBitmap(bitmap);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        StorageControl.scanFile(StorageControl.getStorageImageTemp(me), me);
-                    } else {
-                        CommonDialog.show(me, "", getResources().getString(R.string.zero_data), CommonDialog.TYPE.FAIL, false);
-                    }
-                }
-            });
-            ad.findViewById(R.id.buttonConsentExistsRemove).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ad.dismiss();
-                    confirmRemoveConsent();
-                }
-            });
-            ad.findViewById(R.id.buttonConsentExistsCancel).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ad.dismiss();
-                }
-            });
-            ad.show();
-
-        }
-    }
-
     private void createListEntries(Customer c) {
-        String additionalInfo = "";
-        if(c.mNewsletter)
-            additionalInfo += getResources().getString(R.string.yes);
-        else
-            additionalInfo += getResources().getString(R.string.no);
-        additionalInfo += " / ";
-        if(c.getConsent().length == 0)
-            additionalInfo += getResources().getString(R.string.no);
-        else
-            additionalInfo += getResources().getString(R.string.yes);
-
-        ((TextView) findViewById(R.id.textViewName)).setText( c.getFullName(false) );
-        ((TextView) findViewById(R.id.textViewPhoneHome)).setText( c.mPhoneHome );
-        ((TextView) findViewById(R.id.textViewPhoneMobile)).setText( c.mPhoneMobile );
-        ((TextView) findViewById(R.id.textViewPhoneWork)).setText( c.mPhoneWork );
-        ((TextView) findViewById(R.id.textViewEmail)).setText( c.mEmail );
-        ((TextView) findViewById(R.id.textViewAddress)).setText( c.getAddress() );
-        ((TextView) findViewById(R.id.textViewBirthday)).setText( c.getBirthdayString() );
-        ((TextView) findViewById(R.id.textViewLastModified)).setText( DateControl.displayDateFormat.format(c.mLastModified) );
-        ((TextView) findViewById(R.id.textViewNotes)).setText( c.mNotes );
-        ((TextView) findViewById(R.id.textViewGroup)).setText( c.mCustomerGroup );
-        ((TextView) findViewById(R.id.textViewAdditional)).setText( additionalInfo );
+        mTextViewName.setText( c.getFullName(false) );
+        mTextViewPhoneHome.setText( c.mPhoneHome );
+        mTextViewPhoneMobile.setText( c.mPhoneMobile );
+        mTextViewPhoneWork.setText( c.mPhoneWork );
+        mTextViewEmail.setText( c.mEmail );
+        mTextViewAddress.setText( c.getAddress() );
+        mTextViewBirthday.setText( c.getBirthdayString() );
+        mTextViewLastChanged.setText( DateControl.displayDateFormat.format(c.mLastModified) );
+        mTextViewNotes.setText( c.mNotes );
+        mTextViewGroup.setText( c.mCustomerGroup );
+        mTextViewNewsletter.setText( c.mNewsletter ? getResources().getString(R.string.yes) : getResources().getString(R.string.no));
 
         if(c.mPhoneHome.equals("")) mButtonPhoneHomeMore.setEnabled(false);
         else mButtonPhoneHomeMore.setEnabled(true);
@@ -744,17 +546,17 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         else mButtonNotesMore.setEnabled(true);
 
         // fake link... we handle the email click event not with autolink, because this launches always the system email app on huawei devices :-(
-        final CharSequence text = ((TextView) findViewById(R.id.textViewEmail)).getText();
+        final CharSequence text = mTextViewEmail.getText();
         final SpannableString spannableString = new SpannableString( text );
         spannableString.setSpan(new URLSpan(""), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ((TextView) findViewById(R.id.textViewEmail)).setText(spannableString, TextView.BufferType.SPANNABLE);
+        mTextViewEmail.setText(spannableString, TextView.BufferType.SPANNABLE);
 
         // custom fields
         final float scale = getResources().getDisplayMetrics().density;
-        LinearLayout linearLayout = findViewById(R.id.linearLayoutCustomFieldsView);
-        linearLayout.removeAllViews();
+        LinearLayout linearLayoutCustomFields = findViewById(R.id.linearLayoutCustomFieldsView);
+        linearLayoutCustomFields.removeAllViews();
         List<CustomField> customFields = mDb.getCustomFields();
-        if(customFields.size() > 0) linearLayout.setVisibility(View.VISIBLE);
+        if(customFields.size() > 0) linearLayoutCustomFields.setVisibility(View.VISIBLE);
         for(CustomField cf : customFields) {
             TextView descriptionView = new TextView(this);
             descriptionView.setText(cf.mTitle);
@@ -782,10 +584,10 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
             View spaceView = new Space(this);
             spaceView.setLayoutParams(new LinearLayout.LayoutParams(0, (int)(20/*dp*/ * scale + 0.5f)));
-            linearLayout.addView(spaceView);
+            linearLayoutCustomFields.addView(spaceView);
 
-            linearLayout.addView(descriptionView);
-            linearLayout.addView(valueView);
+            linearLayoutCustomFields.addView(descriptionView);
+            linearLayoutCustomFields.addView(valueView);
         }
 
         // customer image
@@ -794,6 +596,35 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             ((ImageView) findViewById(R.id.imageViewCustomerImage)).setImageBitmap(bitmap);
         } else {
             ((ImageView) findViewById(R.id.imageViewCustomerImage)).setImageDrawable(getResources().getDrawable(R.drawable.ic_person_black_96dp));
+        }
+
+        // files
+        LinearLayout linearLayoutFilesView = findViewById(R.id.linearLayoutFilesView);
+        linearLayoutFilesView.removeAllViews();
+        for(final CustomerFile file : mCurrentCustomer.getFiles()) {
+            @SuppressLint("InflateParams") LinearLayout linearLayoutFile = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_file_list, null);
+            Button buttonFilename = linearLayoutFile.findViewById(R.id.buttonFile);
+            buttonFilename.setText(file.mName);
+            buttonFilename.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    File f = StorageControl.getStorageFileTemp(me, file.mName);
+                    try {
+                        FileOutputStream stream = new FileOutputStream(f);
+                        stream.write(file.mContent);
+                        stream.flush(); stream.close();
+                        Uri openUri = FileProvider.getUriForFile(me, "de.georgsieber.customerdb.provider", f);
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(openUri);
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        startActivity(intent);
+                    } catch(Exception e) {
+                        CommonDialog.show(me, getString(R.string.error), e.getLocalizedMessage(), CommonDialog.TYPE.FAIL, false);
+                    }
+                    StorageControl.scanFile(f, me);
+                }
+            });
+            linearLayoutFilesView.addView(linearLayoutFile);
         }
     }
 

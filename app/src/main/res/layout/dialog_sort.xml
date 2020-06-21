@@ -42,7 +42,6 @@
             android:text="@string/sort_asc"
             android:checked="true" />
         <RadioButton
-            android:id="@+id/radioButtonSortDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sort_desc" />

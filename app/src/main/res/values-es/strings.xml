@@ -98,9 +98,6 @@
     <string name="export_ok">Exportaci&#243;n exitosa</string>
     <string name="export_fail">No se puede guardar el archivo</string>
     <string name="consent">Consentimiento para el procesamiento de datos</string>
-    <string name="consent_menu_title">Consentimiento para el procesamiento de datos</string>
-    <string name="consent_create_text">Aqu&#237; puede depositar un consentimiento de procesamiento de datos en forma de una imagen (firma del cliente) de acuerdo con la secci&#243;n 6 (1.a) EU-GDPR (Reglamento General de Protecci&#243;n de Datos).</string>
-    <string name="consent_remove_text">&#191;Est&#225; seguro de que desea eliminar el consentimiento de procesamiento de datos de este cliente?</string>
     <string name="view">Ver</string>
     <string name="remove">Eliminar</string>
     <string name="newsletter">Boletin informativo</string>
@@ -109,7 +106,6 @@
     <string name="newsletter_no_customers_text">\"No hay clientes en su base de datos que tengan una direcci&#243;n de correo electr&#243;nico v&#225;lida y boletines aceptados. Por lo tanto, no puede redactar un nuevo bolet&#237;n\".</string>
     <string name="group">Grupo</string>
     <string name="group_name">Nombre del grupo</string>
-    <string name="newsletter_and_consent_info">Bolet&#237;n / Consentimiento para el procesamiento de datos depositados</string>
     <string name="newsletter_accepted">Bolet&#237;n aceptado</string>
     <string name="yes">si</string>
     <string name="no">No</string>
@@ -149,7 +145,6 @@
     <string name="import_ok">Importaci&#243;n exitosa</string>
     <string name="import_fail">Importaci&#243;n fallida</string>
     <string name="import_fail_no_entries">El archivo no contiene ning&#250;n registro v&#225;lido.</string>
-    <string name="zero_data">Datos nulos o longitud de datos cero.</string>
     <string name="open_play_store">Mostrar en Play Store &#8230;</string>
     <string name="do_you_know">&#191;Ya conoces estas aplicaciones?</string>
     <string name="remotepointer_text">Puntero remoto \n Puntero l&#225;ser digital y control remoto para presentaciones</string>
@@ -225,8 +220,6 @@
     <string name="new_drop_down_value">Nuevo valor desplegable</string>
     <string name="sort_asc">Orden ascendente</string>
     <string name="sort_desc">Orden descendiente</string>
-    <string name="no_custom_fields">Sin campos personalizados</string>
-    <string name="no_custom_fields_sort">No hay campos personalizados para ordenar. Cree campos personalizados en la configuraci&#243;n.</string>
     <string name="locked">Bloqueada</string>
     <string name="lock_app">Aplicaci&#243;n de bloqueo</string>
     <string name="restrict_access">Acceso restringido</string>
@@ -256,8 +249,6 @@
     <string name="no_details">Sin detalles de contacto</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="deselect">Deseleccionar</string>
-    <string name="ad_free">Desactivar los anuncios</string>
-    <string name="ad_free_description">Oculta todos los banners publicitarios.</string>
     <string name="clear">Clara</string>
     <string name="draw_on_screen">Dibujar en la pantalla</string>
     <string name="choose_from_gallery">Elegir de la galer&#237;a</string>
@@ -265,8 +256,6 @@
     <string name="install_plugin_app">Instalar aplicaci&#243;n de complemento</string>
     <string name="more_than_500_customers">M&#225;s de 500 clientas</string>
     <string name="create_more_than_500_customer_records">Crea m&#225;s de 500 registros de clientes.</string>
-    <string name="local_sync">Sincronizaci&#243;n local</string>
-    <string name="local_sync_description">Sincronice los registros de sus clientes en m&#250;ltiples dispositivos dentro de su red dom&#233;stica local.</string>
     <string name="third_party_components">Componentes de terceros</string>
     <string name="third_party_components_text">Esta aplicaci&#243;n utiliza la biblioteca opencsv (Copyright 2019 opencsv Contributors, Apache License 2.0).</string>
     <string name="customers">Clientes</string>
@@ -287,8 +276,6 @@
     <string name="use_own_server">Usar servidor propio</string>
     <string name="use_own_server_legacy">Usar servidor propio (heredado)</string>
     <string name="alphanumeric_multi_line">Alfanum&#233;rico (l&#237;nea m&#250;ltiple)</string>
-    <string name="sync_feature_in_app_avail">La funci&#243;n de sincronizaci&#243;n ahora est&#225; f&#225;cilmente disponible a trav&#233;s de la compra en la aplicaci&#243;n</string>
-    <string name="sync_feature_other_devices_backup">Sincronice con otros dispositivos y haga una copia de seguridad simult&#225;nea de sus datos en la nube.</string>
     <string name="ios_app_available">Aplicaci&#243;n iOS disponible</string>
     <string name="sync_data_with_your_ios_device">&#161;Sincronice datos con su dispositivo iOS!</string>
     <string name="new_version">Nueva versi&#243;n</string>
@@ -353,11 +340,17 @@
     <string name="custom_field">Campo personalizado</string>
     <string name="last_name_default">Apellido (predeterminado)</string>
     <string name="edit_custom_field">Editar campo personalizado</string>
-    <string name="backup">Apoyo</string>
     <string name="legacy_sync_warning">You are still using the legacy sync server</string>
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
     <string name="app_store">Tienda de aplicaciones</string>
     <string name="ios_app">Aplicación iOS:</string>
     <string name="im_export_all_voucher_text">Con esta función, puede importar comprobantes o exportar todos los registros en un solo archivo.</string>
     <string name="import_csv_note_voucher">Tenga en cuenta la siguiente información importante para la importación CSV.\n\nLa primera línea se interpreta como título de columna. Su archivo CSV debe contener las siguientes columnas: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportante: utilice una coma (,) como separador de campo. La ID del cliente se genera cuando el campo está vacío o la ID ya existe. El formato de fecha debe ser \"YYYY-MM-DD HH:MM:SS\".\n\nPuede editar su archivo CSV, por ejemplo, con un software como LibreOffice Calc antes de comenzar la importación.</string>
+    <string name="files">Archivos</string>
+    <string name="picture">Imagen</string>
+    <string name="drawing">Dibujo</string>
+    <string name="add">Añadir</string>
+    <string name="add_file">Agregar archivo</string>
+    <string name="file_too_big">¡Archivo demasiado grande! Los archivos pueden tener un tamaño máximo de 1 MB.</string>
+    <string name="file_limit_reached">¡Límite de archivo alcanzado! No puede agregar más archivos a un cliente.</string>
 </resources>

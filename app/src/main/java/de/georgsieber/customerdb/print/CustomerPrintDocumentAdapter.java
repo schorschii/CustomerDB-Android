@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import de.georgsieber.customerdb.R;
+import de.georgsieber.customerdb.model.CustomerFile;
 import de.georgsieber.customerdb.tools.DateControl;
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
@@ -159,11 +160,11 @@ public class CustomerPrintDocumentAdapter extends PrintDocumentAdapter {
             y += lineHeight;
         }
 
-        if(mCurrentCustomer.getConsent().length != 0) {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(mCurrentCustomer.getConsent(), 0, mCurrentCustomer.getConsent().length);
-            bitmap = resize(bitmap, c.getWidth(), 80);
-            Rect dstRect = new Rect(x0, y, x0+bitmap.getWidth(), y+bitmap.getHeight());
-            c.drawBitmap(bitmap, null, dstRect, null);
+        y += lineHeight; y += lineHeight;
+        c.drawText(mCurrentContext.getResources().getString(R.string.files), x0, y, p_gray);
+        for(CustomerFile file : mCurrentCustomer.getFiles()) {
+            c.drawText(file.mName, x1, y, p);
+            y += lineHeight;
         }
     }
 

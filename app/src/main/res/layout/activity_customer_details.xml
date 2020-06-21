@@ -400,13 +400,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/newsletter_and_consent_info" />
+                    android:text="@string/newsletter" />
                 <TextView
-                    android:id="@+id/textViewAdditional"
+                    android:id="@+id/textViewNewsletter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autoLink="all"
-                    android:text="@string/newsletter_and_consent_info"
+                    android:text="@string/no"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -439,6 +439,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/files" />
+            <LinearLayout
+                android:id="@+id/linearLayoutFilesView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             </LinearLayout>
 
             <Space

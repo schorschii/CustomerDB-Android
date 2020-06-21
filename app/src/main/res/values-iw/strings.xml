@@ -93,9 +93,6 @@
     <string name="export_ok">יצוא מוצלח</string>
     <string name="export_fail">אין אפשרות לשמור קובץ</string>
     <string name="consent">הסכמה עבור עיבוד נתונים</string>
-    <string name="consent_menu_title">הסכמה עבור עיבוד נתונים</string>
-    <string name="consent_create_text">כאן תוכל להפקיד הסכמה עיבוד נתונים בצורה של תמונה (חתימת הלקוח) לפי סעיף 6 (1.a) של האיחוד האירופי-GDPR (תקנה הגנת נתונים כלליים).</string>
-    <string name="consent_remove_text">האם אתה בטוח שברצונך למחוק את הסכמתו עיבוד נתונים של לקוח זה?</string>
     <string name="view">תצוגה</string>
     <string name="remove">הסר</string>
     <string name="newsletter">ידיעון</string>
@@ -104,7 +101,6 @@
     <string name="newsletter_no_customers_text">ישנם לקוחות במסד הנתונים, אשר יש כתובת דוא ל תקפה וידיעונים המקובלים. לכן, אתה לא יכול להלחין ידיעון חדש.</string>
     <string name="group">קבוצה</string>
     <string name="group_name">שם קבוצה</string>
-    <string name="newsletter_and_consent_info">ידיעון / הסכמה לצורך עיבוד הנתונים הנמסרים</string>
     <string name="newsletter_accepted">ידיעון התקבלה</string>
     <string name="yes">כן</string>
     <string name="no">לא</string>
@@ -150,7 +146,6 @@
         <item quantity="many">ייבוא %d רשומות.</item>
         <item quantity="other">ייבוא %d רשומות.</item>
     </plurals>
-    <string name="zero_data">נתונים מסוג null או אפס אורך הנתונים</string>
     <string name="open_play_store">הצג ב Play בחנות…</string>
     <string name="do_you_know">אתה כבר יודע יישומים אלה?</string>
     <string name="remotepointer_text">RemotePointer\nDigital Laser Pointer and Remote Control for Presentations</string>
@@ -226,8 +221,6 @@
     <string name="new_drop_down_value">חדש הנפתח ערך</string>
     <string name="sort_asc">מיין בסדר עולה</string>
     <string name="sort_desc">מיין בסדר יורד</string>
-    <string name="no_custom_fields">אין שדות מותאמים אישית</string>
-    <string name="no_custom_fields_sort">ישנם אין שדות מותאמים אישית כדי למיין לפי. בבקשה ליצור שדות מותאמים אישית ההגדרות.</string>
     <string name="locked">נעול</string>
     <string name="lock_app">מנעול App</string>
     <string name="restrict_access">להגביל את הגישה</string>
@@ -269,8 +262,6 @@
     <string name="no_details">אין פרטים ליצירת קשר</string>
     <string name="select_all">את כל</string>
     <string name="deselect">בטל בחירה</string>
-    <string name="ad_free">השבת מודעות</string>
-    <string name="ad_free_description">מסתיר את כל כרזות המודעות.</string>
     <string name="clear">ברור</string>
     <string name="draw_on_screen">צייר על המסך</string>
     <string name="choose_from_gallery">בחר מתוך הגלריה</string>
@@ -278,8 +269,6 @@
     <string name="install_plugin_app">התקן את אפליקציית התוספים</string>
     <string name="more_than_500_customers">יותר מ 500 לקוחות</string>
     <string name="create_more_than_500_customer_records">צור יותר מ- 500 רשומות לקוחות.</string>
-    <string name="local_sync">סנכרון מקומי</string>
-    <string name="local_sync_description">סנכרן את רשומות הלקוחות שלך בין מכשירים מרובים ברשת הביתית המקומית שלך.</string>
     <string name="third_party_components">Third Party Components</string>
     <string name="third_party_components_text">This app uses the opencsv library (Copyright 2019 opencsv Contributors, Apache License 2.0).</string>
     <string name="customers">לקוחות</string>
@@ -300,8 +289,6 @@
     <string name="use_own_server">השתמש בשרת משלך</string>
     <string name="use_own_server_legacy">השתמש בשרת משלו (מדור קודם)</string>
     <string name="alphanumeric_multi_line">אלפאנומרי (רב קו)</string>
-    <string name="sync_feature_in_app_avail">תכונת סינכרון זמינה כעת באמצעות רכישה בתוך האפליקציה</string>
-    <string name="sync_feature_other_devices_backup">סנכרן עם מכשירים אחרים ובצע בו זמנית גיבוי הנתונים שלך בענן.</string>
     <string name="ios_app_available">אפליקציית iOS זמינה</string>
     <string name="sync_data_with_your_ios_device">סנכרן נתונים עם מכשיר ה- iOS שלך!</string>
     <string name="new_version">גרסה חדשה</string>
@@ -366,11 +353,17 @@
     <string name="custom_field">שדה מותאם</string>
     <string name="last_name_default">שם משפחה (ברירת מחדל)</string>
     <string name="edit_custom_field">ערוך שדה מותאם אישית</string>
-    <string name="backup">גיבוי</string>
     <string name="legacy_sync_warning">You are still using the legacy sync server</string>
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
     <string name="app_store">חנות אפליקציות</string>
     <string name="ios_app">אפליקציית iOS:</string>
     <string name="im_export_all_voucher_text">בעזרת פונקציה זו תוכלו לייבא שוברים או לייצא את כל הרשומות לקובץ יחיד.</string>
     <string name="import_csv_note_voucher">Please note the following important information for the CSV import.\n\nThe first line is interpreted as column title. Your CSV file should contain the following columns: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportant: Please use a comma (,) as field separator. The customer ID is generated when the field is empty or the ID already exists. The date format must be \"YYYY-MM-DD HH:MM:SS\".\n\nYou can edit your CSV file for example with a software like LibreOffice Calc before you start the import.</string>
+    <string name="files">קבצים</string>
+    <string name="picture">תְמוּנָה</string>
+    <string name="drawing">צִיוּר</string>
+    <string name="add">לְהוֹסִיף</string>
+    <string name="add_file">הוסף קובץ</string>
+    <string name="file_too_big">הקובץ גדול מדי! קבצים יכולים להיות בגודל מקסימלי של 1 מגה בייט.</string>
+    <string name="file_limit_reached">הגבלת הקובץ הגיעה! אינך יכול להוסיף קבצים נוספים ללקוח אחד.</string>
 </resources>

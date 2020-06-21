@@ -23,7 +23,7 @@ public class CommonDialog {
             ad.setIcon(context.getResources().getDrawable(R.drawable.ic_warning_orange_24dp));
         } else if(icon == TYPE.FAIL) {
             if(text != null && (!text.equals(""))) ad.setMessage(text);
-            ad.setIcon(context.getResources().getDrawable(R.drawable.ic_fail_red_24dp));
+            ad.setIcon(context.getResources().getDrawable(R.drawable.ic_fail_red_36dp));
         } else {
             ad.setMessage(text);
         }

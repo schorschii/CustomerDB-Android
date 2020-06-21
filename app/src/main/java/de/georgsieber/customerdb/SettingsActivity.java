@@ -677,7 +677,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 // rebase custom fields in customer objects
                 if(!oldFieldTitle.equals(input)) {
-                    for(Customer c : mDb.getCustomers(null)) {
+                    for(Customer c : mDb.getCustomers(null, false, false)) {
                         List<CustomField> fields = c.getCustomFields();
                         for(CustomField field : fields) {
                             if(field.mTitle.equals(oldFieldTitle)) {

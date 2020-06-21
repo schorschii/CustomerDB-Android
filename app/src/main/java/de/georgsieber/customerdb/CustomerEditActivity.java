@@ -1,30 +1,41 @@
 package de.georgsieber.customerdb;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.text.InputType;
+import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
@@ -41,6 +52,7 @@ import java.util.List;
 
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
+import de.georgsieber.customerdb.model.CustomerFile;
 import de.georgsieber.customerdb.tools.BitmapCompressor;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
@@ -48,19 +60,25 @@ import de.georgsieber.customerdb.tools.DateControl;
 import de.georgsieber.customerdb.tools.StorageControl;
 
 
+@SuppressWarnings("TryFinallyCanBeTryWithResources")
 public class CustomerEditActivity extends AppCompatActivity {
 
-    CustomerEditActivity me;
+    private CustomerEditActivity me;
 
-    CustomerDatabase mDb;
-    FeatureCheck mFc;
+    private CustomerDatabase mDb;
+    private FeatureCheck mFc;
 
-    Customer mCurrentCustomer;
-    List<CustomField> mCustomFields;
-    boolean mIsInoutOnlyModeActive = false;
+    private long mCurrentCustomerId = -1;
+    private Customer mCurrentCustomer;
+    private List<CustomField> mCustomFields;
+    private boolean mIsInoutOnlyModeActive = false;
 
-    private final static int PICK_CUSTOMER_IMAGE_REQUEST = 1;
-    private final static int ABOUT_REQUEST = 2;
+    private final static int CUSTOMER_IMAGE_PICK_REQUEST = 1;
+    private final static int CUSTOMER_IMAGE_CAMERA_REQUEST = 2;
+    private final static int ABOUT_REQUEST = 3;
+    private final static int FILE_CAMERA_REQUEST = 4;
+    private final static int FILE_PICK_REQUEST = 5;
+    private final static int FILE_DRAW_REQUEST = 6;
 
     Calendar mBirthdayCalendar = null;
 
@@ -173,7 +191,8 @@ public class CustomerEditActivity extends AppCompatActivity {
 
         // get extra from parent intent
         Intent intent = getIntent();
-        mCurrentCustomer = intent.getParcelableExtra("customer");
+        mCurrentCustomerId = intent.getLongExtra("customer-id", -1);
+        mCurrentCustomer = mDb.getCustomerById(mCurrentCustomerId, false, true);
         if(mCurrentCustomer != null) {
             fillFields(mCurrentCustomer);
             if(getSupportActionBar() != null)
@@ -187,8 +206,6 @@ public class CustomerEditActivity extends AppCompatActivity {
         // init custom fields
         LinearLayout linearLayout = findViewById(R.id.linearLayoutCustomFieldsEdit);
         linearLayout.removeAllViews();
-
-        final float scale = getResources().getDisplayMetrics().density;
 
         mCustomFields = mDb.getCustomFields();
         if(mCustomFields.size() > 0) linearLayout.setVisibility(View.VISIBLE);
@@ -262,7 +279,7 @@ public class CustomerEditActivity extends AppCompatActivity {
             }
 
             View spaceView = new Space(this);
-            spaceView.setLayoutParams(new LinearLayout.LayoutParams(0, (int)(20/*dp*/ * scale + 0.5f)));
+            spaceView.setLayoutParams(new LinearLayout.LayoutParams(0, dpToPx(20)));
             linearLayout.addView(spaceView);
 
             valueView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -295,18 +312,151 @@ public class CustomerEditActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode) {
-            case(PICK_CUSTOMER_IMAGE_REQUEST) : {
-                if(resultCode == RESULT_OK && data != null && data.getData() != null) {
-                    mCurrentCustomer.mImage = getDataBytes(data);
+            case(CUSTOMER_IMAGE_CAMERA_REQUEST) : {
+                if(resultCode == RESULT_OK && data != null && data.getExtras() != null) {
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    photo.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    photo.recycle();
+                    mCurrentCustomer.mImage = byteArray;
                     refreshImage();
                 }
                 break;
             }
+            case(CUSTOMER_IMAGE_PICK_REQUEST) : {
+                if(resultCode == RESULT_OK && data != null && data.getData() != null) {
+                    mCurrentCustomer.mImage = getImageDataBytes(data);
+                    refreshImage();
+                }
+                break;
+            }
+
+            case(FILE_CAMERA_REQUEST) : {
+                if(resultCode == RESULT_OK && data != null && data.getExtras() != null) {
+                    try {
+                        Bitmap photo = (Bitmap) data.getExtras().get("data");
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);
+                        byte[] byteArray = stream.toByteArray();
+                        photo.recycle();
+                        mCurrentCustomer.addFile(new CustomerFile(StorageControl.getNewPictureFilename(this), byteArray), this);
+                    } catch(Exception e) {
+                        CommonDialog.show(me, getString(R.string.error), e.getLocalizedMessage(), CommonDialog.TYPE.FAIL, false);
+                    }
+                }
+                refreshFiles();
+                break;
+            }
+            case(FILE_PICK_REQUEST) : {
+                if(resultCode == RESULT_OK && data != null && data.getData() != null) {
+                    String filename = getFileName(data.getData());
+                    ContentResolver cr = getContentResolver();
+                    try {
+                        if(cr.getType(data.getData()).startsWith("image/")) {
+                            // try to compress the image
+                            mCurrentCustomer.addFile(new CustomerFile(filename, getImageDataBytes(data)), this);
+                        } else {
+                            // save raw
+                            InputStream is = getContentResolver().openInputStream(data.getData());
+                            byte[] dataBytes = getByteArrayFromInputStream(is);
+                            mCurrentCustomer.addFile(new CustomerFile(filename, dataBytes), this);
+                        }
+                    } catch(Exception e) {
+                        CommonDialog.show(me, getString(R.string.error), e.getLocalizedMessage(), CommonDialog.TYPE.FAIL, false);
+                    }
+                }
+                refreshFiles();
+                break;
+            }
+            case(FILE_DRAW_REQUEST) : {
+                if(resultCode == RESULT_OK && data != null && data.getExtras() != null) {
+                    try {
+                        mCurrentCustomer.addFile(new CustomerFile(StorageControl.getNewDrawingFilename(this), Base64.decode(data.getExtras().getString("image"), Base64.DEFAULT)), this);
+                    } catch(Exception e) {
+                        CommonDialog.show(me, getString(R.string.error), e.getLocalizedMessage(), CommonDialog.TYPE.FAIL, false);
+                    }
+                }
+                refreshFiles();
+                break;
+            }
+
             case(ABOUT_REQUEST) : {
                 mFc.init();
                 break;
             }
         }
+    }
+
+    public String getFileName(Uri uri) {
+        String result = null;
+        if(uri.getScheme().equals("content")) {
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            try {
+                if(cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if(result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if(cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
+    private byte[] getByteArrayFromInputStream(InputStream is) {
+        try {
+            ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int len = 0;
+            while((len = is.read(buffer)) != -1) {
+                byteBuffer.write(buffer, 0, len);
+            }
+            return byteBuffer.toByteArray();
+        } catch (Exception e) {
+            Log.e("FILE", "Error: " + e.toString());
+        }
+        return null;
+    }
+
+    private byte[] getImageDataBytes(Intent data) {
+        try {
+            InputStream inputStream = this.getContentResolver().openInputStream(data.getData());
+            byte[] targetArray = new byte[inputStream.available()];
+            inputStream.read(targetArray);
+
+            // write temp image file and scan it
+            File fl = StorageControl.getStorageImageTemp(this);
+            FileOutputStream stream = new FileOutputStream(fl);
+            stream.write(targetArray);
+            stream.flush(); stream.close();
+            StorageControl.scanFile(fl, this);
+
+            // compress image
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            BitmapCompressor.getSmallBitmap(fl).compress(Bitmap.CompressFormat.JPEG, 40, out);
+
+            // is compressed image smaller than original?
+            if(out.toByteArray().length > targetArray.length) {
+                return targetArray;
+            } else {
+                return out.toByteArray();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new byte[0];
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private int dpToPx(int dp) {
+        return (int)(dp * getResources().getDisplayMetrics().density);
     }
 
     void onCustomDateFieldClick(final EditText editTextValue) {
@@ -336,35 +486,6 @@ public class CustomerEditActivity extends AppCompatActivity {
     static void hideKeyboardFrom(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
-    private byte[] getDataBytes(Intent data) {
-        try {
-            InputStream inputStream = this.getContentResolver().openInputStream(data.getData());
-            byte[] targetArray = new byte[inputStream.available()];
-            inputStream.read(targetArray);
-
-            // write temp mImage file and scan it
-            File fl = StorageControl.getStorageImageTemp(this);
-            FileOutputStream stream = new FileOutputStream(fl);
-            stream.write(targetArray);
-            stream.flush(); stream.close();
-            StorageControl.scanFile(fl, this);
-
-            // compress mImage
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            BitmapCompressor.getSmallBitmap(fl).compress(Bitmap.CompressFormat.JPEG, 25, out);
-
-            // is compressed mImage smaller than original?
-            if(out.toByteArray().length > targetArray.length) {
-                return targetArray;
-            } else {
-                return out.toByteArray();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new byte[0];
     }
 
     private void dialogInApp(String title, String text) {
@@ -401,7 +522,7 @@ public class CustomerEditActivity extends AppCompatActivity {
             return;
         }
 
-        if(mDb.getCustomers(null).size() >= 500 && !mFc.unlockedLargeCompany) {
+        if(mDb.getCustomers(null, false, false).size() >= 500 && !mFc.unlockedLargeCompany) {
             dialogInApp(getResources().getString(R.string.feature_locked), getResources().getString(R.string.feature_locked_large_company_text));
             return;
         }
@@ -410,13 +531,15 @@ public class CustomerEditActivity extends AppCompatActivity {
         if(mCurrentCustomer.mId == -1) {
             // insert new customer
             mDb.addCustomer(mCurrentCustomer);
+        } else {
+            // update in database
+            mCurrentCustomer.mLastModified = new Date();
+            mDb.updateCustomer(mCurrentCustomer);
         }
-        Intent output = new Intent();
-        output.putExtra("customer", mCurrentCustomer);
 
         MainActivity.setUnsyncedChanges(this);
 
-        setResult(RESULT_OK, output);
+        setResult(RESULT_OK);
         finish();
     }
 
@@ -459,6 +582,7 @@ public class CustomerEditActivity extends AppCompatActivity {
             mButtonBirthday.setText(DateControl.birthdayDateFormat.format(mBirthdayCalendar.getTime()));
         }
         refreshImage();
+        refreshFiles();
     }
 
     private void refreshImage() {
@@ -467,6 +591,30 @@ public class CustomerEditActivity extends AppCompatActivity {
             ((ImageView) findViewById(R.id.imageViewEditCustomerImage)).setImageBitmap(bitmap);
         } else {
             ((ImageView) findViewById(R.id.imageViewEditCustomerImage)).setImageDrawable(getResources().getDrawable(R.drawable.ic_person_black_96dp));
+        }
+    }
+
+    private void refreshFiles() {
+        LinearLayout linearLayoutFilesView = findViewById(R.id.linearLayoutFilesView);
+        linearLayoutFilesView.removeAllViews();
+        int counter = 0;
+        for(CustomerFile file : mCurrentCustomer.getFiles()) {
+            final int count = counter;
+
+            @SuppressLint("InflateParams") LinearLayout linearLayoutFile = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_file_edit, null);
+            Button buttonFilename = linearLayoutFile.findViewById(R.id.buttonFile);
+            buttonFilename.setText(file.mName);
+            ImageButton buttonFileRemove = linearLayoutFile.findViewById(R.id.buttonFileRemove);
+            buttonFileRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mCurrentCustomer.removeFile(count);
+                    refreshFiles();
+                }
+            });
+
+            linearLayoutFilesView.addView(linearLayoutFile);
+            counter ++;
         }
     }
 
@@ -533,14 +681,81 @@ public class CustomerEditActivity extends AppCompatActivity {
     }
 
     public void setCustomerImage(View v) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_CUSTOMER_IMAGE_REQUEST);
+        final Dialog ad = new Dialog(this);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_customer_image);
+        ad.findViewById(R.id.buttonConsentFromCamera).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //Uri photoURI = FileProvider.getUriForFile(me, "systems.sieber.itinventory.tmpimgprovider", StorageManager.getTempImageStorage(me));
+                //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                me.startActivityForResult(cameraIntent, CUSTOMER_IMAGE_CAMERA_REQUEST);
+            }
+        });
+        ad.findViewById(R.id.buttonConsentFromGallery).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, getString(R.string.choose_from_gallery)), CUSTOMER_IMAGE_PICK_REQUEST);
+            }
+        });
+        ad.findViewById(R.id.buttonConsentCancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+            }
+        });
+        ad.show();
     }
     public void removeCustomerImage(View v) {
         mCurrentCustomer.mImage = new byte[0];
         refreshImage();
+    }
+
+    public void onClickAddFile(View v) {
+        final Dialog ad = new Dialog(this);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_file_add);
+        ad.findViewById(R.id.buttonConsentFromCamera).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //Uri photoURI = FileProvider.getUriForFile(me, "systems.sieber.itinventory.tmpimgprovider", StorageManager.getTempImageStorage(me));
+                //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                me.startActivityForResult(cameraIntent, FILE_CAMERA_REQUEST);
+            }
+        });
+        ad.findViewById(R.id.buttonConsentFromGallery).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                Intent intent = new Intent();
+                intent.setType("*/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, getString(R.string.choose_from_gallery)), FILE_PICK_REQUEST);
+            }
+        });
+        ad.findViewById(R.id.buttonConsentFromTouchscreen).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                Intent intent = new Intent(me, DrawActivity.class);
+                startActivityForResult(intent, FILE_DRAW_REQUEST);
+            }
+        });
+        ad.findViewById(R.id.buttonConsentCancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+            }
+        });
+        ad.show();
     }
 
 }

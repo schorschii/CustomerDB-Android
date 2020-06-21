@@ -21,10 +21,12 @@ import java.util.List;
 
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
+import de.georgsieber.customerdb.model.CustomerFile;
 import de.georgsieber.customerdb.model.Voucher;
 
 import static android.content.Context.MODE_PRIVATE;
 
+@SuppressWarnings("TryFinallyCanBeTryWithResources")
 public class CustomerDatabase {
 
     @SuppressLint("SimpleDateFormat")
@@ -33,7 +35,7 @@ public class CustomerDatabase {
     public static DateFormat storageFormatWithTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private SQLiteDatabase db;
-    Context context;
+    private Context context;
 
     CustomerDatabase(Context context) {
         this.context = context;
@@ -84,31 +86,61 @@ public class CustomerDatabase {
 
     private void upgradeDatabase() {
         if(columnNotExists("customer", "customer_group")) {
-            Log.i("DBSchemaUpgrade","Now upgrading to 1.13...");
             db.execSQL("ALTER TABLE customer ADD COLUMN consent BLOB;");
             db.execSQL("ALTER TABLE customer ADD COLUMN newsletter INTEGER default 0;");
             db.execSQL("ALTER TABLE customer ADD COLUMN customer_group VARCHAR default '';");
         }
+
         if(columnNotExists("customer", "custom_fields")) {
-            Log.i("DBSchemaUpgrade","Now upgrading to 1.33...");
             db.execSQL("ALTER TABLE customer ADD COLUMN custom_fields VARCHAR default '';");
             db.execSQL("CREATE TABLE IF NOT EXISTS customer_extra_fields (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, type INTEGER);");
             db.execSQL("CREATE TABLE IF NOT EXISTS customer_extra_presets (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, extra_field_id INTEGER);");
         }
+
         if(columnNotExists("customer", "image")) {
-            Log.i("DBSchemaUpgrade","Now upgrading to 2.1...");
             db.execSQL("ALTER TABLE customer ADD COLUMN image BLOB;");
         }
+
         if(columnNotExists("voucher", "voucher_no")) {
-            Log.i("DBSchemaUpgrade","Now upgrading to 3.0...");
             db.execSQL("ALTER TABLE voucher ADD COLUMN voucher_no VARCHAR NOT NULL DEFAULT '';");
             db.execSQL("UPDATE customer SET birthday = null WHERE birthday LIKE '%1800%';");
         }
+
+        if(columnNotExists("customer_files", "content")) {
+            beginTransaction();
+            db.execSQL("CREATE TABLE IF NOT EXISTS customer_files (id INTEGER PRIMARY KEY AUTOINCREMENT, customer_id INTEGER NOT NULL, name VARCHAR NOT NULL, content BLOB NOT NULL);");
+            Cursor cursor = db.rawQuery("SELECT id, consent FROM customer", null);
+            try {
+                if(cursor.moveToFirst()) {
+                    do {
+                        if(!cursor.isNull(1) && cursor.getBlob(1).length > 0) {
+                            SQLiteStatement stmt = db.compileStatement("INSERT INTO customer_files (customer_id, name, content) VALUES (?, ?, ?)");
+                            stmt.bindLong(1, cursor.getLong(0));
+                            stmt.bindString(2, context.getString(R.string.consent)+".jpg");
+                            stmt.bindBlob(3, cursor.getBlob(1));
+                            stmt.execute();
+                        }
+                        SQLiteStatement stmt = db.compileStatement("UPDATE customer SET consent = ? WHERE id = ?");
+                        stmt.bindNull(1);
+                        stmt.bindLong(2, cursor.getLong(0));
+                        stmt.execute();
+                    } while (cursor.moveToNext());
+                }
+            } catch (SQLiteException e) {
+                Log.e("SQLite Error", e.getMessage());
+                System.exit(1);
+            } finally {
+                cursor.close();
+            }
+            commitTransaction();
+            endTransaction();
+        }
+
     }
 
 
     Customer getCustomerByNumber(String number) {
-        List<Customer> allCustomers = getCustomers(null);
+        List<Customer> allCustomers = getCustomers(null, false, false);
         List<Customer> results = new ArrayList<>();
         for(Customer c : allCustomers) {
             if(PhoneNumberUtils.compare(c.mPhoneHome, number)
@@ -353,9 +385,14 @@ public class CustomerDatabase {
         stmt.execute();
     }
 
-    List<Customer> getCustomers(String search) {
+    List<Customer> getCustomers(String search, boolean showRemoved, boolean withFiles) {
         Cursor cursor;
-        String selectQuery = "SELECT id, title, first_name, last_name, phone_home, phone_mobile, phone_work, email, street, zipcode, city, country, birthday, customer_group, newsletter, notes, custom_fields, last_modified, removed FROM customer WHERE removed = 0 ORDER BY last_name, first_name ASC";
+        String selectQuery;
+        if(showRemoved) {
+            selectQuery = "SELECT id, title, first_name, last_name, phone_home, phone_mobile, phone_work, email, street, zipcode, city, country, birthday, customer_group, newsletter, notes, custom_fields, last_modified, removed FROM customer ORDER BY last_name, first_name ASC";
+        } else {
+            selectQuery = "SELECT id, title, first_name, last_name, phone_home, phone_mobile, phone_work, email, street, zipcode, city, country, birthday, customer_group, newsletter, notes, custom_fields, last_modified, removed FROM customer WHERE removed = 0 ORDER BY last_name, first_name ASC";
+        }
         cursor = db.rawQuery(selectQuery, null);
         ArrayList<Customer> customers = new ArrayList<>();
         try {
@@ -433,18 +470,57 @@ public class CustomerDatabase {
         } finally {
             cursor.close();
         }
+
+        if(withFiles) {
+            ArrayList<Customer> customersWithFiles = new ArrayList<>();
+            for(Customer c : customers) {
+                customersWithFiles.add(getCustomerFiles(c));
+            }
+            return customersWithFiles;
+        }
+
         return customers;
     }
 
-    Customer getCustomerById(long id) {
-        return getCustomerById(id, false);
+    Customer getCustomerFiles(Customer c) {
+        Cursor cursor = db.rawQuery("SELECT image FROM customer WHERE id = ?", new String[]{Long.toString(c.mId)});
+        try {
+            if(cursor.moveToFirst()) {
+                do {
+                    c.mImage = cursor.getBlob(0);
+                } while(cursor.moveToNext());
+            }
+        } catch(SQLiteException e) {
+            Log.e("SQLite Error", e.getMessage());
+        } finally {
+            cursor.close();
+        }
+
+        c.mFiles = new ArrayList<>();
+        Cursor cursor2 = db.rawQuery("SELECT name, content FROM customer_files WHERE customer_id = ?", new String[]{Long.toString(c.mId)});
+        try {
+            if(cursor2.moveToFirst()) {
+                do {
+                    c.mFiles.add(new CustomerFile( cursor2.getString(0), cursor2.getBlob(1) ));
+                } while(cursor2.moveToNext());
+            }
+        } catch(SQLiteException e) {
+            Log.e("SQLite Error", e.getMessage());
+        } finally {
+            cursor2.close();
+        }
+
+        return c;
     }
-    Customer getCustomerById(long id, boolean showDeleted) {
-        List<Customer> customers;
-        if(showDeleted) customers = getAllCustomers();
-        else customers = getCustomers(null);
+
+    Customer getCustomerById(long id, boolean showDeleted, boolean withFiles) {
+        // Do not fetch files for all customers! We'll fetch files only for the one ID match!
+        List<Customer> customers = getCustomers(null, showDeleted, false);
         for(Customer c : customers) {
             if(c.mId == id) {
+                if(withFiles) {
+                    return getCustomerFiles(c);
+                }
                 return c;
             }
         }
@@ -464,8 +540,8 @@ public class CustomerDatabase {
         return null;
     }
 
-    List<Customer> getAllCustomers() {
-        Cursor cursor = db.rawQuery("SELECT id, title, first_name, last_name, phone_home, phone_mobile, phone_work, email, street, zipcode, city, country, birthday, customer_group, newsletter, notes, custom_fields, last_modified, removed, image, consent FROM customer", null);
+    List<Customer> getAllCustomers(boolean withFiles) {
+        Cursor cursor = db.rawQuery("SELECT id, title, first_name, last_name, phone_home, phone_mobile, phone_work, email, street, zipcode, city, country, birthday, customer_group, newsletter, notes, custom_fields, last_modified, removed, image FROM customer", null);
 
         ArrayList<Customer> customers = new ArrayList<>();
         try {
@@ -507,7 +583,6 @@ public class CustomerDatabase {
                             cursor.getInt(18)
                     );
                     c.mImage = cursor.getBlob(19);
-                    c.mConsentImage = cursor.getBlob(20);
                     customers.add(c);
                 } while(cursor.moveToNext());
             }
@@ -520,28 +595,6 @@ public class CustomerDatabase {
         return customers;
     }
 
-    Customer readCustomerImages(Customer c) {
-        Cursor cursor;
-        cursor = db.rawQuery(
-                "SELECT image, consent FROM customer WHERE id = ?",
-                new String[]{Long.toString(c.mId)}
-        );
-        try {
-            if(cursor.moveToFirst()) {
-                do {
-                    c.mImage = cursor.getBlob(0);
-                    c.mConsentImage = cursor.getBlob(1);
-                } while(cursor.moveToNext());
-            }
-        } catch(SQLiteException e) {
-            Log.e("SQLite Error", e.getMessage());
-            return null;
-        } finally {
-            cursor.close();
-        }
-        return c;
-    }
-
     void addCustomer(Customer c) {
         // do not add if name is empty
         if(c.mTitle.equals("")
@@ -550,7 +603,7 @@ public class CustomerDatabase {
             return;
 
         SQLiteStatement stmt = db.compileStatement(
-                "INSERT INTO customer (id, title, first_name, last_name, phone_home, phone_mobile, phone_work, email, street, zipcode, city, country, birthday, customer_group, newsletter, notes, custom_fields, image, consent, last_modified, removed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                "INSERT INTO customer (id, title, first_name, last_name, phone_home, phone_mobile, phone_work, email, street, zipcode, city, country, birthday, customer_group, newsletter, notes, custom_fields, image, last_modified, removed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
 
         long id = c.mId;
@@ -585,15 +638,24 @@ public class CustomerDatabase {
         stmt.bindString(16, c.mNotes);
         stmt.bindString(17, c.mCustomFields);
         stmt.bindBlob(18, c.getImage());
-        stmt.bindBlob(19, c.getConsent());
-        stmt.bindString(20, lastModifiedString);
-        stmt.bindLong(21, c.mRemoved);
+        stmt.bindString(19, lastModifiedString);
+        stmt.bindLong(20, c.mRemoved);
         stmt.execute();
+
+        if(c.mFiles != null) {
+            for(CustomerFile file : c.mFiles) {
+                SQLiteStatement stmt3 = db.compileStatement("INSERT INTO customer_files (customer_id, name, content) VALUES (?,?,?)");
+                stmt3.bindLong(1, id);
+                stmt3.bindString(2, file.mName);
+                stmt3.bindBlob(3, file.mContent);
+                stmt3.execute();
+            }
+        }
     }
 
     void updateCustomer(Customer c) {
         SQLiteStatement stmt = db.compileStatement(
-                "UPDATE customer SET title = ?, first_name = ?, last_name = ?, phone_home = ?, phone_mobile = ?, phone_work = ?, email = ?, street = ?, zipcode = ?, city = ?, country = ?, birthday = ?, customer_group = ?, newsletter = ?, notes = ?, image = ?, consent = ?, custom_fields = ?, last_modified = ?, removed = ? WHERE id = ?"
+                "UPDATE customer SET title = ?, first_name = ?, last_name = ?, phone_home = ?, phone_mobile = ?, phone_work = ?, email = ?, street = ?, zipcode = ?, city = ?, country = ?, birthday = ?, customer_group = ?, newsletter = ?, notes = ?, image = ?, custom_fields = ?, last_modified = ?, removed = ? WHERE id = ?"
         );
 
         String birthdayString = "";
@@ -623,12 +685,24 @@ public class CustomerDatabase {
         stmt.bindLong(14, c.mNewsletter ? 1 : 0);
         stmt.bindString(15, c.mNotes);
         stmt.bindBlob(16, c.getImage());
-        stmt.bindBlob(17, c.getConsent());
-        stmt.bindString(18, c.mCustomFields);
-        stmt.bindString(19, lastModifiedString);
-        stmt.bindLong(20, c.mRemoved);
-        stmt.bindLong(21, c.mId);
+        stmt.bindString(17, c.mCustomFields);
+        stmt.bindString(18, lastModifiedString);
+        stmt.bindLong(19, c.mRemoved);
+        stmt.bindLong(20, c.mId);
         stmt.execute();
+
+        if(c.mFiles != null) {
+            SQLiteStatement stmt2 = db.compileStatement("DELETE FROM customer_files WHERE customer_id = ?");
+            stmt2.bindLong(1, c.mId);
+            stmt2.execute();
+            for(CustomerFile file : c.mFiles) {
+                SQLiteStatement stmt3 = db.compileStatement("INSERT INTO customer_files (customer_id, name, content) VALUES (?,?,?)");
+                stmt3.bindLong(1, c.mId);
+                stmt3.bindString(2, file.mName);
+                stmt3.bindBlob(3, file.mContent);
+                stmt3.execute();
+            }
+        }
     }
 
     void removeCustomer(Customer c) {
@@ -657,6 +731,8 @@ public class CustomerDatabase {
     void truncateCustomer() {
         SQLiteStatement stmt = db.compileStatement("DELETE FROM customer WHERE 1=1");
         stmt.execute();
+        SQLiteStatement stmt2 = db.compileStatement("DELETE FROM customer_files WHERE 1=1");
+        stmt2.execute();
     }
     void truncateVoucher() {
         SQLiteStatement stmt = db.compileStatement("DELETE FROM voucher WHERE 1=1");

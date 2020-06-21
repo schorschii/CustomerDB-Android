@@ -48,7 +48,7 @@ public class BirthdayActivity extends AppCompatActivity {
 
         // show birthdays from intent extra
         try {
-            ArrayList<Customer> birthdays = MainActivity.getSoonBirthdayCustomers(mDb.getCustomers(null));
+            ArrayList<Customer> birthdays = MainActivity.getSoonBirthdayCustomers(mDb.getCustomers(null, false, false));
             bindToListView(birthdays);
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class BirthdayActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Customer customerObject = (Customer) listView.getItemAtPosition(position);
                 Intent myIntent = new Intent(me, CustomerDetailsActivity.class);
-                myIntent.putExtra("customer", customerObject);
+                myIntent.putExtra("customer-id", customerObject.mId);
                 startActivityForResult(myIntent, VIEW_REQUEST);
             }
         });

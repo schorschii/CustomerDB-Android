@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:gravity="fill_horizontal">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_baseline_attach_file_24dp"
+        android:contentDescription="@string/files" />
+    <Button
+        android:id="@+id/buttonFile"
+        android:enabled="false"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/files" />
+    <ImageButton
+        android:id="@+id/buttonFileRemove"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_height="42dp"
+        android:layout_width="42dp"
+        android:src="@drawable/ic_fail_red_36dp"
+        android:layout_gravity="center"
+        android:onClick="removeCustomerBirthday"
+        android:contentDescription="@string/remove" />
+</LinearLayout>

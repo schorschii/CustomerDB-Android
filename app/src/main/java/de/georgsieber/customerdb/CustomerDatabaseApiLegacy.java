@@ -101,7 +101,7 @@ class CustomerDatabaseApiLegacy extends AsyncTask<Void, Void, String> {
                     sb.append(appendParameter("customer_group", c.mCustomerGroup));
                     sb.append(appendParameter("newsletter", c.mNewsletter ? "1" : "0"));
                     sb.append(appendParameter("image", Base64.encodeToString(c.getImage(), Base64.NO_WRAP)));
-                    sb.append(appendParameter("consentImage", Base64.encodeToString(c.getConsent(), Base64.NO_WRAP)));
+                    sb.append(appendParameter("consentImage", Base64.encodeToString(new byte[0], Base64.NO_WRAP)));
                     sb.append(appendParameter("custom_fields", c.mCustomFields));
                     sb.append(appendParameter("removed", String.valueOf(c.mRemoved)));
                 }

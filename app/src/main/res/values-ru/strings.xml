@@ -87,9 +87,6 @@
     <string name="export_ok">Данные экспортированы успешно</string>
     <string name="export_fail">Файл не может быть сохранен</string>
     <string name="consent">Согласие на обработку данных</string>
-    <string name="consent_menu_title">Согласие на обработку данных</string>
-    <string name="consent_create_text">Here you can deposit a data processing consent in form of an image (customer signature) according to section 6 (1.a) EU-GDPR (General Data Protection Regulation).</string>
-    <string name="consent_remove_text">Are you sure you want to delete the data processing consent of this customer?</string>
     <string name="view">Показать</string>
     <string name="remove">Удалить</string>
     <string name="newsletter">Рассылка</string>
@@ -98,7 +95,6 @@
     <string name="newsletter_no_customers_text">Нет клиентов, которые разместили действительный адрес электронной почты и согласились получать рассылку. Вот почему вы не можете написать рассылку.</string>
     <string name="group">Группа</string>
     <string name="group_name">Название группы</string>
-    <string name="newsletter_and_consent_info">Рассылка / согласие на обработку данных отдано на хранение</string>
     <string name="newsletter_accepted">Рассылка принята</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
@@ -142,7 +138,6 @@
         <item quantity="one">%d запись импортирована.</item>
         <item quantity="other">%d запись импортирована.</item>
     </plurals>
-    <string name="zero_data">Нет данных или пустой файл.</string>
     <string name="open_play_store">Показать в Play Store…</string>
     <string name="do_you_know">Вы уже знаете эти приложения?</string>
     <string name="remotepointer_text">RemotePointer\nDigital Laser Pointer and Remote Control for Presentations</string>
@@ -218,8 +213,6 @@
     <string name="new_drop_down_value">Новая запись в окне выбора</string>
     <string name="sort_asc">Сортировать по возрастанию</string>
     <string name="sort_desc">Сортировать по убыванию</string>
-    <string name="no_custom_fields">Нет пользовательских полей</string>
-    <string name="no_custom_fields_sort">Там нет пользовательских полей для сортировки. Пожалуйста, создайте пользовательские поля в настройках.</string>
     <string name="locked">Закрыто</string>
     <string name="lock_app">Блокировка приложения</string>
     <string name="restrict_access">Ограничить доступ</string>
@@ -257,8 +250,6 @@
     <string name="no_details">Нет контактных данных</string>
     <string name="select_all">Все</string>
     <string name="deselect">Отмените</string>
-    <string name="ad_free">Отключить рекламу</string>
-    <string name="ad_free_description">Скрывает все рекламные баннеры.</string>
     <string name="clear">чистый</string>
     <string name="draw_on_screen">Рисовать на экране</string>
     <string name="choose_from_gallery">Выберите из галереи</string>
@@ -266,8 +257,6 @@
     <string name="install_plugin_app">Установить плагин приложение</string>
     <string name="more_than_500_customers">Более 500 клиентов</string>
     <string name="create_more_than_500_customer_records">Создайте более 500 записей клиентов.</string>
-    <string name="local_sync">Локальная синхронизация</string>
-    <string name="local_sync_description">Синхронизируйте записи своих клиентов на нескольких устройствах в локальной сети.</string>
     <string name="third_party_components">Third Party Components</string>
     <string name="third_party_components_text">Это приложение использует библиотеку opencsv (авторские права 2019, авторы opencsv, лицензия Apache 2.0).</string>
     <string name="customers">Клиенты</string>
@@ -288,8 +277,6 @@
     <string name="use_own_server">Использовать собственный сервер</string>
     <string name="use_own_server_legacy">Использовать собственный сервер (Legacy)</string>
     <string name="alphanumeric_multi_line">Буквенно-цифровая (Multi Line)</string>
-    <string name="sync_feature_in_app_avail">Функция синхронизации теперь легко доступна через встроенную покупку</string>
-    <string name="sync_feature_other_devices_backup">Синхронизируйте с другими устройствами и одновременно создавайте резервные копии своих данных в облаке.</string>
     <string name="ios_app_available">Доступно приложение для iOS</string>
     <string name="sync_data_with_your_ios_device">Синхронизируйте данные с вашим устройством iOS!</string>
     <string name="new_version">Новая версия</string>
@@ -354,11 +341,17 @@
     <string name="custom_field">Пользовательское поле</string>
     <string name="last_name_default">Фамилия (по умолчанию)</string>
     <string name="edit_custom_field">Изменить настраиваемое поле</string>
-    <string name="backup">Резервный</string>
     <string name="legacy_sync_warning">You are still using the legacy sync server</string>
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
     <string name="app_store">Магазин приложений</string>
     <string name="ios_app">iOS-Приложение:</string>
     <string name="im_export_all_voucher_text">С помощью этой функции вы можете импортировать ваучеры или экспортировать все записи в один файл.</string>
     <string name="import_csv_note_voucher">Обратите внимание на следующую важную информацию для импорта CSV.\n\nПервая строка интерпретируется как заголовок столбца. Ваш CSV-файл должен содержать следующие столбцы: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nВажно: Пожалуйста, используйте запятую (,) в качестве разделителя полей. Идентификатор клиента генерируется, когда поле пустое или идентификатор уже существует. Формат даты должен быть \"ГГГГ-ММ-ДД ЧЧ:ММ:СС\".\n\nВы можете отредактировать свой CSV-файл, например, с помощью программного обеспечения, такого как LibreOffice Calc, прежде чем начать импорт.</string>
+    <string name="files">файлы</string>
+    <string name="picture">Картина</string>
+    <string name="drawing">Рисование</string>
+    <string name="add">Добавить</string>
+    <string name="add_file">Добавить файл</string>
+    <string name="file_too_big">Файл слишком большой! Файлы могут иметь максимальный размер 1 МБ.</string>
+    <string name="file_limit_reached">Достигнуто ограничение на количество файлов! Вы не можете добавить больше файлов к одному клиенту.</string>
 </resources>

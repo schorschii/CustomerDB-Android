@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Customer customer = (Customer) mListViewCustomers.getItemAtPosition(position);
                 Intent myIntent = new Intent(me, CustomerDetailsActivity.class);
-                myIntent.putExtra("customer", customer);
+                myIntent.putExtra("customer-id", customer.mId);
                 me.startActivityForResult(myIntent, VIEW_CUSTOMER_REQUEST);
             }
         });
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Voucher voucher = (Voucher) mListViewVouchers.getItemAtPosition(position);
                 Intent myIntent = new Intent(me, VoucherDetailsActivity.class);
-                myIntent.putExtra("voucher", voucher);
+                myIntent.putExtra("voucher-id", voucher.mId);
                 me.startActivityForResult(myIntent, VIEW_VOUCHER_REQUEST);
             }
         });
@@ -290,11 +290,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     private void refreshCustomersFromLocalDatabase(String search) {
         if(mCurrentGroup == null && mCurrentCity == null && mCurrentCountry == null) {
-            mCustomers = mDb.getCustomers(search);
+            mCustomers = mDb.getCustomers(search, false, false);
             resetActionBarTitle();
         } else {
             List<Customer> newCustomerList = new ArrayList<>();
-            for(Customer c : mDb.getCustomers(search)) {
+            for(Customer c : mDb.getCustomers(search, false, false)) {
                 if((mCurrentGroup == null || c.mCustomerGroup.equals(mCurrentGroup)) &&
                         (mCurrentCity == null || c.mCity.equals(mCurrentCity)) &&
                         (mCurrentCountry == null || c.mCountry.equals(mCurrentCountry))
@@ -570,7 +570,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(mRemoteDatabaseConnType == 1 || mRemoteDatabaseConnType == 2 || mRemoteDatabaseConnType == 3) {
             if(isNetworkConnected()) {
                 dialogSyncProgress();
-                List<Customer> allCustomers = mDb.getAllCustomers();
+                List<Customer> allCustomers = mDb.getCustomers(null, true, true);
                 List<Voucher> allVouchers = mDb.getVouchers(null,true);
 
                 if(mRemoteDatabaseConnType == 1) {
@@ -689,13 +689,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
     private void sort(String fieldTitle, boolean ascending) {
-        mCustomers = mDb.getCustomers(null);
+        mCustomers = mDb.getCustomers(null, false, false);
         Collections.sort(mCustomers, new CustomerComparator(fieldTitle, ascending));
         mCurrentCustomerAdapter = new CustomerAdapter(this, mCustomers, mCustomerCheckedChangedListener);
         mListViewCustomers.setAdapter(mCurrentCustomerAdapter);
     }
     private void sort(CustomerComparator.FIELD field, boolean ascending) {
-        mCustomers = mDb.getCustomers(null);
+        mCustomers = mDb.getCustomers(null, false, false);
         Collections.sort(mCustomers, new CustomerComparator(field, ascending));
         mCurrentCustomerAdapter = new CustomerAdapter(this, mCustomers, mCustomerCheckedChangedListener);
         mListViewCustomers.setAdapter(mCurrentCustomerAdapter);
@@ -1027,7 +1027,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressLint("SetTextI18n")
     private void refreshCount() {
         if(mNavigationView != null) {
-            int customersCount = mDb.getCustomers(null).size();
+            int customersCount = mDb.getCustomers(null, false, false).size();
             int vouchersCount = mDb.getVouchers(null,false).size();
             String customerAmountString = getResources().getQuantityString(R.plurals.customersamount, customersCount, customersCount);
             String voucherAmountString = getResources().getQuantityString(R.plurals.vouchersamount, vouchersCount, vouchersCount);
@@ -1537,7 +1537,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String[] getGroups(boolean withAllEntry) {
         ArrayList<String> groups = new ArrayList<>();
         if(withAllEntry) groups.add(getResources().getString(R.string.all));
-        for(Customer c : mDb.getCustomers(null)) {
+        for(Customer c : mDb.getCustomers(null, false, false)) {
             if(!groups.contains(c.mCustomerGroup) && !c.mCustomerGroup.equals(""))
                 groups.add(c.mCustomerGroup);
         }
@@ -1548,7 +1548,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String[] getCities(boolean withAllEntry) {
         ArrayList<String> groups = new ArrayList<>();
         if(withAllEntry) groups.add(getResources().getString(R.string.all));
-        for(Customer c : mDb.getCustomers(null)) {
+        for(Customer c : mDb.getCustomers(null, false, false)) {
             if(!groups.contains(c.mCity) && !c.mCity.equals(""))
                 groups.add(c.mCity);
         }
@@ -1559,7 +1559,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String[] getCountries(boolean withAllEntry) {
         ArrayList<String> groups = new ArrayList<>();
         if(withAllEntry) groups.add(getResources().getString(R.string.all));
-        for(Customer c : mDb.getCustomers(null)) {
+        for(Customer c : mDb.getCustomers(null, false, false)) {
             if(!groups.contains(c.mCountry) && !c.mCountry.equals(""))
                 groups.add(c.mCountry);
         }
@@ -1633,7 +1633,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if(newCustomers.size() > 0) {
                             int counter = 0;
                             for(Customer c : newCustomers) {
-                                if(c.mId < 1 || mDb.getCustomerById(c.mId, true) != null) {
+                                if(c.mId < 1 || mDb.getCustomerById(c.mId, true, false) != null) {
                                     //Log.e("CSV", "generated new ID");
                                     c.mId = Customer.generateID(counter);
                                 }

@@ -21,20 +21,11 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/consent_menu_title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-            <Space
                 android:layout_width="match_parent"
-                android:layout_height="16dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/consent_create_text"
-                android:textAppearance="@style/TextAppearance.AppCompat" />
+                android:minWidth="120dp"
+                android:text="@string/picture"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <Space
                 android:layout_width="match_parent"
@@ -52,12 +43,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/choose_from_gallery" />
-            <Button
-                android:id="@+id/buttonConsentFromTouchscreen"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/draw_on_screen" />
             <Button
                 android:id="@+id/buttonConsentCancel"
                 style="@style/Widget.AppCompat.Button"

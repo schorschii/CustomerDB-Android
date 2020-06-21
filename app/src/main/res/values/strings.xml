@@ -100,9 +100,6 @@
     <string name="export_ok">Export successful</string>
     <string name="export_fail">Unable to save file</string>
     <string name="consent">Consent for data processing</string>
-    <string name="consent_menu_title">Consent for data processing</string>
-    <string name="consent_create_text">Here you can deposit a data processing consent in form of an image (customer signature) according to section 6 (1.a) EU-GDPR (General Data Protection Regulation).</string>
-    <string name="consent_remove_text">Are you sure you want to delete the data processing consent of this customer?</string>
     <string name="view">View</string>
     <string name="remove">Remove</string>
     <string name="newsletter">Newsletter</string>
@@ -111,7 +108,6 @@
     <string name="newsletter_no_customers_text">"There are no customers in your database, which have a valid email address and accepted newsletters. Therefore, you can't compose a new newsletter."</string>
     <string name="group">Group</string>
     <string name="group_name">Group name</string>
-    <string name="newsletter_and_consent_info">Newsletter / Consent for data processing deposited</string>
     <string name="newsletter_accepted">Newsletter accepted</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -151,7 +147,6 @@
     <string name="import_ok">Import successful</string>
     <string name="import_fail">Import failed</string>
     <string name="import_fail_no_entries">The file does not contain any valid records.</string>
-    <string name="zero_data">Null data or zero data length.</string>
     <string name="open_play_store">Show in Play Store…</string>
     <string name="do_you_know">Do you already know these apps?</string>
     <string name="remotepointer_text">RemotePointer\nDigital Laser Pointer and Remote Control for Presentations</string>
@@ -227,8 +222,6 @@
     <string name="new_drop_down_value">New Drop Down Value</string>
     <string name="sort_asc">Sort Ascending</string>
     <string name="sort_desc">Sort Descending</string>
-    <string name="no_custom_fields">No Custom Fields</string>
-    <string name="no_custom_fields_sort">There are no custom fields to sort by. Please create custom fields in the settings.</string>
     <string name="locked">Locked</string>
     <string name="lock_app">Lock App</string>
     <string name="restrict_access">Restrict Access</string>
@@ -258,8 +251,6 @@
     <string name="no_details">No contact details</string>
     <string name="select_all">Select All</string>
     <string name="deselect">Deselect</string>
-    <string name="ad_free">Disable Ads</string>
-    <string name="ad_free_description">Hides all ad banners.</string>
     <string name="clear">Clear</string>
     <string name="draw_on_screen">Draw on Screen</string>
     <string name="choose_from_gallery">Choose from Gallery</string>
@@ -267,8 +258,6 @@
     <string name="install_plugin_app">Install Plugin App</string>
     <string name="more_than_500_customers">More Than 500 Customers</string>
     <string name="create_more_than_500_customer_records">Create more than 500 customer records.</string>
-    <string name="local_sync">Local Sync</string>
-    <string name="local_sync_description">Sync your customer records across multiple devices within your local home network.</string>
     <string name="third_party_components">Third Party Components</string>
     <string name="third_party_components_text">This app uses the opencsv library (Copyright 2019 opencsv Contributors, Apache License 2.0).</string>
     <string name="customers">Customers</string>
@@ -289,8 +278,6 @@
     <string name="use_own_server">Use Own Server</string>
     <string name="use_own_server_legacy">Use Own Server (Legacy)</string>
     <string name="alphanumeric_multi_line">Alphanumeric (Multi Line)</string>
-    <string name="sync_feature_in_app_avail">Sync Feature now Easily Available via In-App Purchase</string>
-    <string name="sync_feature_other_devices_backup">Sync with other devices and simultaneously backup your data in the cloud.</string>
     <string name="ios_app_available">iOS App Available</string>
     <string name="sync_data_with_your_ios_device">Sync data with your iOS device!</string>
     <string name="new_version">New Version</string>
@@ -355,11 +342,17 @@
     <string name="custom_field">Custom Field</string>
     <string name="last_name_default">Last Name (Default)</string>
     <string name="edit_custom_field">Edit Custom Field</string>
-    <string name="backup">Backup</string>
     <string name="legacy_sync_warning">You are still using the legacy sync server</string>
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
     <string name="app_store">App Store</string>
     <string name="ios_app">iOS App:</string>
     <string name="im_export_all_voucher_text">With this function, you can import vouchers or export all records into a single file.</string>
     <string name="import_csv_note_voucher">Please note the following important information for the CSV import.\n\nThe first line is interpreted as column title. Your CSV file should contain the following columns: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportant: Please use a comma (,) as field separator. The customer ID is generated when the field is empty or the ID already exists. The date format must be \"YYYY-MM-DD HH:MM:SS\".\n\nYou can edit your CSV file for example with a software like LibreOffice Calc before you start the import.</string>
+    <string name="files">Files</string>
+    <string name="picture">Picture</string>
+    <string name="drawing">Drawing</string>
+    <string name="add">Add</string>
+    <string name="add_file">Add File</string>
+    <string name="file_too_big">File too big! Files can have a maximum size of 1 MB.</string>
+    <string name="file_limit_reached">File limit reached! You can not add more files to one customer.</string>
 </resources>

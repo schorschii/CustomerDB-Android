@@ -28,13 +28,15 @@ import de.georgsieber.customerdb.tools.NumTools;
 
 public class VoucherEditActivity extends AppCompatActivity {
 
-    Voucher mCurrentVoucher;
-    VoucherEditActivity me;
-    SharedPreferences mSettings;
-    CustomerDatabase mDb;
+    private VoucherEditActivity me;
 
-    DateFormat mDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
-    Calendar mValidUntilCalendar = Calendar.getInstance();
+    private long mCurrentVoucherId = -1;
+    private Voucher mCurrentVoucher;
+    private SharedPreferences mSettings;
+    private CustomerDatabase mDb;
+
+    private DateFormat mDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+    private Calendar mValidUntilCalendar = Calendar.getInstance();
 
     EditText mEditTextValue;
     EditText mEditTextVoucherNo;
@@ -77,7 +79,8 @@ public class VoucherEditActivity extends AppCompatActivity {
 
         // get extra from parent intent
         Intent intent = getIntent();
-        mCurrentVoucher = intent.getParcelableExtra("voucher");
+        mCurrentVoucherId = intent.getLongExtra("voucher-id", -1);
+        mCurrentVoucher = mDb.getVoucherById(mCurrentVoucherId);
         if(mCurrentVoucher != null) {
             fillFields(mCurrentVoucher);
             getSupportActionBar().setTitle(getResources().getString(R.string.edit_voucher));
@@ -143,13 +146,15 @@ public class VoucherEditActivity extends AppCompatActivity {
             if(mCurrentVoucher.mId == -1) {
                 // insert new voucher
                 mDb.addVoucher(mCurrentVoucher);
+            } else {
+                // update in database
+                mCurrentVoucher.mLastModified = new Date();
+                mDb.updateVoucher(mCurrentVoucher);
             }
-            Intent output = new Intent();
-            output.putExtra("voucher", mCurrentVoucher);
 
             MainActivity.setUnsyncedChanges(this);
 
-            setResult(RESULT_OK, output);
+            setResult(RESULT_OK);
             finish();
         } else {
             CommonDialog.show(this, getResources().getString(R.string.invalid_number), getResources().getString(R.string.invalid_number_text), CommonDialog.TYPE.FAIL, false);

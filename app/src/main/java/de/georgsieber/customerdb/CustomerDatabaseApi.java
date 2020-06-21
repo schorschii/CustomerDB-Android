@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Locale;
 
 import de.georgsieber.customerdb.model.Customer;
+import de.georgsieber.customerdb.model.CustomerFile;
 import de.georgsieber.customerdb.model.Voucher;
 
 public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
@@ -69,7 +70,15 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
     private void putCustomers() throws Exception {
         try {
             JSONArray jarrayCustomers = new JSONArray();
-            for (Customer c : mCustomers) {
+            for(Customer c : mCustomers) {
+                JSONArray jsonFiles = new JSONArray();
+                for(CustomerFile file : c.getFiles()) {
+                    JSONObject jsonFile = new JSONObject();
+                    jsonFile.put("name", file.mName);
+                    jsonFile.put("content", Base64.encodeToString(file.mContent, Base64.NO_WRAP));
+                    jsonFiles.put(jsonFile);
+                }
+
                 JSONObject jc = new JSONObject();
                 jc.put("id", c.mId);
                 jc.put("title", c.mTitle);
@@ -87,8 +96,8 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                 jc.put("customer_group", c.mCustomerGroup);
                 jc.put("newsletter", c.mNewsletter ? 1 : 0);
                 jc.put("notes", c.mNotes);
-                jc.put("image", (c.mImage==null ? JSONObject.NULL : Base64.encodeToString(c.mImage, Base64.DEFAULT)));
-                jc.put("consent", (c.mImage==null ? JSONObject.NULL : Base64.encodeToString(c.mConsentImage, Base64.DEFAULT)));
+                jc.put("image", (c.mImage==null ? JSONObject.NULL : Base64.encodeToString(c.mImage, Base64.NO_WRAP)));
+                jc.put("consent", Base64.encodeToString(jsonFiles.toString().getBytes(), Base64.NO_WRAP));
                 jc.put("custom_fields", c.mCustomFields);
                 jc.put("last_modified", CustomerDatabase.storageFormatWithTime.format(c.mLastModified));
                 jc.put("removed", c.mRemoved);
@@ -96,7 +105,7 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
             }
 
             JSONArray jarrayVouchers = new JSONArray();
-            for (Voucher v : mVouchers) {
+            for(Voucher v : mVouchers) {
                 JSONObject jc = new JSONObject();
                 jc.put("id", v.mId);
                 jc.put("original_value", v.mOriginalValue);

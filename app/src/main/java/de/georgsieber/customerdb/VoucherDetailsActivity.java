@@ -35,11 +35,14 @@ import de.georgsieber.customerdb.tools.NumTools;
 
 public class VoucherDetailsActivity extends AppCompatActivity {
 
+    private VoucherDetailsActivity me;
+
     private CustomerDatabase mDb;
-    Voucher mCurrentVoucher = null;
-    VoucherDetailsActivity me;
-    SharedPreferences mSettings;
-    String currency = "?";
+    private long mCurrentVoucherId = -1;
+    private Voucher mCurrentVoucher = null;
+    private SharedPreferences mSettings;
+    private String currency = "?";
+    private boolean mChanged = false;
 
     TextView mTextViewCurrentValue;
     TextView mTextViewOriginalValue;
@@ -89,25 +92,31 @@ public class VoucherDetailsActivity extends AppCompatActivity {
         mTextViewRedeemed = findViewById(R.id.textViewRedeemed);
         mTextViewLastModified = findViewById(R.id.textViewLastModified);
 
-        // fill fields
-        Intent intent = getIntent();
-        mCurrentVoucher = intent.getParcelableExtra("voucher");
-        if(mCurrentVoucher == null) {
-            finish();
-        } else {
-            createListEntries(mCurrentVoucher);
-        }
-
         // init fab
         FloatingActionButton fab = findViewById(R.id.fabEdit);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(me, VoucherEditActivity.class);
-                myIntent.putExtra("voucher", mCurrentVoucher);
+                myIntent.putExtra("voucher-id", mCurrentVoucher.mId);
                 me.startActivityForResult(myIntent, EDIT_VOUCHER_REQUEST);
             }
         });
+
+        // get current voucher
+        Intent intent = getIntent();
+        mCurrentVoucherId = intent.getLongExtra("voucher-id", -1);
+        loadVoucher();
+    }
+
+    private void loadVoucher() {
+        // load current values from database
+        mCurrentVoucher = mDb.getVoucherById(mCurrentVoucherId, false);
+        if(mCurrentVoucher == null) {
+            finish();
+        } else {
+            createListEntries(mCurrentVoucher);
+        }
     }
 
     @Override
@@ -119,7 +128,7 @@ public class VoucherDetailsActivity extends AppCompatActivity {
     @Override
     public void finish() {
         // report MainActivity to update customer list
-        if(changed) {
+        if(mChanged) {
             Intent output = new Intent();
             output.putExtra("action", "update");
             setResult(RESULT_OK, output);
@@ -133,8 +142,8 @@ public class VoucherDetailsActivity extends AppCompatActivity {
         switch(requestCode) {
             case(EDIT_VOUCHER_REQUEST) : {
                 if(resultCode == Activity.RESULT_OK) {
-                    mCurrentVoucher = data.getParcelableExtra("voucher");
-                    setUpdateAfterFinish();
+                    mChanged = true;
+                    loadVoucher();
                 }
                 break;
             }
@@ -175,25 +184,12 @@ public class VoucherDetailsActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean("changed", changed);
+        outState.putBoolean("changed", mChanged);
     }
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        changed = savedInstanceState.getBoolean("changed");
-    }
-
-    private boolean changed = false;
-    private void setUpdateAfterFinish() {
-        // update last modified
-        changed = true;
-        mCurrentVoucher.mLastModified = new Date();
-
-        // update in database
-        mDb.updateVoucher(mCurrentVoucher);
-
-        // update view
-        createListEntries(mCurrentVoucher);
+        mChanged = savedInstanceState.getBoolean("changed");
     }
 
     private void confirmRemove() {
@@ -201,7 +197,7 @@ public class VoucherDetailsActivity extends AppCompatActivity {
         ad.setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 mDb.removeVoucher(mCurrentVoucher);
-                changed = false;
+                mChanged = false;
                 Intent output = new Intent();
                 output.putExtra("action", "update");
                 setResult(RESULT_OK, output);
@@ -257,8 +253,9 @@ public class VoucherDetailsActivity extends AppCompatActivity {
                     vo.mLastModified = new Date();
 
                     mDb.updateVoucher(vo);
-                    createListEntries(vo);
-                    setUpdateAfterFinish();
+                    mChanged = true;
+                    MainActivity.setUnsyncedChanges(me);
+                    loadVoucher();
                 }
             }
         });

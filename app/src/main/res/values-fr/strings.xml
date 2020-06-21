@@ -98,9 +98,6 @@
     <string name="export_ok">Exportation r&#233;ussie</string>
     <string name="export_fail">Impossible d\'enregistrer le fichier</string>
     <string name="consent">Consentement au traitement des donn&#233;es</string>
-    <string name="consent_menu_title">Consentement au traitement des donn&#233;es</string>
-    <string name="consent_create_text">Ici, vous pouvez d&#233;poser un consentement au traitement des donn&#233;es sous forme d\'image (signature du client) conform&#233;ment &#224; la section 6 (1.a) EU-GDPR (General Data Protection Regulation).</string>
-    <string name="consent_remove_text">Voulez-vous vraiment supprimer le consentement au traitement des donn&#233;es de ce client?</string>
     <string name="view">Vue</string>
     <string name="remove">Retirer</string>
     <string name="newsletter">Bulletin</string>
@@ -109,7 +106,6 @@
     <string name="newsletter_no_customers_text">\"Il n\'y a pas de clients dans votre base de donn&#233;es, qui ont une adresse e-mail valide et des newsletters accept&#233;es. Par cons&#233;quent, vous ne pouvez pas r&#233;diger une nouvelle newsletter.\"</string>
     <string name="group">Groupe</string>
     <string name="group_name">Nom de groupe</string>
-    <string name="newsletter_and_consent_info">Newsletter / Consentement au traitement des donn&#233;es d&#233;pos&#233;</string>
     <string name="newsletter_accepted">Newsletter accept&#233;e</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
@@ -149,7 +145,6 @@
     <string name="import_ok">Importation r&#233;ussie</string>
     <string name="import_fail">L\'importation a &#233;chou&#233;</string>
     <string name="import_fail_no_entries">Le fichier ne contient aucun enregistrement valide.</string>
-    <string name="zero_data">Donn&#233;es nulles ou longueur de donn&#233;es nulle.</string>
     <string name="open_play_store">Afficher dans le Play Store&#8230;</string>
     <string name="do_you_know">Connaissez-vous d&#233;j&#224; ces applications?</string>
     <string name="remotepointer_text">RemotePointer \nPointeur laser num&#233;rique et t&#233;l&#233;commande pour les pr&#233;sentations</string>
@@ -225,8 +220,6 @@
     <string name="new_drop_down_value">Nouvelle valeur d&#233;roulante</string>
     <string name="sort_asc">Trier par ordre croissant</string>
     <string name="sort_desc">Trier par ordre d&#233;croissant</string>
-    <string name="no_custom_fields">Aucun champ personnalis&#233;</string>
-    <string name="no_custom_fields_sort">Il n\'y a pas de champs personnalis&#233;s pour trier. Veuillez cr&#233;er des champs personnalis&#233;s dans les param&#232;tres.</string>
     <string name="locked">Ferm&#233; &#224; cl&#233;</string>
     <string name="lock_app">Lock App</string>
     <string name="restrict_access">Acc&#232;s restreint</string>
@@ -256,8 +249,6 @@
     <string name="no_details">Pas de coordonn&#233;es</string>
     <string name="select_all">Tout s&#233;lectionner</string>
     <string name="deselect">D&#233;s&#233;lectionner</string>
-    <string name="ad_free">D&#233;sactiver les annonces</string>
-    <string name="ad_free_description">Masque toutes les banni&#232;res publicitaires.</string>
     <string name="clear">Claire</string>
     <string name="draw_on_screen">Dessiner &#224; l\'&#233;cran</string>
     <string name="choose_from_gallery">Choisir depuis la galerie</string>
@@ -265,8 +256,6 @@
     <string name="install_plugin_app">Installer l\'application plugin</string>
     <string name="more_than_500_customers">Plus de 500 clients</string>
     <string name="create_more_than_500_customer_records">Cr&#233;ez plus de 500 fiches clients.</string>
-    <string name="local_sync">Synchronisation locale</string>
-    <string name="local_sync_description">Synchronisez vos enregistrements clients sur plusieurs appareils au sein de votre r&#233;seau domestique local.</string>
     <string name="third_party_components">Composants tiers</string>
     <string name="third_party_components_text">Cette application utilise la biblioth&#232;que opencsv (Copyright 2019 opencsv Contributors, Apache License 2.0).</string>
     <string name="customers">Les clients</string>
@@ -287,8 +276,6 @@
     <string name="use_own_server">Utiliser son propre serveur</string>
     <string name="use_own_server_legacy">Utiliser son propre serveur (h&#233;rit&#233;)</string>
     <string name="alphanumeric_multi_line">Alphanum&#233;rique (multiligne)</string>
-    <string name="sync_feature_in_app_avail">La fonction de synchronisation est d&#233;sormais facilement accessible via un achat int&#233;gr&#233;</string>
-    <string name="sync_feature_other_devices_backup">Synchronisez avec d\'autres appareils et sauvegardez simultan&#233;ment vos donn&#233;es dans le cloud.</string>
     <string name="ios_app_available">Application iOS disponible</string>
     <string name="sync_data_with_your_ios_device">Synchronisez les donn&#233;es avec votre appareil iOS!</string>
     <string name="new_version">Nouvelle version</string>
@@ -353,11 +340,17 @@
     <string name="custom_field">Champ personnalis&#233;</string>
     <string name="last_name_default">Nom (par d&#233;faut)</string>
     <string name="edit_custom_field">Modifier un champ personnalis&#233;</string>
-    <string name="backup">Sauvegarde</string>
     <string name="legacy_sync_warning">You are still using the legacy sync server</string>
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
     <string name="app_store">Magasin d\'applications</string>
     <string name="ios_app">Application iOS:</string>
     <string name="im_export_all_voucher_text">Avec cette fonction, vous pouvez importer des bons ou exporter tous les enregistrements dans un seul fichier.</string>
     <string name="import_csv_note_voucher">Veuillez noter les informations importantes suivantes pour l\'importation CSV.\n\nLa première ligne est interprétée comme le titre de la colonne. Votre fichier CSV doit contenir les colonnes suivantes: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportant: veuillez utiliser une virgule (,) comme séparateur de champ. L\'ID client est généré lorsque le champ est vide ou que l\'ID existe déjà. Le format de la date doit être \"YYYY-MM-JJ HH:MM:SS\".\n\nVous pouvez éditer votre fichier CSV par exemple avec un logiciel comme LibreOffice Calc avant de démarrer l\'importation.</string>
+    <string name="files">Des dossiers</string>
+    <string name="picture">Image</string>
+    <string name="drawing">Dessin</string>
+    <string name="add">Ajouter</string>
+    <string name="add_file">Ajouter le fichier</string>
+    <string name="file_too_big">Fichier trop gros! Les fichiers peuvent avoir une taille maximale de 1 Mo.</string>
+    <string name="file_limit_reached">Limite de fichiers atteinte! Vous ne pouvez pas ajouter plus de fichiers à un client.</string>
 </resources>

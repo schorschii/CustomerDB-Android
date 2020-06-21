@@ -1,14 +1,21 @@
 package de.georgsieber.customerdb.model;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Base64;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -24,10 +31,11 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import de.georgsieber.customerdb.CustomerDatabase;
+import de.georgsieber.customerdb.R;
 import de.georgsieber.customerdb.tools.DateControl;
 
 
-public class Customer implements Parcelable {
+public class Customer {
     public long mId = -1;
     public String mTitle = "";
     public String mFirstName = "";
@@ -45,7 +53,7 @@ public class Customer implements Parcelable {
     public boolean mNewsletter = false;
     public String mNotes = "";
     public byte[] mImage = new byte[0];
-    public byte[] mConsentImage = new byte[0];
+    public ArrayList<CustomerFile> mFiles = null;
     public String mCustomFields = "";
     public Date mLastModified = new Date();
     public int mRemoved = 0;
@@ -207,7 +215,15 @@ public class Customer implements Parcelable {
             case "newsletter":
                 mNewsletter = (value.equals("1")); break;
             case "consent":
-                mConsentImage = Base64.decode(value, Base64.NO_WRAP); break;
+                try {
+                    String decodedValue = new String(Base64.decode(value, Base64.NO_WRAP), "UTF-8");
+                    JSONArray jsonFiles = new JSONArray(decodedValue);
+                    for(int i=0; i < jsonFiles.length(); i++) {
+                        JSONObject jsonFile = jsonFiles.getJSONObject(i);
+                        addFile(new CustomerFile(jsonFile.getString("name"), Base64.decode(jsonFile.getString("content"), Base64.NO_WRAP)), null);
+                    }
+                } catch(Exception ignored) {}
+                break;
             case "image":
                 mImage = Base64.decode(value, Base64.NO_WRAP); break;
             case "custom_fields":
@@ -219,12 +235,25 @@ public class Customer implements Parcelable {
         }
     }
 
-    public byte[] getConsent() {
-        if(this.mConsentImage == null)
-            return new byte[0];
-        else
-            return this.mConsentImage;
+    public void addFile(CustomerFile file, Context context) throws Exception {
+        if(mFiles == null) mFiles = new ArrayList<>();
+        if(file.mContent.length > 1024 * 1024) {
+            throw new Exception( context==null ? "File too big!" : context.getString(R.string.file_too_big) );
+        }
+        if(mFiles.size() >= 5) {
+            throw new Exception( context==null ? "File limit reached!" : context.getString(R.string.file_limit_reached) );
+        }
+        mFiles.add(file);
     }
+    public void removeFile(int fileIndex) {
+        if(mFiles == null) return;
+        mFiles.remove(fileIndex);
+    }
+    public ArrayList<CustomerFile> getFiles() {
+        if(mFiles == null) mFiles = new ArrayList<>();
+        return mFiles;
+    }
+
     public byte[] getImage() {
         if(this.mImage == null)
             return new byte[0];
@@ -401,7 +430,7 @@ public class Customer implements Parcelable {
     }
 
 
-    /* everything below here is for implementing Parcelable */
+    /* everything below here is for implementing Parcelable
 
     @Override
     public int describeContents() {
@@ -429,8 +458,7 @@ public class Customer implements Parcelable {
         out.writeInt(mNewsletter ? 1 : 0);
         out.writeString(mCustomFields);
         out.writeLong(mLastModified.getTime());
-        out.writeInt(mConsentImage == null ? 0 : mConsentImage.length);
-        out.writeByteArray(mConsentImage == null ? new byte[0] : mConsentImage);
+        out.writeString(mFilesJson);
         out.writeInt(mImage == null ? 0 : mImage.length);
         out.writeByteArray(mImage == null ? new byte[0] : mImage);
     }
@@ -466,9 +494,8 @@ public class Customer implements Parcelable {
         mNewsletter = in.readInt() == 1;
         mCustomFields = in.readString();
         mLastModified = new Date(in.readLong());
-        mConsentImage = new byte[in.readInt()];
-        in.readByteArray(mConsentImage);
+        mFilesJson = in.readString();
         mImage = new byte[in.readInt()];
         in.readByteArray(mImage);
-    }
+    }*/
 }

@@ -8,11 +8,6 @@
         android:title="@string/id"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_consent"
-        android:icon="@drawable/ic_assignment_turned_in_white_24dp"
-        android:title="@string/consent"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/action_export"
         android:icon="@drawable/ic_import_export_white_24dp"
         android:title="@string/exportcustomer"

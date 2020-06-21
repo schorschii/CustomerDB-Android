@@ -21,39 +21,36 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/consent_menu_title"
+                android:minWidth="120dp"
+                android:text="@string/add_file"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="16dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/consent_create_text"
-                android:textAppearance="@style/TextAppearance.AppCompat" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="16dp" />
-
             <Button
-                android:id="@+id/buttonConsentExistsView"
+                android:id="@+id/buttonConsentFromCamera"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/view" />
+                android:text="@string/image_from_camera" />
             <Button
-                android:id="@+id/buttonConsentExistsRemove"
+                android:id="@+id/buttonConsentFromGallery"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/remove" />
+                android:text="@string/choose_from_gallery" />
             <Button
-                android:id="@+id/buttonConsentExistsCancel"
+                android:id="@+id/buttonConsentFromTouchscreen"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/draw_on_screen" />
+            <Button
+                android:id="@+id/buttonConsentCancel"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

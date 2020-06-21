@@ -86,9 +86,6 @@
     <string name="export_ok">Export erfolgreich</string>
     <string name="export_fail">Datei konnte nicht gespeichert werden</string>
     <string name="consent">Einwilligung zur Datenverarbeitung</string>
-    <string name="consent_menu_title">Einwilligung zur Datenverarbeitung</string>
-    <string name="consent_create_text">Hier können Sie eine Einwilligung zur Datenverarbeitung in Form eines Bildes (Kundenunterschrift) hinterlegen, gemäß Artikel 6 (1.a) EU-DSGVO.</string>
-    <string name="consent_remove_text">Sind Sie sicher, dass Sie die Einwilligungserklärung dieses Kunden löschen möchten?</string>
     <string name="view">Anzeigen</string>
     <string name="remove">Entfernen</string>
     <string name="newsletter">Newsletter</string>
@@ -97,7 +94,6 @@
     <string name="newsletter_no_customers_text">Es gibt keine Kunden, die eine gültige E-Mailadresse hinterlegt und dem Newsletter-Empfang zugestimmt haben. Deshalb können Sie keinen Newsletter schreiben.</string>
     <string name="group">Gruppe</string>
     <string name="group_name">Gruppenname</string>
-    <string name="newsletter_and_consent_info">Newsletter / Einwilligung zur Datenverarbeitung hinterlegt</string>
     <string name="newsletter_accepted">Newsletter akzeptiert</string>
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
@@ -141,7 +137,6 @@
         <item quantity="one">%d Datensatz importiert.</item>
         <item quantity="other">%d Datensätze importiert.</item>
     </plurals>
-    <string name="zero_data">Keine Daten oder leere Datei.</string>
     <string name="open_play_store">Im Play Store anzeigen…</string>
     <string name="do_you_know">Kennen Sie schon diese Apps?</string>
     <string name="remotepointer_text">RemotePointer\nDigitaler Laserpointer und Fernbedienung für Präsentationen</string>
@@ -217,8 +212,6 @@
     <string name="new_drop_down_value">Neuer Auwahlfeld-Eintrag</string>
     <string name="sort_asc">Aufsteigend sortieren</string>
     <string name="sort_desc">Absteigend sortieren</string>
-    <string name="no_custom_fields">Keine benutzerdefinierten Felder</string>
-    <string name="no_custom_fields_sort">Es sind keine benutzerdefinierten Felder vorhanden, nach denen sortiert werden kann. Bitte legen Sie benutzerdefinierte Felder in den Einstellungen an.</string>
     <string name="locked">Gesperrt</string>
     <string name="lock_app">App sperren</string>
     <string name="restrict_access">Zugriff beschränken</string>
@@ -256,8 +249,6 @@
     <string name="no_details">Keine Kontaktdetails</string>
     <string name="select_all">Alle</string>
     <string name="deselect">Aufheben</string>
-    <string name="ad_free">Werbung ausschalten</string>
-    <string name="ad_free_description">Entfernt alle Werbebanner.</string>
     <string name="clear">Leeren</string>
     <string name="draw_on_screen">Auf Bildschirm zeichnen</string>
     <string name="choose_from_gallery">AUs Galerie auswählen</string>
@@ -265,8 +256,6 @@
     <string name="install_plugin_app">Plugin-App installieren</string>
     <string name="more_than_500_customers">Mehr als 500 Kunden</string>
     <string name="create_more_than_500_customer_records">Erstellen Sie mehr als 500 Kundendatensätze.</string>
-    <string name="local_sync">Lokale Synchronisierung</string>
-    <string name="local_sync_description">Synchronisieren Sie Ihre Kundendatensätze über mehrere Geräte innerhalb Ihres lokalen Heimnetzwerkes.</string>
     <string name="third_party_components">Komponenten von Drittanbietern</string>
     <string name="third_party_components_text">Diese App verwendet die opencsv-Bibliothek (Copyright 2019 opencsv Contributors, Apache License 2.0).</string>
     <string name="customers">Kunden</string>
@@ -287,8 +276,6 @@
     <string name="use_own_server">Eigenen Server verwenden</string>
     <string name="use_own_server_legacy">Eigenen Server verwenden (Legacy)</string>
     <string name="alphanumeric_multi_line">Alphanumerisch (mehrzeilig)</string>
-    <string name="sync_feature_in_app_avail">Synchronisierungsfunktion ist jetzt einfach via In-App-Einkauf erhältlich</string>
-    <string name="sync_feature_other_devices_backup">Synchronisieren Sie Kunden mit anderen Geräten und machen Sie gleichzeitig ein Backup in der Cloud.</string>
     <string name="ios_app_available">iOS-App Verfügbar</string>
     <string name="sync_data_with_your_ios_device">Synchronisieren Sie Ihre Daten mit iOS-Geräten!</string>
     <string name="new_version">Neue Version</string>
@@ -353,11 +340,17 @@
     <string name="custom_field">Benutzerdefiniertes Feld</string>
     <string name="last_name_default">Nachname (Standard)</string>
     <string name="edit_custom_field">Benutzerdefiniertes Feld bearbeiten</string>
-    <string name="backup">Backup</string>
     <string name="legacy_sync_warning">Sie verwenden noch den alten Synchronisierungs-Server</string>
     <string name="legacy_sync_warning_text">Diese Funktion wird in einem kommenden Update entfernt! Bitte wechseln Sie zu dem neuen Cloud-Dienst oder aktualisieren Sie Ihren eigenen Datenbankserver auf die neue Server-Software. Bitte besuchen Sie die Einstellungen für mehr Informationen.</string>
     <string name="app_store">App Store</string>
     <string name="ios_app">iOS-App:</string>
     <string name="im_export_all_voucher_text">Mit dieser Funktion können Sie Gutscheindaten importieren oder alle Datensätze in eine Datei exportieren.</string>
     <string name="import_csv_note_voucher">Bitte beachten Sie folgende wichtige Hinweise zum CSV-Import.\n\nDie erste Zeile wird als Spaltentitel interpretiert. Ihre CSV-Datei sollte folgende Spalten enthalten: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nWichtig: Bitte verwenden Sie als Feldtrennzeichen ein Komma (,). Die Kunden-ID wird generiert wenn das Feld leer ist oder die ID bereits existiert. Als Datumsformat muss \"YYYY-MM-DD HH:MM:SS\" verwendet werden.\n\nSie können Ihre CSV-Datei z.B. mit einer Software wie LibreOffice Calc vorher bearbeiten, bevor Sie den Import starten.</string>
+    <string name="files">Dateien</string>
+    <string name="picture">Foto</string>
+    <string name="drawing">Zeichnung</string>
+    <string name="add">Hinzufügen</string>
+    <string name="add_file">Datei hinzufügen</string>
+    <string name="file_too_big">Datei zu groß! Dateien dürfen maximal 1 MB groß sein.</string>
+    <string name="file_limit_reached">Dateilimit erreicht! Sie können nicht mehr Dateien an einen Kunden anfügen.</string>
 </resources>

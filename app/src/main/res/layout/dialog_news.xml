@@ -36,7 +36,6 @@
                 android:text="@string/sync_data_with_your_ios_device"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
             <Button
-                android:id="@+id/buttonIosApp"
                 style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
