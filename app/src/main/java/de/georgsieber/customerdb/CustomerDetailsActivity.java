@@ -289,6 +289,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     private final static int CMI_EMAIL_CPY = 11;
     private final static int CMI_ADDRESS_MAP = 12;
     private final static int CMI_ADDRESS_CPY = 13;
+    private final static int CMI_POST_ADDRESS_CPY = 16;
     private final static int CMI_GROUP_CPY = 14;
     private final static int CMI_NOTES_CPY = 15;
 
@@ -322,6 +323,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             menu.setHeaderTitle(mCurrentCustomer.getAddress());
             menu.add(0, CMI_ADDRESS_MAP, 0, getString(R.string.show_on_map));
             menu.add(0, CMI_ADDRESS_CPY, 0, getString(R.string.copy_to_clipboard));
+            menu.add(0, CMI_POST_ADDRESS_CPY, 0, getString(R.string.copy_postal_address));
         }
         else if(v == mButtonGroupMore) {
             menu.setHeaderTitle(mCurrentCustomer.mCustomerGroup);
@@ -385,6 +387,9 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                 return true;
             case CMI_ADDRESS_CPY:
                 toClipboard(mCurrentCustomer.getAddress());
+                return true;
+            case CMI_POST_ADDRESS_CPY:
+                toClipboard(mCurrentCustomer.getFullName(false) + "\n" + mCurrentCustomer.getAddress());
                 return true;
 
             case CMI_GROUP_CPY:

@@ -354,4 +354,5 @@
     <string name="add_file">Добавить файл</string>
     <string name="file_too_big">Файл слишком большой! Файлы могут иметь максимальный размер 1 МБ.</string>
     <string name="file_limit_reached">Достигнуто ограничение на количество файлов! Вы не можете добавить больше файлов к одному клиенту.</string>
+    <string name="copy_postal_address">Копировать почтовый адрес</string>
 </resources>

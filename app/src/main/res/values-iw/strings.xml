@@ -366,4 +366,5 @@
     <string name="add_file">הוסף קובץ</string>
     <string name="file_too_big">הקובץ גדול מדי! קבצים יכולים להיות בגודל מקסימלי של 1 מגה בייט.</string>
     <string name="file_limit_reached">הגבלת הקובץ הגיעה! אינך יכול להוסיף קבצים נוספים ללקוח אחד.</string>
+    <string name="copy_postal_address">העתק כתובת דואר</string>
 </resources>

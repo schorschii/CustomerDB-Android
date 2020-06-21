@@ -353,4 +353,5 @@
     <string name="add_file">Agregar archivo</string>
     <string name="file_too_big">¡Archivo demasiado grande! Los archivos pueden tener un tamaño máximo de 1 MB.</string>
     <string name="file_limit_reached">¡Límite de archivo alcanzado! No puede agregar más archivos a un cliente.</string>
+    <string name="copy_postal_address">Copiar dirección postal</string>
 </resources>
