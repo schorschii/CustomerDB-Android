@@ -372,6 +372,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mCalendarViewCalendar.get(Calendar.DAY_OF_MONTH)
         ).show();
     }
+    public void onClickPrevCalendarViewDay(View v) {
+        mCalendarViewCalendar.add(Calendar.DAY_OF_MONTH, -1);
+        refreshAppointmentsFromLocalDatabase();
+    }
+    public void onClickNextCalendarViewDay(View v) {
+        mCalendarViewCalendar.add(Calendar.DAY_OF_MONTH, 1);
+        refreshAppointmentsFromLocalDatabase();
+    }
 
     private void loadSettings() {
         // restore remote database connection preferences

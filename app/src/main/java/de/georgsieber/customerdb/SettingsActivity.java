@@ -964,6 +964,7 @@ public class SettingsActivity extends AppCompatActivity {
                 if(!editTextTitle.getText().toString().equals("")) {
                     currentCalendar.mTitle = editTextTitle.getText().toString();
                     currentCalendar.mColor = ColorControl.getHexColor(Color.rgb(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress()));
+                    currentCalendar.mLastModified = new Date();
                     mDb.updateCalendar(currentCalendar);
                 }
                 ad.dismiss();

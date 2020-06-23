@@ -67,6 +67,31 @@
                 android:layout_column="0"
                 android:layout_row="0"
                 android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="top">
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:onClick="onClickPrevCalendarViewDay"
+                        android:src="@drawable/ic_baseline_arrow_back_dynamic_24dp" />
+                    <Button
+                        android:id="@+id/buttonCalendarChangeDay"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="fill"
+                        android:layout_weight="10"
+                        android:onClick="onClickChangeCalendarViewDay"
+                        android:text="@string/calendar" />
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:onClick="onClickNextCalendarViewDay"
+                        android:src="@drawable/ic_baseline_arrow_forward_dynamic_24dp" />
+                </LinearLayout>
                 <fragment
                     android:id="@+id/fragmentCalendar"
                     android:layout_width="match_parent"
@@ -74,15 +99,6 @@
                     android:layout_gravity="fill"
                     android:layout_weight="1"
                     class="de.georgsieber.customerdb.CalendarFragment" />
-                <Button
-                    android:id="@+id/buttonCalendarChangeDay"
-                    android:layout_gravity="bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="90dp"
-                    android:layout_marginRight="90dp"
-                    android:onClick="onClickChangeCalendarViewDay"
-                    android:text="@string/calendar" />
             </LinearLayout>
 
             <LinearLayout

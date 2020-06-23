@@ -66,12 +66,13 @@
                     android:id="@+id/editTextTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
                     android:hint="@string/subject" />
                 <EditText
                     android:id="@+id/editTextCustomer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textCapSentences"
                     android:hint="@string/customer"
                     tools:ignore="TextFields" />
                 <EditText

@@ -342,6 +342,7 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
         if(activity == null) return;
         activity.refreshCustomersFromLocalDatabase();
         activity.refreshVouchersFromLocalDatabase();
+        activity.refreshAppointmentsFromLocalDatabase();
         if(result.trim().equals("")) {
             activity.dialogSyncSuccess();
             MainActivity.setChangesSynced(activity);
