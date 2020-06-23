@@ -190,8 +190,8 @@ class CustomerDatabaseApiLegacy extends AsyncTask<Void, Void, String> {
     private void onPostGetEntries(String result) {
         MainActivity activity = activityReference.get();
         if(activity == null) return;
-        activity.mDb.truncateCustomer();
-        activity.mDb.truncateVoucher();
+        activity.mDb.truncateCustomers();
+        activity.mDb.truncateVouchers();
         String[] records = result.split("\\r?\\n");
         for (String record : records) {
             if(record.startsWith("v_")) {

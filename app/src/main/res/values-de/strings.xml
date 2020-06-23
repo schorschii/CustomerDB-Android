@@ -354,4 +354,22 @@
     <string name="file_too_big">Datei zu groß! Dateien dürfen maximal 1 MB groß sein.</string>
     <string name="file_limit_reached">Dateilimit erreicht! Sie können nicht mehr Dateien an einen Kunden anfügen.</string>
     <string name="copy_postal_address">Postanschrift kopieren</string>
+    <string name="calendar">Kalender</string>
+    <string name="appointment">Termin</string>
+    <string name="new_appointment">Neuer Termin</string>
+    <string name="edit_appointment">Termin bearbeiten</string>
+    <string name="customer">Kunde</string>
+    <string name="start">Beginn</string>
+    <string name="end">Ende</string>
+    <string name="subject">Betreff</string>
+    <string name="default_calendar">Standardkalender</string>
+    <string name="remove_appointment">Termin löschen</string>
+    <string name="end_date_before_start_date">Das Enddatum liegt vor dem Startdatum!</string>
+    <string name="appointment_too_short">Termin zu kurz! Termine müssen mindestend 5 Minuten lang sein.</string>
+    <string name="add_calendar">Neuer Kalender</string>
+    <string name="edit_calendar">Kalender bearbeiten</string>
+    <string name="remove_calendar">Kalender entfernen</string>
+    <string name="attach_files_to_customer_records">Fügen Sie Dateien an Kundendatensätze an.</string>
+    <string name="unlocks_the_calendar_features">Schaltet die Kalenderfunktionen frei.</string>
+    <string name="no_calendar_selected">Kein Kalender ausgewählt! Bitte erstellen Sie einen Kalender in den Einstellungen.</string>
 </resources>

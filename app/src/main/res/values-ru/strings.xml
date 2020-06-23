@@ -355,4 +355,22 @@
     <string name="file_too_big">Файл слишком большой! Файлы могут иметь максимальный размер 1 МБ.</string>
     <string name="file_limit_reached">Достигнуто ограничение на количество файлов! Вы не можете добавить больше файлов к одному клиенту.</string>
     <string name="copy_postal_address">Копировать почтовый адрес</string>
+    <string name="calendar">Календарь</string>
+    <string name="appointment">встреча</string>
+    <string name="new_appointment">Новая встреча</string>
+    <string name="edit_appointment">Изменить встречу</string>
+    <string name="customer">Клиент</string>
+    <string name="start">Начало</string>
+    <string name="end">Конец</string>
+    <string name="subject">Тема</string>
+    <string name="default_calendar">Календарь по умолчанию</string>
+    <string name="remove_appointment">Удалить встречу</string>
+    <string name="end_date_before_start_date">Дата окончания предшествует дате начала!</string>
+    <string name="appointment_too_short">Назначение слишком короткое! Пожалуйста, назначьте встречу продолжительностью не менее 5 минут.</string>
+    <string name="add_calendar">Добавить календарь</string>
+    <string name="edit_calendar">Изменить календарь</string>
+    <string name="remove_calendar">Удалить календарь</string>
+    <string name="attach_files_to_customer_records">Прикрепите файлы к записям клиентов.</string>
+    <string name="unlocks_the_calendar_features">Разблокирует функции календаря.</string>
+    <string name="no_calendar_selected">Календарь не выбран! Пожалуйста, создайте календарь в настройках.</string>
 </resources>

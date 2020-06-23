@@ -557,6 +557,140 @@
 
                 <Space
                     android:layout_width="wrap_content"
+                    android:layout_height="12dp" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alignmentMode="alignBounds"
+                    android:columnCount="5">
+
+                    <ImageView
+                        android:id="@+id/imageViewBuyFiles"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:layout_gravity="fill_horizontal"
+                        android:contentDescription="@string/feature_icon_hint"
+                        android:gravity="center"
+                        android:src="@drawable/ic_lock_gray_24dp" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="1" />
+
+                    <LinearLayout
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="2"
+                        android:layout_gravity="fill_horizontal"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/files"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/attach_files_to_customer_records" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="3" />
+
+                    <Button
+                        android:id="@+id/buttonBuyFiles"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="4"
+                        android:layout_gravity="center_vertical"
+                        android:enabled="false"
+                        android:onClick="doBuyFiles"
+                        android:text="@string/buy_now" />
+                </GridLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="12dp" />
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alignmentMode="alignBounds"
+                    android:columnCount="5">
+
+                    <ImageView
+                        android:id="@+id/imageViewBuyCalendar"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_row="0"
+                        android:layout_column="0"
+                        android:layout_gravity="fill_horizontal"
+                        android:contentDescription="@string/feature_icon_hint"
+                        android:gravity="center"
+                        android:src="@drawable/ic_lock_gray_24dp" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="1" />
+
+                    <LinearLayout
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="2"
+                        android:layout_gravity="fill_horizontal"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/calendar"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/unlocks_the_calendar_features" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="3" />
+
+                    <Button
+                        android:id="@+id/buttonBuyCalendar"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="4"
+                        android:layout_gravity="center_vertical"
+                        android:enabled="false"
+                        android:onClick="doBuyCalendar"
+                        android:text="@string/buy_now" />
+                </GridLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
                     android:layout_height="24dp" />
 
                 <TextView

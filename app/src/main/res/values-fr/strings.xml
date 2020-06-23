@@ -354,4 +354,22 @@
     <string name="file_too_big">Fichier trop gros! Les fichiers peuvent avoir une taille maximale de 1 Mo.</string>
     <string name="file_limit_reached">Limite de fichiers atteinte! Vous ne pouvez pas ajouter plus de fichiers à un client.</string>
     <string name="copy_postal_address">Copier l\'adresse postale</string>
+    <string name="calendar">Calendrier</string>
+    <string name="appointment">Rendez-vous</string>
+    <string name="new_appointment">Nouveau rendez-vous</string>
+    <string name="edit_appointment">Modifier le rendez-vous</string>
+    <string name="customer">Client</string>
+    <string name="start">Début</string>
+    <string name="end">Fin</string>
+    <string name="subject">Matière</string>
+    <string name="default_calendar">Calendrier par défaut</string>
+    <string name="remove_appointment">Supprimer un rendez-vous</string>
+    <string name="end_date_before_start_date">La date de fin est antérieure à la date de début!</string>
+    <string name="appointment_too_short">Rendez-vous trop court! Veuillez créer un rendez-vous d\'une durée d\'au moins 5 minutes.</string>
+    <string name="add_calendar">Ajouter un calendrier</string>
+    <string name="edit_calendar">Modifier le calendrier</string>
+    <string name="remove_calendar">Supprimer le calendrier</string>
+    <string name="attach_files_to_customer_records">Joignez des fichiers aux enregistrements client.</string>
+    <string name="unlocks_the_calendar_features">Déverrouille les fonctionnalités du calendrier.</string>
+    <string name="no_calendar_selected">Aucun calendrier sélectionné! Veuillez créer un calendrier dans les paramètres.</string>
 </resources>

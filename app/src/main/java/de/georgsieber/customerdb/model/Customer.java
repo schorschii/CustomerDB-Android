@@ -33,6 +33,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import de.georgsieber.customerdb.CustomerDatabase;
 import de.georgsieber.customerdb.R;
 import de.georgsieber.customerdb.tools.DateControl;
+import de.georgsieber.customerdb.tools.NumTools;
 
 
 public class Customer {
@@ -159,18 +160,10 @@ public class Customer {
         return Long.parseLong(idFormat.format(new Date())+suffix);
     }
 
-    private long tryParseLong(String value, long defaultVal) {
-        try {
-            return Long.parseLong(value);
-        } catch (NumberFormatException e) {
-            return defaultVal;
-        }
-    }
-
     public void putCustomerAttribute(String key, String value) {
         switch(key) {
             case "id":
-                mId = tryParseLong(value, mId); break;
+                mId = NumTools.tryParseLong(value, mId); break;
             case "title":
                 mTitle = value; break;
             case "first_name":

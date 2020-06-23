@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import de.georgsieber.customerdb.CustomerDatabase;
 import de.georgsieber.customerdb.tools.DateControl;
+import de.georgsieber.customerdb.tools.NumTools;
 
 public class Voucher implements Parcelable {
     public long mId = -1;
@@ -82,7 +83,7 @@ public class Voucher implements Parcelable {
         switch(key) {
             case "v_id":
             case "id":
-                mId = Long.parseLong(value); break;
+                mId = NumTools.tryParseLong(value, mId); break;
             case "v_current_value":
             case "current_value":
                 mCurrentValue = Float.parseFloat(value); break;

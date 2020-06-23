@@ -42,6 +42,7 @@ import java.util.List;
 
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
+import de.georgsieber.customerdb.model.CustomerCalendar;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.StorageControl;
 
@@ -58,6 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
     private SharedPreferences mSettings;
 
     Spinner mSpinnerCustomFields;
+    Spinner mSpinnerCalendars;
     RadioButton mRadioButtonNoSync;
     RadioButton mRadioButtonCloudSync;
     RadioButton mRadioButtonOwnServerSync;
@@ -76,6 +78,7 @@ public class SettingsActivity extends AppCompatActivity {
     SeekBar mSeekBarRed;
     SeekBar mSeekBarGreen;
     SeekBar mSeekBarBlue;
+    View mViewColorPreview;
     CheckBox mCheckBoxShowPhoneField;
     CheckBox mCheckBoxShowEmailField;
     CheckBox mCheckBoxShowAddressField;
@@ -133,6 +136,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         // find views
         mSpinnerCustomFields = findViewById(R.id.spinnerCustomField);
+        mSpinnerCalendars = findViewById(R.id.spinnerCalendar);
         mRadioButtonNoSync = findViewById(R.id.radioButtonNoSync);
         mRadioButtonCloudSync = findViewById(R.id.radioButtonCloudSync);
         mRadioButtonOwnServerSync = findViewById(R.id.radioButtonOwnServerSync);
@@ -151,6 +155,7 @@ public class SettingsActivity extends AppCompatActivity {
         mSeekBarRed = findViewById(R.id.seekBarRed);
         mSeekBarGreen = findViewById(R.id.seekBarGreen);
         mSeekBarBlue = findViewById(R.id.seekBarBlue);
+        mViewColorPreview = findViewById(R.id.viewColorPreview);
         mCheckBoxShowPhoneField = findViewById(R.id.checkBoxShowPhoneField);
         mCheckBoxShowEmailField = findViewById(R.id.checkBoxShowEmailField);
         mCheckBoxShowAddressField = findViewById(R.id.checkBoxShowAddressField);
@@ -163,13 +168,14 @@ public class SettingsActivity extends AppCompatActivity {
         // init DB
         mDb = new CustomerDatabase(this);
         reloadCustomFields();
+        reloadCalendars();
 
         // register events
         mSeekBarRed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mColorRed = progress;
-                updateColorPreview();
+                updateColorPreview(mColorRed, mColorGreen, mColorBlue, mViewColorPreview);
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) { }
@@ -180,7 +186,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mColorGreen = progress;
-                updateColorPreview();
+                updateColorPreview(mColorRed, mColorGreen, mColorBlue, mViewColorPreview);
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) { }
@@ -191,7 +197,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 mColorBlue = progress;
-                updateColorPreview();
+                updateColorPreview(mColorRed, mColorGreen, mColorBlue, mViewColorPreview);
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) { }
@@ -203,7 +209,7 @@ public class SettingsActivity extends AppCompatActivity {
         loadSettings();
 
         // update color
-        updateColorPreview();
+        updateColorPreview(mColorRed, mColorGreen, mColorBlue, mViewColorPreview);
         ColorControl.updateActionBarColor(this, mSettings);
 
         // init logo buttons
@@ -409,8 +415,8 @@ public class SettingsActivity extends AppCompatActivity {
         sendBroadcast(scanFileIntent);
     }
 
-    private void updateColorPreview() {
-        findViewById(R.id.viewColorPreview).setBackgroundColor(Color.argb(0xff, mColorRed, mColorGreen, mColorBlue));
+    private void updateColorPreview(int red, int green, int blue, View v) {
+        v.setBackgroundColor(Color.argb(0xff, red, green, blue));
     }
 
     protected void saveSettings() {
@@ -515,8 +521,10 @@ public class SettingsActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     switch(which) {
                         case DialogInterface.BUTTON_POSITIVE:
-                            mDb.truncateCustomer();
-                            mDb.truncateVoucher();
+                            mDb.truncateCustomers();
+                            mDb.truncateVouchers();
+                            mDb.truncateCalendars();
+                            mDb.truncateAppointments();
                             saveSettings();
                             finish();
                             break;
@@ -795,6 +803,180 @@ public class SettingsActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+    }
+
+    private void reloadCalendars() {
+        ArrayAdapter<CustomerCalendar> a = new ArrayAdapter<>(this, R.layout.item_list_simple, mDb.getCalendars(false));
+        mSpinnerCalendars.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+        mSpinnerCalendars.setAdapter(a);
+        if(a.getCount() == 0) {
+            findViewById(R.id.buttonEditCalendarSettings).setVisibility(View.GONE);
+            findViewById(R.id.buttonRemoveCalendarSettings).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.buttonEditCalendarSettings).setVisibility(View.VISIBLE);
+            findViewById(R.id.buttonRemoveCalendarSettings).setVisibility(View.VISIBLE);
+        }
+    }
+    public void onAddCalendarButtonClick(View v) {
+        if(mFc == null || !mFc.unlockedCalendar) {
+            dialogInApp(getResources().getString(R.string.feature_locked), getResources().getString(R.string.feature_locked_text));
+            return;
+        }
+
+        setTextFieldsFocusable(false);
+        final Dialog ad = new Dialog(this);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_new_calendar);
+        if(ad.getWindow() != null) ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        final EditText editTextTitle = (EditText) ad.findViewById(R.id.editTextTitle);
+        final View colorPreviewCalendar = ad.findViewById(R.id.viewColorPreview);
+        final SeekBar seekBarRed = ((SeekBar) ad.findViewById(R.id.seekBarRed));
+        final SeekBar seekBarGreen = ((SeekBar) ad.findViewById(R.id.seekBarGreen));
+        final SeekBar seekBarBlue = ((SeekBar) ad.findViewById(R.id.seekBarBlue));
+        seekBarRed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColorPreview(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress(), colorPreviewCalendar);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+        seekBarGreen.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColorPreview(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress(), colorPreviewCalendar);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+        seekBarBlue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColorPreview(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress(), colorPreviewCalendar);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+        updateColorPreview(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress(), colorPreviewCalendar);
+        ad.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(imm != null) imm.hideSoftInputFromWindow(editTextTitle.getWindowToken(), 0);
+
+                CustomerCalendar c = new CustomerCalendar();
+                c.mId = CustomerCalendar.generateID();
+                c.mTitle = editTextTitle.getText().toString();
+                c.mColor = ColorControl.getHexColor(Color.rgb(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress()));
+                if(!c.mTitle.equals("")) mDb.addCalendar(c);
+                reloadCalendars();
+            }
+        });
+        ad.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                setTextFieldsFocusable(true);
+            }
+        });
+        ad.show();
+    }
+    public void onRemoveCalendarButtonClick(View v) {
+        AlertDialog.Builder ad = new AlertDialog.Builder(me);
+        ad.setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                if(mSpinnerCalendars.getSelectedItem() != null) {
+                    mDb.removeCalendar(((CustomerCalendar) mSpinnerCalendars.getSelectedItem()));
+                    reloadCalendars();
+                }
+            }});
+        ad.setNegativeButton(getResources().getString(R.string.abort), null);
+        ad.setTitle(getResources().getString(R.string.reallydelete_title));
+        ad.show();
+    }
+    public void onEditCalendarButtonClick(View v) {
+        final CustomerCalendar currentCalendar = (CustomerCalendar) mSpinnerCalendars.getSelectedItem();
+        int color = Color.parseColor(currentCalendar.mColor);
+
+        setTextFieldsFocusable(false);
+        final Dialog ad = new Dialog(this);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_new_calendar);
+        if(ad.getWindow() != null) ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        final View colorPreviewCalendar = ad.findViewById(R.id.viewColorPreview);
+        final EditText editTextTitle = (EditText) ad.findViewById(R.id.editTextTitle);
+        editTextTitle.setText(currentCalendar.mTitle);
+        final SeekBar seekBarRed = ((SeekBar) ad.findViewById(R.id.seekBarRed));
+        final SeekBar seekBarGreen = ((SeekBar) ad.findViewById(R.id.seekBarGreen));
+        final SeekBar seekBarBlue = ((SeekBar) ad.findViewById(R.id.seekBarBlue));
+        seekBarRed.setProgress(Color.red(color));
+        seekBarRed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColorPreview(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress(), colorPreviewCalendar);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+        seekBarGreen.setProgress(Color.green(color));
+        seekBarGreen.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColorPreview(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress(), colorPreviewCalendar);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+        seekBarBlue.setProgress(Color.blue(color));
+        seekBarBlue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColorPreview(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress(), colorPreviewCalendar);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+        updateColorPreview(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress(), colorPreviewCalendar);
+        ad.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(imm != null) imm.hideSoftInputFromWindow(editTextTitle.getWindowToken(), 0);
+
+                if(!editTextTitle.getText().toString().equals("")) {
+                    currentCalendar.mTitle = editTextTitle.getText().toString();
+                    currentCalendar.mColor = ColorControl.getHexColor(Color.rgb(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress()));
+                    mDb.updateCalendar(currentCalendar);
+                }
+                ad.dismiss();
+                reloadCalendars();
+            }
+        });
+        ad.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                setTextFieldsFocusable(true);
+            }
+        });
+        ad.show();
     }
 
     public void onChooseLogoButtonClick(View v) {

@@ -354,4 +354,22 @@
     <string name="file_too_big">¡Archivo demasiado grande! Los archivos pueden tener un tamaño máximo de 1 MB.</string>
     <string name="file_limit_reached">¡Límite de archivo alcanzado! No puede agregar más archivos a un cliente.</string>
     <string name="copy_postal_address">Copiar dirección postal</string>
+    <string name="calendar">Calendario</string>
+    <string name="appointment">Cita</string>
+    <string name="new_appointment">Nueva cita</string>
+    <string name="edit_appointment">Editar cita</string>
+    <string name="customer">Cliente</string>
+    <string name="start">Comenzando</string>
+    <string name="end">Final</string>
+    <string name="subject">Sujeto</string>
+    <string name="default_calendar">Calendario predeterminado</string>
+    <string name="remove_appointment">Eliminar cita</string>
+    <string name="end_date_before_start_date">¡La fecha de finalización es anterior a la fecha de inicio!</string>
+    <string name="appointment_too_short">Cita demasiado corta! Cree una cita con una duración de al menos 5 minutos.</string>
+    <string name="add_calendar">Agregar calendario</string>
+    <string name="edit_calendar">Editar calendario</string>
+    <string name="remove_calendar">Eliminar calendario</string>
+    <string name="attach_files_to_customer_records">Adjunte archivos a registros de clientes.</string>
+    <string name="unlocks_the_calendar_features">Desbloquea las funciones del calendario.</string>
+    <string name="no_calendar_selected">No hay calendario seleccionado! Cree un calendario en la configuración.</string>
 </resources>

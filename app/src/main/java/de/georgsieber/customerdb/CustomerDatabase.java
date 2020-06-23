@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.georgsieber.customerdb.model.CustomerAppointment;
+import de.georgsieber.customerdb.model.CustomerCalendar;
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.CustomerFile;
@@ -108,6 +110,8 @@ public class CustomerDatabase {
 
         if(columnNotExists("customer_files", "content")) {
             beginTransaction();
+            db.execSQL("CREATE TABLE IF NOT EXISTS calendar (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, color VARCHAR NOT NULL, notes VARCHAR NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP, removed INTEGER DEFAULT 0);");
+            db.execSQL("CREATE TABLE IF NOT EXISTS appointment (id INTEGER PRIMARY KEY AUTOINCREMENT, calendar_id INTEGER NOT NULL, title VARCHAR NOT NULL, notes VARCHAR NOT NULL, time_start DATETIME, time_end DATETIME, fullday INTEGER DEFAULT 0, customer VARCHAR NOT NULL, location VARCHAR NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP, removed INTEGER DEFAULT 0);");
             db.execSQL("CREATE TABLE IF NOT EXISTS customer_files (id INTEGER PRIMARY KEY AUTOINCREMENT, customer_id INTEGER NOT NULL, name VARCHAR NOT NULL, content BLOB NOT NULL);");
             Cursor cursor = db.rawQuery("SELECT id, consent FROM customer", null);
             try {
@@ -139,26 +143,282 @@ public class CustomerDatabase {
     }
 
 
-    Customer getCustomerByNumber(String number) {
-        List<Customer> allCustomers = getCustomers(null, false, false);
-        List<Customer> results = new ArrayList<>();
-        for(Customer c : allCustomers) {
-            if(PhoneNumberUtils.compare(c.mPhoneHome, number)
-            || PhoneNumberUtils.compare(c.mPhoneMobile, number)
-            || PhoneNumberUtils.compare(c.mPhoneWork, number)) {
-                results.add(c);
-                break;
+    List<CustomerCalendar> getCalendars(boolean showRemoved) {
+        String sql = "SELECT id, title, color, notes, last_modified, removed FROM calendar WHERE removed = 0";
+        if(showRemoved) sql = "SELECT id, title, color, notes, last_modified, removed FROM calendar";
+        Cursor cursor = db.rawQuery(sql, null);
+        ArrayList<CustomerCalendar> cf = new ArrayList<>();
+        try {
+            if(cursor.moveToFirst()) {
+                do {
+                    Date lastModified = null;
+                    try {
+                        if(cursor.getString(4) != null && (!cursor.getString(4).equals("")))
+                            lastModified = storageFormatWithTime.parse(cursor.getString(4));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    CustomerCalendar f = new CustomerCalendar(
+                            cursor.getLong(0),
+                            cursor.getString(1),
+                            cursor.getString(2),
+                            cursor.getString(3),
+                            lastModified,
+                            cursor.getInt(5)
+                    );
+                    cf.add(f);
+                } while (cursor.moveToNext());
             }
-            for(CustomField cf : c.getCustomFields()) {
-                if((!cf.mValue.trim().equals(""))
-                        && PhoneNumberUtils.compare(cf.mValue.trim(), number)) {
-                    results.add(c);
-                }
-            }
+        } catch (SQLiteException e) {
+            Log.e("SQLite Error", e.getMessage());
+            return null;
+        } finally {
+            cursor.close();
         }
-        if(results.size() > 0)
-            return results.get(0);
+        return cf;
+    }
+    void addCalendar(CustomerCalendar c) {
+        SQLiteStatement stmt = db.compileStatement("INSERT INTO calendar (id, title, color, notes, last_modified, removed) VALUES (?,?,?,?,?,?)");
+
+        if(c.mId == -1) c.mId = CustomerCalendar.generateID();
+        String lastModifiedString;
+        if(c.mLastModified != null) {
+            lastModifiedString = storageFormatWithTime.format(c.mLastModified);
+        } else {
+            lastModifiedString = storageFormatWithTime.format(new Date());
+        }
+        stmt.bindLong(1, c.mId);
+        stmt.bindString(2, c.mTitle);
+        stmt.bindString(3, c.mColor);
+        stmt.bindString(4, c.mNotes);
+        stmt.bindString(5, lastModifiedString);
+        stmt.bindLong(6, c.mRemoved);
+        stmt.execute();
+    }
+    void updateCalendar(CustomerCalendar c) {
+        SQLiteStatement stmt = db.compileStatement(
+                "UPDATE calendar SET title = ?, color = ?, notes = ?, last_modified = ?, removed = ? WHERE id = ?"
+        );
+
+        String lastModifiedString;
+        if(c.mLastModified != null) {
+            lastModifiedString = storageFormatWithTime.format(c.mLastModified);
+        } else {
+            lastModifiedString = storageFormatWithTime.format(new Date());
+        }
+        stmt.bindString(1, c.mTitle);
+        stmt.bindString(2, c.mColor);
+        stmt.bindString(3, c.mNotes);
+        stmt.bindString(4, lastModifiedString);
+        stmt.bindLong(5, c.mRemoved);
+        stmt.bindLong(6, c.mId);
+        stmt.execute();
+    }
+    void removeCalendar(CustomerCalendar c) {
+        String currentDateString = storageFormatWithTime.format(new Date());
+        SQLiteStatement stmt = db.compileStatement("UPDATE calendar SET removed = 1, title = '', color = '', notes = '', last_modified = ? WHERE id = ?");
+        stmt.bindString(1, currentDateString);
+        stmt.bindLong(2, c.mId);
+        stmt.execute();
+
+        SQLiteStatement stmt2 = db.compileStatement("UPDATE appointment SET removed = 1, calendar_id = -1, title = '', notes = '', time_start = NULL, time_end = NULL, fullday = 0, customer = '', location = '', last_modified = ? WHERE calendar_id = ?");
+        stmt2.bindString(1, currentDateString);
+        stmt2.bindLong(2, c.mId);
+        stmt2.execute();
+    }
+
+    CustomerAppointment getAppointmentById(long id) {
+        Cursor cursor = db.rawQuery(
+                "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment WHERE removed = 0 AND id = ?",
+                new String[]{ Long.toString(id) }
+        );
+        try {
+            if(cursor.moveToFirst()) {
+                do {
+                    Date startTime = null;
+                    try {
+                        if(cursor.getString(4) != null && (!cursor.getString(4).equals("")))
+                            startTime = storageFormatWithTime.parse(cursor.getString(4));
+                    } catch (ParseException e) {
+                        Log.e("CAL", e.getLocalizedMessage());
+                    }
+                    Date endTime = null;
+                    try {
+                        if(cursor.getString(5) != null && (!cursor.getString(5).equals("")))
+                            endTime = storageFormatWithTime.parse(cursor.getString(5));
+                    } catch (ParseException e) {
+                        Log.e("CAL", e.getLocalizedMessage());
+                    }
+                    Date lastModified = null;
+                    try {
+                        if(cursor.getString(9) != null && (!cursor.getString(9).equals("")))
+                            lastModified = storageFormatWithTime.parse(cursor.getString(9));
+                    } catch (ParseException ignored) {}
+                    return new CustomerAppointment(
+                            cursor.getLong(0),
+                            cursor.getLong(1),
+                            cursor.getString(2),
+                            cursor.getString(3),
+                            startTime,
+                            endTime,
+                            cursor.getInt(6) > 0,
+                            cursor.getString(7),
+                            cursor.getString(8),
+                            lastModified,
+                            cursor.getInt(10)
+                    );
+                } while (cursor.moveToNext());
+            }
+        } catch (SQLiteException e) {
+            Log.e("SQLite Error", e.getMessage());
+            return null;
+        } finally {
+            cursor.close();
+        }
         return null;
+    }
+    List<CustomerAppointment> getAppointments(Long calendarId, Date day, boolean showRemoved) {
+        Cursor cursor;
+        if(calendarId != null && day != null) {
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            cursor = db.rawQuery(
+                    "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment WHERE calendar_id = ? AND strftime('%Y-%m-%d',time_start) = ?",
+                    new String[]{ Long.toString(calendarId), format.format(day) }
+            );
+        } else {
+            String sql;
+            if(showRemoved) {
+                sql = "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment";
+            } else {
+                sql = "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment WHERE removed = 0";
+            }
+            cursor = db.rawQuery(sql, null);
+        }
+
+        ArrayList<CustomerAppointment> al = new ArrayList<>();
+        try {
+            if(cursor.moveToFirst()) {
+                do {
+                    Date startTime = null;
+                    try {
+                        if(cursor.getString(4) != null && (!cursor.getString(4).equals("")))
+                            startTime = storageFormatWithTime.parse(cursor.getString(4));
+                    } catch (ParseException e) {
+                        Log.e("CAL", e.getLocalizedMessage());
+                    }
+                    Date endTime = null;
+                    try {
+                        if(cursor.getString(5) != null && (!cursor.getString(5).equals("")))
+                            endTime = storageFormatWithTime.parse(cursor.getString(5));
+                    } catch (ParseException e) {
+                        Log.e("CAL", e.getLocalizedMessage());
+                    }
+                    Date lastModified = null;
+                    try {
+                        if(cursor.getString(9) != null && (!cursor.getString(9).equals("")))
+                            lastModified = storageFormatWithTime.parse(cursor.getString(9));
+                    } catch (ParseException ignored) {}
+                    CustomerAppointment a = new CustomerAppointment(
+                            cursor.getLong(0),
+                            cursor.getLong(1),
+                            cursor.getString(2),
+                            cursor.getString(3),
+                            startTime,
+                            endTime,
+                            cursor.getInt(6) > 0,
+                            cursor.getString(7),
+                            cursor.getString(8),
+                            lastModified,
+                            cursor.getInt(10)
+                    );
+                    al.add(a);
+                } while (cursor.moveToNext());
+            }
+        } catch (SQLiteException e) {
+            Log.e("SQLite Error", e.getMessage());
+            return null;
+        } finally {
+            cursor.close();
+        }
+        return al;
+    }
+    void addAppointment(CustomerAppointment a) {
+        SQLiteStatement stmt = db.compileStatement("INSERT INTO appointment (id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+
+        if(a.mId == -1) a.mId = CustomerAppointment.generateID();
+        String timeStartString;
+        if(a.mTimeStart != null) {
+            timeStartString = storageFormatWithTime.format(a.mTimeStart);
+        } else {
+            timeStartString = storageFormatWithTime.format(new Date());
+        }
+        String timeEndString;
+        if(a.mTimeEnd != null) {
+            timeEndString = storageFormatWithTime.format(a.mTimeEnd);
+        } else {
+            timeEndString = storageFormatWithTime.format(new Date());
+        }
+        String lastModifiedString;
+        if(a.mLastModified != null) {
+            lastModifiedString = storageFormatWithTime.format(a.mLastModified);
+        } else {
+            lastModifiedString = storageFormatWithTime.format(new Date());
+        }
+        stmt.bindLong(1, a.mId);
+        stmt.bindLong(2, a.mCalendarId);
+        stmt.bindString(3, a.mTitle);
+        stmt.bindString(4, a.mNotes);
+        stmt.bindString(5, timeStartString);
+        stmt.bindString(6, timeEndString);
+        stmt.bindLong(7, a.mFullday ? 1 : 0);
+        stmt.bindString(8, a.mCustomer);
+        stmt.bindString(9, a.mLocation);
+        stmt.bindString(10, lastModifiedString);
+        stmt.bindLong(11, a.mRemoved);
+        stmt.execute();
+    }
+    void updateAppointment(CustomerAppointment a) {
+        SQLiteStatement stmt = db.compileStatement(
+                "UPDATE appointment SET calendar_id = ?, title = ?, notes = ?, time_start = ?, time_end = ?, fullday = ?, customer = ?, location = ?, last_modified = ?, removed = ? WHERE id = ?"
+        );
+
+        String timeStartString;
+        if(a.mTimeStart != null) {
+            timeStartString = storageFormatWithTime.format(a.mTimeStart);
+        } else {
+            timeStartString = storageFormatWithTime.format(new Date());
+        }
+        String timeEndString;
+        if(a.mTimeEnd != null) {
+            timeEndString = storageFormatWithTime.format(a.mTimeEnd);
+        } else {
+            timeEndString = storageFormatWithTime.format(new Date());
+        }
+        String lastModifiedString;
+        if(a.mLastModified != null) {
+            lastModifiedString = storageFormatWithTime.format(a.mLastModified);
+        } else {
+            lastModifiedString = storageFormatWithTime.format(new Date());
+        }
+        stmt.bindLong(1, a.mCalendarId);
+        stmt.bindString(2, a.mTitle);
+        stmt.bindString(3, a.mNotes);
+        stmt.bindString(4, timeStartString);
+        stmt.bindString(5, timeEndString);
+        stmt.bindLong(6, a.mFullday ? 1 : 0);
+        stmt.bindString(7, a.mCustomer);
+        stmt.bindString(8, a.mLocation);
+        stmt.bindString(9, lastModifiedString);
+        stmt.bindLong(10, a.mRemoved);
+        stmt.bindLong(11, a.mId);
+        stmt.execute();
+    }
+    void removeAppointment(CustomerAppointment a) {
+        String currentDateString = storageFormatWithTime.format(new Date());
+        SQLiteStatement stmt = db.compileStatement("UPDATE appointment SET removed = 1, calendar_id = -1, title = '', notes = '', time_start = NULL, time_end = NULL, fullday = 0, customer = '', location = '', last_modified = ? WHERE id = ?");
+        stmt.bindString(1, currentDateString);
+        stmt.bindLong(2, a.mId);
+        stmt.execute();
     }
 
     List<CustomField> getCustomFields() {
@@ -513,6 +773,28 @@ public class CustomerDatabase {
         return c;
     }
 
+    Customer getCustomerByNumber(String number) {
+        List<Customer> allCustomers = getCustomers(null, false, false);
+        List<Customer> results = new ArrayList<>();
+        for(Customer c : allCustomers) {
+            if(PhoneNumberUtils.compare(c.mPhoneHome, number)
+                    || PhoneNumberUtils.compare(c.mPhoneMobile, number)
+                    || PhoneNumberUtils.compare(c.mPhoneWork, number)) {
+                results.add(c);
+                break;
+            }
+            for(CustomField cf : c.getCustomFields()) {
+                if((!cf.mValue.trim().equals(""))
+                        && PhoneNumberUtils.compare(cf.mValue.trim(), number)) {
+                    results.add(c);
+                }
+            }
+        }
+        if(results.size() > 0)
+            return results.get(0);
+        return null;
+    }
+
     Customer getCustomerById(long id, boolean showDeleted, boolean withFiles) {
         // Do not fetch files for all customers! We'll fetch files only for the one ID match!
         List<Customer> customers = getCustomers(null, showDeleted, false);
@@ -728,14 +1010,22 @@ public class CustomerDatabase {
         db.execSQL("DELETE FROM voucher WHERE removed = 1;");
     }
 
-    void truncateCustomer() {
+    void truncateCustomers() {
         SQLiteStatement stmt = db.compileStatement("DELETE FROM customer WHERE 1=1");
         stmt.execute();
         SQLiteStatement stmt2 = db.compileStatement("DELETE FROM customer_files WHERE 1=1");
         stmt2.execute();
     }
-    void truncateVoucher() {
+    void truncateVouchers() {
         SQLiteStatement stmt = db.compileStatement("DELETE FROM voucher WHERE 1=1");
+        stmt.execute();
+    }
+    void truncateCalendars() {
+        SQLiteStatement stmt = db.compileStatement("DELETE FROM calendar WHERE 1=1");
+        stmt.execute();
+    }
+    void truncateAppointments() {
+        SQLiteStatement stmt = db.compileStatement("DELETE FROM appointment WHERE 1=1");
         stmt.execute();
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<de.georgsieber.customerdb.CalendarAppointmentView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/appointment_padding"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true">
+    <TextView
+        android:id="@+id/textViewAppointmentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/calendar" />
+    <TextView
+        android:id="@+id/textViewAppointmentSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="@string/calendar" />
+</de.georgsieber.customerdb.CalendarAppointmentView>

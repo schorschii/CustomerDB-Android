@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -46,6 +47,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -70,10 +72,13 @@ import de.georgsieber.customerdb.importexport.CustomerVcfBuilder;
 import de.georgsieber.customerdb.importexport.VoucherCsvBuilder;
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
+import de.georgsieber.customerdb.model.CustomerAppointment;
+import de.georgsieber.customerdb.model.CustomerCalendar;
 import de.georgsieber.customerdb.model.Voucher;
 import de.georgsieber.customerdb.print.CustomerPrintDocumentAdapter;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
+import de.georgsieber.customerdb.tools.DateControl;
 import de.georgsieber.customerdb.tools.StorageControl;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -86,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Menu mDrawerMenu;
     NavigationView mNavigationView;
     BottomNavigationView mBottomNavigationView;
+    Button mButtonCalendarViewDay;
+    CalendarFragment mCalendarFragment;
+    Calendar mCalendarViewCalendar = Calendar.getInstance();
 
     CustomerDatabase mDb;
     List<Customer> mCustomers = new ArrayList<>();
@@ -119,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final static int NEW_VOUCHER_REQUEST = 8;
     private final static int VIEW_VOUCHER_REQUEST = 9;
     private final static int PICK_VOUCHER_CSV_REQUEST = 10;
+    private final static int NEW_APPOINTMENT_REQUEST = 11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // load sync settings
         loadSettings();
 
-        // init ListView
+        // init views
         mListViewCustomers = findViewById(R.id.mainCustomerList);
         mListViewCustomers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -182,6 +191,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }
         });
+        mCalendarFragment = (CalendarFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentCalendar);
+        mButtonCalendarViewDay = findViewById(R.id.buttonCalendarChangeDay);
         mListViewVouchers = findViewById(R.id.mainVoucherList);
         mListViewVouchers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -215,6 +226,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         };
         refreshCustomersFromLocalDatabase();
+        refreshAppointmentsFromLocalDatabase();
         refreshVouchersFromLocalDatabase();
 
         // init add buttons (FloatingActionButtons)
@@ -224,6 +236,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 switch(mBottomNavigationView.getSelectedItemId()) {
                     case R.id.bottomnav_customers:
                         me.startActivityForResult(new Intent(me, CustomerEditActivity.class), NEW_CUSTOMER_REQUEST);
+                        break;
+                    case R.id.bottomnav_calendar:
+                        Intent intent = new Intent(me, CalendarAppointmentEditActivity.class);
+                        intent.putExtra("appointment-day", mCalendarViewCalendar);
+                        me.startActivityForResult(intent, NEW_APPOINTMENT_REQUEST);
                         break;
                     case R.id.bottomnav_vouchers:
                         me.startActivityForResult(new Intent(me, VoucherEditActivity.class), NEW_VOUCHER_REQUEST);
@@ -258,8 +275,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void refreshView(Integer itemId) {
         if(itemId == null) itemId = mBottomNavigationView.getSelectedItemId();
 
-        findViewById(R.id.mainCustomerList).setVisibility(View.GONE);
-        findViewById(R.id.mainVoucherList).setVisibility(View.GONE);
+        findViewById(R.id.mainCustomerList).setVisibility(View.INVISIBLE);
+        findViewById(R.id.mainCalendarView).setVisibility(View.INVISIBLE);
+        findViewById(R.id.mainVoucherList).setVisibility(View.INVISIBLE);
         if(isLockActive || isInputOnlyModeActive) {
             return;
         }
@@ -268,6 +286,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.bottomnav_customers:
                 findViewById(R.id.mainCustomerList).setVisibility(View.VISIBLE);
                 state = true;
+                break;
+            case R.id.bottomnav_calendar:
+                findViewById(R.id.mainCalendarView).setVisibility(View.VISIBLE);
+                state = false;
                 break;
             case R.id.bottomnav_vouchers:
                 findViewById(R.id.mainVoucherList).setVisibility(View.VISIBLE);
@@ -316,6 +338,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         refreshCount();
         refreshSelectedCountInfo(null);
     }
+    void refreshAppointmentsFromLocalDatabase() {
+        mCalendarFragment.show(mDb.getCalendars(false), mCalendarViewCalendar.getTime());
+        mButtonCalendarViewDay.setText(DateControl.birthdayDateFormat.format(mCalendarViewCalendar.getTime()));
+    }
     void refreshVouchersFromLocalDatabase() {
         refreshVouchersFromLocalDatabase(null);
     }
@@ -327,6 +353,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mListViewVouchers.setAdapter(mCurrentVoucherAdapter);
         refreshCount();
         refreshSelectedCountInfo(null);
+    }
+
+    public void onClickChangeCalendarViewDay(View v) {
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                mCalendarViewCalendar.set(Calendar.YEAR, year);
+                mCalendarViewCalendar.set(Calendar.MONTH, monthOfYear);
+                mCalendarViewCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                refreshAppointmentsFromLocalDatabase();
+            }
+        };
+        new DatePickerDialog(
+                this, date,
+                mCalendarViewCalendar.get(Calendar.YEAR),
+                mCalendarViewCalendar.get(Calendar.MONTH),
+                mCalendarViewCalendar.get(Calendar.DAY_OF_MONTH)
+        ).show();
     }
 
     private void loadSettings() {
@@ -572,12 +616,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dialogSyncProgress();
                 List<Customer> allCustomers = mDb.getCustomers(null, true, true);
                 List<Voucher> allVouchers = mDb.getVouchers(null,true);
+                List<CustomerCalendar> allCalendars = mDb.getCalendars(true);
+                List<CustomerAppointment> allAppointments = mDb.getAppointments(null,null, true);
 
                 if(mRemoteDatabaseConnType == 1) {
-                    new CustomerDatabaseApi(this, mSettings.getString("sync-purchase-token", ""), mRemoteDatabaseConnUsername, mRemoteDatabaseConnPassword, allCustomers, allVouchers).execute();
+                    new CustomerDatabaseApi(this, mSettings.getString("sync-purchase-token", ""), mRemoteDatabaseConnUsername, mRemoteDatabaseConnPassword, allCustomers, allVouchers, allCalendars, allAppointments).execute();
                 }
                 else if(mRemoteDatabaseConnType == 2) {
-                    new CustomerDatabaseApi(this, mSettings.getString("sync-purchase-token", ""), mRemoteDatabaseConnURL, mRemoteDatabaseConnUsername, mRemoteDatabaseConnPassword, allCustomers, allVouchers).execute();
+                    new CustomerDatabaseApi(this, mSettings.getString("sync-purchase-token", ""), mRemoteDatabaseConnURL, mRemoteDatabaseConnUsername, mRemoteDatabaseConnPassword, allCustomers, allVouchers, allCalendars, allAppointments).execute();
                 }
                 else if(mRemoteDatabaseConnType == 3) {
                     CommonDialog.show(this, getString(R.string.legacy_sync_warning), getString(R.string.legacy_sync_warning_text), CommonDialog.TYPE.WARN, false);
@@ -1572,6 +1618,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode) {
+            case(NEW_APPOINTMENT_REQUEST): {
+                if(resultCode == Activity.RESULT_OK) {
+                    refreshAppointmentsFromLocalDatabase();
+                }
+                break;
+            }
             case(NEW_CUSTOMER_REQUEST): {
                 if(resultCode == Activity.RESULT_OK) {
                     refreshCustomersFromLocalDatabase();

@@ -2,4 +2,9 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="hour_divider_height">1dp</dimen>
+    <dimen name="hour_divider_margin_top">85dp</dimen>
+    <dimen name="appointment_min_height">30dp</dimen>
+    <dimen name="appointment_padding">5dp</dimen>
 </resources>

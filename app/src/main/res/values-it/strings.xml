@@ -354,4 +354,22 @@
     <string name="file_too_big">File troppo grande! I file possono avere una dimensione massima di 1 MB.</string>
     <string name="file_limit_reached">Limite file raggiunto! Non è possibile aggiungere più file a un cliente.</string>
     <string name="copy_postal_address">Copia indirizzo postale</string>
+    <string name="calendar">Calendario</string>
+    <string name="appointment">Appuntamento</string>
+    <string name="new_appointment">Nuovo appuntamento</string>
+    <string name="edit_appointment">Modifica appuntamento</string>
+    <string name="customer">Cliente</string>
+    <string name="start">Inizio</string>
+    <string name="end">Fine</string>
+    <string name="subject">Soggetto</string>
+    <string name="default_calendar">Calendario predefinito</string>
+    <string name="remove_appointment">Rimuovi appuntamento</string>
+    <string name="end_date_before_start_date">La data di fine è precedente alla data di inizio!</string>
+    <string name="appointment_too_short">Appuntamento troppo breve! Si prega di creare un appuntamento della durata di almeno 5 minuti.</string>
+    <string name="add_calendar">Aggiungi calendario</string>
+    <string name="edit_calendar">Modifica calendario</string>
+    <string name="remove_calendar">Rimuovi calendario</string>
+    <string name="attach_files_to_customer_records">Allegare file ai record dei clienti.</string>
+    <string name="unlocks_the_calendar_features">Sblocca le funzioni del calendario.</string>
+    <string name="no_calendar_selected">Nessun calendario selezionato! Si prega di creare un calendario nelle impostazioni.</string>
 </resources>

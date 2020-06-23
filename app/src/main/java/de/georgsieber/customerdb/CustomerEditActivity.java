@@ -57,6 +57,7 @@ import de.georgsieber.customerdb.tools.BitmapCompressor;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
 import de.georgsieber.customerdb.tools.DateControl;
+import de.georgsieber.customerdb.tools.NumTools;
 import de.georgsieber.customerdb.tools.StorageControl;
 
 
@@ -279,7 +280,7 @@ public class CustomerEditActivity extends AppCompatActivity {
             }
 
             View spaceView = new Space(this);
-            spaceView.setLayoutParams(new LinearLayout.LayoutParams(0, dpToPx(20)));
+            spaceView.setLayoutParams(new LinearLayout.LayoutParams(0, NumTools.dpToPx(20, this)));
             linearLayout.addView(spaceView);
 
             valueView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -452,11 +453,6 @@ public class CustomerEditActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return new byte[0];
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private int dpToPx(int dp) {
-        return (int)(dp * getResources().getDisplayMetrics().density);
     }
 
     void onCustomDateFieldClick(final EditText editTextValue) {

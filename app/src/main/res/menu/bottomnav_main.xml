@@ -8,13 +8,13 @@
         android:icon="@drawable/ic_people_white_24dp"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/bottomnav_vouchers"
+        android:id="@+id/bottomnav_calendar"
         android:enabled="true"
-        android:title="@string/vouchers"
-        android:icon="@drawable/ic_card_giftcard_white_24dp"
+        android:title="@string/calendar"
+        android:icon="@drawable/ic_baseline_calendar_24dp"
         app:showAsAction="ifRoom" />
     <item
-        android:visible="false"
+        android:id="@+id/bottomnav_vouchers"
         android:enabled="true"
         android:title="@string/vouchers"
         android:icon="@drawable/ic_card_giftcard_white_24dp"

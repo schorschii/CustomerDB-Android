@@ -9,5 +9,6 @@ public class DateControl {
     public static DateFormat birthdayDateFormat = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
     public static DateFormat displayDateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault());
     //public static DateFormat displayDateTimeFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.MEDIUM, Locale.getDefault());
+    public static DateFormat displayTimeFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
 
 }

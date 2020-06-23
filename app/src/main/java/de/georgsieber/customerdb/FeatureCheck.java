@@ -43,6 +43,8 @@ class FeatureCheck {
         unlockedDesignOptions = mSettings.getBoolean("purchased-do", false);
         unlockedCustomFields = mSettings.getBoolean("purchased-cf", false);
         unlockedScript = mSettings.getBoolean("purchased-sc", false);
+        unlockedFiles = mSettings.getBoolean("purchased-fs", false);
+        unlockedCalendar = mSettings.getBoolean("purchased-cl", false);
 
         // init billing client - get purchases later for other devices
         mBillingClient = BillingClient.newBuilder(mContext).setListener(new PurchasesUpdatedListener() {
@@ -141,6 +143,8 @@ class FeatureCheck {
     boolean unlockedInputOnlyMode = false;
     boolean unlockedDesignOptions = false;
     boolean unlockedCustomFields = false;
+    boolean unlockedFiles = false;
+    boolean unlockedCalendar = false;
     boolean activeSync = false;
 
     // deprecated
@@ -173,6 +177,12 @@ class FeatureCheck {
                 break;
             case "sc":
                 unlockedScript = true;
+                break;
+            case "fs":
+                unlockedFiles = true;
+                break;
+            case "cl":
+                unlockedCalendar = true;
                 break;
             case "sync":
                 activeSync = true;

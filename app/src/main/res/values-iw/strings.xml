@@ -367,4 +367,22 @@
     <string name="file_too_big">הקובץ גדול מדי! קבצים יכולים להיות בגודל מקסימלי של 1 מגה בייט.</string>
     <string name="file_limit_reached">הגבלת הקובץ הגיעה! אינך יכול להוסיף קבצים נוספים ללקוח אחד.</string>
     <string name="copy_postal_address">העתק כתובת דואר</string>
+    <string name="calendar">לוּחַ שָׁנָה</string>
+    <string name="appointment">קביעת פגישה</string>
+    <string name="new_appointment">תור חדש</string>
+    <string name="edit_appointment">ערוך פגישה</string>
+    <string name="customer">צרכן</string>
+    <string name="start">הַתחָלָה</string>
+    <string name="end">סוֹף</string>
+    <string name="subject">נושא</string>
+    <string name="default_calendar">לוח שנה ברירת מחדל</string>
+    <string name="remove_appointment">הסר פגישה</string>
+    <string name="end_date_before_start_date">תאריך הסיום הוא לפני תאריך ההתחלה!</string>
+    <string name="appointment_too_short">המינוי קצר מדי! אנא צור פגישה באורך של חמש דקות לפחות.</string>
+    <string name="add_calendar">הוסף לוח שנה</string>
+    <string name="edit_calendar">ערוך את לוח השנה</string>
+    <string name="remove_calendar">הסר את לוח השנה</string>
+    <string name="attach_files_to_customer_records">צרף קבצים לרשומות הלקוח.</string>
+    <string name="unlocks_the_calendar_features">מבטל את נעילת תכונות היומן.</string>
+    <string name="no_calendar_selected">לא נבחר לוח שנה! אנא צור לוח שנה בהגדרות.</string>
 </resources>

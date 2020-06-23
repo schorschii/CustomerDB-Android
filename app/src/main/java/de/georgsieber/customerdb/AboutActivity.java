@@ -86,6 +86,8 @@ public class AboutActivity extends AppCompatActivity {
                 if(fc.unlockedInputOnlyMode) unlockPurchase("iom");
                 if(fc.unlockedDesignOptions) unlockPurchase("do");
                 if(fc.unlockedCustomFields) unlockPurchase("cf");
+                if(fc.unlockedFiles) unlockPurchase("fs");
+                if(fc.unlockedCalendar) unlockPurchase("cl");
                 if(fc.activeSync) unlockPurchase("sync");
             }
         });
@@ -191,6 +193,16 @@ public class AboutActivity extends AppCompatActivity {
                 editor.putBoolean("purchased-cf", true);
                 editor.apply();
                 break;
+            case "fs":
+                ((ImageView) findViewById(R.id.imageViewBuyFiles)).setImageResource(R.drawable.ic_tick_green_24dp);
+                editor.putBoolean("purchased-fs", true);
+                editor.apply();
+                break;
+            case "cl":
+                ((ImageView) findViewById(R.id.imageViewBuyCalendar)).setImageResource(R.drawable.ic_tick_green_24dp);
+                editor.putBoolean("purchased-cl", true);
+                editor.apply();
+                break;
             case "sync":
                 ((ImageView) findViewById(R.id.imageViewBuySync)).setImageResource(R.drawable.ic_tick_green_24dp);
                 break;
@@ -205,6 +217,8 @@ public class AboutActivity extends AppCompatActivity {
         skuList.add("iom");
         skuList.add("do");
         skuList.add("cf");
+        skuList.add("fs");
+        skuList.add("cl");
         SkuDetailsParams.Builder params = SkuDetailsParams
                 .newBuilder()
                 .setSkusList(skuList)
@@ -237,6 +251,14 @@ public class AboutActivity extends AppCompatActivity {
                             case "cf":
                                 ((Button) findViewById(R.id.buttonBuyCustomFields)).setText(price+"\n"+getResources().getString(R.string.buy_now));
                                 ((Button) findViewById(R.id.buttonBuyCustomFields)).setEnabled(true);
+                                break;
+                            case "fs":
+                                ((Button) findViewById(R.id.buttonBuyFiles)).setText(price+"\n"+getResources().getString(R.string.buy_now));
+                                ((Button) findViewById(R.id.buttonBuyFiles)).setEnabled(true);
+                                break;
+                            case "cl":
+                                ((Button) findViewById(R.id.buttonBuyCalendar)).setText(price+"\n"+getResources().getString(R.string.buy_now));
+                                ((Button) findViewById(R.id.buttonBuyCalendar)).setEnabled(true);
                                 break;
                         }
                     }
@@ -308,6 +330,12 @@ public class AboutActivity extends AppCompatActivity {
     }
     public void doBuyCustomFields(View v) {
         doBuy("cf");
+    }
+    public void doBuyFiles(View v) {
+        doBuy("fs");
+    }
+    public void doBuyCalendar(View v) {
+        doBuy("cl");
     }
 
     @Override

@@ -356,4 +356,22 @@
     <string name="file_too_big">File too big! Files can have a maximum size of 1 MB.</string>
     <string name="file_limit_reached">File limit reached! You can not add more files to one customer.</string>
     <string name="copy_postal_address">Copy Postal Address</string>
+    <string name="calendar">Calendar</string>
+    <string name="appointment">Appointment</string>
+    <string name="new_appointment">New Appointment</string>
+    <string name="edit_appointment">Edit Appointment</string>
+    <string name="customer">Customer</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="subject">Subject</string>
+    <string name="default_calendar">Default Calendar</string>
+    <string name="remove_appointment">Remove Appointment</string>
+    <string name="end_date_before_start_date">The end date is before the start date!</string>
+    <string name="appointment_too_short">Appointment too short! Please create an appointment with a length of at least 5 minutes.</string>
+    <string name="add_calendar">New Calendar</string>
+    <string name="edit_calendar">Edit Calendar</string>
+    <string name="remove_calendar">Remove Calendar</string>
+    <string name="attach_files_to_customer_records">Attach files to customer records.</string>
+    <string name="unlocks_the_calendar_features">Unlocks the calendar features.</string>
+    <string name="no_calendar_selected">No calendar selected! Please create a calendar in the settings.</string>
 </resources>
