@@ -369,7 +369,7 @@
     <string name="add_calendar">Ajouter un calendrier</string>
     <string name="edit_calendar">Modifier le calendrier</string>
     <string name="remove_calendar">Supprimer le calendrier</string>
-    <string name="attach_files_to_customer_records">Joignez des fichiers aux enregistrements client.</string>
+    <string name="attach_files_to_customer_records">Joignez des fichiers aux enregistrements client (maximum 5 fichiers et 1 Mo par fichier).</string>
     <string name="unlocks_the_calendar_features">Déverrouille les fonctionnalités du calendrier.</string>
     <string name="no_calendar_selected">Aucun calendrier sélectionné! Veuillez créer un calendrier dans les paramètres.</string>
 </resources>

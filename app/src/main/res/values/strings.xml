@@ -371,7 +371,7 @@
     <string name="add_calendar">New Calendar</string>
     <string name="edit_calendar">Edit Calendar</string>
     <string name="remove_calendar">Remove Calendar</string>
-    <string name="attach_files_to_customer_records">Attach files to customer records.</string>
+    <string name="attach_files_to_customer_records">Attach files to customer records (maximum 5 files and 1MB per file).</string>
     <string name="unlocks_the_calendar_features">Unlocks the calendar features.</string>
     <string name="no_calendar_selected">No calendar selected! Please create a calendar in the settings.</string>
 </resources>

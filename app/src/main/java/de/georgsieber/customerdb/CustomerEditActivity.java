@@ -18,6 +18,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
@@ -45,6 +46,7 @@ import android.widget.TextView;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
@@ -316,32 +318,31 @@ public class CustomerEditActivity extends AppCompatActivity {
             case(CUSTOMER_IMAGE_CAMERA_REQUEST) : {
                 if(resultCode == RESULT_OK && data != null && data.getExtras() != null) {
                     Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    photo.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-                    byte[] byteArray = stream.toByteArray();
-                    photo.recycle();
-                    mCurrentCustomer.mImage = byteArray;
+                    mCurrentCustomer.mImage = compressToJpeg(photo, 50);
                     refreshImage();
                 }
                 break;
             }
             case(CUSTOMER_IMAGE_PICK_REQUEST) : {
                 if(resultCode == RESULT_OK && data != null && data.getData() != null) {
-                    mCurrentCustomer.mImage = getImageDataBytes(data);
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                        mCurrentCustomer.mImage = compressToJpeg(resizeCompressToJpeg(bitmap, 400, 400), 50);
+                    } catch (IOException e) {
+                        CommonDialog.show(me, getString(R.string.error), e.getLocalizedMessage(), CommonDialog.TYPE.FAIL, false);
+                    }
                     refreshImage();
                 }
                 break;
             }
 
             case(FILE_CAMERA_REQUEST) : {
-                if(resultCode == RESULT_OK && data != null && data.getExtras() != null) {
+                if(resultCode == RESULT_OK) {
                     try {
-                        Bitmap photo = (Bitmap) data.getExtras().get("data");
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        photo.compress(Bitmap.CompressFormat.JPEG, 75, stream);
-                        byte[] byteArray = stream.toByteArray();
-                        photo.recycle();
-                        mCurrentCustomer.addFile(new CustomerFile(StorageControl.getNewPictureFilename(this), byteArray), this);
+                        //Bitmap photo = (Bitmap) data.getExtras().get("data"); // thumbnail
+                        Bitmap bitmap = BitmapFactory.decodeFile(StorageControl.getStorageImageTemp(this).getAbsolutePath());
+                        byte[] jpegBytes = compressToJpeg(resizeCompressToJpeg(bitmap, 800, 600), 70);
+                        mCurrentCustomer.addFile(new CustomerFile(StorageControl.getNewPictureFilename(this), jpegBytes), this);
                     } catch(Exception e) {
                         CommonDialog.show(me, getString(R.string.error), e.getLocalizedMessage(), CommonDialog.TYPE.FAIL, false);
                     }
@@ -356,7 +357,9 @@ public class CustomerEditActivity extends AppCompatActivity {
                     try {
                         if(cr.getType(data.getData()).startsWith("image/")) {
                             // try to compress the image
-                            mCurrentCustomer.addFile(new CustomerFile(filename, getImageDataBytes(data)), this);
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                            byte[] jpegBytes = compressToJpeg(resizeCompressToJpeg(bitmap, 800, 600), 70);
+                            mCurrentCustomer.addFile(new CustomerFile(filename, jpegBytes), this);
                         } else {
                             // save raw
                             InputStream is = getContentResolver().openInputStream(data.getData());
@@ -387,6 +390,32 @@ public class CustomerEditActivity extends AppCompatActivity {
                 break;
             }
         }
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static Bitmap resizeCompressToJpeg(Bitmap image, int maxWidth, int maxHeight) {
+        if((image.getWidth() > maxWidth || image.getHeight() > maxHeight) && maxHeight > 0 && maxWidth > 0) {
+            int width = image.getWidth();
+            int height = image.getHeight();
+            float ratioBitmap = (float) width / (float) height;
+            float ratioMax = (float) maxWidth / (float) maxHeight;
+            int finalWidth = maxWidth;
+            int finalHeight = maxHeight;
+            if(ratioMax > ratioBitmap) {
+                finalWidth = (int) ((float)maxHeight * ratioBitmap);
+            } else {
+                finalHeight = (int) ((float)maxWidth / ratioBitmap);
+            }
+            image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
+        }
+        return image;
+    }
+    private static byte[] compressToJpeg(Bitmap image, int compressRatio) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, compressRatio, stream);
+        byte[] byteArray = stream.toByteArray();
+        image.recycle();
+        return byteArray;
     }
 
     public String getFileName(Uri uri) {
@@ -424,35 +453,6 @@ public class CustomerEditActivity extends AppCompatActivity {
             Log.e("FILE", "Error: " + e.toString());
         }
         return null;
-    }
-
-    private byte[] getImageDataBytes(Intent data) {
-        try {
-            InputStream inputStream = this.getContentResolver().openInputStream(data.getData());
-            byte[] targetArray = new byte[inputStream.available()];
-            inputStream.read(targetArray);
-
-            // write temp image file and scan it
-            File fl = StorageControl.getStorageImageTemp(this);
-            FileOutputStream stream = new FileOutputStream(fl);
-            stream.write(targetArray);
-            stream.flush(); stream.close();
-            StorageControl.scanFile(fl, this);
-
-            // compress image
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            BitmapCompressor.getSmallBitmap(fl).compress(Bitmap.CompressFormat.JPEG, 40, out);
-
-            // is compressed image smaller than original?
-            if(out.toByteArray().length > targetArray.length) {
-                return targetArray;
-            } else {
-                return out.toByteArray();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new byte[0];
     }
 
     void onCustomDateFieldClick(final EditText editTextValue) {
@@ -685,8 +685,6 @@ public class CustomerEditActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ad.dismiss();
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //Uri photoURI = FileProvider.getUriForFile(me, "systems.sieber.itinventory.tmpimgprovider", StorageManager.getTempImageStorage(me));
-                //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 me.startActivityForResult(cameraIntent, CUSTOMER_IMAGE_CAMERA_REQUEST);
             }
         });
@@ -714,6 +712,11 @@ public class CustomerEditActivity extends AppCompatActivity {
     }
 
     public void onClickAddFile(View v) {
+        if(mFc == null || !mFc.unlockedFiles) {
+            dialogInApp(getResources().getString(R.string.feature_locked), getResources().getString(R.string.feature_locked_text));
+            return;
+        }
+
         final Dialog ad = new Dialog(this);
         ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
         ad.setContentView(R.layout.dialog_file_add);
@@ -722,8 +725,8 @@ public class CustomerEditActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ad.dismiss();
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //Uri photoURI = FileProvider.getUriForFile(me, "systems.sieber.itinventory.tmpimgprovider", StorageManager.getTempImageStorage(me));
-                //cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                Uri photoURI = FileProvider.getUriForFile(me, "de.georgsieber.customerdb.provider", StorageControl.getStorageImageTemp(me));
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 me.startActivityForResult(cameraIntent, FILE_CAMERA_REQUEST);
             }
         });

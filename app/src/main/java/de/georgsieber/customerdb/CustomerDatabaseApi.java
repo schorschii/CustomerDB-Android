@@ -105,7 +105,8 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                 jc.put("newsletter", c.mNewsletter ? 1 : 0);
                 jc.put("notes", c.mNotes);
                 jc.put("image", (c.mImage==null ? JSONObject.NULL : Base64.encodeToString(c.mImage, Base64.NO_WRAP)));
-                jc.put("consent", Base64.encodeToString(jsonFiles.toString().getBytes(), Base64.NO_WRAP));
+                jc.put("consent", JSONObject.NULL);
+                jc.put("files", jsonFiles.toString());
                 jc.put("custom_fields", c.mCustomFields);
                 jc.put("last_modified", CustomerDatabase.storageFormatWithTime.format(c.mLastModified));
                 jc.put("removed", c.mRemoved);
@@ -232,7 +233,6 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                         String value = jo.getString(key);
                         c.putCustomerAttribute(key, value);
                     }
-                    //Log.e("API", c.mId+"");
                     if(c.mId > 0) activity.mDb.addCustomer(c);
                 }
                 for(int i = 0; i < jcalendars.length(); i++) {

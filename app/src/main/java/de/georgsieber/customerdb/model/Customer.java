@@ -207,18 +207,19 @@ public class Customer {
                 mCustomerGroup = value; break;
             case "newsletter":
                 mNewsletter = (value.equals("1")); break;
-            case "consent":
+            case "consent": // deprecated
+                break;
+            case "image":
+                mImage = Base64.decode(value, Base64.NO_WRAP); break;
+            case "files":
                 try {
-                    String decodedValue = new String(Base64.decode(value, Base64.NO_WRAP), "UTF-8");
-                    JSONArray jsonFiles = new JSONArray(decodedValue);
+                    JSONArray jsonFiles = new JSONArray(value);
                     for(int i=0; i < jsonFiles.length(); i++) {
                         JSONObject jsonFile = jsonFiles.getJSONObject(i);
                         addFile(new CustomerFile(jsonFile.getString("name"), Base64.decode(jsonFile.getString("content"), Base64.NO_WRAP)), null);
                     }
                 } catch(Exception ignored) {}
                 break;
-            case "image":
-                mImage = Base64.decode(value, Base64.NO_WRAP); break;
             case "custom_fields":
                 mCustomFields = value; break;
             case "removed":
