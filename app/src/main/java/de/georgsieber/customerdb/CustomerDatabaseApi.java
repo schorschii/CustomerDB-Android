@@ -106,7 +106,7 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                 jc.put("notes", c.mNotes);
                 jc.put("image", (c.mImage==null ? JSONObject.NULL : Base64.encodeToString(c.mImage, Base64.NO_WRAP)));
                 jc.put("consent", JSONObject.NULL);
-                jc.put("files", jsonFiles.toString());
+                jc.put("files", (jsonFiles.length()==0 ? JSONObject.NULL : jsonFiles.toString()));
                 jc.put("custom_fields", c.mCustomFields);
                 jc.put("last_modified", CustomerDatabase.storageFormatWithTime.format(c.mLastModified));
                 jc.put("removed", c.mRemoved);

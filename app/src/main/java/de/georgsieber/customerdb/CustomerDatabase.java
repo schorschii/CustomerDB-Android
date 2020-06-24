@@ -109,6 +109,7 @@ public class CustomerDatabase {
         }
 
         if(columnNotExists("customer_files", "content")) {
+            String currentDateString = storageFormatWithTime.format(new Date());
             beginTransaction();
             db.execSQL("CREATE TABLE IF NOT EXISTS calendar (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, color VARCHAR NOT NULL, notes VARCHAR NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP, removed INTEGER DEFAULT 0);");
             db.execSQL("CREATE TABLE IF NOT EXISTS appointment (id INTEGER PRIMARY KEY AUTOINCREMENT, calendar_id INTEGER NOT NULL, title VARCHAR NOT NULL, notes VARCHAR NOT NULL, time_start DATETIME, time_end DATETIME, fullday INTEGER DEFAULT 0, customer VARCHAR NOT NULL, location VARCHAR NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP, removed INTEGER DEFAULT 0);");
@@ -124,9 +125,10 @@ public class CustomerDatabase {
                             stmt.bindBlob(3, cursor.getBlob(1));
                             stmt.execute();
                         }
-                        SQLiteStatement stmt = db.compileStatement("UPDATE customer SET consent = ? WHERE id = ?");
+                        SQLiteStatement stmt = db.compileStatement("UPDATE customer SET consent = ?, last_modified = ? WHERE id = ?");
                         stmt.bindNull(1);
-                        stmt.bindLong(2, cursor.getLong(0));
+                        stmt.bindString(2, currentDateString);
+                        stmt.bindLong(3, cursor.getLong(0));
                         stmt.execute();
                     } while (cursor.moveToNext());
                 }
