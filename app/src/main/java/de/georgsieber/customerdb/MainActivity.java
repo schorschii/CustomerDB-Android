@@ -618,6 +618,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         showAdOtherApps();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        StorageControl.deleteTempFiles(this);
+    }
+
     private void doSync() {
         if(mRemoteDatabaseConnType == 1 || mRemoteDatabaseConnType == 2 || mRemoteDatabaseConnType == 3) {
             if(isNetworkConnected()) {
