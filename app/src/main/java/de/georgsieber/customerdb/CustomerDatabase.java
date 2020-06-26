@@ -108,18 +108,18 @@ public class CustomerDatabase {
             db.execSQL("UPDATE customer SET birthday = null WHERE birthday LIKE '%1800%';");
         }
 
-        if(columnNotExists("customer_files", "content")) {
+        if(columnNotExists("customer_file", "content")) {
             String currentDateString = storageFormatWithTime.format(new Date());
             beginTransaction();
             db.execSQL("CREATE TABLE IF NOT EXISTS calendar (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, color VARCHAR NOT NULL, notes VARCHAR NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP, removed INTEGER DEFAULT 0);");
             db.execSQL("CREATE TABLE IF NOT EXISTS appointment (id INTEGER PRIMARY KEY AUTOINCREMENT, calendar_id INTEGER NOT NULL, title VARCHAR NOT NULL, notes VARCHAR NOT NULL, time_start DATETIME, time_end DATETIME, fullday INTEGER DEFAULT 0, customer VARCHAR NOT NULL, location VARCHAR NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP, removed INTEGER DEFAULT 0);");
-            db.execSQL("CREATE TABLE IF NOT EXISTS customer_files (id INTEGER PRIMARY KEY AUTOINCREMENT, customer_id INTEGER NOT NULL, name VARCHAR NOT NULL, content BLOB NOT NULL);");
+            db.execSQL("CREATE TABLE IF NOT EXISTS customer_file (id INTEGER PRIMARY KEY AUTOINCREMENT, customer_id INTEGER NOT NULL, name VARCHAR NOT NULL, content BLOB NOT NULL);");
             Cursor cursor = db.rawQuery("SELECT id, consent FROM customer", null);
             try {
                 if(cursor.moveToFirst()) {
                     do {
                         if(!cursor.isNull(1) && cursor.getBlob(1).length > 0) {
-                            SQLiteStatement stmt = db.compileStatement("INSERT INTO customer_files (customer_id, name, content) VALUES (?, ?, ?)");
+                            SQLiteStatement stmt = db.compileStatement("INSERT INTO customer_file (customer_id, name, content) VALUES (?, ?, ?)");
                             stmt.bindLong(1, cursor.getLong(0));
                             stmt.bindString(2, context.getString(R.string.consent)+".jpg");
                             stmt.bindBlob(3, cursor.getBlob(1));
@@ -759,7 +759,7 @@ public class CustomerDatabase {
         }
 
         c.mFiles = new ArrayList<>();
-        Cursor cursor2 = db.rawQuery("SELECT name, content FROM customer_files WHERE customer_id = ?", new String[]{Long.toString(c.mId)});
+        Cursor cursor2 = db.rawQuery("SELECT name, content FROM customer_file WHERE customer_id = ?", new String[]{Long.toString(c.mId)});
         try {
             if(cursor2.moveToFirst()) {
                 do {
@@ -873,7 +873,7 @@ public class CustomerDatabase {
 
         if(c.mFiles != null) {
             for(CustomerFile file : c.mFiles) {
-                SQLiteStatement stmt3 = db.compileStatement("INSERT INTO customer_files (customer_id, name, content) VALUES (?,?,?)");
+                SQLiteStatement stmt3 = db.compileStatement("INSERT INTO customer_file (customer_id, name, content) VALUES (?,?,?)");
                 stmt3.bindLong(1, id);
                 stmt3.bindString(2, file.mName);
                 stmt3.bindBlob(3, file.mContent);
@@ -921,11 +921,11 @@ public class CustomerDatabase {
         stmt.execute();
 
         if(c.mFiles != null) {
-            SQLiteStatement stmt2 = db.compileStatement("DELETE FROM customer_files WHERE customer_id = ?");
+            SQLiteStatement stmt2 = db.compileStatement("DELETE FROM customer_file WHERE customer_id = ?");
             stmt2.bindLong(1, c.mId);
             stmt2.execute();
             for(CustomerFile file : c.mFiles) {
-                SQLiteStatement stmt3 = db.compileStatement("INSERT INTO customer_files (customer_id, name, content) VALUES (?,?,?)");
+                SQLiteStatement stmt3 = db.compileStatement("INSERT INTO customer_file (customer_id, name, content) VALUES (?,?,?)");
                 stmt3.bindLong(1, c.mId);
                 stmt3.bindString(2, file.mName);
                 stmt3.bindBlob(3, file.mContent);
@@ -941,7 +941,7 @@ public class CustomerDatabase {
         stmt.bindLong(2, c.mId);
         stmt.execute();
 
-        SQLiteStatement stmt2 = db.compileStatement("DELETE FROM customer_files WHERE customer_id = ?");
+        SQLiteStatement stmt2 = db.compileStatement("DELETE FROM customer_file WHERE customer_id = ?");
         stmt2.bindLong(1, c.mId);
         stmt2.execute();
     }
@@ -957,7 +957,7 @@ public class CustomerDatabase {
     void truncateCustomers() {
         SQLiteStatement stmt = db.compileStatement("DELETE FROM customer WHERE 1=1");
         stmt.execute();
-        SQLiteStatement stmt2 = db.compileStatement("DELETE FROM customer_files WHERE 1=1");
+        SQLiteStatement stmt2 = db.compileStatement("DELETE FROM customer_file WHERE 1=1");
         stmt2.execute();
     }
     void truncateVouchers() {
