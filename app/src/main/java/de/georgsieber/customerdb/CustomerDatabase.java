@@ -995,6 +995,10 @@ public class CustomerDatabase {
         stmt.bindString(1, currentDateString);
         stmt.bindLong(2, c.mId);
         stmt.execute();
+
+        SQLiteStatement stmt2 = db.compileStatement("DELETE FROM customer_files WHERE customer_id = ?");
+        stmt2.bindLong(1, c.mId);
+        stmt2.execute();
     }
 
     void removeVoucher(Voucher v) {
