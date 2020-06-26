@@ -824,61 +824,6 @@ public class CustomerDatabase {
         return null;
     }
 
-    List<Customer> getAllCustomers(boolean withFiles) {
-        Cursor cursor = db.rawQuery("SELECT id, title, first_name, last_name, phone_home, phone_mobile, phone_work, email, street, zipcode, city, country, birthday, customer_group, newsletter, notes, custom_fields, last_modified, removed, image FROM customer", null);
-
-        ArrayList<Customer> customers = new ArrayList<>();
-        try {
-            if(cursor.moveToFirst()) {
-                do {
-                    Date birthday = null;
-                    try {
-                        if(cursor.getString(12) != null && (!cursor.getString(12).equals("")))
-                            birthday = storageFormat.parse(cursor.getString(12));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    Date lastModified = new Date();
-                    try {
-                        if(cursor.getString(17) != null && (!cursor.getString(17).equals("")))
-                            lastModified = storageFormatWithTime.parse(cursor.getString(17));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    Customer c = new Customer(
-                            cursor.getLong(0),
-                            cursor.getString(1),
-                            cursor.getString(2),
-                            cursor.getString(3),
-                            cursor.getString(4),
-                            cursor.getString(5),
-                            cursor.getString(6),
-                            cursor.getString(7),
-                            cursor.getString(8),
-                            cursor.getString(9),
-                            cursor.getString(10),
-                            cursor.getString(11),
-                            birthday,
-                            cursor.getString(13),
-                            cursor.getInt(14) > 0,
-                            cursor.getString(15),
-                            cursor.getString(16),
-                            lastModified,
-                            cursor.getInt(18)
-                    );
-                    c.mImage = cursor.getBlob(19);
-                    customers.add(c);
-                } while(cursor.moveToNext());
-            }
-        } catch(SQLiteException e) {
-            Log.e("SQLite Error", e.getMessage());
-            return null;
-        } finally {
-            cursor.close();
-        }
-        return customers;
-    }
-
     void addCustomer(Customer c) {
         // do not add if name is empty
         if(c.mTitle.equals("")
@@ -1007,13 +952,6 @@ public class CustomerDatabase {
         stmt.bindString(1, currentDateString);
         stmt.bindLong(2, v.mId);
         stmt.execute();
-    }
-
-    void cleanCustomers() {
-        db.execSQL("DELETE FROM customer WHERE removed = 1;");
-    }
-    void cleanVouchers() {
-        db.execSQL("DELETE FROM voucher WHERE removed = 1;");
     }
 
     void truncateCustomers() {
