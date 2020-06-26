@@ -379,11 +379,8 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                 try {
                     Uri gmmIntentUri = Uri.parse("geo:0,0?q="+ mCurrentCustomer.getAddress());
                     Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                    mapIntent.setPackage("com.google.android.apps.maps");
                     startActivity(mapIntent);
-                } catch(Exception ex) {
-                    ex.printStackTrace();
-                }
+                } catch(Exception ignored) {}
                 return true;
             case CMI_ADDRESS_CPY:
                 toClipboard(mCurrentCustomer.getAddress());
