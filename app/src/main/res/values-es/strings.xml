@@ -372,4 +372,6 @@
     <string name="attach_files_to_customer_records">Adjunte archivos a registros de clientes (máximo 5 archivos y 1 MB por archivo).</string>
     <string name="unlocks_the_calendar_features">Desbloquea las funciones del calendario.</string>
     <string name="no_calendar_selected">No hay calendario seleccionado! Cree un calendario en la configuración.</string>
+    <string name="qr_code_for_customer">Código QR para el cliente</string>
+    <string name="location">Ubicación</string>
 </resources>

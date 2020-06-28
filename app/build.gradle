@@ -27,6 +27,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'com.android.billingclient:billing:1.1'
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
     //testImplementation 'junit:junit:4.12'
     //androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     //androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'

@@ -372,4 +372,6 @@
     <string name="attach_files_to_customer_records">Fügen Sie Dateien an Kundendatensätze an (maximal 5 Dateien und 1MB pro Datei).</string>
     <string name="unlocks_the_calendar_features">Schaltet die Kalenderfunktionen frei.</string>
     <string name="no_calendar_selected">Kein Kalender ausgewählt! Bitte erstellen Sie einen Kalender in den Einstellungen.</string>
+    <string name="qr_code_for_customer">QR-Code für Kunden</string>
+    <string name="location">Ort</string>
 </resources>

@@ -76,6 +76,13 @@
                     android:hint="@string/customer"
                     tools:ignore="TextFields" />
                 <EditText
+                    android:id="@+id/editTextLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapSentences"
+                    android:hint="@string/location"
+                    tools:ignore="TextFields" />
+                <EditText
                     android:id="@+id/editTextNotes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -141,6 +148,21 @@
                             tools:ignore="UnusedAttribute" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/qr_code_for_customer" />
+
+                <ImageView
+                    android:id="@+id/imageViewQrCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter" />
 
                 <Space
                     android:layout_width="wrap_content"
