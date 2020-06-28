@@ -421,7 +421,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     private void export() {
         final Dialog ad = new Dialog(this);
         ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        ad.setContentView(R.layout.dialog_export_single);
+        ad.setContentView(R.layout.dialog_export_single_customer);
         ad.findViewById(R.id.buttonExportSingleCSV).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -429,7 +429,12 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                 boolean sendMail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmailSingle)).isChecked();
                 if(new CustomerCsvBuilder(mCurrentCustomer, mDb.getCustomFields()).saveCsvFile(getStorageExportCSV())) {
                     if(sendMail) {
-                        emailFile(getStorageExportCSV());
+                        StorageControl.emailFile(
+                                getStorageExportCSV(), me, new String[]{mCurrentCustomer.mEmail},
+                                mSettings.getString("email-export-subject", getResources().getString(R.string.email_export_subject_template)),
+                                mSettings.getString("email-export-template", getResources().getString(R.string.email_export_text_template))
+                                        .replace("CUSTOMER", mCurrentCustomer.getFullName(false)) + "\n\n"
+                        );
                     } else {
                         CommonDialog.show(me, getResources().getString(R.string.export_ok), getStorageExportCSV().getPath(), CommonDialog.TYPE.OK, false);
                     }
@@ -446,7 +451,12 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                 boolean sendMail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmailSingle)).isChecked();
                 if(new CustomerVcfBuilder(mCurrentCustomer).saveVcfFile(getStorageExportVCF())) {
                     if(sendMail) {
-                        emailFile(getStorageExportVCF());
+                        StorageControl.emailFile(
+                                getStorageExportVCF(), me, new String[]{mCurrentCustomer.mEmail},
+                                mSettings.getString("email-export-subject", getResources().getString(R.string.email_export_subject_template)),
+                                mSettings.getString("email-export-template", getResources().getString(R.string.email_export_text_template))
+                                        .replace("CUSTOMER", mCurrentCustomer.getFullName(false)) + "\n\n"
+                        );
                     } else {
                         CommonDialog.show(me, getResources().getString(R.string.export_ok), getStorageExportVCF().getPath(), CommonDialog.TYPE.OK, false);
                     }
@@ -474,25 +484,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         File exportDir = new File(getExternalFilesDir(null), "export");
         exportDir.mkdirs();
         return new File(exportDir, "export."+ mCurrentCustomer.mId+".vcf");
-    }
-
-    private void emailFile(File f) {
-        Uri attachmentUri = FileProvider.getUriForFile(
-                this, "de.georgsieber.customerdb.provider", f
-        );
-        // this opens app chooser instead of system mEmail app
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("message/rfc822");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{mCurrentCustomer.mEmail});
-        intent.putExtra(Intent.EXTRA_SUBJECT,
-                mSettings.getString("email-export-subject", getResources().getString(R.string.email_export_subject_template))
-        );
-        intent.putExtra(Intent.EXTRA_TEXT,
-                mSettings.getString("email-export-template", getResources().getString(R.string.email_export_text_template))
-                        .replace("CUSTOMER", mCurrentCustomer.getFullName(false)) + "\n\n"
-        );
-        intent.putExtra(Intent.EXTRA_STREAM, attachmentUri);
-        startActivity(Intent.createChooser(intent, getResources().getString(R.string.emailtocustomer)));
     }
 
     private void confirmRemove() {

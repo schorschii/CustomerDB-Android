@@ -376,4 +376,11 @@
     <string name="no_calendar_selected">No calendar selected! Please create a calendar in the settings.</string>
     <string name="qr_code_for_customer">QR Code for Customer</string>
     <string name="location">Location</string>
+    <string name="im_export_all_ics_text_additional">CSV files can be opened with any standard spreadsheet software (for example LibreOffice Calc). ICS files can be opened with calendar programs like Thunderbird.</string>
+    <string name="im_export_all_ics_text">With this function, you can import appointments or export all records into a single file.</string>
+    <string name="export_as_ics_file">Export as ICS file</string>
+    <string name="import_from_ics_file">Import from ICS file</string>
+    <string name="export_appointment">Export Appointment</string>
+    <string name="export_single_appointment_text">With this function you can export a single appointment and send it via email to your customer. Most email clients can automatically add ICS files to the receiver\'s calendar.</string>
+    <string name="export_single_appointment">Export single appointment</string>
 </resources>

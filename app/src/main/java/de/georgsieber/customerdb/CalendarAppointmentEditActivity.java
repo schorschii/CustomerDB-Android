@@ -1,21 +1,23 @@
 package de.georgsieber.customerdb;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,26 +26,31 @@ import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
-import java.text.DateFormat;
+import java.io.File;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.georgsieber.customerdb.importexport.CalendarCsvBuilder;
+import de.georgsieber.customerdb.importexport.CalendarIcsBuilder;
+import de.georgsieber.customerdb.importexport.CustomerCsvBuilder;
+import de.georgsieber.customerdb.importexport.CustomerVcfBuilder;
 import de.georgsieber.customerdb.model.CustomerAppointment;
 import de.georgsieber.customerdb.model.CustomerCalendar;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
 import de.georgsieber.customerdb.tools.DateControl;
+import de.georgsieber.customerdb.tools.StorageControl;
 
 public class CalendarAppointmentEditActivity extends AppCompatActivity {
 
@@ -160,6 +167,9 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
             case R.id.action_remove:
                 removeAndExit();
                 return true;
+            case R.id.action_export:
+                export();
+                return true;
             case R.id.action_edit_done:
                 saveAndExit();
                 return true;
@@ -173,13 +183,12 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
     private void refreshQrCode() {
         int WIDTH = 1200;
         if(!updateAppointmentObjectByInputs()) return;
-        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
         String content = "BEGIN:VEVENT" + "\n"
                 + "SUMMARY:" + mEditTextTitle.getText().toString() + "\n"
                 + "DESCRIPTION:" + mEditTextNotes.getText().toString().replace("\n", "\\n") + "\n"
                 + "LOCATION:" + mEditTextLocation.getText().toString() + "\n"
-                + "DTSTART:" + dateFormat.format(mCurrentAppointment.mTimeStart) + "\n"
-                + "DTEND:" + dateFormat.format(mCurrentAppointment.mTimeEnd) + "\n"
+                + "DTSTART:" + CalendarIcsBuilder.dateFormatIcs.format(mCurrentAppointment.mTimeStart) + "\n"
+                + "DTEND:" + CalendarIcsBuilder.dateFormatIcs.format(mCurrentAppointment.mTimeEnd) + "\n"
                 + "END:VEVENT" + "\n";
         if(mLastQrContent.equals(content)) return;
         mLastQrContent = content;
@@ -341,6 +350,65 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
 
     private void refreshDisplayDate() {
         mButtonDay.setText(DateControl.birthdayDateFormat.format(mCalendar.getTime()));
+    }
+
+    private void export() {
+        if(!updateAppointmentObjectByInputs()) return;
+        final Dialog ad = new Dialog(this);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_export_single_appointment);
+        ad.findViewById(R.id.buttonExportSingleCSV).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                boolean sendMail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmailSingle)).isChecked();
+                if(new CalendarCsvBuilder(mCurrentAppointment).saveCsvFile(getStorageExportCSV())) {
+                    if(sendMail) {
+                        StorageControl.emailFile(getStorageExportCSV(), me, new String[]{}, "", "");
+                    } else {
+                        CommonDialog.show(me, getResources().getString(R.string.export_ok), getStorageExportCSV().getPath(), CommonDialog.TYPE.OK, false);
+                    }
+                } else {
+                    CommonDialog.show(me, getResources().getString(R.string.export_fail), getStorageExportCSV().getPath(), CommonDialog.TYPE.FAIL, false);
+                }
+                StorageControl.scanFile(getStorageExportCSV(), me);
+            }
+        });
+        ad.findViewById(R.id.buttonExportSingleICS).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                boolean sendMail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmailSingle)).isChecked();
+                if(new CalendarIcsBuilder(mCurrentAppointment).saveIcsFile(getStorageExportICS())) {
+                    if(sendMail) {
+                        StorageControl.emailFile(getStorageExportICS(), me, new String[]{}, "", "");
+                    } else {
+                        CommonDialog.show(me, getResources().getString(R.string.export_ok), getStorageExportICS().getPath(), CommonDialog.TYPE.OK, false);
+                    }
+                } else {
+                    CommonDialog.show(me, getResources().getString(R.string.export_fail), getStorageExportICS().getPath(), CommonDialog.TYPE.FAIL, false);
+                }
+                StorageControl.scanFile(getStorageExportICS(), me);
+            }
+        });
+        ad.findViewById(R.id.buttonExportSingleCancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+            }
+        });
+        ad.show();
+    }
+
+    private File getStorageExportCSV() {
+        File exportDir = new File(getExternalFilesDir(null), "export");
+        exportDir.mkdirs();
+        return new File(exportDir, "export."+ mCurrentAppointment.mId +".csv");
+    }
+    private File getStorageExportICS() {
+        File exportDir = new File(getExternalFilesDir(null), "export");
+        exportDir.mkdirs();
+        return new File(exportDir, "export."+ mCurrentAppointment.mId +".ics");
     }
 
 }

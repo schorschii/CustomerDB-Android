@@ -75,6 +75,12 @@ public class CustomerAppointment {
         }
         return Long.parseLong(idFormat.format(new Date())+random);
     }
+    public static long generateID(int suffix) {
+        /* specific suffix for bulk import */
+        @SuppressLint("SimpleDateFormat")
+        DateFormat idFormat = new SimpleDateFormat("yyyyMMddkkmmss");
+        return Long.parseLong(idFormat.format(new Date())+suffix);
+    }
 
     public void putAttribute(String key, String value) {
         switch(key) {

@@ -67,6 +67,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import de.georgsieber.customerdb.importexport.CalendarCsvBuilder;
+import de.georgsieber.customerdb.importexport.CalendarIcsBuilder;
 import de.georgsieber.customerdb.importexport.CustomerCsvBuilder;
 import de.georgsieber.customerdb.importexport.CustomerVcfBuilder;
 import de.georgsieber.customerdb.importexport.VoucherCsvBuilder;
@@ -113,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String mRemoteDatabaseConnPassword = "";
     String mCurrency = "?";
     String mIomPassword = "";
+    long mCurrentCalendarImportSelectedId = -1;
 
     public static final String PREFS_NAME = "CustomerDBprefs";
     private SharedPreferences mSettings;
@@ -128,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final static int VIEW_VOUCHER_REQUEST = 9;
     private final static int PICK_VOUCHER_CSV_REQUEST = 10;
     private final static int NEW_APPOINTMENT_REQUEST = 11;
+    private final static int PICK_CALENDAR_ICS_REQUEST = 12;
+    private final static int PICK_CALENDAR_CSV_REQUEST = 13;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -541,6 +546,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     menuImportExportCustomer();
                 else if(mBottomNavigationView.getSelectedItemId() == R.id.bottomnav_vouchers)
                     menuImportExportVoucher();
+                else if(mBottomNavigationView.getSelectedItemId() == R.id.bottomnav_calendar)
+                    menuImportExportCalendar();
                 break;
             case R.id.nav_remove_selected:
                 drawer.closeDrawer(GravityCompat.START);
@@ -1360,6 +1367,114 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         ad.show();
     }
+    private void menuImportExportCalendar() {
+        final Dialog ad = new Dialog(this);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_import_export_calendar);
+
+        // load calendars
+        final Spinner spinnerCalendar = ad.findViewById(R.id.spinnerCalendar);
+        ArrayAdapter<CustomerCalendar> a = new ArrayAdapter<>(this, R.layout.item_list_simple, mDb.getCalendars(false));
+        spinnerCalendar.setAdapter(a);
+
+        ad.findViewById(R.id.buttonImportICS).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                CustomerCalendar calendar = (CustomerCalendar) spinnerCalendar.getSelectedItem();
+                if(calendar == null) {
+                    CommonDialog.show(me, getString(R.string.error), getString(R.string.no_calendar_selected), CommonDialog.TYPE.WARN, false);
+                    return;
+                }
+                mCurrentCalendarImportSelectedId = calendar.mId;
+                Intent intent = new Intent();
+                intent.setType("text/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select ICS file"), PICK_CALENDAR_ICS_REQUEST);
+            }
+        });
+        ad.findViewById(R.id.buttonImportCSV).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                CustomerCalendar calendar = (CustomerCalendar) spinnerCalendar.getSelectedItem();
+                if(calendar == null) {
+                    CommonDialog.show(me, getString(R.string.error), getString(R.string.no_calendar_selected), CommonDialog.TYPE.WARN, false);
+                    return;
+                }
+                mCurrentCalendarImportSelectedId = calendar.mId;
+                AlertDialog.Builder ad2 = new AlertDialog.Builder(me);
+                ad2.setMessage(getResources().getString(R.string.import_csv_note));
+                ad2.setNegativeButton(getResources().getString(R.string.abort), null);
+                ad2.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent intent = new Intent();
+                        intent.setType("text/*");
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select CSV file"), PICK_CALENDAR_CSV_REQUEST);
+                    }
+                });
+                ad2.show();
+            }
+        });
+        ad.findViewById(R.id.buttonExportICS).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                boolean sendEmail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmail)).isChecked();
+                CustomerCalendar calendar = (CustomerCalendar) spinnerCalendar.getSelectedItem();
+                if(calendar == null) {
+                    CommonDialog.show(me, getString(R.string.error), getString(R.string.no_calendar_selected), CommonDialog.TYPE.WARN, false);
+                    return;
+                }
+                CalendarIcsBuilder content = new CalendarIcsBuilder(mDb.getAppointments(calendar.mId, null, false));
+                File f = StorageControl.getStorageExportIcs(me);
+                if(content.saveIcsFile(f)) {
+                    if(sendEmail) {
+                        emailFile(f);
+                    } else {
+                        CommonDialog.show(me, getResources().getString(R.string.export_ok), f.getPath(), CommonDialog.TYPE.OK, false);
+                    }
+                } else {
+                    CommonDialog.show(me, getResources().getString(R.string.export_fail), f.getPath(), CommonDialog.TYPE.FAIL, false);
+                }
+                StorageControl.scanFile(f, me);
+            }
+        });
+        ad.findViewById(R.id.buttonExportCSV).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                boolean sendEmail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmail)).isChecked();
+                CustomerCalendar calendar = (CustomerCalendar) spinnerCalendar.getSelectedItem();
+                if(calendar == null) {
+                    CommonDialog.show(me, getString(R.string.error), getString(R.string.no_calendar_selected), CommonDialog.TYPE.WARN, false);
+                    return;
+                }
+                CalendarCsvBuilder content = new CalendarCsvBuilder(mDb.getAppointments(calendar.mId, null, false));
+                File f = StorageControl.getStorageExportCsv(me);
+                if(content.saveCsvFile(f)) {
+                    if(sendEmail) {
+                        emailFile(f);
+                    } else {
+                        CommonDialog.show(me, getResources().getString(R.string.export_ok), f.getPath(), CommonDialog.TYPE.OK, false);
+                    }
+                } else {
+                    CommonDialog.show(me, getResources().getString(R.string.export_fail), f.getPath(), CommonDialog.TYPE.FAIL, false);
+                }
+                StorageControl.scanFile(f, me);
+            }
+        });
+        ad.findViewById(R.id.buttonExportCancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+            }
+        });
+        ad.show();
+    }
     private void emailFile(File f) {
         Uri attachmentUri = FileProvider.getUriForFile(
                 this,
@@ -1733,6 +1848,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             }
                             refreshVouchersFromLocalDatabase();
                             CommonDialog.show(this, getResources().getString(R.string.import_ok),getResources().getQuantityString(R.plurals.imported, newVouchers.size(), newVouchers.size()), CommonDialog.TYPE.OK, false);
+                            MainActivity.setUnsyncedChanges(this);
+                        } else
+                            CommonDialog.show(this, getResources().getString(R.string.import_fail),getResources().getString(R.string.import_fail_no_entries), CommonDialog.TYPE.FAIL, false);
+                    } catch(Exception e) {
+                        CommonDialog.show(this, getResources().getString(R.string.import_fail), e.getMessage(), CommonDialog.TYPE.FAIL, false);
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            }
+            case(PICK_CALENDAR_ICS_REQUEST): {
+                if(resultCode == Activity.RESULT_OK && data.getData() != null) {
+                    try {
+                        List<CustomerAppointment> newAppointments = CalendarIcsBuilder.readIcsFile(new InputStreamReader(getContentResolver().openInputStream(data.getData())));
+                        if(newAppointments.size() > 0) {
+                            int counter = 0;
+                            for(CustomerAppointment ca : newAppointments) {
+                                ca.mId = CustomerAppointment.generateID(counter);
+                                ca.mCalendarId = mCurrentCalendarImportSelectedId;
+                                mDb.addAppointment(ca);
+                                counter ++;
+                            }
+                            refreshAppointmentsFromLocalDatabase();
+                            CommonDialog.show(this, getResources().getString(R.string.import_ok),getResources().getQuantityString(R.plurals.imported, newAppointments.size(), newAppointments.size()), CommonDialog.TYPE.OK, false);
+                            MainActivity.setUnsyncedChanges(this);
+                        } else
+                            CommonDialog.show(this, getResources().getString(R.string.import_fail),getResources().getString(R.string.import_fail_no_entries), CommonDialog.TYPE.FAIL, false);
+                    } catch(Exception e) {
+                        CommonDialog.show(this, getResources().getString(R.string.import_fail),e.getMessage(), CommonDialog.TYPE.FAIL, false);
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            }
+            case(PICK_CALENDAR_CSV_REQUEST): {
+                if(resultCode == Activity.RESULT_OK && data.getData() != null) {
+                    try {
+                        List<CustomerAppointment> newAppointments = CalendarCsvBuilder.readCsvFile(new InputStreamReader(getContentResolver().openInputStream(data.getData())));
+                        if(newAppointments.size() > 0) {
+                            int counter = 0;
+                            for(CustomerAppointment ca : newAppointments) {
+                                if(ca.mId < 1 || mDb.getAppointmentById(ca.mId) != null) {
+                                    ca.mId = Customer.generateID(counter);
+                                }
+                                ca.mCalendarId = mCurrentCalendarImportSelectedId;
+                                mDb.addAppointment(ca);
+                                counter ++;
+                            }
+                            refreshAppointmentsFromLocalDatabase();
+                            CommonDialog.show(this, getResources().getString(R.string.import_ok),getResources().getQuantityString(R.plurals.imported, newAppointments.size(), newAppointments.size()), CommonDialog.TYPE.OK, false);
                             MainActivity.setUnsyncedChanges(this);
                         } else
                             CommonDialog.show(this, getResources().getString(R.string.import_fail),getResources().getString(R.string.import_fail_no_entries), CommonDialog.TYPE.FAIL, false);

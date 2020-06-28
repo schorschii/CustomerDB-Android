@@ -1,8 +1,11 @@
 package de.georgsieber.customerdb.tools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.util.Date;
@@ -23,6 +26,9 @@ public class StorageControl {
     }
     public static File getStorageExportVcf(Context c) {
         return getFile(DIR_EXPORT, "export.vcf", c);
+    }
+    public static File getStorageExportIcs(Context c) {
+        return getFile(DIR_EXPORT, "export.ics", c);
     }
     public static File getStorageImageTemp(Context c) {
         return getFile(DIR_TEMP, "image.tmp.jpg", c);
@@ -69,6 +75,20 @@ public class StorageControl {
             }
         }
         return true;
+    }
+
+    public static void emailFile(File f, Activity a, String[] receiver, String subject, String text) {
+        // this opens app chooser instead of system email app
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("message/rfc822");
+        intent.putExtra(Intent.EXTRA_EMAIL, receiver);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+        if(f != null) {
+            Uri attachmentUri = FileProvider.getUriForFile(a, "de.georgsieber.customerdb.provider", f);
+            intent.putExtra(Intent.EXTRA_STREAM, attachmentUri);
+        }
+        a.startActivity(Intent.createChooser(intent, a.getResources().getString(R.string.emailtocustomer)));
     }
 
 }

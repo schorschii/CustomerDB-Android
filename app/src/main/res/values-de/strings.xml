@@ -374,4 +374,11 @@
     <string name="no_calendar_selected">Kein Kalender ausgewählt! Bitte erstellen Sie einen Kalender in den Einstellungen.</string>
     <string name="qr_code_for_customer">QR-Code für Kunden</string>
     <string name="location">Ort</string>
+    <string name="im_export_all_ics_text_additional">CSV-Dateien können mit jeder handelsüblichen Tabellenkalkulationssoftware geöffnet werden (zum Beispiel LibreOffice Calc). ICS-Dateien können mit Kalender-Programmen wie Thunderbird geöffnet werden.</string>
+    <string name="im_export_all_ics_text">Mit dieser Funktion können Sie Termine importieren oder alle Datensätze in eine Datei exportieren.</string>
+    <string name="export_as_ics_file">Als ICS-Datei exportieren</string>
+    <string name="import_from_ics_file">Aus ICS-Datei importieren</string>
+    <string name="export_appointment">Termin exportieren</string>
+    <string name="export_single_appointment_text">Mit dieser Funktion können Sie einen einzelnen Termin exportieren und per E-Mail an Ihre Kunden versenden. Die meisten E-Mail-Clients können Termine in ICS-Dateien automatisch in den Kalender des Nutzers eintragen.</string>
+    <string name="export_single_appointment">Einzelnen Termin exportieren</string>
 </resources>

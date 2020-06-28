@@ -374,4 +374,11 @@
     <string name="no_calendar_selected">No hay calendario seleccionado! Cree un calendario en la configuración.</string>
     <string name="qr_code_for_customer">Código QR para el cliente</string>
     <string name="location">Ubicación</string>
+    <string name="im_export_all_ics_text_additional">Los archivos CSV se pueden abrir con cualquier software de hoja de cálculo estándar (por ejemplo, LibreOffice Calc). Los archivos ICS se pueden abrir con programas de calendario como Thunderbird.</string>
+    <string name="im_export_all_ics_text">Con esta función, puede importar citas o exportar todos los registros en un solo archivo.</string>
+    <string name="export_as_ics_file">Exportar como archivo ICS</string>
+    <string name="import_from_ics_file">Importar desde archivo ICS</string>
+    <string name="export_appointment">Cita de exportación</string>
+    <string name="export_single_appointment_text">Con esta función, puede exportar una sola cita y enviarla por correo electrónico a su cliente. La mayoría de los clientes de correo electrónico pueden agregar automáticamente archivos ICS al calendario del receptor.</string>
+    <string name="export_single_appointment">Exportar cita única</string>
 </resources>

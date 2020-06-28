@@ -4,14 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="de.georgsieber.customerdb.CalendarAppointmentEditActivity">
     <item
+        android:id="@+id/action_edit_done"
+        android:title="@string/apply"
+        android:icon="@drawable/ic_check_white_24dp"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_export"
+        android:icon="@drawable/ic_import_export_white_24dp"
+        android:title="@string/export_appointment"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_remove"
         android:icon="@drawable/ic_delete_forever_black_24dp"
         android:title="@string/remove_appointment"
         android:visible="false"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_edit_done"
-        android:title="@string/apply"
-        android:icon="@drawable/ic_check_white_24dp"
-        app:showAsAction="always|withText" />
 </menu>

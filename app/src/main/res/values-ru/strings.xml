@@ -375,4 +375,11 @@
     <string name="no_calendar_selected">Календарь не выбран! Пожалуйста, создайте календарь в настройках.</string>
     <string name="qr_code_for_customer">QR-код для клиента</string>
     <string name="location">Расположение</string>
+    <string name="im_export_all_ics_text_additional">Файлы CSV можно открыть с помощью любого стандартного программного обеспечения для работы с электронными таблицами (например, LibreOffice Calc). Файлы ICS можно открыть с помощью программ-календарей, таких как Thunderbird.</string>
+    <string name="im_export_all_ics_text">С помощью этой функции вы можете импортировать встречи или экспортировать все записи в один файл.</string>
+    <string name="export_as_ics_file">Экспортировать как файл ICS</string>
+    <string name="import_from_ics_file">Импорт из файла ICS</string>
+    <string name="export_appointment">Экспорт Назначение</string>
+    <string name="export_single_appointment_text">С помощью этой функции вы можете экспортировать одну встречу и отправить ее по электронной почте вашему клиенту. Большинство почтовых клиентов могут автоматически добавлять файлы ICS в календарь получателя.</string>
+    <string name="export_single_appointment">Экспорт единой встречи</string>
 </resources>

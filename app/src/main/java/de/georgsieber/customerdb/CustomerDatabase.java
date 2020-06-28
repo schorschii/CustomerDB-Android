@@ -281,11 +281,16 @@ public class CustomerDatabase {
     }
     List<CustomerAppointment> getAppointments(Long calendarId, Date day, boolean showRemoved) {
         Cursor cursor;
-        if(calendarId != null && day != null) {
+        if(calendarId != null && day != null && !showRemoved) {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             cursor = db.rawQuery(
-                    "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment WHERE calendar_id = ? AND strftime('%Y-%m-%d',time_start) = ?",
-                    new String[]{ Long.toString(calendarId), format.format(day) }
+                    "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment WHERE calendar_id = ? AND strftime('%Y-%m-%d',time_start) = ? AND removed = 0",
+                    new String[]{Long.toString(calendarId), format.format(day)}
+            );
+        } else if(calendarId != null && day == null && !showRemoved) {
+            cursor = db.rawQuery(
+                    "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment WHERE calendar_id = ? AND removed = 0",
+                    new String[]{Long.toString(calendarId)}
             );
         } else {
             String sql;

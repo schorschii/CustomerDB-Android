@@ -387,4 +387,11 @@
     <string name="no_calendar_selected">לא נבחר לוח שנה! אנא צור לוח שנה בהגדרות.</string>
     <string name="qr_code_for_customer">קוד QR ללקוח</string>
     <string name="location">מקום</string>
+    <string name="im_export_all_ics_text_additional">ניתן לפתוח קבצי CSV עם כל תוכנת גיליון אלקטרוני רגילה (למשל LibreOffice Calc). ניתן לפתוח קבצי ICS עם תוכניות לוח שנה כמו Thunderbird.</string>
+    <string name="im_export_all_ics_text">בעזרת פונקציה זו תוכלו לייבא פגישות או לייצא את כל הרשומות לקובץ יחיד.</string>
+    <string name="export_as_ics_file">ייצא כקובץ ICS</string>
+    <string name="import_from_ics_file">ייבא מקובץ ICS</string>
+    <string name="export_appointment">מינוי ייצוא</string>
+    <string name="export_single_appointment_text">בעזרת פונקציה זו תוכלו לייצא פגישה יחידה ולשלוח אותה באמצעות דואר אלקטרוני ללקוח שלכם. רוב לקוחות הדוא"ל יכולים להוסיף אוטומטית קבצי ICS ליומן המקלט.</string>
+    <string name="export_single_appointment">ייצא פגישה יחידה</string>
 </resources>
