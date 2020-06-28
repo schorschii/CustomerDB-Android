@@ -381,4 +381,5 @@
     <string name="export_appointment">Cita de exportación</string>
     <string name="export_single_appointment_text">Con esta función, puede exportar una sola cita y enviarla por correo electrónico a su cliente. La mayoría de los clientes de correo electrónico pueden agregar automáticamente archivos ICS al calendario del receptor.</string>
     <string name="export_single_appointment">Exportar cita única</string>
+    <string name="enter_new_name">Por favor, introduzca un nuevo nombre de archivo.</string>
 </resources>

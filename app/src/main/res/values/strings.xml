@@ -383,4 +383,5 @@
     <string name="export_appointment">Export Appointment</string>
     <string name="export_single_appointment_text">With this function you can export a single appointment and send it via email to your customer. Most email clients can automatically add ICS files to the receiver\'s calendar.</string>
     <string name="export_single_appointment">Export single appointment</string>
+    <string name="enter_new_name">Please enter a new file name.</string>
 </resources>

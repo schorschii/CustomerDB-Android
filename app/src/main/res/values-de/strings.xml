@@ -381,4 +381,5 @@
     <string name="export_appointment">Termin exportieren</string>
     <string name="export_single_appointment_text">Mit dieser Funktion können Sie einen einzelnen Termin exportieren und per E-Mail an Ihre Kunden versenden. Die meisten E-Mail-Clients können Termine in ICS-Dateien automatisch in den Kalender des Nutzers eintragen.</string>
     <string name="export_single_appointment">Einzelnen Termin exportieren</string>
+    <string name="enter_new_name">Bitte geben Sie einen neuen Dateinamen ein.</string>
 </resources>

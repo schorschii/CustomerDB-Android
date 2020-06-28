@@ -30,13 +30,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
@@ -44,8 +44,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -55,7 +53,6 @@ import java.util.List;
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.CustomerFile;
-import de.georgsieber.customerdb.tools.BitmapCompressor;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
 import de.georgsieber.customerdb.tools.DateControl;
@@ -594,13 +591,35 @@ public class CustomerEditActivity extends AppCompatActivity {
         LinearLayout linearLayoutFilesView = findViewById(R.id.linearLayoutFilesView);
         linearLayoutFilesView.removeAllViews();
         int counter = 0;
-        for(CustomerFile file : mCurrentCustomer.getFiles()) {
+        for(final CustomerFile file : mCurrentCustomer.getFiles()) {
             final int count = counter;
 
             @SuppressLint("InflateParams") LinearLayout linearLayoutFile = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_file_edit, null);
             Button buttonFilename = linearLayoutFile.findViewById(R.id.buttonFile);
             buttonFilename.setText(file.mName);
-            ImageButton buttonFileRemove = linearLayoutFile.findViewById(R.id.buttonFileRemove);
+            buttonFilename.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Dialog ad = new Dialog(me);
+                    ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    ad.setContentView(R.layout.dialog_input_box);
+                    ((TextView) ad.findViewById(R.id.textViewInputBox)).setText(getResources().getString(R.string.enter_new_name));
+                    ((TextView) ad.findViewById(R.id.editTextInputBox)).setText(file.mName);
+                    if(ad.getWindow() != null) ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                    ad.findViewById(R.id.buttonInputBoxOK).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ad.dismiss();
+                            String newName = ((TextView) ad.findViewById(R.id.editTextInputBox)).getText().toString();
+                            mCurrentCustomer.renameFile(count, newName);
+                            refreshFiles();
+                        }
+                    });
+                    ad.show();
+                }
+            });
+
+            Button buttonFileRemove = linearLayoutFile.findViewById(R.id.buttonFileRemove);
             buttonFileRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

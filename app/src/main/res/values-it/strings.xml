@@ -381,4 +381,5 @@
     <string name="export_appointment">Esporta appuntamento</string>
     <string name="export_single_appointment_text">Con questa funzione è possibile esportare un singolo appuntamento e inviarlo via e-mail al cliente. La maggior parte dei client di posta elettronica può aggiungere automaticamente file ICS al calendario del destinatario.</string>
     <string name="export_single_appointment">Esporta appuntamento singolo</string>
+    <string name="enter_new_name">Inserisci un nuovo nome per il file.</string>
 </resources>

@@ -381,4 +381,5 @@
     <string name="export_appointment">Rendez-vous à l\'exportation</string>
     <string name="export_single_appointment_text">Avec cette fonction, vous pouvez exporter un seul rendez-vous et l\'envoyer par e-mail à votre client. La plupart des clients de messagerie peuvent ajouter automatiquement des fichiers ICS au calendrier du destinataire.</string>
     <string name="export_single_appointment">Exporter un rendez-vous unique</string>
+    <string name="enter_new_name">Veuillez saisir un nouveau nom de fichier.</string>
 </resources>

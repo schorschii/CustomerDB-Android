@@ -382,4 +382,5 @@
     <string name="export_appointment">Экспорт Назначение</string>
     <string name="export_single_appointment_text">С помощью этой функции вы можете экспортировать одну встречу и отправить ее по электронной почте вашему клиенту. Большинство почтовых клиентов могут автоматически добавлять файлы ICS в календарь получателя.</string>
     <string name="export_single_appointment">Экспорт единой встречи</string>
+    <string name="enter_new_name">Пожалуйста, введите новое имя файла.</string>
 </resources>

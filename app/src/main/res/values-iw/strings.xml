@@ -394,4 +394,5 @@
     <string name="export_appointment">מינוי ייצוא</string>
     <string name="export_single_appointment_text">בעזרת פונקציה זו תוכלו לייצא פגישה יחידה ולשלוח אותה באמצעות דואר אלקטרוני ללקוח שלכם. רוב לקוחות הדוא"ל יכולים להוסיף אוטומטית קבצי ICS ליומן המקלט.</string>
     <string name="export_single_appointment">ייצא פגישה יחידה</string>
+    <string name="enter_new_name">אנא הכנס שם קובץ חדש.</string>
 </resources>

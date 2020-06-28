@@ -239,6 +239,10 @@ public class Customer {
         }
         mFiles.add(file);
     }
+    public void renameFile(int fileIndex, String newName) {
+        if(mFiles == null || newName.equals("")) return;
+        mFiles.get(fileIndex).mName = newName;
+    }
     public void removeFile(int fileIndex) {
         if(mFiles == null) return;
         mFiles.remove(fileIndex);
