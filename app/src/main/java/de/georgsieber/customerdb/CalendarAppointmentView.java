@@ -21,12 +21,18 @@ public class CalendarAppointmentView extends LinearLayout {
         super(context, attrs, defStyle);
     }
 
-    public void setValues(String text, String subtitle, int backgroundColor) {
+    public void setValues(String text, String subtitle, String time, int backgroundColor) {
         TextView textViewTitle = findViewById(R.id.textViewAppointmentTitle);
+        if(text.equals("")) textViewTitle.setVisibility(GONE);
         textViewTitle.setText(text);
 
         TextView textViewSubtitle = findViewById(R.id.textViewAppointmentSubtitle);
+        if(subtitle.equals("")) textViewSubtitle.setVisibility(GONE);
         textViewSubtitle.setText(subtitle);
+
+        TextView textViewTime = findViewById(R.id.textViewAppointmentTime);
+        if(time.equals("")) textViewTime.setVisibility(GONE);
+        textViewTime.setText(time);
 
         if(ColorControl.isColorDark(backgroundColor)) {
             textViewTitle.setTextColor(Color.WHITE);
@@ -45,6 +51,7 @@ public class CalendarAppointmentView extends LinearLayout {
         GradientDrawable border = new GradientDrawable();
         border.setCornerRadius(12);
         border.setColor(backgroundColor);
+        border.setAlpha(220);
         border.setStroke((int)getResources().getDimension(R.dimen.hour_divider_height), getResources().getColor(R.color.divider_color));
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             setBackgroundDrawable(border);

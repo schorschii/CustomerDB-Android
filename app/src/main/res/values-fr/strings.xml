@@ -145,10 +145,6 @@
     <string name="import_ok">Importation r&#233;ussie</string>
     <string name="import_fail">L\'importation a &#233;chou&#233;</string>
     <string name="import_fail_no_entries">Le fichier ne contient aucun enregistrement valide.</string>
-    <string name="open_play_store">Afficher dans le Play Store&#8230;</string>
-    <string name="do_you_know">Connaissez-vous d&#233;j&#224; ces applications?</string>
-    <string name="remotepointer_text">RemotePointer \nPointeur laser num&#233;rique et t&#233;l&#233;commande pour les pr&#233;sentations</string>
-    <string name="masterplan_text">MASTERPLAN \nLogiciel de planification de services bas&#233; sur le Web</string>
     <string name="export_single_vcfonly">Enregistrer le fichier VCF</string>
     <string name="calling">appel</string>
     <string name="allow_overlay_on_incoming_phone_calls">Autoriser la superposition sur les appels t&#233;l&#233;phoniques entrants</string>
@@ -257,7 +253,7 @@
     <string name="more_than_500_customers">Plus de 500 clients</string>
     <string name="create_more_than_500_customer_records">Cr&#233;ez plus de 500 fiches clients.</string>
     <string name="third_party_components">Composants tiers</string>
-    <string name="third_party_components_text">Cette application utilise la biblioth&#232;que opencsv (Copyright 2019 opencsv Contributors, Apache License 2.0).</string>
+    <string name="third_party_components_text">Cette application utilise la bibliothèque opencsv (Copyright 2019 opencsv Contributors, Apache License 2.0) et la bibliothèque de codes à barres ZXing (Copyright 2019 ZXing Contributors, Apache License 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">Les clients</string>
     <string name="voucher">Bon</string>
     <string name="valid_until">Valable jusque</string>
@@ -342,8 +338,6 @@
     <string name="edit_custom_field">Modifier un champ personnalis&#233;</string>
     <string name="legacy_sync_warning">You are still using the legacy sync server</string>
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
-    <string name="app_store">Magasin d\'applications</string>
-    <string name="ios_app">Application iOS:</string>
     <string name="im_export_all_voucher_text">Avec cette fonction, vous pouvez importer des bons ou exporter tous les enregistrements dans un seul fichier.</string>
     <string name="import_csv_note_voucher">Veuillez noter les informations importantes suivantes pour l\'importation CSV.\n\nLa première ligne est interprétée comme le titre de la colonne. Votre fichier CSV doit contenir les colonnes suivantes: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportant: veuillez utiliser une virgule (,) comme séparateur de champ. L\'ID client est généré lorsque le champ est vide ou que l\'ID existe déjà. Le format de la date doit être \"YYYY-MM-JJ HH:MM:SS\".\n\nVous pouvez éditer votre fichier CSV par exemple avec un logiciel comme LibreOffice Calc avant de démarrer l\'importation.</string>
     <string name="files">Des dossiers</string>
@@ -362,7 +356,6 @@
     <string name="start">Début</string>
     <string name="end">Fin</string>
     <string name="subject">Matière</string>
-    <string name="default_calendar">Calendrier par défaut</string>
     <string name="remove_appointment">Supprimer un rendez-vous</string>
     <string name="end_date_before_start_date">La date de fin est antérieure à la date de début!</string>
     <string name="appointment_too_short">Rendez-vous trop court! Veuillez créer un rendez-vous d\'une durée d\'au moins 5 minutes.</string>
@@ -382,4 +375,8 @@
     <string name="export_single_appointment_text">Avec cette fonction, vous pouvez exporter un seul rendez-vous et l\'envoyer par e-mail à votre client. La plupart des clients de messagerie peuvent ajouter automatiquement des fichiers ICS au calendrier du destinataire.</string>
     <string name="export_single_appointment">Exporter un rendez-vous unique</string>
     <string name="enter_new_name">Veuillez saisir un nouveau nom de fichier.</string>
+    <string name="more_apps">Plus d\'applications</string>
+    <string name="customer_database_for_ios">Base de données clients pour iOS</string>
+    <string name="remote_pointer_for_android">Pointeur à distance pour Android</string>
+    <string name="masterplan_workforce_management">MASTERPLAN Workforce Management</string>
 </resources>

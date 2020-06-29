@@ -147,10 +147,6 @@
     <string name="import_ok">Import successful</string>
     <string name="import_fail">Import failed</string>
     <string name="import_fail_no_entries">The file does not contain any valid records.</string>
-    <string name="open_play_store">Show in Play Store…</string>
-    <string name="do_you_know">Do you already know these apps?</string>
-    <string name="remotepointer_text">RemotePointer\nDigital Laser Pointer and Remote Control for Presentations</string>
-    <string name="masterplan_text">MASTERPLAN\nWeb based service-scheduling software</string>
     <string name="export_single_vcfonly">Save VCF file</string>
     <string name="calling">calling</string>
     <string name="allow_overlay_on_incoming_phone_calls">Allow Overlay on Incoming Phone Calls</string>
@@ -259,7 +255,7 @@
     <string name="more_than_500_customers">More Than 500 Customers</string>
     <string name="create_more_than_500_customer_records">Create more than 500 customer records.</string>
     <string name="third_party_components">Third Party Components</string>
-    <string name="third_party_components_text">This app uses the opencsv library (Copyright 2019 opencsv Contributors, Apache License 2.0).</string>
+    <string name="third_party_components_text">This app uses the opencsv library (Copyright 2019 opencsv Contributors, Apache License 2.0) and the ZXing barcode library (Copyright 2019 ZXing Contributors, Apache License 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">Customers</string>
     <string name="voucher">Voucher</string>
     <string name="valid_until">Valid Until</string>
@@ -344,8 +340,6 @@
     <string name="edit_custom_field">Edit Custom Field</string>
     <string name="legacy_sync_warning">You are still using the legacy sync server</string>
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
-    <string name="app_store">App Store</string>
-    <string name="ios_app">iOS App:</string>
     <string name="im_export_all_voucher_text">With this function, you can import vouchers or export all records into a single file.</string>
     <string name="import_csv_note_voucher">Please note the following important information for the CSV import.\n\nThe first line is interpreted as column title. Your CSV file should contain the following columns: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportant: Please use a comma (,) as field separator. The customer ID is generated when the field is empty or the ID already exists. The date format must be \"YYYY-MM-DD HH:MM:SS\".\n\nYou can edit your CSV file for example with a software like LibreOffice Calc before you start the import.</string>
     <string name="files">Files</string>
@@ -364,7 +358,6 @@
     <string name="start">Start</string>
     <string name="end">End</string>
     <string name="subject">Subject</string>
-    <string name="default_calendar">Default Calendar</string>
     <string name="remove_appointment">Remove Appointment</string>
     <string name="end_date_before_start_date">The end date is before the start date!</string>
     <string name="appointment_too_short">Appointment too short! Please create an appointment with a length of at least 5 minutes.</string>
@@ -384,4 +377,8 @@
     <string name="export_single_appointment_text">With this function you can export a single appointment and send it via email to your customer. Most email clients can automatically add ICS files to the receiver\'s calendar.</string>
     <string name="export_single_appointment">Export single appointment</string>
     <string name="enter_new_name">Please enter a new file name.</string>
+    <string name="more_apps">More Apps</string>
+    <string name="customer_database_for_ios">Customer Database for iOS</string>
+    <string name="remote_pointer_for_android">Remote Pointer for Android</string>
+    <string name="masterplan_workforce_management">MASTERPLAN Workforce Management</string>
 </resources>

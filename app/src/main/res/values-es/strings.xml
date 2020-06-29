@@ -145,10 +145,6 @@
     <string name="import_ok">Importaci&#243;n exitosa</string>
     <string name="import_fail">Importaci&#243;n fallida</string>
     <string name="import_fail_no_entries">El archivo no contiene ning&#250;n registro v&#225;lido.</string>
-    <string name="open_play_store">Mostrar en Play Store &#8230;</string>
-    <string name="do_you_know">&#191;Ya conoces estas aplicaciones?</string>
-    <string name="remotepointer_text">Puntero remoto \n Puntero l&#225;ser digital y control remoto para presentaciones</string>
-    <string name="masterplan_text">MASTERPLAN \nSoftware de programaci&#243;n de servicios basado en web</string>
     <string name="export_single_vcfonly">Guardar archivo VCF</string>
     <string name="calling">vocaci&#243;n</string>
     <string name="allow_overlay_on_incoming_phone_calls">Permitir superposici&#243;n en llamadas telef&#243;nicas entrantes</string>
@@ -257,7 +253,7 @@
     <string name="more_than_500_customers">M&#225;s de 500 clientas</string>
     <string name="create_more_than_500_customer_records">Crea m&#225;s de 500 registros de clientes.</string>
     <string name="third_party_components">Componentes de terceros</string>
-    <string name="third_party_components_text">Esta aplicaci&#243;n utiliza la biblioteca opencsv (Copyright 2019 opencsv Contributors, Apache License 2.0).</string>
+    <string name="third_party_components_text">Esta aplicación utiliza la biblioteca opencsv (Copyright 2019 opencsv Contributors, Apache License 2.0) y la biblioteca de códigos de barras ZXing (Copyright 2019 ZXing Contributors, Apache License 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">Clientes</string>
     <string name="voucher">Vale</string>
     <string name="valid_until">V&#225;lida hasta</string>
@@ -342,8 +338,6 @@
     <string name="edit_custom_field">Editar campo personalizado</string>
     <string name="legacy_sync_warning">You are still using the legacy sync server</string>
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
-    <string name="app_store">Tienda de aplicaciones</string>
-    <string name="ios_app">Aplicación iOS:</string>
     <string name="im_export_all_voucher_text">Con esta función, puede importar comprobantes o exportar todos los registros en un solo archivo.</string>
     <string name="import_csv_note_voucher">Tenga en cuenta la siguiente información importante para la importación CSV.\n\nLa primera línea se interpreta como título de columna. Su archivo CSV debe contener las siguientes columnas: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportante: utilice una coma (,) como separador de campo. La ID del cliente se genera cuando el campo está vacío o la ID ya existe. El formato de fecha debe ser \"YYYY-MM-DD HH:MM:SS\".\n\nPuede editar su archivo CSV, por ejemplo, con un software como LibreOffice Calc antes de comenzar la importación.</string>
     <string name="files">Archivos</string>
@@ -362,7 +356,6 @@
     <string name="start">Comenzando</string>
     <string name="end">Final</string>
     <string name="subject">Sujeto</string>
-    <string name="default_calendar">Calendario predeterminado</string>
     <string name="remove_appointment">Eliminar cita</string>
     <string name="end_date_before_start_date">¡La fecha de finalización es anterior a la fecha de inicio!</string>
     <string name="appointment_too_short">Cita demasiado corta! Cree una cita con una duración de al menos 5 minutos.</string>
@@ -382,4 +375,8 @@
     <string name="export_single_appointment_text">Con esta función, puede exportar una sola cita y enviarla por correo electrónico a su cliente. La mayoría de los clientes de correo electrónico pueden agregar automáticamente archivos ICS al calendario del receptor.</string>
     <string name="export_single_appointment">Exportar cita única</string>
     <string name="enter_new_name">Por favor, introduzca un nuevo nombre de archivo.</string>
+    <string name="more_apps">Más aplicaciones</string>
+    <string name="customer_database_for_ios">Base de datos de clientes para iOS</string>
+    <string name="remote_pointer_for_android">Puntero remoto para Android</string>
+    <string name="masterplan_workforce_management">MASTERPLAN Gestión de la fuerza laboral</string>
 </resources>

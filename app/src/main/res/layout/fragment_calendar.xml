@@ -15,144 +15,240 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="03:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="04:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="05:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="06:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="07:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="08:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="09:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="14:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="17:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="19:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="22:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
                 android:layout_marginTop="@dimen/hour_divider_margin_top"
                 android:background="@color/divider_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="23:00" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hour_divider_height"
@@ -160,6 +256,7 @@
                 android:background="@color/divider_color" />
 
         </LinearLayout>
+
     </RelativeLayout>
 
 </ScrollView>

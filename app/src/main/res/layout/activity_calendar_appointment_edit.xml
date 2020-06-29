@@ -58,36 +58,64 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/appointment" />
-                <EditText
-                    android:id="@+id/editTextTitle"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapSentences"
-                    android:hint="@string/subject" />
-                <EditText
-                    android:id="@+id/editTextCustomer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapSentences"
-                    android:hint="@string/customer"
-                    tools:ignore="TextFields" />
-                <EditText
-                    android:id="@+id/editTextLocation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapSentences"
-                    android:hint="@string/location"
-                    tools:ignore="TextFields" />
-                <EditText
-                    android:id="@+id/editTextNotes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textCapSentences|textMultiLine"
-                    android:hint="@string/notes" />
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="fill_horizontal"
+                        android:layout_weight="3">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/appointment" />
+                        <EditText
+                            android:id="@+id/editTextTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
+                            android:hint="@string/subject" />
+                        <EditText
+                            android:id="@+id/editTextCustomer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
+                            android:hint="@string/customer"
+                            tools:ignore="TextFields" />
+                        <EditText
+                            android:id="@+id/editTextLocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapSentences"
+                            android:hint="@string/location"
+                            tools:ignore="TextFields" />
+                        <EditText
+                            android:id="@+id/editTextNotes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapSentences|textMultiLine"
+                            android:hint="@string/notes" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="fill_horizontal"
+                        android:layout_weight="2">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/qr_code_for_customer" />
+                        <ImageView
+                            android:id="@+id/imageViewQrCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitCenter" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <Space
                     android:layout_width="wrap_content"
@@ -148,21 +176,6 @@
                             tools:ignore="UnusedAttribute" />
                     </LinearLayout>
                 </LinearLayout>
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/qr_code_for_customer" />
-
-                <ImageView
-                    android:id="@+id/imageViewQrCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitCenter" />
 
                 <Space
                     android:layout_width="wrap_content"

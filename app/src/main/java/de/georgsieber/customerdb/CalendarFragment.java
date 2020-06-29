@@ -88,7 +88,7 @@ public class CalendarFragment extends Fragment {
         if(mAppointments != null && !mAppointments.isEmpty()) {
             Collections.sort(mAppointments, new TimeComparator());
             int screenWidth = relativeLayoutCalendarRoot.getWidth();
-            int screenHeight = (int)((23f * getResources().getDimension(R.dimen.hour_divider_height) + (24f * getResources().getDimension(R.dimen.hour_divider_margin_top))));
+            int screenHeight = relativeLayoutCalendarRoot.getHeight();
 
             List<Cluster> clusters = createClusters(createCliques(mAppointments));
             for(Cluster c : clusters) {
@@ -112,7 +112,7 @@ public class CalendarFragment extends Fragment {
                             startActivityForResult(intent, EDIT_APPOINTMENT_REQUEST);
                         }
                     });
-                    appointmentView.setValues(a.mTitle, DateControl.displayTimeFormat.format(a.mTimeStart)+" - "+DateControl.displayTimeFormat.format(a.mTimeEnd), color);
+                    appointmentView.setValues(a.mTitle, (a.mCustomer+"  "+a.mLocation).trim(), DateControl.displayTimeFormat.format(a.mTimeStart)+" - "+DateControl.displayTimeFormat.format(a.mTimeEnd), color);
                     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(itemWidth, itemHeight);
                     params.setMargins(leftMargin, topMargin, 0, 0);
                     relativeLayoutCalendarRoot.addView(appointmentView, params);
@@ -121,7 +121,7 @@ public class CalendarFragment extends Fragment {
         }
     }
 
-    private int minutesToPixels(int screenHeight, int minutes){
+    private int minutesToPixels(int screenHeight, int minutes) {
         return (screenHeight * minutes) / MINUTES_IN_A_HOUR;
     }
 

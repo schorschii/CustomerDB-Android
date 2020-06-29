@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,7 +25,6 @@ import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.FileProvider;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -43,8 +41,6 @@ import java.util.TimerTask;
 
 import de.georgsieber.customerdb.importexport.CalendarCsvBuilder;
 import de.georgsieber.customerdb.importexport.CalendarIcsBuilder;
-import de.georgsieber.customerdb.importexport.CustomerCsvBuilder;
-import de.georgsieber.customerdb.importexport.CustomerVcfBuilder;
 import de.georgsieber.customerdb.model.CustomerAppointment;
 import de.georgsieber.customerdb.model.CustomerCalendar;
 import de.georgsieber.customerdb.tools.ColorControl;
@@ -231,6 +227,7 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
         }
         mEditTextTitle.setText(a.mTitle);
         mEditTextNotes.setText(a.mNotes);
+        mEditTextLocation.setText(a.mLocation);
         mEditTextCustomer.setText(a.mCustomer);
 
         mCalendar.setTime(a.mTimeEnd);
@@ -260,6 +257,7 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
         mCurrentAppointment.mCalendarId = calendar.mId;
         mCurrentAppointment.mTitle = mEditTextTitle.getText().toString();
         mCurrentAppointment.mNotes = mEditTextNotes.getText().toString();
+        mCurrentAppointment.mLocation = mEditTextLocation.getText().toString();
         mCurrentAppointment.mCustomer = mEditTextCustomer.getText().toString();
 
         String dateString = CustomerDatabase.storageFormat.format(mCalendar.getTime());

@@ -146,10 +146,6 @@
         <item quantity="many">ייבוא %d רשומות.</item>
         <item quantity="other">ייבוא %d רשומות.</item>
     </plurals>
-    <string name="open_play_store">הצג ב Play בחנות…</string>
-    <string name="do_you_know">אתה כבר יודע יישומים אלה?</string>
-    <string name="remotepointer_text">RemotePointer\nDigital Laser Pointer and Remote Control for Presentations</string>
-    <string name="masterplan_text">MASTERPLAN\nWeb based service-scheduling software</string>
     <string name="export_single_vcfonly">שמור VCF קובץ</string>
     <string name="calling">מתקשר</string>
     <string name="allow_overlay_on_incoming_phone_calls">לאפשר כיסוי על שיחות טלפון נכנסות</string>
@@ -269,8 +265,8 @@
     <string name="install_plugin_app">התקן את אפליקציית התוספים</string>
     <string name="more_than_500_customers">יותר מ 500 לקוחות</string>
     <string name="create_more_than_500_customer_records">צור יותר מ- 500 רשומות לקוחות.</string>
-    <string name="third_party_components">Third Party Components</string>
-    <string name="third_party_components_text">This app uses the opencsv library (Copyright 2019 opencsv Contributors, Apache License 2.0).</string>
+    <string name="third_party_components">רכיבי צד ג \'</string>
+    <string name="third_party_components_text">אפליקציה זו משתמשת בספריית opencsv (זכויות יוצרים תורמים ב- opencsv 2019, Apache License 2.0) ובספריית הברקוד ZXing (זכויות יוצרים תורמי ZXing 2019, Apache License 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">לקוחות</string>
     <string name="voucher">שובר</string>
     <string name="valid_until">בתוקף עד</string>
@@ -355,8 +351,6 @@
     <string name="edit_custom_field">ערוך שדה מותאם אישית</string>
     <string name="legacy_sync_warning">You are still using the legacy sync server</string>
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
-    <string name="app_store">חנות אפליקציות</string>
-    <string name="ios_app">אפליקציית iOS:</string>
     <string name="im_export_all_voucher_text">בעזרת פונקציה זו תוכלו לייבא שוברים או לייצא את כל הרשומות לקובץ יחיד.</string>
     <string name="import_csv_note_voucher">Please note the following important information for the CSV import.\n\nThe first line is interpreted as column title. Your CSV file should contain the following columns: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportant: Please use a comma (,) as field separator. The customer ID is generated when the field is empty or the ID already exists. The date format must be \"YYYY-MM-DD HH:MM:SS\".\n\nYou can edit your CSV file for example with a software like LibreOffice Calc before you start the import.</string>
     <string name="files">קבצים</string>
@@ -375,7 +369,6 @@
     <string name="start">הַתחָלָה</string>
     <string name="end">סוֹף</string>
     <string name="subject">נושא</string>
-    <string name="default_calendar">לוח שנה ברירת מחדל</string>
     <string name="remove_appointment">הסר פגישה</string>
     <string name="end_date_before_start_date">תאריך הסיום הוא לפני תאריך ההתחלה!</string>
     <string name="appointment_too_short">המינוי קצר מדי! אנא צור פגישה באורך של חמש דקות לפחות.</string>
@@ -395,4 +388,8 @@
     <string name="export_single_appointment_text">בעזרת פונקציה זו תוכלו לייצא פגישה יחידה ולשלוח אותה באמצעות דואר אלקטרוני ללקוח שלכם. רוב לקוחות הדוא"ל יכולים להוסיף אוטומטית קבצי ICS ליומן המקלט.</string>
     <string name="export_single_appointment">ייצא פגישה יחידה</string>
     <string name="enter_new_name">אנא הכנס שם קובץ חדש.</string>
+    <string name="more_apps">עוד אפליקציות</string>
+    <string name="customer_database_for_ios">מאגר לקוחות עבור iOS</string>
+    <string name="remote_pointer_for_android">מצביע מרחוק לאנדרואיד</string>
+    <string name="masterplan_workforce_management">ניהול כוח אדם של MASTERPLAN</string>
 </resources>

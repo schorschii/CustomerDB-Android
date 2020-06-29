@@ -145,10 +145,6 @@
     <string name="import_ok">Importazione riuscita</string>
     <string name="import_fail">Importazione non riuscita</string>
     <string name="import_fail_no_entries">Il file non contiene alcun record valido.</string>
-    <string name="open_play_store">Mostra nel Play Store &#8230;</string>
-    <string name="do_you_know">Conosci gi&#224; queste app?</string>
-    <string name="remotepointer_text">RemotePointer \nD puntatore laser digitale e telecomando per presentazioni</string>
-    <string name="masterplan_text">MASTERPLAN \nSoftware di pianificazione dei servizi basato su Web</string>
     <string name="export_single_vcfonly">Salva il file VCF</string>
     <string name="calling">chiamata</string>
     <string name="allow_overlay_on_incoming_phone_calls">Consenti overlay su chiamate telefoniche in arrivo</string>
@@ -257,7 +253,7 @@
     <string name="more_than_500_customers">Pi&#249; di 500 clienti</string>
     <string name="create_more_than_500_customer_records">Crea oltre 500 record di clienti.</string>
     <string name="third_party_components">Componenti di terze parti</string>
-    <string name="third_party_components_text">Questa app utilizza la libreria opencsv (Copyright 2019 opencsv Contributors, Apache License 2.0).</string>
+    <string name="third_party_components_text">Questa app utilizza la libreria opencsv (Copyright 2019 opencsv Contributors, Apache License 2.0) e la libreria di codici a barre ZXing (Copyright 2019 ZXing Contributors, Apache License 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">I clienti</string>
     <string name="voucher">Voucher; tagliando</string>
     <string name="valid_until">Valido fino a</string>
@@ -342,8 +338,6 @@
     <string name="edit_custom_field">Modifica campo personalizzato</string>
     <string name="legacy_sync_warning">You are still using the legacy sync server</string>
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
-    <string name="app_store">App Store</string>
-    <string name="ios_app">App iOS:</string>
     <string name="im_export_all_voucher_text">Con questa funzione, è possibile importare buoni o esportare tutti i record in un singolo file.</string>
     <string name="import_csv_note_voucher">Si prega di notare le seguenti informazioni importanti per l\'importazione CSV.\n\nLa prima riga viene interpretata come titolo della colonna. Il tuo file CSV dovrebbe contenere le seguenti colonne: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportante: utilizzare una virgola (,) come separatore di campo. L\'ID cliente viene generato quando il campo è vuoto o l\'ID esiste già. Il formato della data deve essere \"YYYY-MM-DD HH:MM:SS\".\n\nÈ possibile modificare il file CSV ad esempio con un software come LibreOffice Calc prima di iniziare l\'importazione.</string>
     <string name="files">File</string>
@@ -362,7 +356,6 @@
     <string name="start">Inizio</string>
     <string name="end">Fine</string>
     <string name="subject">Soggetto</string>
-    <string name="default_calendar">Calendario predefinito</string>
     <string name="remove_appointment">Rimuovi appuntamento</string>
     <string name="end_date_before_start_date">La data di fine è precedente alla data di inizio!</string>
     <string name="appointment_too_short">Appuntamento troppo breve! Si prega di creare un appuntamento della durata di almeno 5 minuti.</string>
@@ -382,4 +375,8 @@
     <string name="export_single_appointment_text">Con questa funzione è possibile esportare un singolo appuntamento e inviarlo via e-mail al cliente. La maggior parte dei client di posta elettronica può aggiungere automaticamente file ICS al calendario del destinatario.</string>
     <string name="export_single_appointment">Esporta appuntamento singolo</string>
     <string name="enter_new_name">Inserisci un nuovo nome per il file.</string>
+    <string name="more_apps">Più applicazioni</string>
+    <string name="customer_database_for_ios">Database clienti per iOS</string>
+    <string name="remote_pointer_for_android">Puntatore remoto per Android</string>
+    <string name="masterplan_workforce_management">MASTERPLAN Gestione della forza lavoro</string>
 </resources>

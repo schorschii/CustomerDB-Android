@@ -138,10 +138,6 @@
         <item quantity="one">%d запись импортирована.</item>
         <item quantity="other">%d запись импортирована.</item>
     </plurals>
-    <string name="open_play_store">Показать в Play Store…</string>
-    <string name="do_you_know">Вы уже знаете эти приложения?</string>
-    <string name="remotepointer_text">RemotePointer\nDigital Laser Pointer and Remote Control for Presentations</string>
-    <string name="masterplan_text">MASTERPLAN\nWeb based service-scheduling software</string>
     <string name="export_single_vcfonly">Сохранить файл VCF</string>
     <string name="calling"></string>
     <string name="allow_overlay_on_incoming_phone_calls">Разрешить отображение на входящих звонках</string>
@@ -257,8 +253,8 @@
     <string name="install_plugin_app">Установить плагин приложение</string>
     <string name="more_than_500_customers">Более 500 клиентов</string>
     <string name="create_more_than_500_customer_records">Создайте более 500 записей клиентов.</string>
-    <string name="third_party_components">Third Party Components</string>
-    <string name="third_party_components_text">Это приложение использует библиотеку opencsv (авторские права 2019, авторы opencsv, лицензия Apache 2.0).</string>
+    <string name="third_party_components">Сторонние компоненты</string>
+    <string name="third_party_components_text">Это приложение использует библиотеку opencsv (авторские права 2019, авторы opencsv, лицензия Apache 2.0) и библиотеку штрих-кодов ZXing (авторские права 2019 ZXing Contributors, лицензия Apache 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">Клиенты</string>
     <string name="voucher">Ваучер</string>
     <string name="valid_until">Действует до</string>
@@ -343,8 +339,6 @@
     <string name="edit_custom_field">Изменить настраиваемое поле</string>
     <string name="legacy_sync_warning">You are still using the legacy sync server</string>
     <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
-    <string name="app_store">Магазин приложений</string>
-    <string name="ios_app">iOS-Приложение:</string>
     <string name="im_export_all_voucher_text">С помощью этой функции вы можете импортировать ваучеры или экспортировать все записи в один файл.</string>
     <string name="import_csv_note_voucher">Обратите внимание на следующую важную информацию для импорта CSV.\n\nПервая строка интерпретируется как заголовок столбца. Ваш CSV-файл должен содержать следующие столбцы: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nВажно: Пожалуйста, используйте запятую (,) в качестве разделителя полей. Идентификатор клиента генерируется, когда поле пустое или идентификатор уже существует. Формат даты должен быть \"ГГГГ-ММ-ДД ЧЧ:ММ:СС\".\n\nВы можете отредактировать свой CSV-файл, например, с помощью программного обеспечения, такого как LibreOffice Calc, прежде чем начать импорт.</string>
     <string name="files">файлы</string>
@@ -363,7 +357,6 @@
     <string name="start">Начало</string>
     <string name="end">Конец</string>
     <string name="subject">Тема</string>
-    <string name="default_calendar">Календарь по умолчанию</string>
     <string name="remove_appointment">Удалить встречу</string>
     <string name="end_date_before_start_date">Дата окончания предшествует дате начала!</string>
     <string name="appointment_too_short">Назначение слишком короткое! Пожалуйста, назначьте встречу продолжительностью не менее 5 минут.</string>
@@ -383,4 +376,8 @@
     <string name="export_single_appointment_text">С помощью этой функции вы можете экспортировать одну встречу и отправить ее по электронной почте вашему клиенту. Большинство почтовых клиентов могут автоматически добавлять файлы ICS в календарь получателя.</string>
     <string name="export_single_appointment">Экспорт единой встречи</string>
     <string name="enter_new_name">Пожалуйста, введите новое имя файла.</string>
+    <string name="more_apps">Больше приложений</string>
+    <string name="customer_database_for_ios">База данных клиентов для iOS</string>
+    <string name="remote_pointer_for_android">Удаленный указатель для Android</string>
+    <string name="masterplan_workforce_management">МАСТЕРПЛАН Управление персоналом</string>
 </resources>

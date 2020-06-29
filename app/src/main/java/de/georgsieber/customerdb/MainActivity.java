@@ -1617,38 +1617,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ad.findViewById(R.id.buttonRateCustomerDB).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openPlayStore(getPackageName());
+                    openPlayStore(me, getPackageName());
                     ad.hide();
                 }
             });
             ad.findViewById(R.id.linearLayoutRateStars).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    openPlayStore(getPackageName());
+                    openPlayStore(me, getPackageName());
                     ad.hide();
-                }
-            });
-            ad.findViewById(R.id.buttonAdOtherAppsMasterplan).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/schorschii/masterplan"));
-                    startActivity(browserIntent);
-                }
-            });
-            ad.findViewById(R.id.buttonAdOtherAppsRemotePointer).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openPlayStore("systems.sieber.remotespotlight");
                 }
             });
             ad.show();
         }
     }
-    private void openPlayStore(String appId) {
+    static void openPlayStore(Activity activity, String appId) {
         try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appId)));
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appId)));
         } catch (android.content.ActivityNotFoundException ignored) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appId)));
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appId)));
         }
     }
 

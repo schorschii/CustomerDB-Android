@@ -61,6 +61,7 @@
                             android:id="@+id/textViewCurrentValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textIsSelectable="true"
                             android:text="@string/value"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="24sp"
@@ -86,6 +87,7 @@
                             android:id="@+id/textViewOriginalValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textIsSelectable="true"
                             android:text="@string/value"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="24sp" />
@@ -115,6 +117,7 @@
                             android:id="@+id/textViewFromCustomer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textIsSelectable="true"
                             android:text="@string/from_customer"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="18sp" />
@@ -139,6 +142,7 @@
                             android:id="@+id/textViewForCustomer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textIsSelectable="true"
                             android:text="@string/for_customer"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="18sp" />
@@ -158,6 +162,7 @@
                     android:id="@+id/textViewVoucherNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
                     android:text="@string/voucher_number"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textSize="18sp" />
@@ -175,6 +180,7 @@
                     android:id="@+id/textViewNotes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
                     android:text="@string/notes"
                     android:textAppearance="@style/TextAppearance.AppCompat"
                     android:textSize="18sp" />
@@ -202,6 +208,7 @@
                             android:id="@+id/textViewIssued"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textIsSelectable="true"
                             android:text="@string/issued"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="18sp" />
@@ -226,6 +233,7 @@
                             android:id="@+id/textViewValidUntil"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textIsSelectable="true"
                             android:text="@string/valid_until"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="18sp" />
@@ -255,6 +263,7 @@
                             android:id="@+id/textViewRedeemed"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textIsSelectable="true"
                             android:text="@string/redeemed"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="18sp" />
@@ -279,6 +288,7 @@
                             android:id="@+id/textViewLastModified"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textIsSelectable="true"
                             android:text="@string/lastchanged"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="18sp" />

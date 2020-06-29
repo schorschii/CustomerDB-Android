@@ -393,8 +393,17 @@ public class AboutActivity extends AppCompatActivity {
         startActivity(browserIntent);
     }
 
-    public void onClickIosApp(View v) {
+    public void onClickCustomerDatabaseIosApp(View v) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://apps.apple.com/us/app/customer-database/id1496659447"));
+        startActivity(browserIntent);
+    }
+
+    public void onClickRemotePointerAndroidApp(View v) {
+        MainActivity.openPlayStore(this, "systems.sieber.remotespotlight");
+    }
+
+    public void onClickMasterplan(View v) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/schorschii/masterplan"));
         startActivity(browserIntent);
     }
 
