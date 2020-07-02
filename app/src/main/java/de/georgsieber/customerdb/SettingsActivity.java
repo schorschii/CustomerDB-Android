@@ -86,6 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
     CheckBox mCheckBoxShowNewsletterField;
     CheckBox mCheckBoxShowBirthdayField;
     CheckBox mCheckBoxShowGroupField;
+    CheckBox mCheckBoxShowFiles;
     CheckBox mCheckBoxShowConsentField;
 
     int mRemoteDatabaseConnType = 0;
@@ -115,6 +116,7 @@ public class SettingsActivity extends AppCompatActivity {
     private boolean showNewsletterField;
     private boolean showBirthdayField;
     private boolean showGroupField;
+    private boolean showFiles;
     private boolean showConsentField;
 
     @SuppressLint("SetTextI18n")
@@ -163,6 +165,7 @@ public class SettingsActivity extends AppCompatActivity {
         mCheckBoxShowNewsletterField = findViewById(R.id.checkBoxShowNewsletterField);
         mCheckBoxShowBirthdayField = findViewById(R.id.checkBoxShowBirthdayField);
         mCheckBoxShowGroupField = findViewById(R.id.checkBoxShowGroupField);
+        mCheckBoxShowFiles = findViewById(R.id.checkBoxShowFiles);
         mCheckBoxShowConsentField = findViewById(R.id.checkBoxShowConsentField);
 
         // init DB
@@ -269,6 +272,7 @@ public class SettingsActivity extends AppCompatActivity {
         showNewsletterField = mSettings.getBoolean("show-newsletter-field", true);
         showBirthdayField = mSettings.getBoolean("show-birthday-field", true);
         showGroupField = mSettings.getBoolean("show-group-field", true);
+        showFiles = mSettings.getBoolean("show-files", true);
         showConsentField = mSettings.getBoolean("show-consent-field", false);
         String lastCallReceived = mSettings.getString("last-call-received", "");
 
@@ -314,6 +318,7 @@ public class SettingsActivity extends AppCompatActivity {
         mCheckBoxShowNewsletterField.setChecked((showNewsletterField));
         mCheckBoxShowBirthdayField.setChecked(showBirthdayField);
         mCheckBoxShowGroupField.setChecked(showGroupField);
+        mCheckBoxShowFiles.setChecked(showFiles);
         mCheckBoxShowConsentField.setChecked(showConsentField);
 
         if(lastCallReceived != null && lastCallReceived.equals("")) {
@@ -448,6 +453,7 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putBoolean("show-newsletter-field", showNewsletterField);
         editor.putBoolean("show-birthday-field", showBirthdayField);
         editor.putBoolean("show-group-field", showGroupField);
+        editor.putBoolean("show-files", showFiles);
         editor.putBoolean("show-consent-field", showConsentField);
         editor.apply();
     }
@@ -511,6 +517,7 @@ public class SettingsActivity extends AppCompatActivity {
         showNewsletterField = mCheckBoxShowNewsletterField.isChecked();
         showBirthdayField = mCheckBoxShowBirthdayField.isChecked();
         showGroupField = mCheckBoxShowGroupField.isChecked();
+        showFiles = mCheckBoxShowFiles.isChecked();
         showConsentField = mCheckBoxShowConsentField.isChecked();
 
         String lastUsername = mSettings.getString("webapi-username","");

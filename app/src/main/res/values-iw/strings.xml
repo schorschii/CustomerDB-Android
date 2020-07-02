@@ -392,4 +392,5 @@
     <string name="customer_database_for_ios">מאגר לקוחות עבור iOS</string>
     <string name="remote_pointer_for_android">מצביע מרחוק לאנדרואיד</string>
     <string name="masterplan_workforce_management">ניהול כוח אדם של MASTERPLAN</string>
+    <string name="show_files">הצג קבצים</string>
 </resources>

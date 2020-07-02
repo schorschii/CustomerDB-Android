@@ -439,6 +439,12 @@
                     android:text="@string/show_birthday_field" />
 
                 <CheckBox
+                    android:id="@+id/checkBoxShowFiles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_files" />
+
+                <CheckBox
                     android:id="@+id/checkBoxShowConsentField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

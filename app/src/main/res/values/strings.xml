@@ -381,4 +381,5 @@
     <string name="customer_database_for_ios">Customer Database for iOS</string>
     <string name="remote_pointer_for_android">Remote Pointer for Android</string>
     <string name="masterplan_workforce_management">MASTERPLAN Workforce Management</string>
+    <string name="show_files">Show Files</string>
 </resources>

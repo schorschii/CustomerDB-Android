@@ -176,6 +176,9 @@ public class CustomerEditActivity extends AppCompatActivity {
         if(!settings.getBoolean("show-birthday-field", true)) {
             findViewById(R.id.linearLayoutBirthday).setVisibility(View.GONE);
         }
+        if(!settings.getBoolean("show-files", true)) {
+            findViewById(R.id.linearLayoutFilesContainer).setVisibility(View.GONE);
+        }
 
         // load default values
         mEditTextTitle.setText(settings.getString("default-customer-title", getResources().getString(R.string.titledefault)));

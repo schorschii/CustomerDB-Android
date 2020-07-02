@@ -177,6 +177,9 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         if(!mSettings.getBoolean("show-birthday-field", true)) {
             findViewById(R.id.linearLayoutBirthday).setVisibility(View.GONE);
         }
+        if(!mSettings.getBoolean("show-files", true)) {
+            findViewById(R.id.linearLayoutFilesContainer).setVisibility(View.GONE);
+        }
 
         // init fab
         FloatingActionButton fab = findViewById(R.id.fabEdit);

@@ -379,4 +379,5 @@
     <string name="customer_database_for_ios">Base de données clients pour iOS</string>
     <string name="remote_pointer_for_android">Pointeur à distance pour Android</string>
     <string name="masterplan_workforce_management">MASTERPLAN Workforce Management</string>
+    <string name="show_files">Afficher les fichiers</string>
 </resources>
