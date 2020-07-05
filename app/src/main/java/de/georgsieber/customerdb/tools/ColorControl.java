@@ -32,9 +32,10 @@ public class ColorControl {
 
     public static void updateAccentColor(View v, SharedPreferences settings) {
         int color = getColorFromSettings(settings);
-        v.setBackgroundDrawable(new ColorDrawable(color));
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             v.setBackgroundTintList(ColorStateList.valueOf(color));
+        } else {
+            v.setBackgroundDrawable(new ColorDrawable(color));
         }
     }
 

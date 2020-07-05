@@ -411,6 +411,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ColorControl.updateAccentColor(findViewById(R.id.mainLockOverlay), mSettings);
         ColorControl.updateAccentColor(findViewById(R.id.mainStartupOverlay), mSettings);
         ColorControl.updateAccentColor(findViewById(R.id.fabAdd), mSettings);
+        ColorControl.updateAccentColor(findViewById(R.id.buttonCalendarChangeDay), mSettings);
         ColorStateList colorStates = new ColorStateList(
                 new int[][] {
                         new int[] {-android.R.attr.state_checked},
