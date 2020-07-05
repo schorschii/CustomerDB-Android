@@ -35,11 +35,15 @@ public class CalendarAppointmentView extends LinearLayout {
         textViewTime.setText(time);
 
         if(ColorControl.isColorDark(backgroundColor)) {
+            int colorSecondary = Color.argb(180, 255, 255, 255);
             textViewTitle.setTextColor(Color.WHITE);
-            textViewSubtitle.setTextColor(Color.argb(180, 255, 255, 255));
+            textViewSubtitle.setTextColor(colorSecondary);
+            textViewTime.setTextColor(colorSecondary);
         } else {
+            int colorSecondary = Color.argb(180, 0, 0, 0);
             textViewTitle.setTextColor(Color.BLACK);
-            textViewSubtitle.setTextColor(Color.argb(180, 0, 0, 0));
+            textViewSubtitle.setTextColor(colorSecondary);
+            textViewTime.setTextColor(colorSecondary);
         }
 
         if(ColorControl.isColorDark(backgroundColor)) {
