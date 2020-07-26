@@ -3,19 +3,14 @@ package de.georgsieber.customerdb.model;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Base64;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.text.DateFormat;
