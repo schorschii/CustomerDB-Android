@@ -101,7 +101,7 @@
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:layout_gravity="fill_horizontal"
                         android:layout_weight="2">
@@ -112,8 +112,11 @@
                         <ImageView
                             android:id="@+id/imageViewQrCode"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:scaleType="fitCenter" />
+                            android:layout_height="0dp"
+                            android:layout_gravity="fill_vertical"
+                            android:layout_weight="1"
+                            android:scaleType="fitStart"
+                            tools:ignore="NestedWeights" />
                     </LinearLayout>
                 </LinearLayout>
 
