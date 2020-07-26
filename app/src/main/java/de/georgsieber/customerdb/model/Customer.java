@@ -210,7 +210,10 @@ public class Customer {
             case "consent": // deprecated
                 break;
             case "image":
-                mImage = Base64.decode(value, Base64.NO_WRAP); break;
+                try {
+                    mImage = Base64.decode(value, Base64.NO_WRAP);
+                } catch(Exception ignored) {}
+                break;
             case "files":
                 try {
                     JSONArray jsonFiles = new JSONArray(value);
