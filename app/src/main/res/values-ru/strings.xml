@@ -174,7 +174,7 @@
     <string name="store_not_avail">Google Play недоступен</string>
     <string name="could_not_fetch_prices">Не удалось загрузить текущие цены для покупок в приложении.</string>
     <string name="more">Подробнее…</string>
-    <string name="customer_registration">Регистрация пользователя</string>
+    <string name="customer_registration">Регистрация</string>
     <string name="register_now">Зарегистрируйтесь сейчас…</string>
     <string name="password">Пароль</string>
     <string name="password_incorrect">Неверный пароль</string>

@@ -183,7 +183,7 @@
     <string name="store_not_avail">Google Play Store not available</string>
     <string name="could_not_fetch_prices">Could not fetch current prices for in-app purchases.</string>
     <string name="more">More…</string>
-    <string name="customer_registration">Customer Registration</string>
+    <string name="customer_registration">Registration</string>
     <string name="register_now">Register now…</string>
     <string name="password">Password</string>
     <string name="password_incorrect">Password incorrect</string>

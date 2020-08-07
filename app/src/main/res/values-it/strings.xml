@@ -181,7 +181,7 @@
     <string name="store_not_avail">Google Play Store non disponibile</string>
     <string name="could_not_fetch_prices">Impossibile recuperare i prezzi correnti per gli acquisti in-app.</string>
     <string name="more">Di Pi&#249;&#8230;</string>
-    <string name="customer_registration">Registrazione del cliente</string>
+    <string name="customer_registration">Registrazione</string>
     <string name="register_now">Iscriviti ora&#8230;</string>
     <string name="password">Parola d\'ordine</string>
     <string name="password_incorrect">Password non corretta</string>

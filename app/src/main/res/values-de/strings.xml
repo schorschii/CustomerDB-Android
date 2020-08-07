@@ -173,7 +173,7 @@
     <string name="store_not_avail">Google Play Store nicht verfügbar</string>
     <string name="could_not_fetch_prices">Die aktuellen Preise für In-App-Einkäufe konnten nicht geladen werden.</string>
     <string name="more">Mehr…</string>
-    <string name="customer_registration">Kundenregistrierung</string>
+    <string name="customer_registration">Registrierung</string>
     <string name="register_now">Jetzt registrieren…</string>
     <string name="password">Kennwort</string>
     <string name="password_incorrect">Kennwort nicht korrekt</string>
