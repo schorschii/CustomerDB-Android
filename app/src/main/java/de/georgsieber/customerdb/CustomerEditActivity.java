@@ -149,6 +149,9 @@ public class CustomerEditActivity extends AppCompatActivity {
             mEditTextPhoneMobile.setInputType(InputType.TYPE_CLASS_TEXT);
             mEditTextPhoneWork.setInputType(InputType.TYPE_CLASS_TEXT);
         }
+        if(!settings.getBoolean("show-customer-picture", true)) {
+            findViewById(R.id.linearLayoutCustomerImageEdit).setVisibility(View.GONE);
+        }
         if(!settings.getBoolean("show-phone-field", true)) {
             mEditTextPhoneHome.setVisibility(View.GONE);
             mEditTextPhoneMobile.setVisibility(View.GONE);

@@ -79,6 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
     SeekBar mSeekBarGreen;
     SeekBar mSeekBarBlue;
     View mViewColorPreview;
+    CheckBox mCheckBoxShowPicture;
     CheckBox mCheckBoxShowPhoneField;
     CheckBox mCheckBoxShowEmailField;
     CheckBox mCheckBoxShowAddressField;
@@ -109,6 +110,7 @@ public class SettingsActivity extends AppCompatActivity {
     private int mColorRed = 0;
     private int mColorGreen = 0;
     private int mColorBlue = 0;
+    private boolean showCustomerPicture;
     private boolean showPhoneField;
     private boolean showEmailField;
     private boolean showAddressField;
@@ -158,6 +160,7 @@ public class SettingsActivity extends AppCompatActivity {
         mSeekBarGreen = findViewById(R.id.seekBarGreen);
         mSeekBarBlue = findViewById(R.id.seekBarBlue);
         mViewColorPreview = findViewById(R.id.viewColorPreview);
+        mCheckBoxShowPicture = findViewById(R.id.checkBoxShowPicture);
         mCheckBoxShowPhoneField = findViewById(R.id.checkBoxShowPhoneField);
         mCheckBoxShowEmailField = findViewById(R.id.checkBoxShowEmailField);
         mCheckBoxShowAddressField = findViewById(R.id.checkBoxShowAddressField);
@@ -265,6 +268,7 @@ public class SettingsActivity extends AppCompatActivity {
         mColorRed = mSettings.getInt("design-red", ColorControl.DEFAULT_COLOR_R);
         mColorGreen = mSettings.getInt("design-green", ColorControl.DEFAULT_COLOR_G);
         mColorBlue = mSettings.getInt("design-blue", ColorControl.DEFAULT_COLOR_B);
+        showCustomerPicture = mSettings.getBoolean("show-customer-picture", true);
         showPhoneField = mSettings.getBoolean("show-phone-field", true);
         showEmailField = mSettings.getBoolean("show-email-field", true);
         showAddressField = mSettings.getBoolean("show-address-field", true);
@@ -311,6 +315,7 @@ public class SettingsActivity extends AppCompatActivity {
         mSeekBarRed.setProgress(mColorRed);
         mSeekBarGreen.setProgress(mColorGreen);
         mSeekBarBlue.setProgress(mColorBlue);
+        mCheckBoxShowPicture.setChecked(showCustomerPicture);
         mCheckBoxShowPhoneField.setChecked(showPhoneField);
         mCheckBoxShowEmailField.setChecked(showEmailField);
         mCheckBoxShowAddressField.setChecked(showAddressField);
@@ -446,6 +451,7 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putInt("design-red", mColorRed);
         editor.putInt("design-green", mColorGreen);
         editor.putInt("design-blue", mColorBlue);
+        editor.putBoolean("show-customer-picture", showCustomerPicture);
         editor.putBoolean("show-phone-field", showPhoneField);
         editor.putBoolean("show-email-field", showEmailField);
         editor.putBoolean("show-address-field", showAddressField);
@@ -510,6 +516,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         mCurrency = mEditTextCurrency.getText().toString();
         mAllowTextInPhoneNumbers = mCheckBoxAllowTextInPhoneNumbers.isChecked();
+        showCustomerPicture = mCheckBoxShowPicture.isChecked();
         showPhoneField = mCheckBoxShowPhoneField.isChecked();
         showEmailField = mCheckBoxShowEmailField.isChecked();
         showAddressField = mCheckBoxShowAddressField.isChecked();

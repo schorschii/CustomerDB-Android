@@ -397,6 +397,12 @@
                     android:text="@string/allow_text_in_phone_numbers" />
 
                 <CheckBox
+                    android:id="@+id/checkBoxShowPicture"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_customer_picture" />
+
+                <CheckBox
                     android:id="@+id/checkBoxShowPhoneField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

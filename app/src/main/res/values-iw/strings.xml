@@ -393,4 +393,5 @@
     <string name="remote_pointer_for_android">מצביע מרחוק לאנדרואיד</string>
     <string name="masterplan_workforce_management">ניהול כוח אדם של MASTERPLAN</string>
     <string name="show_files">הצג קבצים</string>
+    <string name="show_customer_picture">הצג תמונת לקוח</string>
 </resources>

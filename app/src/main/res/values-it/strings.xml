@@ -380,4 +380,5 @@
     <string name="remote_pointer_for_android">Puntatore remoto per Android</string>
     <string name="masterplan_workforce_management">MASTERPLAN Gestione della forza lavoro</string>
     <string name="show_files">Mostra file</string>
+    <string name="show_customer_picture">Mostra l\'immagine del cliente</string>
 </resources>

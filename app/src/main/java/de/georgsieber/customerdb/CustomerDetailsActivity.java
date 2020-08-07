@@ -156,6 +156,9 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         registerForContextMenu(mButtonNotesMore);
 
         // hide fields
+        if(!mSettings.getBoolean("show-customer-picture", true)) {
+            findViewById(R.id.imageViewCustomerImage).setVisibility(View.GONE);
+        }
         if(!mSettings.getBoolean("show-phone-field", true)) {
             findViewById(R.id.linearLayoutPhone).setVisibility(View.GONE);
         }
