@@ -150,7 +150,15 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_calendar_appointment_edit, menu);
-        menu.findItem(R.id.action_remove).setVisible(mCurrentAppointmentId!=-1);
+        if(mCurrentAppointmentId == -1) { // hide id and remove button if we are about to create a new appointment
+            menu.findItem(R.id.action_id).setVisible(false);
+            menu.findItem(R.id.action_remove).setVisible(false);
+        } else {
+            menu.findItem(R.id.action_id).setVisible(true);
+            menu.findItem(R.id.action_remove).setVisible(true);
+        }
+        if(mCurrentAppointment != null && mCurrentAppointment.mId != -1) // show id in menu
+            menu.findItem(R.id.action_id).setTitle( "ID: " + mCurrentAppointment.mId );
         return true;
     }
 

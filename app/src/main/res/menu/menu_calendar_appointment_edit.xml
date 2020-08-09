@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="de.georgsieber.customerdb.CalendarAppointmentEditActivity">
     <item
+        android:id="@+id/action_id"
+        android:enabled="false"
+        android:title="@string/id"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_edit_done"
         android:title="@string/apply"
         android:icon="@drawable/ic_check_white_24dp"
