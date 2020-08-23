@@ -381,4 +381,6 @@
     <string name="masterplan_workforce_management">MASTERPLAN Dienstplaner</string>
     <string name="show_files">Dateien anzeigen</string>
     <string name="show_customer_picture">Kundenbild anzeigen</string>
+    <string name="unlock_code">Freischaltcode</string>
+    <string name="activation_failed_description">Bitte prüfen Sie Ihre Internetverbindung und den Freischaltcode und versuchen Sie es erneut.</string>
 </resources>

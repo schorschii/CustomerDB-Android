@@ -50,6 +50,7 @@
                     android:layout_marginEnd="16dp"
                     android:contentDescription="Georg Sieber Logo"
                     app:srcCompat="@drawable/logo_vendor_text"
+                    android:onClick="onClickDebugUnlock"
                     tools:ignore="HardcodedText" />
 
                 <Space

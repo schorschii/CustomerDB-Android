@@ -1,6 +1,7 @@
 package de.georgsieber.customerdb;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,7 +18,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.android.billingclient.api.BillingClient;
@@ -34,6 +38,7 @@ import java.util.List;
 
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
+import de.georgsieber.customerdb.tools.HttpRequest;
 
 
 public class AboutActivity extends AppCompatActivity {
@@ -347,6 +352,68 @@ public class AboutActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private final static String ACTIVATE_URL = "https://apps.georg-sieber.de/activate/app.php";
+    public void onClickDebugUnlock(View v) {
+        // collect all available inapp purchases
+        final String[][] inappPurchases = new String[][] {
+                new String[] {getString(R.string.calendar), "systems.sieber.customerdb.cl", "cl"},
+                new String[] {getString(R.string.commercial_use), "systems.sieber.customerdb.cu", "cu"},
+                new String[] {getString(R.string.custom_fields), "systems.sieber.customerdb.cf", "cf"},
+                new String[] {getString(R.string.design_options), "systems.sieber.customerdb.do", "do"},
+                new String[] {getString(R.string.files), "systems.sieber.customerdb.fs", "fs"},
+                new String[] {getString(R.string.input_only_mode_inapp_title), "systems.sieber.customerdb.iom", "iom"},
+                new String[] {getString(R.string.more_than_500_customers), "systems.sieber.customerdb.lc", "lc"}
+        };
+        // generate name array for dialog
+        ArrayList<String> names = new ArrayList<>();
+        for(String[] s : inappPurchases) {
+            names.add(s[0]);
+        }
+        // show selection dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.unlock));
+        builder.setItems(names.toArray(new String[0]), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                openUnlockInputBox(inappPurchases[which][1], inappPurchases[which][2]);
+            }
+        });
+        builder.show();
+    }
+    private void openUnlockInputBox(final String requestFeature, final String sku) {
+        final Dialog ad = new Dialog(this);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_input_box);
+        ((TextView) ad.findViewById(R.id.textViewInputBox)).setText(R.string.unlock_code);
+        ad.findViewById(R.id.buttonInputBoxOK).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                String text = ((EditText) ad.findViewById(R.id.editTextInputBox)).getText().toString().trim();
+                HttpRequest hr = new HttpRequest(ACTIVATE_URL, null);
+                ArrayList<HttpRequest.KeyValueItem> headers = new ArrayList<>();
+                headers.add(new HttpRequest.KeyValueItem("X-Unlock-Feature",requestFeature));
+                headers.add(new HttpRequest.KeyValueItem("X-Unlock-Code",text));
+                hr.setRequestHeaders(headers);
+                hr.setReadyListener(new HttpRequest.readyListener() {
+                    @Override
+                    public void ready(int statusCode, String responseBody) {
+                        if(statusCode == 999 && responseBody.trim().equals("")) {
+                            unlockPurchase(sku);
+                            CommonDialog.show(me, getResources().getString(R.string.success), "", CommonDialog.TYPE.OK, false);
+                        } else {
+                            CommonDialog.show(me, getResources().getString(R.string.error), getResources().getString(R.string.activation_failed_description), CommonDialog.TYPE.FAIL, false);
+                        }
+                    }
+                });
+                hr.execute();
+            }
+        });
+        if(ad.getWindow() != null)
+            ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        ad.show();
     }
 
     public void onClickApacheLicenseLink(View v) {

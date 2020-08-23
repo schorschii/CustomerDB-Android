@@ -381,4 +381,6 @@
     <string name="masterplan_workforce_management">MASTERPLAN Workforce Management</string>
     <string name="show_files">Afficher les fichiers</string>
     <string name="show_customer_picture">Afficher l\'image du client</string>
+    <string name="unlock_code">Code de dévérouillage</string>
+    <string name="activation_failed_description">Veuillez vérifier votre connexion Internet et déverrouiller le code et réessayer.</string>
 </resources>

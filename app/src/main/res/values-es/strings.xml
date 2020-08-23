@@ -381,4 +381,6 @@
     <string name="masterplan_workforce_management">MASTERPLAN Gestión de la fuerza laboral</string>
     <string name="show_files">Mostrar archivos</string>
     <string name="show_customer_picture">Mostrar imagen de cliente</string>
+    <string name="unlock_code">Código de desbloqueo</string>
+    <string name="activation_failed_description">Verifique su conexión a Internet y el código de desbloqueo y vuelva a intentarlo.</string>
 </resources>
