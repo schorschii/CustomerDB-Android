@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
@@ -610,13 +611,17 @@ public class CustomerEditActivity extends AppCompatActivity {
                     ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     ad.setContentView(R.layout.dialog_input_box);
                     ((TextView) ad.findViewById(R.id.textViewInputBox)).setText(getResources().getString(R.string.enter_new_name));
-                    ((TextView) ad.findViewById(R.id.editTextInputBox)).setText(file.mName);
+                    ((EditText) ad.findViewById(R.id.editTextInputBox)).setText(file.mName);
+                    if(file.mName.contains(".")) {
+                        int lastIndex = file.mName.lastIndexOf(".");
+                        ((EditText) ad.findViewById(R.id.editTextInputBox)).setSelection(0, lastIndex);
+                    }
                     if(ad.getWindow() != null) ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
                     ad.findViewById(R.id.buttonInputBoxOK).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             ad.dismiss();
-                            String newName = ((TextView) ad.findViewById(R.id.editTextInputBox)).getText().toString();
+                            String newName = ((EditText) ad.findViewById(R.id.editTextInputBox)).getText().toString();
                             mCurrentCustomer.renameFile(count, newName);
                             refreshFiles();
                         }
@@ -625,7 +630,7 @@ public class CustomerEditActivity extends AppCompatActivity {
                 }
             });
 
-            Button buttonFileRemove = linearLayoutFile.findViewById(R.id.buttonFileRemove);
+            ImageButton buttonFileRemove = linearLayoutFile.findViewById(R.id.buttonFileRemove);
             buttonFileRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

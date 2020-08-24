@@ -17,13 +17,11 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/files" />
-    <Button
+    <ImageButton
         android:id="@+id/buttonFileRemove"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="wrap_content"
-        android:minWidth="120dp"
-        android:src="@drawable/ic_fail_red_36dp"
-        android:layout_gravity="center"
         android:onClick="removeCustomerBirthday"
-        android:text="@string/remove" />
+        android:src="@drawable/ic_baseline_clear_dynamic_24dp"
+        android:contentDescription="@string/remove" />
 </LinearLayout>

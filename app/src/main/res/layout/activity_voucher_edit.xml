@@ -157,7 +157,8 @@
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:onClick="onClickRemoveFromCustomer"
-                        android:src="@drawable/ic_baseline_clear_dynamic_24dp" />
+                        android:src="@drawable/ic_baseline_clear_dynamic_24dp"
+                        android:contentDescription="@string/remove" />
                 </LinearLayout>
 
                 <Space
@@ -197,7 +198,8 @@
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:onClick="onClickRemoveForCustomer"
-                        android:src="@drawable/ic_baseline_clear_dynamic_24dp" />
+                        android:src="@drawable/ic_baseline_clear_dynamic_24dp"
+                        android:contentDescription="@string/remove" />
                 </LinearLayout>
 
                 <Space
