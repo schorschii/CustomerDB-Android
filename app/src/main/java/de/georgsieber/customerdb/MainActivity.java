@@ -1348,7 +1348,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 else
                     content = new VoucherCsvBuilder(mVouchers);
                 File f = StorageControl.getStorageExportCsv(me);
-                if(content.saveCsvFile(f)) {
+                if(content.saveCsvFile(f, mDb)) {
                     if(sendEmail) {
                         emailFile(f);
                     } else {
@@ -1456,7 +1456,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 CalendarCsvBuilder content = new CalendarCsvBuilder(mDb.getAppointments(calendar.mId, null, false));
                 File f = StorageControl.getStorageExportCsv(me);
-                if(content.saveCsvFile(f)) {
+                if(content.saveCsvFile(f, mDb)) {
                     if(sendEmail) {
                         emailFile(f);
                     } else {

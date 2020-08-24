@@ -959,7 +959,7 @@ public class CustomerDatabase {
         return null;
     }
 
-    Customer getCustomerById(long id, boolean showDeleted, boolean withFiles) {
+    public Customer getCustomerById(long id, boolean showDeleted, boolean withFiles) {
         // Do not fetch files for all customers! We'll fetch files only for the one ID match!
         List<Customer> customers = getCustomers(null, showDeleted, false);
         for(Customer c : customers) {

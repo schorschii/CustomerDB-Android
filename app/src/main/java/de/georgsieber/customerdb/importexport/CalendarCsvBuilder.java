@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.georgsieber.customerdb.CustomerDatabase;
+import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.CustomerAppointment;
 
 public class CalendarCsvBuilder {
@@ -28,17 +29,26 @@ public class CalendarCsvBuilder {
         mAppointments.add(_appointment);
     }
 
-    private String buildCsvContent() {
+    private String buildCsvContent(CustomerDatabase db) {
         StringWriter content = new StringWriter();
 
         CSVWriter csvWriter = new CSVWriter(content);
 
         List<String> headers = new ArrayList<>(Arrays.asList(
-                "id", "title", "notes", "time_start", "time_end", "fullday", "customer", "location", "last_modified"
+                "id", "title", "notes", "time_start", "time_end", "fullday", "customer", "customer_id", "location", "last_modified"
         ));
         csvWriter.writeNext(headers.toArray(new String[0]));
 
         for(CustomerAppointment ca : mAppointments) {
+            String customerText = "";
+            if(ca.mCustomerId != null) {
+                Customer relatedCustomer = db.getCustomerById(ca.mCustomerId, false, false);
+                if(relatedCustomer != null) {
+                    customerText = relatedCustomer.getFullName(false);
+                }
+            } else {
+                customerText = ca.mCustomer;
+            }
             List<String> values = new ArrayList<>(Arrays.asList(
                     Long.toString(ca.mId),
                     ca.mTitle,
@@ -46,7 +56,8 @@ public class CalendarCsvBuilder {
                     ca.mTimeStart==null ? "" : CustomerDatabase.storageFormatWithTime.format(ca.mTimeStart),
                     ca.mTimeEnd==null ? "" : CustomerDatabase.storageFormatWithTime.format(ca.mTimeEnd),
                     ca.mFullday ? "1" : "0",
-                    ca.mCustomer,
+                    customerText,
+                    ca.mCustomerId==null ? "" : Long.toString(ca.mCustomerId),
                     ca.mLocation,
                     ca.mLastModified==null ? "" : CustomerDatabase.storageFormatWithTime.format(ca.mLastModified)
             ));
@@ -56,10 +67,10 @@ public class CalendarCsvBuilder {
         return content.toString();
     }
 
-    public boolean saveCsvFile(File f) {
+    public boolean saveCsvFile(File f, CustomerDatabase db) {
         try {
             FileOutputStream stream = new FileOutputStream(f);
-            stream.write(buildCsvContent().getBytes());
+            stream.write(buildCsvContent(db).getBytes());
             stream.close();
             return true;
         } catch (IOException e) {

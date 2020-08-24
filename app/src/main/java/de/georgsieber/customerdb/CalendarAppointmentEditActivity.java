@@ -385,7 +385,7 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ad.dismiss();
                 boolean sendMail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmailSingle)).isChecked();
-                if(new CalendarCsvBuilder(mCurrentAppointment).saveCsvFile(getStorageExportCSV())) {
+                if(new CalendarCsvBuilder(mCurrentAppointment).saveCsvFile(getStorageExportCSV(), mDb)) {
                     if(sendMail) {
                         StorageControl.emailFile(getStorageExportCSV(), me, new String[]{}, "", "");
                     } else {
