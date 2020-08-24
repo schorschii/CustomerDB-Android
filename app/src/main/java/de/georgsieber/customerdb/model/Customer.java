@@ -232,7 +232,7 @@ public class Customer {
         if(file.mContent.length > 1024 * 1024) {
             throw new Exception( context==null ? "File too big!" : context.getString(R.string.file_too_big) );
         }
-        if(mFiles.size() >= 5) {
+        if(mFiles.size() >= 20) {
             throw new Exception( context==null ? "File limit reached!" : context.getString(R.string.file_limit_reached) );
         }
         mFiles.add(file);
