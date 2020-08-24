@@ -2,15 +2,22 @@ package de.georgsieber.customerdb;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +26,10 @@ import androidx.appcompat.widget.Toolbar;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
+import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.Voucher;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
@@ -38,6 +47,8 @@ public class VoucherEditActivity extends AppCompatActivity {
     private DateFormat mDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
     private Calendar mValidUntilCalendar = Calendar.getInstance();
 
+    ImageButton mButtonShowFromCustomer;
+    ImageButton mButtonShowForCustomer;
     EditText mEditTextValue;
     EditText mEditTextVoucherNo;
     Button mButtonValidUntil;
@@ -70,6 +81,10 @@ public class VoucherEditActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.textViewCurrency)).setText(mSettings.getString("currency", "€"));
 
         // find views
+        mButtonShowFromCustomer = findViewById(R.id.buttonShowFromCustomer);
+        mButtonShowFromCustomer.setEnabled(false);
+        mButtonShowForCustomer = findViewById(R.id.buttonShowForCustomer);
+        mButtonShowForCustomer.setEnabled(false);
         mEditTextValue = findViewById(R.id.editTextValue);
         mEditTextVoucherNo = findViewById(R.id.editTextVoucherNo);
         mButtonValidUntil = findViewById(R.id.buttonValidUntil);
@@ -166,9 +181,25 @@ public class VoucherEditActivity extends AppCompatActivity {
         mEditTextVoucherNo.setText(v.mVoucherNo);
         mEditTextVoucherNo.setEnabled(false);
         findViewById(R.id.buttonInsertVoucherNumber).setVisibility(View.GONE);
-        mEditTextFromCustomer.setText(v.mFromCustomer);
-        mEditTextForCustomer.setText(v.mForCustomer);
         mEditTextNotes.setText(v.mNotes);
+        if(v.mFromCustomerId != null) {
+            Customer relatedCustomer = mDb.getCustomerById(v.mFromCustomerId, false, false);
+            if(relatedCustomer != null) {
+                mEditTextFromCustomer.setText(relatedCustomer.getFullName(false));
+                mButtonShowFromCustomer.setEnabled(true);
+            }
+        } else {
+            mEditTextFromCustomer.setText(v.mFromCustomer);
+        }
+        if(v.mForCustomerId != null) {
+            Customer relatedCustomer = mDb.getCustomerById(v.mForCustomerId, false, false);
+            if(relatedCustomer != null) {
+                mEditTextForCustomer.setText(relatedCustomer.getFullName(false));
+                mButtonShowForCustomer.setEnabled(true);
+            }
+        } else {
+            mEditTextForCustomer.setText(v.mFromCustomer);
+        }
         if(v.mValidUntil == null) {
             mValidUntilCalendar = null;
         } else {
@@ -192,8 +223,6 @@ public class VoucherEditActivity extends AppCompatActivity {
             mCurrentVoucher.mOriginalValue = mCurrentVoucher.mCurrentValue;
         }
         mCurrentVoucher.mVoucherNo = mEditTextVoucherNo.getText().toString();
-        mCurrentVoucher.mFromCustomer = mEditTextFromCustomer.getText().toString();
-        mCurrentVoucher.mForCustomer = mEditTextForCustomer.getText().toString();
         mCurrentVoucher.mNotes = mEditTextNotes.getText().toString();
         mCurrentVoucher.mValidUntil = mValidUntilCalendar == null ? null : mValidUntilCalendar.getTime();
         mCurrentVoucher.mLastModified = new Date();
@@ -223,6 +252,88 @@ public class VoucherEditActivity extends AppCompatActivity {
     public void removeValidUntil(View v) {
         mValidUntilCalendar = null;
         mButtonValidUntil.setText(getString(R.string.no_date_set));
+    }
+
+    public void onClickShowFromCustomer(View v) {
+        if(mCurrentVoucher.mFromCustomerId != null) {
+            showCustomerDetails(mCurrentVoucher.mFromCustomerId);
+        }
+    }
+    public void onClickAddFromCustomer(View v) {
+        chooseCustomerDialog(true);
+    }
+    public void onClickRemoveFromCustomer(View v) {
+        mCurrentVoucher.mFromCustomer = "";
+        mCurrentVoucher.mFromCustomerId = null;
+        mEditTextFromCustomer.setText("");
+        mButtonShowFromCustomer.setEnabled(false);
+    }
+
+    public void onClickShowForCustomer(View v) {
+        if(mCurrentVoucher.mForCustomerId != null) {
+            showCustomerDetails(mCurrentVoucher.mForCustomerId);
+        }
+    }
+    public void onClickAddForCustomer(View v) {
+        chooseCustomerDialog(false);
+    }
+    public void onClickRemoveForCustomer(View v) {
+        mCurrentVoucher.mForCustomer = "";
+        mCurrentVoucher.mForCustomerId = null;
+        mEditTextForCustomer.setText("");
+        mButtonShowForCustomer.setEnabled(false);
+    }
+
+    private void showCustomerDetails(long customerId) {
+        Intent myIntent = new Intent(me, CustomerDetailsActivity.class);
+        myIntent.putExtra("customer-id", customerId);
+        me.startActivity(myIntent);
+    }
+    private void chooseCustomerDialog(final boolean setFromCustomer) {
+        final Dialog ad = new Dialog(me);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_list);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        if(ad.getWindow() != null) lp.copyFrom(ad.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+        final List<Customer> customers = mDb.getCustomers(null, false, false);
+        final Button buttonOK = ad.findViewById(R.id.buttonOK);
+        final ListView listView = ad.findViewById(R.id.listViewDialogList);
+        listView.setAdapter(new CustomerAdapter(me, customers, null));
+        final EditText textBoxSearch = ad.findViewById(R.id.editTextDialogListSearch);
+
+        textBoxSearch.addTextChangedListener(new TextWatcher() { // future search implementation
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        buttonOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                Customer newCustomer = (Customer) listView.getAdapter().getItem(listView.getCheckedItemPosition());
+                if(setFromCustomer) {
+                    mButtonShowFromCustomer.setEnabled(true);
+                    mCurrentVoucher.mFromCustomerId = newCustomer.mId;
+                    mCurrentVoucher.mFromCustomer = "";
+                    mEditTextFromCustomer.setText(newCustomer.getFullName(false));
+                } else {
+                    mButtonShowForCustomer.setEnabled(true);
+                    mCurrentVoucher.mForCustomerId = newCustomer.mId;
+                    mCurrentVoucher.mForCustomer = "";
+                    mEditTextForCustomer.setText(newCustomer.getFullName(false));
+                }
+            }
+        });
+
+        ad.show();
+        ad.getWindow().setAttributes(lp);
     }
 
 }

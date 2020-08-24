@@ -51,7 +51,9 @@ import de.georgsieber.customerdb.importexport.CustomerCsvBuilder;
 import de.georgsieber.customerdb.importexport.CustomerVcfBuilder;
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
+import de.georgsieber.customerdb.model.CustomerAppointment;
 import de.georgsieber.customerdb.model.CustomerFile;
+import de.georgsieber.customerdb.model.Voucher;
 import de.georgsieber.customerdb.print.CustomerPrintDocumentAdapter;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
@@ -70,6 +72,8 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     private boolean mChanged = false;
 
     private final static int EDIT_CUSTOMER_REQUEST = 2;
+    private final static int VIEW_VOUCHER_REQUEST = 3;
+    private final static int VIEW_APPOINTMENT_REQUEST = 4;
 
     TextView mTextViewName;
     TextView mTextViewPhoneHome;
@@ -232,14 +236,20 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode) {
-            case(EDIT_CUSTOMER_REQUEST) : {
+            case(EDIT_CUSTOMER_REQUEST):
                 if(resultCode == Activity.RESULT_OK) {
                     // update view
                     mChanged = true;
                     loadCustomer();
                 }
                 break;
-            }
+            case(VIEW_VOUCHER_REQUEST):
+            case(VIEW_APPOINTMENT_REQUEST):
+                if(resultCode == Activity.RESULT_OK) {
+                    // update view
+                    loadCustomer();
+                }
+                break;
         }
     }
 
@@ -510,6 +520,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         ad.show();
     }
 
+    @SuppressLint("SetTextI18n")
     private void createListEntries(Customer c) {
         mTextViewName.setText( c.getFullName(false) );
         mTextViewPhoneHome.setText( c.mPhoneHome );
@@ -624,6 +635,47 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                 }
             });
             linearLayoutFilesView.addView(linearLayoutFile);
+        }
+
+        // vouchers
+        final String currency = mSettings.getString("currency", "");
+        LinearLayout linearLayoutVouchersView = findViewById(R.id.linearLayoutAssignedVouchersView);
+        linearLayoutVouchersView.removeAllViews();
+        for(final Voucher voucher : mDb.getVouchersByCustomer(mCurrentCustomer.mId)) {
+            @SuppressLint("InflateParams") LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_simple_button, null);
+            Button button = linearLayout.findViewById(R.id.buttonSimple);
+            if(!voucher.mVoucherNo.equals("")) {
+                button.setText("#"+voucher.mVoucherNo+" ("+voucher.getCurrentValueString()+" "+currency+")");
+            } else {
+                button.setText("#"+Long.toString(voucher.mId)+" ("+voucher.getCurrentValueString()+" "+currency+")");
+            }
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myIntent = new Intent(me, VoucherDetailsActivity.class);
+                    myIntent.putExtra("voucher-id", voucher.mId);
+                    me.startActivityForResult(myIntent, VIEW_VOUCHER_REQUEST);
+                }
+            });
+            linearLayoutVouchersView.addView(linearLayout);
+        }
+
+        // appointments
+        LinearLayout linearLayoutAppointmentsView = findViewById(R.id.linearLayoutAssignedAppointmentsView);
+        linearLayoutAppointmentsView.removeAllViews();
+        for(final CustomerAppointment appointment : mDb.getAppointmentsByCustomer(mCurrentCustomer.mId)) {
+            @SuppressLint("InflateParams") LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.item_simple_button, null);
+            Button button = linearLayout.findViewById(R.id.buttonSimple);
+            button.setText(DateControl.displayDateFormat.format(appointment.mTimeStart)+" - "+appointment.mTitle);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myIntent = new Intent(me, CalendarAppointmentEditActivity.class);
+                    myIntent.putExtra("appointment-id", appointment.mId);
+                    me.startActivityForResult(myIntent, VIEW_APPOINTMENT_REQUEST);
+                }
+            });
+            linearLayoutAppointmentsView.addView(linearLayout);
         }
     }
 

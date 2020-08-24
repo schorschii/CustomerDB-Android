@@ -396,4 +396,6 @@
     <string name="show_customer_picture">הצג תמונת לקוח</string>
     <string name="unlock_code">קוד פתיחה</string>
     <string name="activation_failed_description">אנא בדוק את חיבור האינטרנט שלך ובטל את הנעילה של קוד ונסה שוב.</string>
+    <string name="assigned_vouchers">שוברים שהוקצו</string>
+    <string name="assigned_appointments">מינויים שהוקצו</string>
 </resources>

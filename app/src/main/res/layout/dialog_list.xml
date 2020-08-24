@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:padding="12dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editTextDialogListSearch"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search"
+        android:autofillHints="@string/search"
+        android:inputType="text" />
+
+    <ListView
+        android:id="@+id/listViewDialogList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:minHeight="200dp"
+        android:layout_weight="1"
+        android:layout_gravity="fill_vertical"
+        android:choiceMode="singleChoice"
+        android:listSelector="@color/colorAccent" />
+
+    <Button
+        android:id="@+id/buttonOK"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ok" />
+
+</LinearLayout>

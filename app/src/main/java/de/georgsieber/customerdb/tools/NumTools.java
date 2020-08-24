@@ -6,6 +6,13 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 public class NumTools {
+    public static Long tryParseNullableLong(String value, Long defaultVal) {
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException e) {
+            return defaultVal;
+        }
+    }
     public static long tryParseLong(String value, long defaultVal) {
         try {
             return Long.parseLong(value);

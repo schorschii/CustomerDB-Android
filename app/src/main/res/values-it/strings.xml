@@ -383,4 +383,6 @@
     <string name="show_customer_picture">Mostra l\'immagine del cliente</string>
     <string name="unlock_code">Codice di sblocco</string>
     <string name="activation_failed_description">Controlla la tua connessione Internet, sblocca il codice e riprova.</string>
+    <string name="assigned_vouchers">Buoni assegnati</string>
+    <string name="assigned_appointments">Appuntamenti assegnati</string>
 </resources>

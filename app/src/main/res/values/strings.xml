@@ -385,4 +385,6 @@
     <string name="show_customer_picture">Show Customer Picture</string>
     <string name="unlock_code">Unlock Code</string>
     <string name="activation_failed_description">Please check your internet connection and unlock code and try again.</string>
+    <string name="assigned_vouchers">Assigned Vouchers</string>
+    <string name="assigned_appointments">Assigned Appointments</string>
 </resources>

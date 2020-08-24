@@ -142,6 +142,11 @@ public class CustomerDatabase {
             endTransaction();
         }
 
+        if(columnNotExists("appointment", "customer_id")) {
+            db.execSQL("ALTER TABLE appointment ADD COLUMN customer_id INTEGER;");
+            db.execSQL("ALTER TABLE voucher ADD COLUMN from_customer_id INTEGER;");
+            db.execSQL("ALTER TABLE voucher ADD COLUMN for_customer_id INTEGER;");
+        }
     }
 
 
@@ -231,7 +236,7 @@ public class CustomerDatabase {
 
     CustomerAppointment getAppointmentById(long id) {
         Cursor cursor = db.rawQuery(
-                "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment WHERE removed = 0 AND id = ?",
+                "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, customer_id, location, last_modified, removed FROM appointment WHERE removed = 0 AND id = ?",
                 new String[]{ Long.toString(id) }
         );
         try {
@@ -253,8 +258,8 @@ public class CustomerDatabase {
                     }
                     Date lastModified = null;
                     try {
-                        if(cursor.getString(9) != null && (!cursor.getString(9).equals("")))
-                            lastModified = storageFormatWithTime.parse(cursor.getString(9));
+                        if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
+                            lastModified = storageFormatWithTime.parse(cursor.getString(10));
                     } catch (ParseException ignored) {}
                     return new CustomerAppointment(
                             cursor.getLong(0),
@@ -265,9 +270,10 @@ public class CustomerDatabase {
                             endTime,
                             cursor.getInt(6) > 0,
                             cursor.getString(7),
-                            cursor.getString(8),
+                            cursor.isNull(8) ? null : cursor.getLong(8),
+                            cursor.getString(9),
                             lastModified,
-                            cursor.getInt(10)
+                            cursor.getInt(11)
                     );
                 } while (cursor.moveToNext());
             }
@@ -284,20 +290,20 @@ public class CustomerDatabase {
         if(calendarId != null && day != null && !showRemoved) {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             cursor = db.rawQuery(
-                    "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment WHERE calendar_id = ? AND strftime('%Y-%m-%d',time_start) = ? AND removed = 0",
+                    "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, customer_id, location, last_modified, removed FROM appointment WHERE calendar_id = ? AND strftime('%Y-%m-%d',time_start) = ? AND removed = 0",
                     new String[]{Long.toString(calendarId), format.format(day)}
             );
         } else if(calendarId != null && day == null && !showRemoved) {
             cursor = db.rawQuery(
-                    "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment WHERE calendar_id = ? AND removed = 0",
+                    "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, customer_id, location, last_modified, removed FROM appointment WHERE calendar_id = ? AND removed = 0",
                     new String[]{Long.toString(calendarId)}
             );
         } else {
             String sql;
             if(showRemoved) {
-                sql = "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment";
+                sql = "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, customer_id, location, last_modified, removed FROM appointment";
             } else {
-                sql = "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed FROM appointment WHERE removed = 0";
+                sql = "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, customer_id, location, last_modified, removed FROM appointment WHERE removed = 0";
             }
             cursor = db.rawQuery(sql, null);
         }
@@ -322,8 +328,8 @@ public class CustomerDatabase {
                     }
                     Date lastModified = null;
                     try {
-                        if(cursor.getString(9) != null && (!cursor.getString(9).equals("")))
-                            lastModified = storageFormatWithTime.parse(cursor.getString(9));
+                        if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
+                            lastModified = storageFormatWithTime.parse(cursor.getString(10));
                     } catch (ParseException ignored) {}
                     CustomerAppointment a = new CustomerAppointment(
                             cursor.getLong(0),
@@ -334,9 +340,64 @@ public class CustomerDatabase {
                             endTime,
                             cursor.getInt(6) > 0,
                             cursor.getString(7),
-                            cursor.getString(8),
+                            cursor.isNull(8) ? null : cursor.getLong(8),
+                            cursor.getString(9),
                             lastModified,
-                            cursor.getInt(10)
+                            cursor.getInt(11)
+                    );
+                    al.add(a);
+                } while (cursor.moveToNext());
+            }
+        } catch (SQLiteException e) {
+            Log.e("SQLite Error", e.getMessage());
+            return null;
+        } finally {
+            cursor.close();
+        }
+        return al;
+    }
+    List<CustomerAppointment> getAppointmentsByCustomer(long customerId) {
+        Cursor cursor = db.rawQuery(
+                "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, customer_id, location, last_modified, removed FROM appointment WHERE customer_id = ? AND removed = 0 ORDER BY time_start ASC",
+                new String[]{ Long.toString(customerId) }
+        );
+
+        ArrayList<CustomerAppointment> al = new ArrayList<>();
+        try {
+            if(cursor.moveToFirst()) {
+                do {
+                    Date startTime = null;
+                    try {
+                        if(cursor.getString(4) != null && (!cursor.getString(4).equals("")))
+                            startTime = storageFormatWithTime.parse(cursor.getString(4));
+                    } catch (ParseException e) {
+                        Log.e("CAL", e.getLocalizedMessage());
+                    }
+                    Date endTime = null;
+                    try {
+                        if(cursor.getString(5) != null && (!cursor.getString(5).equals("")))
+                            endTime = storageFormatWithTime.parse(cursor.getString(5));
+                    } catch (ParseException e) {
+                        Log.e("CAL", e.getLocalizedMessage());
+                    }
+                    Date lastModified = null;
+                    try {
+                        if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
+                            lastModified = storageFormatWithTime.parse(cursor.getString(10));
+                    } catch (ParseException ignored) {}
+                    CustomerAppointment a = new CustomerAppointment(
+                            cursor.getLong(0),
+                            cursor.getLong(1),
+                            cursor.getString(2),
+                            cursor.getString(3),
+                            startTime,
+                            endTime,
+                            cursor.getInt(6) > 0,
+                            cursor.getString(7),
+                            cursor.isNull(8) ? null : cursor.getLong(8),
+                            cursor.getString(9),
+                            lastModified,
+                            cursor.getInt(11)
                     );
                     al.add(a);
                 } while (cursor.moveToNext());
@@ -350,7 +411,7 @@ public class CustomerDatabase {
         return al;
     }
     void addAppointment(CustomerAppointment a) {
-        SQLiteStatement stmt = db.compileStatement("INSERT INTO appointment (id, calendar_id, title, notes, time_start, time_end, fullday, customer, location, last_modified, removed) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+        SQLiteStatement stmt = db.compileStatement("INSERT INTO appointment (id, calendar_id, title, notes, time_start, time_end, fullday, customer, customer_id, location, last_modified, removed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 
         if(a.mId == -1) a.mId = CustomerAppointment.generateID();
         String timeStartString;
@@ -379,14 +440,19 @@ public class CustomerDatabase {
         stmt.bindString(6, timeEndString);
         stmt.bindLong(7, a.mFullday ? 1 : 0);
         stmt.bindString(8, a.mCustomer);
-        stmt.bindString(9, a.mLocation);
-        stmt.bindString(10, lastModifiedString);
-        stmt.bindLong(11, a.mRemoved);
+        if(a.mCustomerId == null) {
+            stmt.bindNull(9);
+        } else {
+            stmt.bindLong(9, a.mCustomerId);
+        }
+        stmt.bindString(10, a.mLocation);
+        stmt.bindString(11, lastModifiedString);
+        stmt.bindLong(12, a.mRemoved);
         stmt.execute();
     }
     void updateAppointment(CustomerAppointment a) {
         SQLiteStatement stmt = db.compileStatement(
-                "UPDATE appointment SET calendar_id = ?, title = ?, notes = ?, time_start = ?, time_end = ?, fullday = ?, customer = ?, location = ?, last_modified = ?, removed = ? WHERE id = ?"
+                "UPDATE appointment SET calendar_id = ?, title = ?, notes = ?, time_start = ?, time_end = ?, fullday = ?, customer = ?, customer_id = ?, location = ?, last_modified = ?, removed = ? WHERE id = ?"
         );
 
         String timeStartString;
@@ -414,15 +480,20 @@ public class CustomerDatabase {
         stmt.bindString(5, timeEndString);
         stmt.bindLong(6, a.mFullday ? 1 : 0);
         stmt.bindString(7, a.mCustomer);
-        stmt.bindString(8, a.mLocation);
-        stmt.bindString(9, lastModifiedString);
-        stmt.bindLong(10, a.mRemoved);
-        stmt.bindLong(11, a.mId);
+        if(a.mCustomerId == null) {
+            stmt.bindNull(8);
+        } else {
+            stmt.bindLong(8, a.mCustomerId);
+        }
+        stmt.bindString(9, a.mLocation);
+        stmt.bindString(10, lastModifiedString);
+        stmt.bindLong(11, a.mRemoved);
+        stmt.bindLong(12, a.mId);
         stmt.execute();
     }
     void removeAppointment(CustomerAppointment a) {
         String currentDateString = storageFormatWithTime.format(new Date());
-        SQLiteStatement stmt = db.compileStatement("UPDATE appointment SET removed = 1, calendar_id = -1, title = '', notes = '', time_start = NULL, time_end = NULL, fullday = 0, customer = '', location = '', last_modified = ? WHERE id = ?");
+        SQLiteStatement stmt = db.compileStatement("UPDATE appointment SET removed = 1, calendar_id = -1, title = '', notes = '', time_start = NULL, time_end = NULL, fullday = 0, customer = '', customer_id = NULL, location = '', last_modified = ? WHERE id = ?");
         stmt.bindString(1, currentDateString);
         stmt.bindLong(2, a.mId);
         stmt.execute();
@@ -499,7 +570,7 @@ public class CustomerDatabase {
 
     List<Voucher> getVouchers(String search, boolean showRemoved) {
         Cursor cursor;
-        String selectQuery = "SELECT id, current_value, original_value, voucher_no, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes, removed FROM voucher ORDER BY issued DESC";
+        String selectQuery = "SELECT id, current_value, original_value, voucher_no, from_customer, from_customer_id, for_customer, for_customer_id, issued, valid_until, redeemed, last_modified, notes, removed FROM voucher ORDER BY issued DESC";
         cursor = db.rawQuery(selectQuery, null);
 
         ArrayList<Voucher> vouchers = new ArrayList<>();
@@ -508,29 +579,29 @@ public class CustomerDatabase {
                 do {
                     Date issued = new Date();
                     try {
-                        if(cursor.getString(6) != null && (!cursor.getString(6).equals("")))
-                            issued = storageFormatWithTime.parse(cursor.getString(6));
+                        if(cursor.getString(8) != null && (!cursor.getString(8).equals("")))
+                            issued = storageFormatWithTime.parse(cursor.getString(8));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     Date validUntil = null;
                     try {
-                        if(cursor.getString(7) != null && (!cursor.getString(7).equals("")))
-                            validUntil = storageFormatWithTime.parse(cursor.getString(7));
+                        if(cursor.getString(9) != null && (!cursor.getString(9).equals("")))
+                            validUntil = storageFormatWithTime.parse(cursor.getString(9));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     Date redeemed = null;
                     try {
-                        if(cursor.getString(8) != null && (!cursor.getString(8).equals("")))
-                            redeemed = storageFormatWithTime.parse(cursor.getString(8));
+                        if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
+                            redeemed = storageFormatWithTime.parse(cursor.getString(10));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     Date lastModified = null;
                     try {
-                        if(cursor.getString(9) != null && (!cursor.getString(9).equals("")))
-                            lastModified = storageFormatWithTime.parse(cursor.getString(9));
+                        if(cursor.getString(11) != null && (!cursor.getString(11).equals("")))
+                            lastModified = storageFormatWithTime.parse(cursor.getString(11));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -540,16 +611,18 @@ public class CustomerDatabase {
                             cursor.getDouble(2),
                             cursor.getString(3),
                             cursor.getString(4),
-                            cursor.getString(5),
+                            cursor.isNull(5) ? null : cursor.getLong(5),
+                            cursor.getString(6),
+                            cursor.isNull(7) ? null : cursor.getLong(7),
                             issued,
                             validUntil,
                             redeemed,
                             lastModified,
-                            cursor.getString(10),
-                            cursor.getInt(11)
+                            cursor.getString(12),
+                            cursor.getInt(13)
                     );
 
-                    if(cursor.getInt(11) == 0 || showRemoved) {
+                    if(cursor.getInt(13) == 0 || showRemoved) {
                         if(search == null || search.equals("")) {
                             vouchers.add(v);
                         } else {
@@ -572,9 +645,73 @@ public class CustomerDatabase {
         }
         return vouchers;
     }
+    List<Voucher> getVouchersByCustomer(long customerId) {
+        Cursor cursor;
+        String selectQuery = "SELECT id, current_value, original_value, voucher_no, from_customer, from_customer_id, for_customer, for_customer_id, issued, valid_until, redeemed, last_modified, notes, removed FROM voucher WHERE (from_customer_id = ? OR for_customer_id = ?) AND removed = 0 ORDER BY issued DESC";
+        cursor = db.rawQuery(selectQuery, new String[]{ Long.toString(customerId), Long.toString(customerId) });
+
+        ArrayList<Voucher> vouchers = new ArrayList<>();
+        try {
+            if(cursor.moveToFirst()) {
+                do {
+                    Date issued = new Date();
+                    try {
+                        if(cursor.getString(8) != null && (!cursor.getString(8).equals("")))
+                            issued = storageFormatWithTime.parse(cursor.getString(8));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Date validUntil = null;
+                    try {
+                        if(cursor.getString(9) != null && (!cursor.getString(9).equals("")))
+                            validUntil = storageFormatWithTime.parse(cursor.getString(9));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Date redeemed = null;
+                    try {
+                        if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
+                            redeemed = storageFormatWithTime.parse(cursor.getString(10));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Date lastModified = null;
+                    try {
+                        if(cursor.getString(11) != null && (!cursor.getString(11).equals("")))
+                            lastModified = storageFormatWithTime.parse(cursor.getString(11));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    Voucher v = new Voucher(
+                            cursor.getLong(0),
+                            cursor.getDouble(1),
+                            cursor.getDouble(2),
+                            cursor.getString(3),
+                            cursor.getString(4),
+                            cursor.isNull(5) ? null : cursor.getLong(5),
+                            cursor.getString(6),
+                            cursor.isNull(7) ? null : cursor.getLong(7),
+                            issued,
+                            validUntil,
+                            redeemed,
+                            lastModified,
+                            cursor.getString(12),
+                            cursor.getInt(13)
+                    );
+                    vouchers.add(v);
+                } while(cursor.moveToNext());
+            }
+        } catch(SQLiteException e) {
+            Log.e("SQLite Error", e.getMessage());
+            return null;
+        } finally {
+            cursor.close();
+        }
+        return vouchers;
+    }
     void addVoucher(Voucher v) {
         SQLiteStatement stmt = db.compileStatement(
-                "INSERT INTO voucher (id, current_value, original_value, voucher_no, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes, removed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                "INSERT INTO voucher (id, current_value, original_value, voucher_no, from_customer, from_customer_id, for_customer, for_customer_id, issued, valid_until, redeemed, last_modified, notes, removed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
 
         long id = v.mId;
@@ -604,18 +741,28 @@ public class CustomerDatabase {
         stmt.bindDouble(3, v.mOriginalValue);
         stmt.bindString(4, v.mVoucherNo);
         stmt.bindString(5, v.mFromCustomer);
-        stmt.bindString(6, v.mForCustomer);
-        stmt.bindString(7, issuedString);
-        stmt.bindString(8, validUntilString);
-        stmt.bindString(9, redeemedString);
-        stmt.bindString(10, lastModifiedString);
-        stmt.bindString(11, v.mNotes);
-        stmt.bindLong(12, v.mRemoved);
+        if(v.mFromCustomerId == null) {
+            stmt.bindNull(6);
+        } else {
+            stmt.bindLong(6, v.mFromCustomerId);
+        }
+        stmt.bindString(7, v.mForCustomer);
+        if(v.mForCustomerId == null) {
+            stmt.bindNull(8);
+        } else {
+            stmt.bindLong(8, v.mForCustomerId);
+        }
+        stmt.bindString(9, issuedString);
+        stmt.bindString(10, validUntilString);
+        stmt.bindString(11, redeemedString);
+        stmt.bindString(12, lastModifiedString);
+        stmt.bindString(13, v.mNotes);
+        stmt.bindLong(14, v.mRemoved);
         stmt.execute();
     }
     void updateVoucher(Voucher v) {
         SQLiteStatement stmt = db.compileStatement(
-                "UPDATE voucher SET current_value = ?, original_value = ?, voucher_no = ?, from_customer = ?, for_customer = ?, issued = ?, valid_until = ?, redeemed = ?, last_modified = ?, notes = ?, removed = ? WHERE id = ?"
+                "UPDATE voucher SET current_value = ?, original_value = ?, voucher_no = ?, from_customer = ?, from_customer_id = ?, for_customer = ?, for_customer_id = ?, issued = ?, valid_until = ?, redeemed = ?, last_modified = ?, notes = ?, removed = ? WHERE id = ?"
         );
 
         String issuedString = "";
@@ -641,14 +788,24 @@ public class CustomerDatabase {
         stmt.bindDouble(2, v.mOriginalValue);
         stmt.bindString(3, v.mVoucherNo);
         stmt.bindString(4, v.mFromCustomer);
-        stmt.bindString(5, v.mForCustomer);
-        stmt.bindString(6, issuedString);
-        stmt.bindString(7, validUntilString);
-        stmt.bindString(8, redeemedString);
-        stmt.bindString(9, lastModifiedString);
-        stmt.bindString(10, v.mNotes);
-        stmt.bindLong(11, v.mRemoved);
-        stmt.bindLong(12, v.mId);
+        if(v.mFromCustomerId == null) {
+            stmt.bindNull(5);
+        } else {
+            stmt.bindLong(5, v.mFromCustomerId);
+        }
+        stmt.bindString(6, v.mForCustomer);
+        if(v.mForCustomerId == null) {
+            stmt.bindNull(7);
+        } else {
+            stmt.bindLong(7, v.mForCustomerId);
+        }
+        stmt.bindString(8, issuedString);
+        stmt.bindString(9, validUntilString);
+        stmt.bindString(10, redeemedString);
+        stmt.bindString(11, lastModifiedString);
+        stmt.bindString(12, v.mNotes);
+        stmt.bindLong(13, v.mRemoved);
+        stmt.bindLong(14, v.mId);
         stmt.execute();
     }
 
@@ -953,7 +1110,7 @@ public class CustomerDatabase {
 
     void removeVoucher(Voucher v) {
         String currentDateString = storageFormatWithTime.format(new Date());
-        SQLiteStatement stmt = db.compileStatement("UPDATE voucher SET removed = 1, current_value = 0, original_value = 0, from_customer = '', for_customer = '', notes = '', last_modified = ? WHERE id = ?");
+        SQLiteStatement stmt = db.compileStatement("UPDATE voucher SET removed = 1, current_value = 0, original_value = 0, from_customer = '', from_customer_id = NULL, for_customer = '', for_customer_id = NULL, notes = '', last_modified = ? WHERE id = ?");
         stmt.bindString(1, currentDateString);
         stmt.bindLong(2, v.mId);
         stmt.execute();

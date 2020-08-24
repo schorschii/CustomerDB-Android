@@ -17,6 +17,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.CustomerAppointment;
 import de.georgsieber.customerdb.model.CustomerCalendar;
 import de.georgsieber.customerdb.tools.DateControl;
@@ -111,7 +112,16 @@ public class CalendarFragment extends Fragment {
                             startActivityForResult(intent, EDIT_APPOINTMENT_REQUEST);
                         }
                     });
-                    appointmentView.setValues(a.mTitle, (a.mCustomer+"  "+a.mLocation).trim(), DateControl.displayTimeFormat.format(a.mTimeStart)+" - "+DateControl.displayTimeFormat.format(a.mTimeEnd), color);
+                    String customerText = "";
+                    if(a.mCustomerId != null) {
+                        Customer relatedCustomer = mDb.getCustomerById(a.mCustomerId, false, false);
+                        if(relatedCustomer != null) {
+                            customerText = relatedCustomer.getFullName(false);
+                        }
+                    } else {
+                        customerText = a.mCustomer;
+                    }
+                    appointmentView.setValues(a.mTitle, (customerText+"  "+a.mLocation).trim(), DateControl.displayTimeFormat.format(a.mTimeStart)+" - "+DateControl.displayTimeFormat.format(a.mTimeEnd), color);
                     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(itemWidth, itemHeight);
                     params.setMargins(leftMargin, topMargin, 0, 0);
                     relativeLayoutCalendarRoot.addView(appointmentView, params);

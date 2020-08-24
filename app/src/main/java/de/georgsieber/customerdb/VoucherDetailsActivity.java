@@ -27,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Date;
 
+import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.Voucher;
 import de.georgsieber.customerdb.print.VoucherPrintDocumentAdapter;
 import de.georgsieber.customerdb.tools.ColorControl;
@@ -215,13 +216,27 @@ public class VoucherDetailsActivity extends AppCompatActivity {
         mTextViewCurrentValue.setText( v.getCurrentValueString()+" "+currency );
         mTextViewOriginalValue.setText( v.getOriginalValueString()+" "+currency );
         mTextViewVoucherNo.setText( v.mVoucherNo );
-        mTextViewFromCustomer.setText( v.mFromCustomer );
-        mTextViewForCustomer.setText( v.mForCustomer );
         mTextViewNotes.setText( v.mNotes );
         mTextViewIssued.setText( v.getIssuedString() );
         mTextViewValidUntil.setText( v.getValidUntilString() );
         mTextViewRedeemed.setText( v.getRedeemedString() );
         mTextViewLastModified.setText( v.getLastModifiedString() );
+        if(v.mFromCustomerId != null) {
+            Customer relatedCustomer = mDb.getCustomerById(v.mFromCustomerId, false, false);
+            if(relatedCustomer != null) {
+                mTextViewFromCustomer.setText(relatedCustomer.getFullName(false));
+            }
+        } else {
+            mTextViewFromCustomer.setText(v.mFromCustomer);
+        }
+        if(v.mForCustomerId != null) {
+            Customer relatedCustomer = mDb.getCustomerById(v.mForCustomerId, false, false);
+            if(relatedCustomer != null) {
+                mTextViewForCustomer.setText(relatedCustomer.getFullName(false));
+            }
+        } else {
+            mTextViewForCustomer.setText(v.mFromCustomer);
+        }
     }
 
     public void showRedeemVoucher(final Voucher vo) {

@@ -10,16 +10,21 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
@@ -41,6 +46,7 @@ import java.util.TimerTask;
 
 import de.georgsieber.customerdb.importexport.CalendarCsvBuilder;
 import de.georgsieber.customerdb.importexport.CalendarIcsBuilder;
+import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.CustomerAppointment;
 import de.georgsieber.customerdb.model.CustomerCalendar;
 import de.georgsieber.customerdb.tools.ColorControl;
@@ -59,6 +65,7 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
     private Calendar mCalendar = Calendar.getInstance();
     private List<CustomerCalendar> mCustomerCalendars;
 
+    ImageButton mButtonShowCustomer;
     Spinner mSpinnerCalendar;
     EditText mEditTextTitle;
     EditText mEditTextCustomer;
@@ -91,6 +98,8 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
         ColorControl.updateActionBarColor(this, mSettings);
 
         // find views
+        mButtonShowCustomer = findViewById(R.id.buttonShowCustomer);
+        mButtonShowCustomer.setEnabled(false);
         mImageViewQrCode = findViewById(R.id.imageViewQrCode);
         mSpinnerCalendar = findViewById(R.id.spinnerCalendar);
         mEditTextTitle = findViewById(R.id.editTextTitle);
@@ -236,7 +245,16 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
         mEditTextTitle.setText(a.mTitle);
         mEditTextNotes.setText(a.mNotes);
         mEditTextLocation.setText(a.mLocation);
-        mEditTextCustomer.setText(a.mCustomer);
+
+        if(a.mCustomerId != null) {
+            Customer relatedCustomer = mDb.getCustomerById(a.mCustomerId, false, false);
+            if(relatedCustomer != null) {
+                mEditTextCustomer.setText(relatedCustomer.getFullName(false));
+                mButtonShowCustomer.setEnabled(true);
+            }
+        } else {
+            mEditTextCustomer.setText(a.mCustomer);
+        }
 
         mCalendar.setTime(a.mTimeEnd);
         if(Build.VERSION.SDK_INT < 23) {
@@ -266,7 +284,6 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
         mCurrentAppointment.mTitle = mEditTextTitle.getText().toString();
         mCurrentAppointment.mNotes = mEditTextNotes.getText().toString();
         mCurrentAppointment.mLocation = mEditTextLocation.getText().toString();
-        mCurrentAppointment.mCustomer = mEditTextCustomer.getText().toString();
 
         String dateString = CustomerDatabase.storageFormat.format(mCalendar.getTime());
         String dateStringStart;
@@ -415,6 +432,66 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
         File exportDir = new File(getExternalFilesDir(null), "export");
         exportDir.mkdirs();
         return new File(exportDir, "export."+ mCurrentAppointment.mId +".ics");
+    }
+
+    public void onClickShowCustomer(View v) {
+        if(mCurrentAppointment.mCustomerId != null) {
+            showCustomerDetails(mCurrentAppointment.mCustomerId);
+        }
+    }
+    public void onClickAddCustomer(View v) {
+        chooseCustomerDialog();
+    }
+    public void onClickRemoveCustomer(View v) {
+        mCurrentAppointment.mCustomer = "";
+        mCurrentAppointment.mCustomerId = null;
+        mEditTextCustomer.setText("");
+        mButtonShowCustomer.setEnabled(false);
+    }
+
+    private void showCustomerDetails(long customerId) {
+        Intent myIntent = new Intent(me, CustomerDetailsActivity.class);
+        myIntent.putExtra("customer-id", customerId);
+        me.startActivity(myIntent);
+    }
+    private void chooseCustomerDialog() {
+        final Dialog ad = new Dialog(me);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_list);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        if(ad.getWindow() != null) lp.copyFrom(ad.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+        final List<Customer> customers = mDb.getCustomers(null, false, false);
+        final Button buttonOK = ad.findViewById(R.id.buttonOK);
+        final ListView listView = ad.findViewById(R.id.listViewDialogList);
+        listView.setAdapter(new CustomerAdapter(me, customers, null));
+        final EditText textBoxSearch = ad.findViewById(R.id.editTextDialogListSearch);
+
+        textBoxSearch.addTextChangedListener(new TextWatcher() { // future search implementation
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        buttonOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                Customer newCustomer = (Customer) listView.getAdapter().getItem(listView.getCheckedItemPosition());
+                mButtonShowCustomer.setEnabled(true);
+                mCurrentAppointment.mCustomerId = newCustomer.mId;
+                mCurrentAppointment.mCustomer = "";
+                mEditTextCustomer.setText(newCustomer.getFullName(false));
+            }
+        });
+
+        ad.show();
+        ad.getWindow().setAttributes(lp);
     }
 
 }

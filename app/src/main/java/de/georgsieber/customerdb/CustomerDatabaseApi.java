@@ -135,6 +135,7 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                 jc.put("time_end", a.mTimeEnd == null ? JSONObject.NULL : CustomerDatabase.storageFormatWithTime.format(a.mTimeEnd));
                 jc.put("fullday", a.mFullday);
                 jc.put("customer", a.mCustomer);
+                jc.put("customer_id", a.mCustomerId == null ? JSONObject.NULL : a.mCustomerId);
                 jc.put("location", a.mLocation);
                 jc.put("last_modified", CustomerDatabase.storageFormatWithTime.format(a.mLastModified));
                 jc.put("removed", a.mRemoved);
@@ -149,7 +150,9 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                 jc.put("current_value", v.mCurrentValue);
                 jc.put("voucher_no", v.mVoucherNo);
                 jc.put("from_customer", v.mFromCustomer);
+                jc.put("from_customer_id", v.mFromCustomerId == null ? JSONObject.NULL : v.mFromCustomerId);
                 jc.put("for_customer", v.mForCustomer);
+                jc.put("for_customer_id", v.mForCustomerId == null ? JSONObject.NULL : v.mForCustomerId);
                 jc.put("issued", CustomerDatabase.storageFormatWithTime.format(v.mIssued));
                 jc.put("valid_until", v.mValidUntil == null ? JSONObject.NULL : CustomerDatabase.storageFormatWithTime.format(v.mValidUntil));
                 jc.put("redeemed", v.mRedeemed == null ? JSONObject.NULL : CustomerDatabase.storageFormatWithTime.format(v.mRedeemed));

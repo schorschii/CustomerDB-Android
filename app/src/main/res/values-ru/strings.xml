@@ -384,4 +384,6 @@
     <string name="show_customer_picture">Показать изображение клиента</string>
     <string name="unlock_code">Код разблокировки</string>
     <string name="activation_failed_description">Проверьте подключение к Интернету, введите код разблокировки и повторите попытку.</string>
+    <string name="assigned_vouchers">Назначенные ваучеры</string>
+    <string name="assigned_appointments">Назначенные встречи</string>
 </resources>

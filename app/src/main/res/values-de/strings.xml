@@ -383,4 +383,6 @@
     <string name="show_customer_picture">Kundenbild anzeigen</string>
     <string name="unlock_code">Freischaltcode</string>
     <string name="activation_failed_description">Bitte prüfen Sie Ihre Internetverbindung und den Freischaltcode und versuchen Sie es erneut.</string>
+    <string name="assigned_vouchers">Zugewiesene Gutscheine</string>
+    <string name="assigned_appointments">Zugewiesene Termine</string>
 </resources>

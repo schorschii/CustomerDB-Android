@@ -21,7 +21,9 @@ public class Voucher implements Parcelable {
     public double mCurrentValue = 0;
     public String mVoucherNo = "";
     public String mFromCustomer = "";
+    public Long mFromCustomerId = null;
     public String mForCustomer = "";
+    public Long mForCustomerId = null;
     public String mNotes = "";
     public Date mIssued = new Date();
     public Date mValidUntil;
@@ -36,7 +38,9 @@ public class Voucher implements Parcelable {
             double _originalValue,
             String _voucherNo,
             String _fromCustomer,
+            Long _fromCustomerId,
             String _forCustomer,
+            Long _forCustomerId,
             Date _issued,
             Date _validUntil,
             Date _redeemed,
@@ -49,7 +53,9 @@ public class Voucher implements Parcelable {
         mCurrentValue = _currentValue;
         mVoucherNo = _voucherNo;
         mFromCustomer = _fromCustomer;
+        mFromCustomerId = _fromCustomerId;
         mForCustomer = _forCustomer;
+        mForCustomerId = _forCustomerId;
         mIssued = _issued;
         mValidUntil = _validUntil;
         mRedeemed = _redeemed;
@@ -96,9 +102,13 @@ public class Voucher implements Parcelable {
             case "v_from_customer":
             case "from_customer":
                 mFromCustomer = value; break;
+            case "from_customer_id":
+                mFromCustomerId = NumTools.tryParseNullableLong(value, mFromCustomerId); break;
             case "v_for_customer":
             case "for_customer":
                 mForCustomer = value; break;
+            case "for_customer_id":
+                mForCustomerId = NumTools.tryParseNullableLong(value, mForCustomerId); break;
             case "v_notes":
             case "notes":
                 mNotes = value; break;
@@ -187,7 +197,9 @@ public class Voucher implements Parcelable {
         out.writeDouble(mCurrentValue);
         out.writeString(mVoucherNo);
         out.writeString(mFromCustomer);
+        out.writeLong(mFromCustomerId == null ? 0 : mFromCustomerId);
         out.writeString(mForCustomer);
+        out.writeLong(mForCustomerId == null ? 0 : mForCustomerId);
         out.writeString(mNotes);
         out.writeLong(mIssued == null ? 0 : mIssued.getTime());
         out.writeLong(mValidUntil == null ? 0 : mValidUntil.getTime());
@@ -213,7 +225,9 @@ public class Voucher implements Parcelable {
         mCurrentValue = in.readDouble();
         mVoucherNo = in.readString();
         mFromCustomer = in.readString();
+        long fromCustomerId = in.readLong(); mFromCustomerId = fromCustomerId == 0 ? null : fromCustomerId;
         mForCustomer = in.readString();
+        long forCustomerId = in.readLong(); mForCustomerId = forCustomerId == 0 ? null : forCustomerId;
         mNotes = in.readString();
         long issued = in.readLong(); mIssued = issued == 0 ? null : new Date(issued);
         long validUntil = in.readLong(); mValidUntil = validUntil == 0 ? null : new Date(validUntil);

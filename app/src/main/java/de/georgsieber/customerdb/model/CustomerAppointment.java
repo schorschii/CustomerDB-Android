@@ -24,6 +24,7 @@ public class CustomerAppointment {
     public Date mTimeEnd = null;
     public boolean mFullday = false;
     public String mCustomer = "";
+    public Long mCustomerId = null;
     public String mLocation = "";
     public Date mLastModified = new Date();
     public int mRemoved = 0;
@@ -33,7 +34,7 @@ public class CustomerAppointment {
     public CustomerAppointment() {
         super();
     }
-    public CustomerAppointment(long _id, long _calendarId, String _title, String _notes, Date _timeStart, Date _timeEnd, boolean _fullday, String _customer, String _location, Date _lastModified, int _removed) {
+    public CustomerAppointment(long _id, long _calendarId, String _title, String _notes, Date _timeStart, Date _timeEnd, boolean _fullday, String _customer, Long _customerId, String _location, Date _lastModified, int _removed) {
         mId = _id;
         mCalendarId = _calendarId;
         mTitle = _title;
@@ -42,6 +43,7 @@ public class CustomerAppointment {
         mTimeEnd = _timeEnd;
         mFullday = _fullday;
         mCustomer = _customer;
+        mCustomerId = _customerId;
         mLocation = _location;
         mLastModified = _lastModified;
         mRemoved = _removed;
@@ -112,6 +114,9 @@ public class CustomerAppointment {
                 break;
             case "customer":
                 mCustomer = value;
+                break;
+            case "customer_id":
+                mCustomerId = NumTools.tryParseNullableLong(value, mCustomerId);
                 break;
             case "location":
                 mLocation = value;

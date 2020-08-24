@@ -383,4 +383,6 @@
     <string name="show_customer_picture">Afficher l\'image du client</string>
     <string name="unlock_code">Code de dévérouillage</string>
     <string name="activation_failed_description">Veuillez vérifier votre connexion Internet et déverrouiller le code et réessayer.</string>
+    <string name="assigned_vouchers">Bons attribués</string>
+    <string name="assigned_appointments">Rendez-vous assignés</string>
 </resources>

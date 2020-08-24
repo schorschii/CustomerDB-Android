@@ -94,8 +94,9 @@
                     <ImageButton
                         android:id="@+id/buttonInsertVoucherNumber"
                         android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
                         android:onClick="insertVoucherNumber"
-                        android:src="@drawable/ic_sync_black_24dp" />
+                        android:src="@drawable/ic_sync_dynamic_24dp" />
                 </GridLayout>
 
                 <LinearLayout
@@ -128,12 +129,36 @@
                     android:layout_height="wrap_content"
                     android:text="@string/from_customer" />
 
-                <EditText
-                    android:id="@+id/editTextFromCustomer"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    tools:ignore="TextFields" />
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/editTextFromCustomer"
+                        android:enabled="false"
+                        android:layout_gravity="fill_horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        tools:ignore="TextFields" />
+                    <ImageButton
+                        android:id="@+id/buttonShowFromCustomer"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:onClick="onClickShowFromCustomer"
+                        android:src="@drawable/ic_baseline_person_dynamic_24dp" />
+                    <ImageButton
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:onClick="onClickAddFromCustomer"
+                        android:src="@drawable/ic_baseline_people_dynamic_24dp" />
+                    <ImageButton
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:onClick="onClickRemoveFromCustomer"
+                        android:src="@drawable/ic_baseline_clear_dynamic_24dp" />
+                </LinearLayout>
 
                 <Space
                     android:layout_width="wrap_content"
@@ -144,12 +169,36 @@
                     android:layout_height="wrap_content"
                     android:text="@string/for_customer" />
 
-                <EditText
-                    android:id="@+id/editTextForCustomer"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    tools:ignore="TextFields" />
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/editTextForCustomer"
+                        android:enabled="false"
+                        android:layout_gravity="fill_horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        tools:ignore="TextFields" />
+                    <ImageButton
+                        android:id="@+id/buttonShowForCustomer"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:onClick="onClickShowForCustomer"
+                        android:src="@drawable/ic_baseline_person_dynamic_24dp" />
+                    <ImageButton
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:onClick="onClickAddForCustomer"
+                        android:src="@drawable/ic_baseline_people_dynamic_24dp" />
+                    <ImageButton
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:onClick="onClickRemoveForCustomer"
+                        android:src="@drawable/ic_baseline_clear_dynamic_24dp" />
+                </LinearLayout>
 
                 <Space
                     android:layout_width="wrap_content"
@@ -189,12 +238,13 @@
                         android:onClick="setValidUntil"
                         android:text="@string/no_date_set" />
 
-                    <Button
+                    <ImageButton
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
                         android:onClick="removeValidUntil"
-                        android:text="@string/remove" />
+                        android:contentDescription="@string/remove"
+                        android:src="@drawable/ic_baseline_clear_dynamic_24dp" />
                 </LinearLayout>
 
                 <Space
