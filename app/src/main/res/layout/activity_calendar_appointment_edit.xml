@@ -91,37 +91,6 @@
                             android:layout_height="wrap_content"
                             android:inputType="textCapSentences|textMultiLine"
                             android:hint="@string/notes" />
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <EditText
-                                android:id="@+id/editTextCustomer"
-                                android:enabled="false"
-                                android:layout_gravity="fill_horizontal"
-                                android:layout_weight="1"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:inputType="textCapSentences"
-                                android:hint="@string/customer"
-                                tools:ignore="TextFields" />
-                            <ImageButton
-                                android:id="@+id/buttonShowCustomer"
-                                android:layout_height="match_parent"
-                                android:layout_width="wrap_content"
-                                android:onClick="onClickShowCustomer"
-                                android:src="@drawable/ic_baseline_person_dynamic_24dp" />
-                            <ImageButton
-                                android:layout_height="match_parent"
-                                android:layout_width="wrap_content"
-                                android:onClick="onClickAddCustomer"
-                                android:src="@drawable/ic_baseline_people_dynamic_24dp" />
-                            <ImageButton
-                                android:layout_height="match_parent"
-                                android:layout_width="wrap_content"
-                                android:onClick="onClickRemoveCustomer"
-                                android:src="@drawable/ic_baseline_clear_dynamic_24dp" />
-                        </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"
@@ -142,6 +111,37 @@
                             android:scaleType="fitStart"
                             tools:ignore="NestedWeights" />
                     </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/editTextCustomer"
+                        android:enabled="false"
+                        android:layout_gravity="fill_horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:hint="@string/customer"
+                        tools:ignore="TextFields" />
+                    <ImageButton
+                        android:id="@+id/buttonShowCustomer"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:onClick="onClickShowCustomer"
+                        android:src="@drawable/ic_baseline_person_dynamic_24dp" />
+                    <ImageButton
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:onClick="onClickAddCustomer"
+                        android:src="@drawable/ic_baseline_people_dynamic_24dp" />
+                    <ImageButton
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:onClick="onClickRemoveCustomer"
+                        android:src="@drawable/ic_baseline_clear_dynamic_24dp" />
                 </LinearLayout>
 
                 <Space
