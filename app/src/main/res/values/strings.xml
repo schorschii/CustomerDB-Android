@@ -387,4 +387,6 @@
     <string name="activation_failed_description">Please check your internet connection and unlock code and try again.</string>
     <string name="assigned_vouchers">Assigned Vouchers</string>
     <string name="assigned_appointments">Assigned Appointments</string>
+    <string name="default_appointment_title">Default Appointment Title</string>
+    <string name="default_appointment_location">Default Appointment Location</string>
 </resources>

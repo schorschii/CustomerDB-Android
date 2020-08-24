@@ -385,4 +385,6 @@
     <string name="activation_failed_description">Veuillez vérifier votre connexion Internet et déverrouiller le code et réessayer.</string>
     <string name="assigned_vouchers">Bons attribués</string>
     <string name="assigned_appointments">Rendez-vous assignés</string>
+    <string name="default_appointment_title">Titre du rendez-vous par défaut</string>
+    <string name="default_appointment_location">Lieu de rendez-vous par défaut</string>
 </resources>

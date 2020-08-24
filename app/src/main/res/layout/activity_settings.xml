@@ -380,6 +380,18 @@
                     android:onClick="changeExportTemplate"
                     android:text="@string/email_export_template" />
 
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeDefaultAppointmentTitle"
+                    android:text="@string/default_appointment_title" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeDefaultAppointmentLocation"
+                    android:text="@string/default_appointment_location" />
+
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />

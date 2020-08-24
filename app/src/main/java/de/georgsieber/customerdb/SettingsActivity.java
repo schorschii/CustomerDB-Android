@@ -105,6 +105,8 @@ public class SettingsActivity extends AppCompatActivity {
     private String mEmailNewsletterTemplate = "";
     private String mEmailExportSubject = "";
     private String mEmailExportTemplate = "";
+    private String mDefaultAppointmentTitle = "";
+    private String mDefaultAppointmentLocation = "";
     private String mIomPassword = "";
     private int mColorDarkMode = -1;
     private int mColorRed = 0;
@@ -263,6 +265,8 @@ public class SettingsActivity extends AppCompatActivity {
         mEmailNewsletterTemplate = mSettings.getString("email-newsletter-template", getResources().getString(R.string.newsletter_text_template));
         mEmailExportSubject = mSettings.getString("email-export-subject", getResources().getString(R.string.email_export_subject_template));
         mEmailExportTemplate = mSettings.getString("email-export-template", getResources().getString(R.string.email_export_text_template));
+        mDefaultAppointmentTitle = mSettings.getString("default-appointment-title", "");
+        mDefaultAppointmentLocation = mSettings.getString("default-appointment-location", "");
         mIomPassword = mSettings.getString("iom-password", "");
         mColorDarkMode = mSettings.getInt("dark-mode-native", -1);
         mColorRed = mSettings.getInt("design-red", ColorControl.DEFAULT_COLOR_R);
@@ -446,6 +450,8 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putString("email-newsletter-template", mEmailNewsletterTemplate);
         editor.putString("email-export-subject", mEmailExportSubject);
         editor.putString("email-export-template", mEmailExportTemplate);
+        editor.putString("default-appointment-title", mDefaultAppointmentTitle);
+        editor.putString("default-appointment-location", mDefaultAppointmentLocation);
         editor.putString("iom-password", mIomPassword);
         editor.putInt("dark-mode-native", mColorDarkMode);
         editor.putInt("design-red", mColorRed);
@@ -1110,6 +1116,26 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 me.mEmailExportTemplate = ((EditText) ad.findViewById(R.id.editTextInputBox)).getText().toString();
+                ad.dismiss();
+            }
+        });
+    }
+    public void changeDefaultAppointmentTitle(View v) {
+        final Dialog ad = inputBox(getResources().getString(R.string.default_appointment_title), this.mDefaultAppointmentTitle);
+        ad.findViewById(R.id.buttonInputBoxOK).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                me.mDefaultAppointmentTitle = ((EditText) ad.findViewById(R.id.editTextInputBox)).getText().toString();
+                ad.dismiss();
+            }
+        });
+    }
+    public void changeDefaultAppointmentLocation(View v) {
+        final Dialog ad = inputBox(getResources().getString(R.string.default_appointment_location), this.mDefaultAppointmentLocation);
+        ad.findViewById(R.id.buttonInputBoxOK).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                me.mDefaultAppointmentLocation = ((EditText) ad.findViewById(R.id.editTextInputBox)).getText().toString();
                 ad.dismiss();
             }
         });

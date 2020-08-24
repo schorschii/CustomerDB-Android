@@ -385,4 +385,6 @@
     <string name="activation_failed_description">Verifique su conexión a Internet y el código de desbloqueo y vuelva a intentarlo.</string>
     <string name="assigned_vouchers">Cupones asignados</string>
     <string name="assigned_appointments">Citas asignadas</string>
+    <string name="default_appointment_title">Título de la cita predeterminado</string>
+    <string name="default_appointment_location">Ubicación predeterminada de la cita</string>
 </resources>

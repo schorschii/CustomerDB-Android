@@ -386,4 +386,6 @@
     <string name="activation_failed_description">Проверьте подключение к Интернету, введите код разблокировки и повторите попытку.</string>
     <string name="assigned_vouchers">Назначенные ваучеры</string>
     <string name="assigned_appointments">Назначенные встречи</string>
+    <string name="default_appointment_title">Название встречи по умолчанию</string>
+    <string name="default_appointment_location">Место встречи по умолчанию</string>
 </resources>

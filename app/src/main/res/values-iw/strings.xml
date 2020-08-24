@@ -398,4 +398,6 @@
     <string name="activation_failed_description">אנא בדוק את חיבור האינטרנט שלך ובטל את הנעילה של קוד ונסה שוב.</string>
     <string name="assigned_vouchers">שוברים שהוקצו</string>
     <string name="assigned_appointments">מינויים שהוקצו</string>
+    <string name="default_appointment_title">כותרת ברירת מחדל לפגישה</string>
+    <string name="default_appointment_location">מיקום ברירת מחדל לפגישה</string>
 </resources>

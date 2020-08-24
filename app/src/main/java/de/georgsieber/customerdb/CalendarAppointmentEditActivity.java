@@ -126,6 +126,10 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
         ArrayAdapter<CustomerCalendar> a = new ArrayAdapter<>(this, R.layout.item_list_simple, mCustomerCalendars);
         mSpinnerCalendar.setAdapter(a);
 
+        // load default values
+        mEditTextTitle.setText(mSettings.getString("default-appointment-title", ""));
+        mEditTextLocation.setText(mSettings.getString("default-appointment-location", ""));
+
         // get extra from parent intent
         Intent intent = getIntent();
         mCurrentAppointmentId = intent.getLongExtra("appointment-id", -1);
