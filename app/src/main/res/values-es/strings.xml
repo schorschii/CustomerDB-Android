@@ -270,7 +270,6 @@
     <string name="apiusername">Nombre de usuario / correo electr&#243;nico</string>
     <string name="use_cloud_service">Usar el servicio en la nube</string>
     <string name="use_own_server">Usar servidor propio</string>
-    <string name="use_own_server_legacy">Usar servidor propio (heredado)</string>
     <string name="alphanumeric_multi_line">Alfanum&#233;rico (l&#237;nea m&#250;ltiple)</string>
     <string name="ios_app_available">Aplicaci&#243;n iOS disponible</string>
     <string name="sync_data_with_your_ios_device">&#161;Sincronice datos con su dispositivo iOS!</string>
@@ -336,8 +335,6 @@
     <string name="custom_field">Campo personalizado</string>
     <string name="last_name_default">Apellido (predeterminado)</string>
     <string name="edit_custom_field">Editar campo personalizado</string>
-    <string name="legacy_sync_warning">You are still using the legacy sync server</string>
-    <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
     <string name="im_export_all_voucher_text">Con esta función, puede importar comprobantes o exportar todos los registros en un solo archivo.</string>
     <string name="import_csv_note_voucher">Tenga en cuenta la siguiente información importante para la importación CSV.\n\nLa primera línea se interpreta como título de columna. Su archivo CSV debe contener las siguientes columnas: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportante: utilice una coma (,) como separador de campo. La ID del cliente se genera cuando el campo está vacío o la ID ya existe. El formato de fecha debe ser \"YYYY-MM-DD HH:MM:SS\".\n\nPuede editar su archivo CSV, por ejemplo, con un software como LibreOffice Calc antes de comenzar la importación.</string>
     <string name="files">Archivos</string>

@@ -71,13 +71,6 @@
                         android:layout_height="wrap_content"
                         android:onClick="showHideSyncOptions"
                         android:text="@string/use_own_server" />
-
-                    <RadioButton
-                        android:id="@+id/radioButtonOwnServerLegacySync"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="showHideSyncOptions"
-                        android:text="@string/use_own_server_legacy" />
                 </RadioGroup>
 
                 <EditText

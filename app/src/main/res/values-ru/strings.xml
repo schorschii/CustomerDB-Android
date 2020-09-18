@@ -271,7 +271,6 @@
     <string name="apiusername">Имя пользователя / электронная почта</string>
     <string name="use_cloud_service">Использовать облачный сервис</string>
     <string name="use_own_server">Использовать собственный сервер</string>
-    <string name="use_own_server_legacy">Использовать собственный сервер (Legacy)</string>
     <string name="alphanumeric_multi_line">Буквенно-цифровая (Multi Line)</string>
     <string name="ios_app_available">Доступно приложение для iOS</string>
     <string name="sync_data_with_your_ios_device">Синхронизируйте данные с вашим устройством iOS!</string>
@@ -337,8 +336,6 @@
     <string name="custom_field">Пользовательское поле</string>
     <string name="last_name_default">Фамилия (по умолчанию)</string>
     <string name="edit_custom_field">Изменить настраиваемое поле</string>
-    <string name="legacy_sync_warning">You are still using the legacy sync server</string>
-    <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
     <string name="im_export_all_voucher_text">С помощью этой функции вы можете импортировать ваучеры или экспортировать все записи в один файл.</string>
     <string name="import_csv_note_voucher">Обратите внимание на следующую важную информацию для импорта CSV.\n\nПервая строка интерпретируется как заголовок столбца. Ваш CSV-файл должен содержать следующие столбцы: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nВажно: Пожалуйста, используйте запятую (,) в качестве разделителя полей. Идентификатор клиента генерируется, когда поле пустое или идентификатор уже существует. Формат даты должен быть \"ГГГГ-ММ-ДД ЧЧ:ММ:СС\".\n\nВы можете отредактировать свой CSV-файл, например, с помощью программного обеспечения, такого как LibreOffice Calc, прежде чем начать импорт.</string>
     <string name="files">файлы</string>

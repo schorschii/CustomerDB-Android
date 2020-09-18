@@ -270,7 +270,6 @@
     <string name="apiusername">Nome utente / e-mail</string>
     <string name="use_cloud_service">Usa il servizio cloud</string>
     <string name="use_own_server">Usa il proprio server</string>
-    <string name="use_own_server_legacy">Usa il proprio server (legacy)</string>
     <string name="alphanumeric_multi_line">Alfanumerico (multi linea)</string>
     <string name="ios_app_available">App per iOS disponibile</string>
     <string name="sync_data_with_your_ios_device">Sincronizza i dati con il tuo dispositivo iOS!</string>
@@ -336,8 +335,6 @@
     <string name="custom_field">Campo personalizzato</string>
     <string name="last_name_default">Cognome (impostazione predefinita)</string>
     <string name="edit_custom_field">Modifica campo personalizzato</string>
-    <string name="legacy_sync_warning">You are still using the legacy sync server</string>
-    <string name="legacy_sync_warning_text">This feature will be removed in a future version! Please consider switching to the new cloud service or migrate your own database server to the new server software. Please visit the settings for more information.</string>
     <string name="im_export_all_voucher_text">Con questa funzione, è possibile importare buoni o esportare tutti i record in un singolo file.</string>
     <string name="import_csv_note_voucher">Si prega di notare le seguenti informazioni importanti per l\'importazione CSV.\n\nLa prima riga viene interpretata come titolo della colonna. Il tuo file CSV dovrebbe contenere le seguenti colonne: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportante: utilizzare una virgola (,) come separatore di campo. L\'ID cliente viene generato quando il campo è vuoto o l\'ID esiste già. Il formato della data deve essere \"YYYY-MM-DD HH:MM:SS\".\n\nÈ possibile modificare il file CSV ad esempio con un software come LibreOffice Calc prima di iniziare l\'importazione.</string>
     <string name="files">File</string>

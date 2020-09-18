@@ -63,7 +63,6 @@ public class SettingsActivity extends AppCompatActivity {
     RadioButton mRadioButtonNoSync;
     RadioButton mRadioButtonCloudSync;
     RadioButton mRadioButtonOwnServerSync;
-    RadioButton mRadioButtonOwnServerLegacySync;
     EditText mEditTextUrl;
     EditText mEditTextUsername;
     EditText mEditTextPassword;
@@ -146,7 +145,6 @@ public class SettingsActivity extends AppCompatActivity {
         mRadioButtonNoSync = findViewById(R.id.radioButtonNoSync);
         mRadioButtonCloudSync = findViewById(R.id.radioButtonCloudSync);
         mRadioButtonOwnServerSync = findViewById(R.id.radioButtonOwnServerSync);
-        mRadioButtonOwnServerLegacySync = findViewById(R.id.radioButtonOwnServerLegacySync);
         mEditTextUrl = findViewById(R.id.editTextURL);
         mEditTextUsername = findViewById(R.id.editTextUsername);
         mEditTextPassword = findViewById(R.id.editTextPassword);
@@ -295,9 +293,6 @@ public class SettingsActivity extends AppCompatActivity {
             case 2:
                 mRadioButtonOwnServerSync.setChecked(true);
                 break;
-            case 3:
-                mRadioButtonOwnServerLegacySync.setChecked(true);
-                break;
         }
         showHideSyncOptions(null);
 
@@ -350,10 +345,6 @@ public class SettingsActivity extends AppCompatActivity {
         else if(((RadioButton) findViewById(R.id.radioButtonOwnServerSync)).isChecked()) {
             mEditTextUrl.setVisibility(View.VISIBLE);
             mEditTextUsername.setVisibility(View.VISIBLE);
-            mEditTextPassword.setVisibility(View.VISIBLE);
-        }
-        else if(((RadioButton) findViewById(R.id.radioButtonOwnServerLegacySync)).isChecked()) {
-            mEditTextUrl.setVisibility(View.VISIBLE);
             mEditTextPassword.setVisibility(View.VISIBLE);
         }
     }
@@ -500,8 +491,6 @@ public class SettingsActivity extends AppCompatActivity {
             mRemoteDatabaseConnType = 1;
         else if(mRadioButtonOwnServerSync.isChecked())
             mRemoteDatabaseConnType = 2;
-        else if(mRadioButtonOwnServerLegacySync.isChecked())
-            mRemoteDatabaseConnType = 3;
         else {
             mRemoteDatabaseConnType = 0;
             mRemoteDatabaseConnURL = "";

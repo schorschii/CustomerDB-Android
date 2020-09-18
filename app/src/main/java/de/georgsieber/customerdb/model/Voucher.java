@@ -87,35 +87,26 @@ public class Voucher implements Parcelable {
 
     public void putVoucherAttribute(String key, String value) {
         switch(key) {
-            case "v_id":
             case "id":
                 mId = NumTools.tryParseLong(value, mId); break;
-            case "v_current_value":
             case "current_value":
                 mCurrentValue = Float.parseFloat(value); break;
-            case "v_original_value":
             case "original_value":
                 mOriginalValue = Float.parseFloat(value); break;
-            case "v_voucher_no":
             case "voucher_no":
                 mVoucherNo = value; break;
-            case "v_from_customer":
             case "from_customer":
                 mFromCustomer = value; break;
             case "from_customer_id":
                 mFromCustomerId = NumTools.tryParseNullableLong(value, mFromCustomerId); break;
-            case "v_for_customer":
             case "for_customer":
                 mForCustomer = value; break;
             case "for_customer_id":
                 mForCustomerId = NumTools.tryParseNullableLong(value, mForCustomerId); break;
-            case "v_notes":
             case "notes":
                 mNotes = value; break;
-            case "v_removed":
             case "removed":
                 mRemoved = Integer.parseInt(value); break;
-            case "v_issued":
             case "issued":
                 try {
                     mIssued = CustomerDatabase.parseDate(value);
@@ -123,7 +114,6 @@ public class Voucher implements Parcelable {
                     e.printStackTrace();
                 }
                 break;
-            case "v_redeemed":
             case "redeemed":
                 try {
                     mRedeemed = CustomerDatabase.parseDate(value);
@@ -131,7 +121,6 @@ public class Voucher implements Parcelable {
                     e.printStackTrace();
                 }
                 break;
-            case "v_valid_until":
             case "valid_until":
                 try {
                     mValidUntil = CustomerDatabase.parseDate(value);
@@ -139,7 +128,6 @@ public class Voucher implements Parcelable {
                     e.printStackTrace();
                 }
                 break;
-            case "v_last_modified":
             case "last_modified":
                 try {
                     mLastModified = CustomerDatabase.parseDate(value);

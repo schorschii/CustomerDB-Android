@@ -633,7 +633,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void doSync() {
-        if(mRemoteDatabaseConnType == 1 || mRemoteDatabaseConnType == 2 || mRemoteDatabaseConnType == 3) {
+        if(mRemoteDatabaseConnType == 1 || mRemoteDatabaseConnType == 2) {
             if(isNetworkConnected()) {
                 dialogSyncProgress();
                 List<Customer> allCustomers = mDb.getCustomers(null, true, true);
@@ -646,10 +646,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 else if(mRemoteDatabaseConnType == 2) {
                     new CustomerDatabaseApi(this, mSettings.getString("sync-purchase-token", ""), mRemoteDatabaseConnURL, mRemoteDatabaseConnUsername, mRemoteDatabaseConnPassword, allCustomers, allVouchers, allCalendars, allAppointments).execute();
-                }
-                else if(mRemoteDatabaseConnType == 3) {
-                    CommonDialog.show(this, getString(R.string.legacy_sync_warning), getString(R.string.legacy_sync_warning_text), CommonDialog.TYPE.WARN, false);
-                    new CustomerDatabaseApiLegacy(this, mRemoteDatabaseConnURL, mRemoteDatabaseConnPassword, "sync", allCustomers, allVouchers).execute();
                 }
 
             } else {
