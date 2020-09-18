@@ -100,13 +100,17 @@ public class CustomerAppointment {
                 break;
             case "time_start":
                 try {
-                    mTimeStart = CustomerDatabase.storageFormatWithTime.parse(value);
-                } catch (ParseException ignored) {}
+                    mTimeStart = CustomerDatabase.parseDateRaw(value);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "time_end":
                 try {
-                    mTimeEnd = CustomerDatabase.storageFormatWithTime.parse(value);
-                } catch (ParseException ignored) {}
+                    mTimeEnd = CustomerDatabase.parseDateRaw(value);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "fullday":
                 Integer parsed = NumTools.tryParseInt(value);
@@ -123,9 +127,10 @@ public class CustomerAppointment {
                 break;
             case "last_modified":
                 try {
-                    mLastModified = new Date();
-                    mLastModified = CustomerDatabase.storageFormatWithTime.parse(value);
-                } catch (ParseException ignored) {}
+                    mLastModified = CustomerDatabase.parseDate(value);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "removed":
                 mRemoved = Integer.parseInt(value); break;

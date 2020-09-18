@@ -71,9 +71,10 @@ public class CustomerCalendar {
                 break;
             case "last_modified":
                 try {
-                    mLastModified = new Date();
-                    mLastModified = CustomerDatabase.storageFormatWithTime.parse(value);
-                } catch (ParseException ignored) {}
+                    mLastModified = CustomerDatabase.parseDate(value);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "removed":
                 mRemoved = Integer.parseInt(value); break;

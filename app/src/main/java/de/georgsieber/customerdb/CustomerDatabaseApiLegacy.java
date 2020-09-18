@@ -81,8 +81,8 @@ class CustomerDatabaseApiLegacy extends AsyncTask<Void, Void, String> {
         if(this.method.equals("putEntries")) {
             if(this.customers != null) {
                 for(Customer c : customers) {
-                    String birthdayString = c.mBirthday==null ? "1800-01-01" : CustomerDatabase.storageFormat.format(c.mBirthday) + " 00:00:00";
-                    String lastModifiedString = CustomerDatabase.storageFormatWithTime.format(c.mLastModified);
+                    String birthdayString = c.mBirthday==null ? "1800-01-01" : CustomerDatabase.storageFormatWithoutTime.format(c.mBirthday) + " 00:00:00";
+                    String lastModifiedString = CustomerDatabase.dateToString(c.mLastModified);
                     sb.append(appendParameter("id", String.valueOf(c.mId)));
                     sb.append(appendParameter("title", c.mTitle));
                     sb.append(appendParameter("first_name", c.mFirstName));
@@ -108,10 +108,10 @@ class CustomerDatabaseApiLegacy extends AsyncTask<Void, Void, String> {
             }
             if(this.vouchers != null) {
                 for(Voucher v : vouchers) {
-                    String issuedString = v.mIssued==null ? "1800-01-01" : CustomerDatabase.storageFormatWithTime.format(v.mIssued);
-                    String redeemedString = v.mRedeemed==null ? "1800-01-01" : CustomerDatabase.storageFormatWithTime.format(v.mRedeemed);
-                    String validUntilString = v.mValidUntil==null ? "1800-01-01" : CustomerDatabase.storageFormatWithTime.format(v.mValidUntil);
-                    String lastModifiedString = CustomerDatabase.storageFormatWithTime.format(v.mLastModified);
+                    String issuedString = v.mIssued==null ? "1800-01-01" : CustomerDatabase.dateToString(v.mIssued);
+                    String redeemedString = v.mRedeemed==null ? "1800-01-01" : CustomerDatabase.dateToString(v.mRedeemed);
+                    String validUntilString = v.mValidUntil==null ? "1800-01-01" : CustomerDatabase.dateToString(v.mValidUntil);
+                    String lastModifiedString = CustomerDatabase.dateToString(v.mLastModified);
                     sb.append(appendParameter("v_id", String.valueOf(v.mId)));
                     sb.append(appendParameter("v_current_value", String.valueOf(v.mCurrentValue)));
                     sb.append(appendParameter("v_original_value", String.valueOf(v.mOriginalValue)));

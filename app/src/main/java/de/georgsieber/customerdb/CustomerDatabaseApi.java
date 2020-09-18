@@ -99,7 +99,7 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                 jc.put("zipcode", c.mZipcode);
                 jc.put("city", c.mCity);
                 jc.put("country", c.mCountry);
-                jc.put("birthday", c.mBirthday == null ? JSONObject.NULL : CustomerDatabase.storageFormat.format(c.mBirthday)+" 00:00:00");
+                jc.put("birthday", c.mBirthday == null ? JSONObject.NULL : CustomerDatabase.dateToStringRaw(c.mBirthday));
                 jc.put("customer_group", c.mCustomerGroup);
                 jc.put("newsletter", c.mNewsletter ? 1 : 0);
                 jc.put("notes", c.mNotes);
@@ -107,7 +107,7 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                 jc.put("consent", JSONObject.NULL);
                 jc.put("files", (jsonFiles.length()==0 ? JSONObject.NULL : jsonFiles.toString()));
                 jc.put("custom_fields", c.mCustomFields);
-                jc.put("last_modified", CustomerDatabase.storageFormatWithTime.format(c.mLastModified));
+                jc.put("last_modified", CustomerDatabase.dateToString(c.mLastModified));
                 jc.put("removed", c.mRemoved);
                 jarrayCustomers.put(jc);
             }
@@ -119,7 +119,7 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                 jc.put("title", c.mTitle);
                 jc.put("color", c.mColor);
                 jc.put("notes", c.mNotes);
-                jc.put("last_modified", CustomerDatabase.storageFormatWithTime.format(c.mLastModified));
+                jc.put("last_modified", CustomerDatabase.dateToString(c.mLastModified));
                 jc.put("removed", c.mRemoved);
                 jarrayCalendars.put(jc);
             }
@@ -131,13 +131,13 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                 jc.put("calendar_id", a.mCalendarId);
                 jc.put("title", a.mTitle);
                 jc.put("notes", a.mNotes);
-                jc.put("time_start", a.mTimeStart == null ? JSONObject.NULL : CustomerDatabase.storageFormatWithTime.format(a.mTimeStart));
-                jc.put("time_end", a.mTimeEnd == null ? JSONObject.NULL : CustomerDatabase.storageFormatWithTime.format(a.mTimeEnd));
+                jc.put("time_start", a.mTimeStart == null ? JSONObject.NULL : CustomerDatabase.dateToStringRaw(a.mTimeStart));
+                jc.put("time_end", a.mTimeEnd == null ? JSONObject.NULL : CustomerDatabase.dateToStringRaw(a.mTimeEnd));
                 jc.put("fullday", a.mFullday);
                 jc.put("customer", a.mCustomer);
                 jc.put("customer_id", a.mCustomerId == null ? JSONObject.NULL : a.mCustomerId);
                 jc.put("location", a.mLocation);
-                jc.put("last_modified", CustomerDatabase.storageFormatWithTime.format(a.mLastModified));
+                jc.put("last_modified", CustomerDatabase.dateToString(a.mLastModified));
                 jc.put("removed", a.mRemoved);
                 jarrayAppointments.put(jc);
             }
@@ -153,11 +153,11 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                 jc.put("from_customer_id", v.mFromCustomerId == null ? JSONObject.NULL : v.mFromCustomerId);
                 jc.put("for_customer", v.mForCustomer);
                 jc.put("for_customer_id", v.mForCustomerId == null ? JSONObject.NULL : v.mForCustomerId);
-                jc.put("issued", CustomerDatabase.storageFormatWithTime.format(v.mIssued));
-                jc.put("valid_until", v.mValidUntil == null ? JSONObject.NULL : CustomerDatabase.storageFormatWithTime.format(v.mValidUntil));
-                jc.put("redeemed", v.mRedeemed == null ? JSONObject.NULL : CustomerDatabase.storageFormatWithTime.format(v.mRedeemed));
+                jc.put("issued", CustomerDatabase.dateToString(v.mIssued));
+                jc.put("valid_until", v.mValidUntil == null ? JSONObject.NULL : CustomerDatabase.dateToString(v.mValidUntil));
+                jc.put("redeemed", v.mRedeemed == null ? JSONObject.NULL : CustomerDatabase.dateToString(v.mRedeemed));
                 jc.put("notes", v.mNotes);
-                jc.put("last_modified", CustomerDatabase.storageFormatWithTime.format(v.mLastModified));
+                jc.put("last_modified", CustomerDatabase.dateToString(v.mLastModified));
                 jc.put("removed", v.mRemoved);
                 jarrayVouchers.put(jc);
             }

@@ -65,8 +65,8 @@ public class CustomerCsvBuilder {
                     currentCustomer.mCountry,
                     currentCustomer.mCustomerGroup,
                     currentCustomer.mNewsletter ? "1" : "0",
-                    currentCustomer.mBirthday==null ? "" : CustomerDatabase.storageFormatWithTime.format(currentCustomer.mBirthday),
-                    currentCustomer.mLastModified==null ? "" : CustomerDatabase.storageFormatWithTime.format(currentCustomer.mLastModified),
+                    currentCustomer.mBirthday==null ? "" : CustomerDatabase.dateToStringRaw(currentCustomer.mBirthday),
+                    currentCustomer.mLastModified==null ? "" : CustomerDatabase.dateToString(currentCustomer.mLastModified),
                     currentCustomer.mNotes
             ));
             for(CustomField cf : mAllCustomFields) {

@@ -182,19 +182,22 @@ public class Customer {
             case "country":
                 mCountry = value; break;
             case "birthday":
-                try {
-                    if(value.contains("1800")) {
-                        mBirthday = null;
-                    } else {
-                        mBirthday = CustomerDatabase.storageFormatWithTime.parse(value);
+                if(value.contains("1800")) {
+                    mBirthday = null;
+                } else {
+                    try {
+                        mBirthday = CustomerDatabase.parseDateRaw(value);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
-                } catch (ParseException ignored) {}
+                }
                 break;
             case "last_modified":
                 try {
-                    mLastModified = new Date();
-                    mLastModified = CustomerDatabase.storageFormatWithTime.parse(value);
-                } catch (ParseException ignored) {}
+                    mLastModified = CustomerDatabase.parseDate(value);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "notes":
                 mNotes = value; break;

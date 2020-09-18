@@ -71,10 +71,10 @@ public class VoucherCsvBuilder {
                     currentVoucher.mFromCustomerId==null ? "" : Long.toString(currentVoucher.mFromCustomerId),
                     forCustomerText,
                     currentVoucher.mForCustomerId==null ? "" : Long.toString(currentVoucher.mForCustomerId),
-                    currentVoucher.mIssued==null ? "" : CustomerDatabase.storageFormatWithTime.format(currentVoucher.mIssued),
-                    currentVoucher.mValidUntil==null ? "" : CustomerDatabase.storageFormatWithTime.format(currentVoucher.mValidUntil),
-                    currentVoucher.mRedeemed==null ? "" : CustomerDatabase.storageFormatWithTime.format(currentVoucher.mRedeemed),
-                    currentVoucher.mLastModified==null ? "" : CustomerDatabase.storageFormatWithTime.format(currentVoucher.mLastModified),
+                    currentVoucher.mIssued==null ? "" : CustomerDatabase.dateToString(currentVoucher.mIssued),
+                    currentVoucher.mValidUntil==null ? "" : CustomerDatabase.dateToString(currentVoucher.mValidUntil),
+                    currentVoucher.mRedeemed==null ? "" : CustomerDatabase.dateToString(currentVoucher.mRedeemed),
+                    currentVoucher.mLastModified==null ? "" : CustomerDatabase.dateToString(currentVoucher.mLastModified),
                     currentVoucher.mNotes
             ));
             csvWriter.writeNext(values.toArray(new String[0]));

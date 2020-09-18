@@ -580,7 +580,7 @@ public class CustomerDetailsActivity extends AppCompatActivity {
                 if(cf.mType == 3) {
                     // try parse value from storage (normalized) format and show it in local format
                     try {
-                        Date selectedDate = CustomerDatabase.storageFormatWithTime.parse(value);
+                        Date selectedDate = CustomerDatabase.parseDateRaw(value);
                         displayValue = DateControl.birthdayDateFormat.format(selectedDate);
                     } catch(Exception ignored) {}
                 }

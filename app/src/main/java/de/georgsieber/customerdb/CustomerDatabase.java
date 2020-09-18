@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import de.georgsieber.customerdb.model.CustomerAppointment;
 import de.georgsieber.customerdb.model.CustomerCalendar;
@@ -32,9 +33,29 @@ import static android.content.Context.MODE_PRIVATE;
 public class CustomerDatabase {
 
     @SuppressLint("SimpleDateFormat")
-    static DateFormat storageFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public static DateFormat storageFormatWithoutTime = new SimpleDateFormat("yyyy-MM-dd");
     @SuppressLint("SimpleDateFormat")
-    public static DateFormat storageFormatWithTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static DateFormat storageFormatWithTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static String dateToString(Date d) {
+        if(d == null) d = new Date();
+        storageFormatWithTime.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return storageFormatWithTime.format(d);
+    }
+    public static String dateToStringRaw(Date d) {
+        if(d == null) d = new Date();
+        storageFormatWithTime.setTimeZone(TimeZone.getDefault());
+        return storageFormatWithTime.format(d);
+    }
+    public static Date parseDate(String s) throws ParseException {
+        if(s == null) throw new ParseException("String is null", 0);
+        storageFormatWithTime.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return storageFormatWithTime.parse(s);
+    }
+    public static Date parseDateRaw(String s) throws ParseException {
+        if(s == null) throw new ParseException("String is null", 0);
+        storageFormatWithTime.setTimeZone(TimeZone.getDefault());
+        return storageFormatWithTime.parse(s);
+    }
 
     private SQLiteDatabase db;
     private Context context;
@@ -109,7 +130,7 @@ public class CustomerDatabase {
         }
 
         if(columnNotExists("customer_file", "content")) {
-            String currentDateString = storageFormatWithTime.format(new Date());
+            String currentDateString = dateToString(new Date());
             beginTransaction();
             db.execSQL("CREATE TABLE IF NOT EXISTS calendar (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR NOT NULL, color VARCHAR NOT NULL, notes VARCHAR NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP, removed INTEGER DEFAULT 0);");
             db.execSQL("CREATE TABLE IF NOT EXISTS appointment (id INTEGER PRIMARY KEY AUTOINCREMENT, calendar_id INTEGER NOT NULL, title VARCHAR NOT NULL, notes VARCHAR NOT NULL, time_start DATETIME, time_end DATETIME, fullday INTEGER DEFAULT 0, customer VARCHAR NOT NULL, location VARCHAR NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP, removed INTEGER DEFAULT 0);");
@@ -143,9 +164,123 @@ public class CustomerDatabase {
         }
 
         if(columnNotExists("appointment", "customer_id")) {
+            db.beginTransaction();
             db.execSQL("ALTER TABLE appointment ADD COLUMN customer_id INTEGER;");
             db.execSQL("ALTER TABLE voucher ADD COLUMN from_customer_id INTEGER;");
             db.execSQL("ALTER TABLE voucher ADD COLUMN for_customer_id INTEGER;");
+
+            // convert timestamps to UTC
+            Cursor cursor = db.rawQuery("SELECT id, last_modified FROM customer", null);
+            try {
+                if(cursor.moveToFirst()) {
+                    do {
+                        Date oldDate;
+                        try {
+                            oldDate = parseDateRaw(cursor.getString(1));
+                        } catch (ParseException e) {
+                            oldDate = new Date();
+                        }
+                        String newDateString = dateToString(oldDate);
+                        Log.e("utc customer", cursor.getString(1) + " -> " + newDateString);
+                        SQLiteStatement stmt = db.compileStatement("UPDATE customer SET last_modified = ? WHERE id = ?");
+                        stmt.bindString(1, newDateString);
+                        stmt.bindLong(2, cursor.getLong(0));
+                        stmt.execute();
+                    } while (cursor.moveToNext());
+                }
+            } catch (SQLiteException e) {
+                Log.e("Customer utc dce", e.getMessage());
+                System.exit(1);
+            } finally {
+                cursor.close();
+            }
+
+            cursor = db.rawQuery("SELECT id, last_modified FROM appointment", null);
+            try {
+                if(cursor.moveToFirst()) {
+                    do {
+                        Date oldDate;
+                        try {
+                            oldDate = parseDateRaw(cursor.getString(1));
+                        } catch (ParseException e) {
+                            oldDate = new Date();
+                        }
+                        String newDateString = dateToString(oldDate);
+                        Log.e("utc appointment", cursor.getString(1) + " -> " + newDateString);
+                        SQLiteStatement stmt = db.compileStatement("UPDATE appointment SET last_modified = ? WHERE id = ?");
+                        stmt.bindString(1, newDateString);
+                        stmt.bindLong(2, cursor.getLong(0));
+                        stmt.execute();
+                    } while (cursor.moveToNext());
+                }
+            } catch (SQLiteException e) {
+                Log.e("Appointment utc dce", e.getMessage());
+                System.exit(1);
+            } finally {
+                cursor.close();
+            }
+
+            cursor = db.rawQuery("SELECT id, issued, redeemed, valid_until, last_modified FROM voucher", null);
+            try {
+                if(cursor.moveToFirst()) {
+                    do {
+                        Date oldDate1;
+                        try {
+                            oldDate1 = parseDateRaw(cursor.getString(1));
+                        } catch (ParseException e) {
+                            oldDate1 = new Date();
+                        }
+                        String newDateString1 = dateToString(oldDate1);
+
+                        String newDateString2 = null;
+                        if(!cursor.isNull(2) && !cursor.getString(2).equals("")) {
+                            try {
+                                Date oldDate2 = parseDateRaw(cursor.getString(2));
+                                newDateString2 = dateToString(oldDate2);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        String newDateString3 = null;
+                        if(!cursor.isNull(3) && !cursor.getString(3).equals("")) {
+                            try {
+                                Date oldDate3 = parseDateRaw(cursor.getString(3));
+                                newDateString3 = dateToString(oldDate3);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        Date oldDate4;
+                        try {
+                            oldDate4 = parseDateRaw(cursor.getString(4));
+                        } catch (ParseException e) {
+                            oldDate4 = new Date();
+                        }
+                        String newDateString4 = dateToString(oldDate4);
+
+                        Log.e("utc voucher", cursor.getString(1) + " => " + newDateString1);
+
+                        SQLiteStatement stmt = db.compileStatement("UPDATE voucher SET issued = ?, redeemed = ?, valid_until = ?, last_modified = ? WHERE id = ?");
+                        stmt.bindString(1, newDateString1);
+                        if(newDateString2 == null) { stmt.bindNull(2); }
+                        else { stmt.bindString(2, newDateString2); }
+                        if(newDateString3 == null) { stmt.bindNull(3); }
+                        else { stmt.bindString(3, newDateString3); }
+                        stmt.bindString(4, newDateString4);
+                        stmt.bindLong(5, cursor.getLong(0));
+                        stmt.execute();
+                    } while (cursor.moveToNext());
+                }
+            } catch (SQLiteException e) {
+                Log.e("Voucher utc dce", e.getMessage());
+                System.exit(1);
+            } finally {
+                cursor.close();
+            }
+            commitTransaction();
+            endTransaction();
         }
     }
 
@@ -158,10 +293,10 @@ public class CustomerDatabase {
         try {
             if(cursor.moveToFirst()) {
                 do {
-                    Date lastModified = null;
+                    Date lastModified = new Date();
                     try {
                         if(cursor.getString(4) != null && (!cursor.getString(4).equals("")))
-                            lastModified = storageFormatWithTime.parse(cursor.getString(4));
+                            lastModified = parseDate(cursor.getString(4));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -188,17 +323,11 @@ public class CustomerDatabase {
         SQLiteStatement stmt = db.compileStatement("INSERT INTO calendar (id, title, color, notes, last_modified, removed) VALUES (?,?,?,?,?,?)");
 
         if(c.mId == -1) c.mId = CustomerCalendar.generateID();
-        String lastModifiedString;
-        if(c.mLastModified != null) {
-            lastModifiedString = storageFormatWithTime.format(c.mLastModified);
-        } else {
-            lastModifiedString = storageFormatWithTime.format(new Date());
-        }
         stmt.bindLong(1, c.mId);
         stmt.bindString(2, c.mTitle);
         stmt.bindString(3, c.mColor);
         stmt.bindString(4, c.mNotes);
-        stmt.bindString(5, lastModifiedString);
+        stmt.bindString(5, dateToString(c.mLastModified));
         stmt.bindLong(6, c.mRemoved);
         stmt.execute();
     }
@@ -207,22 +336,16 @@ public class CustomerDatabase {
                 "UPDATE calendar SET title = ?, color = ?, notes = ?, last_modified = ?, removed = ? WHERE id = ?"
         );
 
-        String lastModifiedString;
-        if(c.mLastModified != null) {
-            lastModifiedString = storageFormatWithTime.format(c.mLastModified);
-        } else {
-            lastModifiedString = storageFormatWithTime.format(new Date());
-        }
         stmt.bindString(1, c.mTitle);
         stmt.bindString(2, c.mColor);
         stmt.bindString(3, c.mNotes);
-        stmt.bindString(4, lastModifiedString);
+        stmt.bindString(4, dateToString(c.mLastModified));
         stmt.bindLong(5, c.mRemoved);
         stmt.bindLong(6, c.mId);
         stmt.execute();
     }
     void removeCalendar(CustomerCalendar c) {
-        String currentDateString = storageFormatWithTime.format(new Date());
+        String currentDateString = dateToString(new Date());
         SQLiteStatement stmt = db.compileStatement("UPDATE calendar SET removed = 1, title = '', color = '', notes = '', last_modified = ? WHERE id = ?");
         stmt.bindString(1, currentDateString);
         stmt.bindLong(2, c.mId);
@@ -245,21 +368,21 @@ public class CustomerDatabase {
                     Date startTime = null;
                     try {
                         if(cursor.getString(4) != null && (!cursor.getString(4).equals("")))
-                            startTime = storageFormatWithTime.parse(cursor.getString(4));
+                            startTime = parseDateRaw(cursor.getString(4));
                     } catch (ParseException e) {
                         Log.e("CAL", e.getLocalizedMessage());
                     }
                     Date endTime = null;
                     try {
                         if(cursor.getString(5) != null && (!cursor.getString(5).equals("")))
-                            endTime = storageFormatWithTime.parse(cursor.getString(5));
+                            endTime = parseDateRaw(cursor.getString(5));
                     } catch (ParseException e) {
                         Log.e("CAL", e.getLocalizedMessage());
                     }
-                    Date lastModified = null;
+                    Date lastModified = new Date();
                     try {
                         if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
-                            lastModified = storageFormatWithTime.parse(cursor.getString(10));
+                            lastModified = parseDate(cursor.getString(10));
                     } catch (ParseException ignored) {}
                     return new CustomerAppointment(
                             cursor.getLong(0),
@@ -315,21 +438,21 @@ public class CustomerDatabase {
                     Date startTime = null;
                     try {
                         if(cursor.getString(4) != null && (!cursor.getString(4).equals("")))
-                            startTime = storageFormatWithTime.parse(cursor.getString(4));
+                            startTime = parseDateRaw(cursor.getString(4));
                     } catch (ParseException e) {
                         Log.e("CAL", e.getLocalizedMessage());
                     }
                     Date endTime = null;
                     try {
                         if(cursor.getString(5) != null && (!cursor.getString(5).equals("")))
-                            endTime = storageFormatWithTime.parse(cursor.getString(5));
+                            endTime = parseDateRaw(cursor.getString(5));
                     } catch (ParseException e) {
                         Log.e("CAL", e.getLocalizedMessage());
                     }
-                    Date lastModified = null;
+                    Date lastModified = new Date();
                     try {
                         if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
-                            lastModified = storageFormatWithTime.parse(cursor.getString(10));
+                            lastModified = parseDate(cursor.getString(10));
                     } catch (ParseException ignored) {}
                     CustomerAppointment a = new CustomerAppointment(
                             cursor.getLong(0),
@@ -369,21 +492,21 @@ public class CustomerDatabase {
                     Date startTime = null;
                     try {
                         if(cursor.getString(4) != null && (!cursor.getString(4).equals("")))
-                            startTime = storageFormatWithTime.parse(cursor.getString(4));
+                            startTime = parseDateRaw(cursor.getString(4));
                     } catch (ParseException e) {
                         Log.e("CAL", e.getLocalizedMessage());
                     }
                     Date endTime = null;
                     try {
                         if(cursor.getString(5) != null && (!cursor.getString(5).equals("")))
-                            endTime = storageFormatWithTime.parse(cursor.getString(5));
+                            endTime = parseDateRaw(cursor.getString(5));
                     } catch (ParseException e) {
                         Log.e("CAL", e.getLocalizedMessage());
                     }
-                    Date lastModified = null;
+                    Date lastModified = new Date();
                     try {
                         if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
-                            lastModified = storageFormatWithTime.parse(cursor.getString(10));
+                            lastModified = parseDate(cursor.getString(10));
                     } catch (ParseException ignored) {}
                     CustomerAppointment a = new CustomerAppointment(
                             cursor.getLong(0),
@@ -416,21 +539,15 @@ public class CustomerDatabase {
         if(a.mId == -1) a.mId = CustomerAppointment.generateID();
         String timeStartString;
         if(a.mTimeStart != null) {
-            timeStartString = storageFormatWithTime.format(a.mTimeStart);
+            timeStartString = dateToStringRaw(a.mTimeStart);
         } else {
-            timeStartString = storageFormatWithTime.format(new Date());
+            timeStartString = dateToStringRaw(new Date());
         }
         String timeEndString;
         if(a.mTimeEnd != null) {
-            timeEndString = storageFormatWithTime.format(a.mTimeEnd);
+            timeEndString = dateToStringRaw(a.mTimeEnd);
         } else {
-            timeEndString = storageFormatWithTime.format(new Date());
-        }
-        String lastModifiedString;
-        if(a.mLastModified != null) {
-            lastModifiedString = storageFormatWithTime.format(a.mLastModified);
-        } else {
-            lastModifiedString = storageFormatWithTime.format(new Date());
+            timeEndString = dateToStringRaw(new Date());
         }
         stmt.bindLong(1, a.mId);
         stmt.bindLong(2, a.mCalendarId);
@@ -446,7 +563,7 @@ public class CustomerDatabase {
             stmt.bindLong(9, a.mCustomerId);
         }
         stmt.bindString(10, a.mLocation);
-        stmt.bindString(11, lastModifiedString);
+        stmt.bindString(11, dateToString(a.mLastModified));
         stmt.bindLong(12, a.mRemoved);
         stmt.execute();
     }
@@ -457,21 +574,15 @@ public class CustomerDatabase {
 
         String timeStartString;
         if(a.mTimeStart != null) {
-            timeStartString = storageFormatWithTime.format(a.mTimeStart);
+            timeStartString = dateToStringRaw(a.mTimeStart);
         } else {
-            timeStartString = storageFormatWithTime.format(new Date());
+            timeStartString = dateToStringRaw(new Date());
         }
         String timeEndString;
         if(a.mTimeEnd != null) {
-            timeEndString = storageFormatWithTime.format(a.mTimeEnd);
+            timeEndString = dateToStringRaw(a.mTimeEnd);
         } else {
-            timeEndString = storageFormatWithTime.format(new Date());
-        }
-        String lastModifiedString;
-        if(a.mLastModified != null) {
-            lastModifiedString = storageFormatWithTime.format(a.mLastModified);
-        } else {
-            lastModifiedString = storageFormatWithTime.format(new Date());
+            timeEndString = dateToStringRaw(new Date());
         }
         stmt.bindLong(1, a.mCalendarId);
         stmt.bindString(2, a.mTitle);
@@ -486,13 +597,13 @@ public class CustomerDatabase {
             stmt.bindLong(8, a.mCustomerId);
         }
         stmt.bindString(9, a.mLocation);
-        stmt.bindString(10, lastModifiedString);
+        stmt.bindString(10, dateToString(a.mLastModified));
         stmt.bindLong(11, a.mRemoved);
         stmt.bindLong(12, a.mId);
         stmt.execute();
     }
     void removeAppointment(CustomerAppointment a) {
-        String currentDateString = storageFormatWithTime.format(new Date());
+        String currentDateString = dateToString(new Date());
         SQLiteStatement stmt = db.compileStatement("UPDATE appointment SET removed = 1, calendar_id = -1, title = '', notes = '', time_start = NULL, time_end = NULL, fullday = 0, customer = '', customer_id = NULL, location = '', last_modified = ? WHERE id = ?");
         stmt.bindString(1, currentDateString);
         stmt.bindLong(2, a.mId);
@@ -580,28 +691,28 @@ public class CustomerDatabase {
                     Date issued = new Date();
                     try {
                         if(cursor.getString(8) != null && (!cursor.getString(8).equals("")))
-                            issued = storageFormatWithTime.parse(cursor.getString(8));
+                            issued = parseDate(cursor.getString(8));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     Date validUntil = null;
                     try {
                         if(cursor.getString(9) != null && (!cursor.getString(9).equals("")))
-                            validUntil = storageFormatWithTime.parse(cursor.getString(9));
+                            validUntil = parseDate(cursor.getString(9));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     Date redeemed = null;
                     try {
                         if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
-                            redeemed = storageFormatWithTime.parse(cursor.getString(10));
+                            redeemed = parseDate(cursor.getString(10));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    Date lastModified = null;
+                    Date lastModified = new Date();
                     try {
                         if(cursor.getString(11) != null && (!cursor.getString(11).equals("")))
-                            lastModified = storageFormatWithTime.parse(cursor.getString(11));
+                            lastModified = parseDate(cursor.getString(11));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -657,28 +768,28 @@ public class CustomerDatabase {
                     Date issued = new Date();
                     try {
                         if(cursor.getString(8) != null && (!cursor.getString(8).equals("")))
-                            issued = storageFormatWithTime.parse(cursor.getString(8));
+                            issued = parseDate(cursor.getString(8));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     Date validUntil = null;
                     try {
                         if(cursor.getString(9) != null && (!cursor.getString(9).equals("")))
-                            validUntil = storageFormatWithTime.parse(cursor.getString(9));
+                            validUntil = parseDate(cursor.getString(9));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     Date redeemed = null;
                     try {
                         if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
-                            redeemed = storageFormatWithTime.parse(cursor.getString(10));
+                            redeemed = parseDate(cursor.getString(10));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    Date lastModified = null;
+                    Date lastModified = new Date();
                     try {
                         if(cursor.getString(11) != null && (!cursor.getString(11).equals("")))
-                            lastModified = storageFormatWithTime.parse(cursor.getString(11));
+                            lastModified = parseDate(cursor.getString(11));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -717,23 +828,13 @@ public class CustomerDatabase {
         long id = v.mId;
         if(id == -1) id = Voucher.generateID();
 
-        String issuedString = "";
-        if(v.mIssued != null) {
-            issuedString = storageFormatWithTime.format(v.mIssued);
-        }
         String validUntilString = "";
         if(v.mValidUntil != null) {
-            validUntilString = storageFormatWithTime.format(v.mValidUntil);
+            validUntilString = dateToString(v.mValidUntil);
         }
         String redeemedString = "";
         if(v.mRedeemed != null) {
-            redeemedString = storageFormatWithTime.format(v.mRedeemed);
-        }
-        String lastModifiedString;
-        if(v.mLastModified != null) {
-            lastModifiedString = storageFormatWithTime.format(v.mLastModified);
-        } else {
-            lastModifiedString = storageFormatWithTime.format(new Date());
+            redeemedString = dateToString(v.mRedeemed);
         }
 
         stmt.bindLong(1, id);
@@ -752,10 +853,10 @@ public class CustomerDatabase {
         } else {
             stmt.bindLong(8, v.mForCustomerId);
         }
-        stmt.bindString(9, issuedString);
+        stmt.bindString(9, dateToString(v.mIssued));
         stmt.bindString(10, validUntilString);
         stmt.bindString(11, redeemedString);
-        stmt.bindString(12, lastModifiedString);
+        stmt.bindString(12, dateToString(v.mLastModified));
         stmt.bindString(13, v.mNotes);
         stmt.bindLong(14, v.mRemoved);
         stmt.execute();
@@ -765,23 +866,13 @@ public class CustomerDatabase {
                 "UPDATE voucher SET current_value = ?, original_value = ?, voucher_no = ?, from_customer = ?, from_customer_id = ?, for_customer = ?, for_customer_id = ?, issued = ?, valid_until = ?, redeemed = ?, last_modified = ?, notes = ?, removed = ? WHERE id = ?"
         );
 
-        String issuedString = "";
-        if(v.mIssued != null) {
-            issuedString = storageFormatWithTime.format(v.mIssued);
-        }
         String validUntilString = "";
         if(v.mValidUntil != null) {
-            validUntilString = storageFormatWithTime.format(v.mValidUntil);
+            validUntilString = dateToString(v.mValidUntil);
         }
         String redeemedString = "";
         if(v.mRedeemed != null) {
-            redeemedString = storageFormatWithTime.format(v.mRedeemed);
-        }
-        String lastModifiedString;
-        if(v.mLastModified != null) {
-            lastModifiedString = storageFormatWithTime.format(v.mLastModified);
-        } else {
-            lastModifiedString = storageFormatWithTime.format(new Date());
+            redeemedString = dateToString(v.mRedeemed);
         }
 
         stmt.bindDouble(1, v.mCurrentValue);
@@ -799,10 +890,10 @@ public class CustomerDatabase {
         } else {
             stmt.bindLong(7, v.mForCustomerId);
         }
-        stmt.bindString(8, issuedString);
+        stmt.bindString(8, dateToString(v.mIssued));
         stmt.bindString(9, validUntilString);
         stmt.bindString(10, redeemedString);
-        stmt.bindString(11, lastModifiedString);
+        stmt.bindString(11, dateToString(v.mLastModified));
         stmt.bindString(12, v.mNotes);
         stmt.bindLong(13, v.mRemoved);
         stmt.bindLong(14, v.mId);
@@ -825,14 +916,14 @@ public class CustomerDatabase {
                     Date birthday = null;
                     try {
                         if(cursor.getString(12) != null && (!cursor.getString(12).equals("")))
-                            birthday = storageFormat.parse(cursor.getString(12));
+                            birthday = storageFormatWithoutTime.parse(cursor.getString(12));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     Date lastModified = new Date();
                     try {
                         if(cursor.getString(17) != null && (!cursor.getString(17).equals("")))
-                            lastModified = storageFormatWithTime.parse(cursor.getString(17));
+                            lastModified = parseDate(cursor.getString(17));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -1002,13 +1093,7 @@ public class CustomerDatabase {
 
         String birthdayString = "";
         if(c.mBirthday != null) {
-            birthdayString = storageFormat.format(c.mBirthday);
-        }
-        String lastModifiedString;
-        if(c.mLastModified != null) {
-            lastModifiedString = storageFormatWithTime.format(c.mLastModified);
-        } else {
-            lastModifiedString = storageFormatWithTime.format(new Date());
+            birthdayString = storageFormatWithoutTime.format(c.mBirthday);
         }
 
         stmt.bindLong(1, id);
@@ -1029,7 +1114,7 @@ public class CustomerDatabase {
         stmt.bindString(16, c.mNotes);
         stmt.bindString(17, c.mCustomFields);
         stmt.bindBlob(18, c.getImage());
-        stmt.bindString(19, lastModifiedString);
+        stmt.bindString(19, dateToString(c.mLastModified));
         stmt.bindLong(20, c.mRemoved);
         stmt.execute();
 
@@ -1051,13 +1136,7 @@ public class CustomerDatabase {
 
         String birthdayString = "";
         if(c.mBirthday != null) {
-            birthdayString = storageFormat.format(c.mBirthday);
-        }
-        String lastModifiedString;
-        if(c.mLastModified != null) {
-            lastModifiedString = storageFormatWithTime.format(c.mLastModified);
-        } else {
-            lastModifiedString = storageFormatWithTime.format(new Date());
+            birthdayString = storageFormatWithoutTime.format(c.mBirthday);
         }
 
         stmt.bindString(1, c.mTitle);
@@ -1077,7 +1156,7 @@ public class CustomerDatabase {
         stmt.bindString(15, c.mNotes);
         stmt.bindBlob(16, c.getImage());
         stmt.bindString(17, c.mCustomFields);
-        stmt.bindString(18, lastModifiedString);
+        stmt.bindString(18, dateToString(c.mLastModified));
         stmt.bindLong(19, c.mRemoved);
         stmt.bindLong(20, c.mId);
         stmt.execute();
@@ -1097,7 +1176,7 @@ public class CustomerDatabase {
     }
 
     void removeCustomer(Customer c) {
-        String currentDateString = storageFormatWithTime.format(new Date());
+        String currentDateString = dateToString(new Date());
         SQLiteStatement stmt = db.compileStatement("UPDATE customer SET removed = 1, title = '', first_name = '', last_name = '', phone_home = '', phone_mobile = '', phone_work = '', email = '', street = '', city = '', country = '', notes = '', customer_group = '', custom_fields = '', image = '', consent = '', birthday = '', newsletter = 0, last_modified = ? WHERE id = ?");
         stmt.bindString(1, currentDateString);
         stmt.bindLong(2, c.mId);
@@ -1109,7 +1188,7 @@ public class CustomerDatabase {
     }
 
     void removeVoucher(Voucher v) {
-        String currentDateString = storageFormatWithTime.format(new Date());
+        String currentDateString = dateToString(new Date());
         SQLiteStatement stmt = db.compileStatement("UPDATE voucher SET removed = 1, current_value = 0, original_value = 0, from_customer = '', from_customer_id = NULL, for_customer = '', for_customer_id = NULL, notes = '', last_modified = ? WHERE id = ?");
         stmt.bindString(1, currentDateString);
         stmt.bindLong(2, v.mId);

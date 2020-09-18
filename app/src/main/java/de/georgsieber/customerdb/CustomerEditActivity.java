@@ -267,7 +267,7 @@ public class CustomerEditActivity extends AppCompatActivity {
 
                     // try parse old value and show it in local format
                     try {
-                        Date selectedDate = CustomerDatabase.storageFormatWithTime.parse(value);
+                        Date selectedDate = CustomerDatabase.parseDateRaw(value);
                         value = DateControl.birthdayDateFormat.format(selectedDate);
                     } catch(Exception ignored) {}
 
@@ -670,7 +670,7 @@ public class CustomerEditActivity extends AppCompatActivity {
                     try {
                         // try parse date and save it in normalized format
                         Date selectedDate = DateControl.birthdayDateFormat.parse(newValue);
-                        newValue = CustomerDatabase.storageFormatWithTime.format(selectedDate);
+                        newValue = CustomerDatabase.dateToStringRaw(selectedDate);
                     } catch(Exception ignored) {}
                 }
             } else if(cf.mEditViewReference instanceof Spinner) {

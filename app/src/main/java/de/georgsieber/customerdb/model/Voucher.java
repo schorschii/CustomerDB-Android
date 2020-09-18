@@ -118,27 +118,34 @@ public class Voucher implements Parcelable {
             case "v_issued":
             case "issued":
                 try {
-                    mIssued = CustomerDatabase.storageFormatWithTime.parse(value);
-                } catch (ParseException e) { e.printStackTrace(); }
+                    mIssued = CustomerDatabase.parseDate(value);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "v_redeemed":
             case "redeemed":
                 try {
-                    mRedeemed = CustomerDatabase.storageFormatWithTime.parse(value);
-                } catch (ParseException e) { e.printStackTrace(); }
+                    mRedeemed = CustomerDatabase.parseDate(value);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "v_valid_until":
             case "valid_until":
                 try {
-                    mValidUntil = CustomerDatabase.storageFormatWithTime.parse(value);
-                } catch (ParseException e) { e.printStackTrace(); }
+                    mValidUntil = CustomerDatabase.parseDate(value);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "v_last_modified":
             case "last_modified":
                 try {
-                    mLastModified = new Date();
-                    mLastModified = CustomerDatabase.storageFormatWithTime.parse(value);
-                } catch (ParseException e) { e.printStackTrace(); }
+                    mLastModified = CustomerDatabase.parseDate(value);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }

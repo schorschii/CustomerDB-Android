@@ -60,8 +60,8 @@ public class CustomerComparator implements Comparator<Customer> {
                 fieldValue_2 = c2.mLastName;
             }
             else if(mSortField == FIELD.LAST_MODIFIED) {
-                fieldValue_1 = CustomerDatabase.storageFormatWithTime.format(c1.mLastModified);
-                fieldValue_2 = CustomerDatabase.storageFormatWithTime.format(c2.mLastModified);
+                fieldValue_1 = CustomerDatabase.dateToString(c1.mLastModified);
+                fieldValue_2 = CustomerDatabase.dateToString(c2.mLastModified);
             }
         }
 

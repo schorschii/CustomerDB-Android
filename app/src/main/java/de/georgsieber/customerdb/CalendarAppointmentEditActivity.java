@@ -289,7 +289,7 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
         mCurrentAppointment.mNotes = mEditTextNotes.getText().toString();
         mCurrentAppointment.mLocation = mEditTextLocation.getText().toString();
 
-        String dateString = CustomerDatabase.storageFormat.format(mCalendar.getTime());
+        String dateString = CustomerDatabase.storageFormatWithoutTime.format(mCalendar.getTime());
         String dateStringStart;
         String dateStringEnd;
         if(Build.VERSION.SDK_INT < 23) {
@@ -300,9 +300,9 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
             dateStringEnd = dateString + " " + mTimePickerEnd.getHour() + ":" + mTimePickerEnd.getMinute() + ":00";
         }
         try {
-            mCurrentAppointment.mTimeStart = CustomerDatabase.storageFormatWithTime.parse(dateStringStart);
-            mCurrentAppointment.mTimeEnd = CustomerDatabase.storageFormatWithTime.parse(dateStringEnd);
-        } catch(ParseException ignored) {
+            mCurrentAppointment.mTimeStart = CustomerDatabase.parseDateRaw(dateStringStart);
+            mCurrentAppointment.mTimeEnd = CustomerDatabase.parseDateRaw(dateStringEnd);
+        } catch (ParseException e) {
             return false;
         }
 

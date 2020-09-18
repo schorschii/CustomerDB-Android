@@ -53,13 +53,13 @@ public class CalendarCsvBuilder {
                     Long.toString(ca.mId),
                     ca.mTitle,
                     ca.mNotes,
-                    ca.mTimeStart==null ? "" : CustomerDatabase.storageFormatWithTime.format(ca.mTimeStart),
-                    ca.mTimeEnd==null ? "" : CustomerDatabase.storageFormatWithTime.format(ca.mTimeEnd),
+                    ca.mTimeStart==null ? "" : CustomerDatabase.dateToStringRaw(ca.mTimeStart),
+                    ca.mTimeEnd==null ? "" : CustomerDatabase.dateToStringRaw(ca.mTimeEnd),
                     ca.mFullday ? "1" : "0",
                     customerText,
                     ca.mCustomerId==null ? "" : Long.toString(ca.mCustomerId),
                     ca.mLocation,
-                    ca.mLastModified==null ? "" : CustomerDatabase.storageFormatWithTime.format(ca.mLastModified)
+                    ca.mLastModified==null ? "" : CustomerDatabase.dateToString(ca.mLastModified)
             ));
             csvWriter.writeNext(values.toArray(new String[0]));
         }
