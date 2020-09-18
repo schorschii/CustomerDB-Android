@@ -387,4 +387,5 @@
     <string name="assigned_appointments">Appuntamenti assegnati</string>
     <string name="default_appointment_title">Titolo appuntamento predefinito</string>
     <string name="default_appointment_location">Posizione appuntamento predefinita</string>
+    <string name="ballbreak_for_android">BallBreak per Android</string>
 </resources>

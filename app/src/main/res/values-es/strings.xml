@@ -387,4 +387,5 @@
     <string name="assigned_appointments">Citas asignadas</string>
     <string name="default_appointment_title">Título de la cita predeterminado</string>
     <string name="default_appointment_location">Ubicación predeterminada de la cita</string>
+    <string name="ballbreak_for_android">BallBreak para Android</string>
 </resources>

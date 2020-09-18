@@ -468,6 +468,10 @@ public class AboutActivity extends AppCompatActivity {
         MainActivity.openPlayStore(this, "systems.sieber.remotespotlight");
     }
 
+    public void onClickBallBreakAndroidApp(View v) {
+        MainActivity.openPlayStore(this, "de.georgsieber.ballbreak");
+    }
+
     public void onClickMasterplan(View v) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/schorschii/masterplan"));
         startActivity(browserIntent);

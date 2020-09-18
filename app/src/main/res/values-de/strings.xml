@@ -387,4 +387,5 @@
     <string name="assigned_appointments">Zugewiesene Termine</string>
     <string name="default_appointment_title">Standard-Titel für Termine</string>
     <string name="default_appointment_location">Standard-Ort für Termine</string>
+    <string name="ballbreak_for_android">BallBreak für Android</string>
 </resources>
