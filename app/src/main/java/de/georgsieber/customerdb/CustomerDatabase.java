@@ -1073,12 +1073,12 @@ public class CustomerDatabase {
         return null;
     }
 
-    void addCustomer(Customer c) {
+    boolean addCustomer(Customer c) {
         // do not add if name is empty
         if(c.mTitle.equals("")
                 && c.mFirstName.equals("")
                 && c.mLastName.equals(""))
-            return;
+            return false;
 
         SQLiteStatement stmt = db.compileStatement(
                 "INSERT INTO customer (id, title, first_name, last_name, phone_home, phone_mobile, phone_work, email, street, zipcode, city, country, birthday, customer_group, newsletter, notes, custom_fields, image, last_modified, removed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
@@ -1123,6 +1123,8 @@ public class CustomerDatabase {
                 stmt3.execute();
             }
         }
+
+        return true;
     }
 
     void updateCustomer(Customer c) {

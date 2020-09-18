@@ -1775,18 +1775,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(resultCode == Activity.RESULT_OK && data.getData() != null) {
                     try {
                         List<Customer> newCustomers = CustomerVcfBuilder.readVcfFile(new InputStreamReader(getContentResolver().openInputStream(data.getData())));
-                        if(newCustomers.size() > 0) {
-                            int counter = 0;
-                            for(Customer c : newCustomers) {
-                                c.mId = Customer.generateID(counter);
-                                mDb.addCustomer(c);
+                        int counter = 0;
+                        for(Customer c : newCustomers) {
+                            c.mId = Customer.generateID(counter);
+                            if(mDb.addCustomer(c)) {
                                 counter ++;
                             }
+                        }
+                        if(counter > 0) {
                             refreshCustomersFromLocalDatabase();
-                            CommonDialog.show(this, getResources().getString(R.string.import_ok),getResources().getQuantityString(R.plurals.imported, newCustomers.size(), newCustomers.size()), CommonDialog.TYPE.OK, false);
+                            CommonDialog.show(this, getResources().getString(R.string.import_ok),getResources().getQuantityString(R.plurals.imported, counter, counter), CommonDialog.TYPE.OK, false);
                             MainActivity.setUnsyncedChanges(this);
-                        } else
+                        } else {
                             CommonDialog.show(this, getResources().getString(R.string.import_fail),getResources().getString(R.string.import_fail_no_entries), CommonDialog.TYPE.FAIL, false);
+                        }
                     } catch(Exception e) {
                         CommonDialog.show(this, getResources().getString(R.string.import_fail),e.getMessage(), CommonDialog.TYPE.FAIL, false);
                         e.printStackTrace();
@@ -1798,21 +1800,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(resultCode == Activity.RESULT_OK && data.getData() != null) {
                     try {
                         List<Customer> newCustomers = CustomerCsvBuilder.readCsvFile(new InputStreamReader(getContentResolver().openInputStream(data.getData())));
-                        if(newCustomers.size() > 0) {
-                            int counter = 0;
-                            for(Customer c : newCustomers) {
-                                if(c.mId < 1 || mDb.getCustomerById(c.mId, true, false) != null) {
-                                    //Log.e("CSV", "generated new ID");
-                                    c.mId = Customer.generateID(counter);
-                                }
-                                mDb.addCustomer(c);
+                        int counter = 0;
+                        for(Customer c : newCustomers) {
+                            if(c.mId < 1 || mDb.getCustomerById(c.mId, true, false) != null) {
+                                c.mId = Customer.generateID(counter);
+                            }
+                            if(mDb.addCustomer(c)) {
                                 counter ++;
                             }
+                        }
+                        if(counter > 0) {
                             refreshCustomersFromLocalDatabase();
-                            CommonDialog.show(this, getResources().getString(R.string.import_ok),getResources().getQuantityString(R.plurals.imported, newCustomers.size(), newCustomers.size()), CommonDialog.TYPE.OK, false);
+                            CommonDialog.show(this, getResources().getString(R.string.import_ok),getResources().getQuantityString(R.plurals.imported, counter, counter), CommonDialog.TYPE.OK, false);
                             MainActivity.setUnsyncedChanges(this);
-                        } else
+                        } else {
                             CommonDialog.show(this, getResources().getString(R.string.import_fail),getResources().getString(R.string.import_fail_no_entries), CommonDialog.TYPE.FAIL, false);
+                        }
                     } catch(Exception e) {
                         CommonDialog.show(this, getResources().getString(R.string.import_fail), e.getMessage(), CommonDialog.TYPE.FAIL, false);
                         e.printStackTrace();
