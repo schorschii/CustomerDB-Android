@@ -181,7 +181,6 @@ public class CustomerDatabase {
                             oldDate = new Date();
                         }
                         String newDateString = dateToString(oldDate);
-                        Log.e("utc customer", cursor.getString(1) + " -> " + newDateString);
                         SQLiteStatement stmt = db.compileStatement("UPDATE customer SET last_modified = ? WHERE id = ?");
                         stmt.bindString(1, newDateString);
                         stmt.bindLong(2, cursor.getLong(0));
@@ -206,7 +205,6 @@ public class CustomerDatabase {
                             oldDate = new Date();
                         }
                         String newDateString = dateToString(oldDate);
-                        Log.e("utc appointment", cursor.getString(1) + " -> " + newDateString);
                         SQLiteStatement stmt = db.compileStatement("UPDATE appointment SET last_modified = ? WHERE id = ?");
                         stmt.bindString(1, newDateString);
                         stmt.bindLong(2, cursor.getLong(0));
@@ -259,8 +257,6 @@ public class CustomerDatabase {
                             oldDate4 = new Date();
                         }
                         String newDateString4 = dateToString(oldDate4);
-
-                        Log.e("utc voucher", cursor.getString(1) + " => " + newDateString1);
 
                         SQLiteStatement stmt = db.compileStatement("UPDATE voucher SET issued = ?, redeemed = ?, valid_until = ?, last_modified = ? WHERE id = ?");
                         stmt.bindString(1, newDateString1);
