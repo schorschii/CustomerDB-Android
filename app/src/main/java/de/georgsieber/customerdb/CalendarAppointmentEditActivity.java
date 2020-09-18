@@ -255,6 +255,8 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
             if(relatedCustomer != null) {
                 mEditTextCustomer.setText(relatedCustomer.getFullName(false));
                 mButtonShowCustomer.setEnabled(true);
+            } else {
+                mEditTextCustomer.setText(getString(R.string.removed_placeholder));
             }
         } else {
             mEditTextCustomer.setText(a.mCustomer);

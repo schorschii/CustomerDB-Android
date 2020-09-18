@@ -385,4 +385,5 @@
     <string name="default_appointment_title">Titre du rendez-vous par défaut</string>
     <string name="default_appointment_location">Lieu de rendez-vous par défaut</string>
     <string name="ballbreak_for_android">BallBreak pour Android</string>
+    <string name="removed_placeholder">*SUPPRIMÉ*</string>
 </resources>

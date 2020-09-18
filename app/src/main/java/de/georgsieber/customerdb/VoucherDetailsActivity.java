@@ -225,6 +225,8 @@ public class VoucherDetailsActivity extends AppCompatActivity {
             Customer relatedCustomer = mDb.getCustomerById(v.mFromCustomerId, false, false);
             if(relatedCustomer != null) {
                 mTextViewFromCustomer.setText(relatedCustomer.getFullName(false));
+            } else {
+                mTextViewFromCustomer.setText(getString(R.string.removed_placeholder));
             }
         } else {
             mTextViewFromCustomer.setText(v.mFromCustomer);
@@ -233,6 +235,8 @@ public class VoucherDetailsActivity extends AppCompatActivity {
             Customer relatedCustomer = mDb.getCustomerById(v.mForCustomerId, false, false);
             if(relatedCustomer != null) {
                 mTextViewForCustomer.setText(relatedCustomer.getFullName(false));
+            } else {
+                mTextViewForCustomer.setText(getString(R.string.removed_placeholder));
             }
         } else {
             mTextViewForCustomer.setText(v.mFromCustomer);

@@ -387,4 +387,5 @@
     <string name="default_appointment_title">Default Appointment Title</string>
     <string name="default_appointment_location">Default Appointment Location</string>
     <string name="ballbreak_for_android">BallBreak for Android</string>
+    <string name="removed_placeholder">*REMOVED*</string>
 </resources>

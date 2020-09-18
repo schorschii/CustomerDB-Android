@@ -187,6 +187,8 @@ public class VoucherEditActivity extends AppCompatActivity {
             if(relatedCustomer != null) {
                 mEditTextFromCustomer.setText(relatedCustomer.getFullName(false));
                 mButtonShowFromCustomer.setEnabled(true);
+            } else {
+                mEditTextFromCustomer.setText(getString(R.string.removed_placeholder));
             }
         } else {
             mEditTextFromCustomer.setText(v.mFromCustomer);
@@ -196,6 +198,8 @@ public class VoucherEditActivity extends AppCompatActivity {
             if(relatedCustomer != null) {
                 mEditTextForCustomer.setText(relatedCustomer.getFullName(false));
                 mButtonShowForCustomer.setEnabled(true);
+            } else {
+                mEditTextForCustomer.setText(getString(R.string.removed_placeholder));
             }
         } else {
             mEditTextForCustomer.setText(v.mFromCustomer);

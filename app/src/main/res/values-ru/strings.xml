@@ -386,4 +386,5 @@
     <string name="default_appointment_title">Название встречи по умолчанию</string>
     <string name="default_appointment_location">Место встречи по умолчанию</string>
     <string name="ballbreak_for_android">BallBreak для Android</string>
+    <string name="removed_placeholder">*УДАЛЕНО*</string>
 </resources>

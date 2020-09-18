@@ -398,4 +398,5 @@
     <string name="default_appointment_title">כותרת ברירת מחדל לפגישה</string>
     <string name="default_appointment_location">מיקום ברירת מחדל לפגישה</string>
     <string name="ballbreak_for_android">BallBreak לאנדרואיד</string>
+    <string name="removed_placeholder">*הוסר*</string>
 </resources>
