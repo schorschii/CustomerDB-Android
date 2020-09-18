@@ -15,7 +15,8 @@ public class CustomerComparator implements Comparator<Customer> {
     enum FIELD {
         TITLE,
         FIRST_NAME,
-        LAST_NAME
+        LAST_NAME,
+        LAST_MODIFIED
     }
 
     CustomerComparator(String customFieldTitleForSort, boolean ascending) {
@@ -57,6 +58,10 @@ public class CustomerComparator implements Comparator<Customer> {
             else if(mSortField == FIELD.LAST_NAME) {
                 fieldValue_1 = c1.mLastName;
                 fieldValue_2 = c2.mLastName;
+            }
+            else if(mSortField == FIELD.LAST_MODIFIED) {
+                fieldValue_1 = CustomerDatabase.storageFormatWithTime.format(c1.mLastModified);
+                fieldValue_2 = CustomerDatabase.storageFormatWithTime.format(c2.mLastModified);
             }
         }
 

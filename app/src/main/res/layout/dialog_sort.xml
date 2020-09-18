@@ -21,6 +21,11 @@
             android:layout_height="wrap_content"
             android:text="@string/firstname" />
         <RadioButton
+            android:id="@+id/radioButtonSortLastModified"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lastchanged" />
+        <RadioButton
             android:id="@+id/radioButtonSortCustomField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

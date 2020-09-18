@@ -732,12 +732,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 RadioButton radioButtonSortLastName = ad.findViewById(R.id.radioButtonSortLastName);
                 RadioButton radioButtonSortFirstName = ad.findViewById(R.id.radioButtonSortFirstName);
+                RadioButton radioButtonSortLastModified = ad.findViewById(R.id.radioButtonSortLastModified);
                 RadioButton radioButtonSortCustomField = ad.findViewById(R.id.radioButtonSortCustomField);
                 boolean sortAsc = ((RadioButton) ad.findViewById(R.id.radioButtonSortAsc)).isChecked();
                 if(radioButtonSortLastName.isChecked()) {
                     sort(CustomerComparator.FIELD.LAST_NAME, sortAsc);
                 } else if(radioButtonSortFirstName.isChecked()) {
                     sort(CustomerComparator.FIELD.FIRST_NAME, sortAsc);
+                } else if(radioButtonSortLastModified.isChecked()) {
+                    sort(CustomerComparator.FIELD.LAST_MODIFIED, sortAsc);
                 } else if(radioButtonSortCustomField.isChecked()) {
                     CustomField customField = (CustomField) ((Spinner) ad.findViewById(R.id.spinnerSort)).getSelectedItem();
                     if(customField != null) {
