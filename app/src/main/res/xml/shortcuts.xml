@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_add_white_36dp"
+        android:icon="@drawable/ic_add_dynamic_36dp"
         android:shortcutId="addCustomer"
         android:shortcutDisabledMessage="@string/new_customer"
         android:shortcutLongLabel="@string/new_customer"
@@ -16,7 +16,21 @@
     </shortcut>
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_add_white_36dp"
+        android:icon="@drawable/ic_add_dynamic_36dp"
+        android:shortcutId="addAppointment"
+        android:shortcutDisabledMessage="@string/new_appointment"
+        android:shortcutLongLabel="@string/new_appointment"
+        android:shortcutShortLabel="@string/new_appointment"
+        tools:ignore="UnusedAttribute">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="de.georgsieber.customerdb.CalendarAppointmentEditActivity"
+            android:targetPackage="de.georgsieber.customerdb" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_add_dynamic_36dp"
         android:shortcutId="addVoucher"
         android:shortcutDisabledMessage="@string/new_voucher"
         android:shortcutLongLabel="@string/new_voucher"
@@ -30,7 +44,7 @@
     </shortcut>
     <shortcut
         android:enabled="true"
-        android:icon="@drawable/ic_cake_white_24dp"
+        android:icon="@drawable/ic_cake_dynamic_24dp"
         android:shortcutId="viewBirthdays"
         android:shortcutDisabledMessage="@string/birthdays"
         android:shortcutLongLabel="@string/birthdays"

@@ -46,7 +46,7 @@
                 android:title="@string/newsletter" />
             <item
                 android:id="@+id/nav_birthdays"
-                android:icon="@drawable/ic_cake_white_24dp"
+                android:icon="@drawable/ic_cake_dynamic_24dp"
                 android:title="@string/birthdays" />
             <item
                 android:id="@+id/nav_import_export"
