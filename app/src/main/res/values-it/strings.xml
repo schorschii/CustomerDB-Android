@@ -359,7 +359,7 @@
     <string name="add_calendar">Aggiungi calendario</string>
     <string name="edit_calendar">Modifica calendario</string>
     <string name="remove_calendar">Rimuovi calendario</string>
-    <string name="attach_files_to_customer_records">Allegare file ai record dei clienti (massimo 5 file e 1 MB per file).</string>
+    <string name="attach_files_to_customer_records">Allega file ai record dei clienti (massimo 20 file e 1 MB per file).</string>
     <string name="unlocks_the_calendar_features">Sblocca le funzioni del calendario.</string>
     <string name="no_calendar_selected">Nessun calendario selezionato! Si prega di creare un calendario nelle impostazioni.</string>
     <string name="qr_code_for_customer">Codice QR per il cliente</string>

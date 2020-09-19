@@ -360,7 +360,7 @@
     <string name="add_calendar">Добавить календарь</string>
     <string name="edit_calendar">Изменить календарь</string>
     <string name="remove_calendar">Удалить календарь</string>
-    <string name="attach_files_to_customer_records">Прикрепите файлы к записям клиентов (максимум 5 файлов и 1 МБ на файл).</string>
+    <string name="attach_files_to_customer_records">Прикрепляйте файлы к записям о клиентах (максимум 20 файлов и 1 МБ на файл).</string>
     <string name="unlocks_the_calendar_features">Разблокирует функции календаря.</string>
     <string name="no_calendar_selected">Календарь не выбран! Пожалуйста, создайте календарь в настройках.</string>
     <string name="qr_code_for_customer">QR-код для клиента</string>

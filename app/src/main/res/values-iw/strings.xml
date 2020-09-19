@@ -372,7 +372,7 @@
     <string name="add_calendar">הוסף לוח שנה</string>
     <string name="edit_calendar">ערוך את לוח השנה</string>
     <string name="remove_calendar">הסר את לוח השנה</string>
-    <string name="attach_files_to_customer_records">צרף קבצים לרשומות הלקוח (מקסימום 5 קבצים ו -1 MB לכל קובץ).</string>
+    <string name="attach_files_to_customer_records">צרף קבצים לרשומות לקוחות (מקסימום 20 קבצים ו- 1MB לכל קובץ).</string>
     <string name="unlocks_the_calendar_features">מבטל את נעילת תכונות היומן.</string>
     <string name="no_calendar_selected">לא נבחר לוח שנה! אנא צור לוח שנה בהגדרות.</string>
     <string name="qr_code_for_customer">קוד QR ללקוח</string>
