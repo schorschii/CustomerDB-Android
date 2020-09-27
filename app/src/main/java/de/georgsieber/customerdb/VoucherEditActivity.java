@@ -45,7 +45,7 @@ public class VoucherEditActivity extends AppCompatActivity {
     private CustomerDatabase mDb;
 
     private DateFormat mDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
-    private Calendar mValidUntilCalendar = Calendar.getInstance();
+    private Calendar mValidUntilCalendar;
 
     ImageButton mButtonShowFromCustomer;
     ImageButton mButtonShowForCustomer;
