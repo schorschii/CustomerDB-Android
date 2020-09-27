@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.SystemClock;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -43,6 +44,34 @@ import de.georgsieber.customerdb.tools.HttpRequest;
 
 public class AboutActivity extends AppCompatActivity {
 
+    public static abstract class DoubleClickListener implements View.OnClickListener {
+        // The time in which the second tap should be done in order to qualify as
+        // a double click
+        private static final long DEFAULT_QUALIFICATION_SPAN = 200;
+        private long doubleClickQualificationSpanInMillis;
+        private long timestampLastClick;
+
+        public DoubleClickListener() {
+            doubleClickQualificationSpanInMillis = DEFAULT_QUALIFICATION_SPAN;
+            timestampLastClick = 0;
+        }
+
+        public DoubleClickListener(long doubleClickQualificationSpanInMillis) {
+            this.doubleClickQualificationSpanInMillis = doubleClickQualificationSpanInMillis;
+            timestampLastClick = 0;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if((SystemClock.elapsedRealtime() - timestampLastClick) < doubleClickQualificationSpanInMillis) {
+                onDoubleClick();
+            }
+            timestampLastClick = SystemClock.elapsedRealtime();
+        }
+
+        public abstract void onDoubleClick();
+    }
+
     AboutActivity me = this;
 
     private BillingClient mBillingClient;
@@ -57,6 +86,12 @@ public class AboutActivity extends AppCompatActivity {
         // init activity view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        findViewById(R.id.imageVendorLogo).setOnClickListener(new DoubleClickListener() {
+            @Override
+            public void onDoubleClick() {
+                openUnlockSelection();
+            }
+        });
 
         // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -355,7 +390,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private final static String ACTIVATE_URL = "https://apps.georg-sieber.de/activate/app.php";
-    public void onClickDebugUnlock(View v) {
+    public void openUnlockSelection() {
         // collect all available inapp purchases
         final String[][] inappPurchases = new String[][] {
                 new String[] {getString(R.string.calendar), "systems.sieber.customerdb.cl", "cl"},

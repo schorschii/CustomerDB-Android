@@ -44,13 +44,13 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/imageVendorLogo"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:contentDescription="Georg Sieber Logo"
                     app:srcCompat="@drawable/logo_vendor_text"
-                    android:onClick="onClickDebugUnlock"
                     tools:ignore="HardcodedText" />
 
                 <Space
