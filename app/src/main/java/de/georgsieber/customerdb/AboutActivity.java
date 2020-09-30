@@ -9,7 +9,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.android.billingclient.api.BillingResult;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -133,27 +137,33 @@ public class AboutActivity extends AppCompatActivity {
         fc.init();
 
         // init billing client
-        mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
+        mBillingClient = BillingClient.newBuilder(this)
+                .enablePendingPurchases()
+                .setListener(new PurchasesUpdatedListener() {
             @Override
-            public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-                if(responseCode == BillingClient.BillingResponse.OK && purchases != null) {
+            public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> purchases) {
+                int responseCode = billingResult.getResponseCode();
+                if(responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
                     for(Purchase purchase : purchases) {
-                        if(purchase.getSku().equals("sync")) {
-                            SharedPreferences.Editor editor = mSettings.edit();
-                            editor.putString("sync-purchase-token", purchase.getPurchaseToken());
-                            //Log.e("TOKEN", purchase.getPurchaseToken());
-                            editor.apply();
+                        if(purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
+                            if(purchase.getSku().equals("sync")) {
+                                SharedPreferences.Editor editor = mSettings.edit();
+                                editor.putString("sync-purchase-token", purchase.getPurchaseToken());
+                                //Log.e("TOKEN", purchase.getPurchaseToken());
+                                editor.apply();
+                            }
+                            unlockPurchase(purchase.getSku());
+                            FeatureCheck.acknowledgePurchase(mBillingClient, purchase);
                         }
-                        unlockPurchase(purchase.getSku());
                     }
-                } else if(responseCode == BillingClient.BillingResponse.USER_CANCELED) {
+                } else if(responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
                     CommonDialog.show(me,
                             getResources().getString(R.string.purchase_canceled),
                             getResources().getString(R.string.purchase_canceled_description),
                             CommonDialog.TYPE.WARN,
                             false
                     );
-                } else if(responseCode == BillingClient.BillingResponse.ITEM_ALREADY_OWNED) {
+                } else if(responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
                     try {
                         CommonDialog.show(me,
                             getResources().getString(R.string.purchase_already_done),
@@ -180,8 +190,8 @@ public class AboutActivity extends AppCompatActivity {
         }).build();
         mBillingClient.startConnection(new BillingClientStateListener() {
             @Override
-            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
-                if(billingResponseCode == BillingClient.BillingResponse.OK) {
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                     querySkus();
                 } else {
                     Snackbar.make(
@@ -263,39 +273,46 @@ public class AboutActivity extends AppCompatActivity {
                 .setSkusList(skuList)
                 .setType(BillingClient.SkuType.INAPP);
         mBillingClient.querySkuDetailsAsync(params.build(), new SkuDetailsResponseListener() {
-            @SuppressWarnings("RedundantCast")
             @Override
-            public void onSkuDetailsResponse(int responseCode, List skuDetailsList) {
-                if(responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
-                    for(Object skuDetails : skuDetailsList) {
-                        String sku = ((SkuDetails)skuDetails).getSku();
-                        String price = ((SkuDetails)skuDetails).getPrice();
+            public void onSkuDetailsResponse(@NonNull BillingResult billingResult, @Nullable List<SkuDetails> skuDetailsList) {
+                int responseCode = billingResult.getResponseCode();
+                if(responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
+                    for(SkuDetails skuDetails : skuDetailsList) {
+                        String sku = skuDetails.getSku();
+                        String price = skuDetails.getPrice();
                         switch(sku) {
                             case "cu":
+                                mSkuDetailsCommercialUse = skuDetails;
                                 ((Button) findViewById(R.id.buttonBuyCommercialUse)).setText(price+"\n"+getResources().getString(R.string.buy_now));
                                 ((Button) findViewById(R.id.buttonBuyCommercialUse)).setEnabled(true);
                                 break;
                             case "lc":
+                                mSkuDetailsLargeCompany = skuDetails;
                                 ((Button) findViewById(R.id.buttonBuyLargeCompany)).setText(price+"\n"+getResources().getString(R.string.buy_now));
                                 ((Button) findViewById(R.id.buttonBuyLargeCompany)).setEnabled(true);
                                 break;
                             case "iom":
+                                mSkuDetailsInputOnlyMode = skuDetails;
                                 ((Button) findViewById(R.id.buttonBuyInputOnlyMode)).setText(price+"\n"+getResources().getString(R.string.buy_now));
                                 ((Button) findViewById(R.id.buttonBuyInputOnlyMode)).setEnabled(true);
                                 break;
                             case "do":
+                                getmSkuDetailsDesignOptions = skuDetails;
                                 ((Button) findViewById(R.id.buttonBuyDesignOptions)).setText(price+"\n"+getResources().getString(R.string.buy_now));
                                 ((Button) findViewById(R.id.buttonBuyDesignOptions)).setEnabled(true);
                                 break;
                             case "cf":
+                                mSkuDetailsCustomFields = skuDetails;
                                 ((Button) findViewById(R.id.buttonBuyCustomFields)).setText(price+"\n"+getResources().getString(R.string.buy_now));
                                 ((Button) findViewById(R.id.buttonBuyCustomFields)).setEnabled(true);
                                 break;
                             case "fs":
+                                mSkuDetailsFiles = skuDetails;
                                 ((Button) findViewById(R.id.buttonBuyFiles)).setText(price+"\n"+getResources().getString(R.string.buy_now));
                                 ((Button) findViewById(R.id.buttonBuyFiles)).setEnabled(true);
                                 break;
                             case "cl":
+                                mSkuDetailsCalendar = skuDetails;
                                 ((Button) findViewById(R.id.buttonBuyCalendar)).setText(price+"\n"+getResources().getString(R.string.buy_now));
                                 ((Button) findViewById(R.id.buttonBuyCalendar)).setEnabled(true);
                                 break;
@@ -319,15 +336,16 @@ public class AboutActivity extends AppCompatActivity {
                 .setSkusList(skuList2)
                 .setType(BillingClient.SkuType.SUBS);
         mBillingClient.querySkuDetailsAsync(params2.build(), new SkuDetailsResponseListener() {
-            @SuppressWarnings("RedundantCast")
             @Override
-            public void onSkuDetailsResponse(int responseCode, List skuDetailsList) {
-                if(responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
-                    for(Object skuDetails : skuDetailsList) {
-                        String sku = ((SkuDetails) skuDetails).getSku();
-                        String price = ((SkuDetails) skuDetails).getPrice();
+            public void onSkuDetailsResponse(@NonNull BillingResult billingResult, @Nullable List<SkuDetails> skuDetailsList) {
+                int responseCode = billingResult.getResponseCode();
+                if(responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
+                    for(SkuDetails skuDetails : skuDetailsList) {
+                        String sku = skuDetails.getSku();
+                        String price = skuDetails.getPrice();
                         switch(sku) {
                             case "sync":
+                                mSkuDetailsSync = skuDetails;
                                 ((Button) findViewById(R.id.buttonSubCloud)).setText(price+"\n"+getResources().getString(R.string.buy_now));
                                 ((Button) findViewById(R.id.buttonSubCloud)).setEnabled(true);
                                 break;
@@ -339,42 +357,45 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("UnusedReturnValue")
-    private int doBuy(String sku) {
+    private BillingResult doBuy(SkuDetails sku) {
         BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                .setSku(sku)
-                .setType(BillingClient.SkuType.INAPP)
+                .setSkuDetails(sku)
                 .build();
         return mBillingClient.launchBillingFlow(this, flowParams);
     }
 
-    public void doSubCloud(View v) {
-        BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                .setSku("sync")
-                .setType(BillingClient.SkuType.SUBS)
-                .build();
-        mBillingClient.launchBillingFlow(this, flowParams);
-    }
+    SkuDetails mSkuDetailsSync;
+    SkuDetails mSkuDetailsCommercialUse;
+    SkuDetails mSkuDetailsLargeCompany;
+    SkuDetails mSkuDetailsInputOnlyMode;
+    SkuDetails getmSkuDetailsDesignOptions;
+    SkuDetails mSkuDetailsCustomFields;
+    SkuDetails mSkuDetailsFiles;
+    SkuDetails mSkuDetailsCalendar;
 
+    public void doSubCloud(View v) {
+        doBuy(mSkuDetailsSync);
+    }
     public void doBuyCommercialUse(View v) {
-        doBuy("cu");
+        doBuy(mSkuDetailsCommercialUse);
     }
     public void doBuyLargeCompany(View v) {
-        doBuy("lc");
+        doBuy(mSkuDetailsLargeCompany);
     }
     public void doBuyInputOnlyMode(View v) {
-        doBuy("iom");
+        doBuy(mSkuDetailsInputOnlyMode);
     }
     public void doBuyDesignOptions(View v) {
-        doBuy("do");
+        doBuy(getmSkuDetailsDesignOptions);
     }
     public void doBuyCustomFields(View v) {
-        doBuy("cf");
+        doBuy(mSkuDetailsCustomFields);
     }
     public void doBuyFiles(View v) {
-        doBuy("fs");
+        doBuy(mSkuDetailsFiles);
     }
     public void doBuyCalendar(View v) {
-        doBuy("cl");
+        doBuy(mSkuDetailsCalendar);
     }
 
     @Override
