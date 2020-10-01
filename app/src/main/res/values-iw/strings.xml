@@ -108,7 +108,7 @@
     <string name="copy_to_clipboard">העתק ללוח</string>
     <string name="copied_to_clipboard">יועתק אל הלוח</string>
     <string name="send_message">שלח הודעה</string>
-    <string name="all">כל</string>
+    <string name="all">&lt;כל&gt;</string>
     <string name="show_all">הצג הכל</string>
     <string name="newsletter_compose">ידיעון עם יישום דואר לחבר</string>
     <string name="newsletter_select_receiver">בחר מקלט</string>
@@ -399,4 +399,5 @@
     <string name="default_appointment_location">מיקום ברירת מחדל לפגישה</string>
     <string name="ballbreak_for_android">BallBreak לאנדרואיד</string>
     <string name="removed_placeholder">*הוסר*</string>
+    <string name="empty">&lt;ריק&gt;</string>
 </resources>

@@ -113,7 +113,7 @@
     <string name="copy_to_clipboard">Copier dans le presse-papier</string>
     <string name="copied_to_clipboard">Copi&#233; dans le presse-papier</string>
     <string name="send_message">Envoyer le message</string>
-    <string name="all">Toute</string>
+    <string name="all">&lt;Toute&gt;</string>
     <string name="show_all">Afficher tout</string>
     <string name="newsletter_compose">Composez la newsletter avec l\'application de messagerie</string>
     <string name="newsletter_select_receiver">S&#233;lectionnez le r&#233;cepteur</string>
@@ -386,4 +386,5 @@
     <string name="default_appointment_location">Lieu de rendez-vous par défaut</string>
     <string name="ballbreak_for_android">BallBreak pour Android</string>
     <string name="removed_placeholder">*SUPPRIMÉ*</string>
+    <string name="empty">&lt;Vide&gt;</string>
 </resources>

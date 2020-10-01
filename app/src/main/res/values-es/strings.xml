@@ -113,7 +113,7 @@
     <string name="copy_to_clipboard">Copiar al portapapeles</string>
     <string name="copied_to_clipboard">Copiada al portapapeles</string>
     <string name="send_message">Enviar mensaje</string>
-    <string name="all">Todas</string>
+    <string name="all">&lt;Todas&gt;</string>
     <string name="show_all">Mostrar todo</string>
     <string name="newsletter_compose">Redacta el bolet&#237;n con la aplicaci&#243;n de correo electr&#243;nico</string>
     <string name="newsletter_select_receiver">Seleccionar receptor</string>
@@ -386,4 +386,5 @@
     <string name="default_appointment_location">Ubicación predeterminada de la cita</string>
     <string name="ballbreak_for_android">BallBreak para Android</string>
     <string name="removed_placeholder">*REMOTO*</string>
+    <string name="empty">&lt;Vacío&gt;</string>
 </resources>

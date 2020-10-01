@@ -113,7 +113,7 @@
     <string name="copy_to_clipboard">Copia negli appunti</string>
     <string name="copied_to_clipboard">Copiato negli Appunti</string>
     <string name="send_message">Invia messaggio</string>
-    <string name="all">Tutte</string>
+    <string name="all">&lt;Tutte&gt;</string>
     <string name="show_all">Mostra tutto</string>
     <string name="newsletter_compose">Componi la newsletter con l\'app di posta elettronica</string>
     <string name="newsletter_select_receiver">Seleziona il ricevitore</string>
@@ -386,4 +386,5 @@
     <string name="default_appointment_location">Posizione appuntamento predefinita</string>
     <string name="ballbreak_for_android">BallBreak per Android</string>
     <string name="removed_placeholder">*RIMOSSO*</string>
+    <string name="empty">&lt;Vuoto&gt;</string>
 </resources>

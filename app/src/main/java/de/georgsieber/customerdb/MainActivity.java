@@ -332,9 +332,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mCustomers = newCustomerList;
             if(getSupportActionBar() != null)
                 getSupportActionBar().setTitle(
-                        ((mCurrentGroup != null ? mCurrentGroup : "") + " " +
-                                (mCurrentCity != null ? mCurrentCity : "") + " " +
-                                (mCurrentCountry != null ? mCurrentCountry : "")).trim()
+                        ((mCurrentGroup != null ? (mCurrentGroup.equals("") ? getString(R.string.empty) : mCurrentGroup) : "") + " " +
+                                (mCurrentCity != null ? (mCurrentCity.equals("") ? getString(R.string.empty) : mCurrentCity) : "") + " " +
+                                (mCurrentCountry != null ? (mCurrentCountry.equals("") ? getString(R.string.empty) : mCurrentCountry) : "")).trim()
                 );
         }
 
@@ -1661,23 +1661,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ad.findViewById(R.id.buttonGroupSelect).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ad.dismiss();
                 mCurrentGroup = dropdownGroup.getSelectedItem().toString();
                 mCurrentCity = dropdownCity.getSelectedItem().toString();
                 mCurrentCountry = dropdownCountry.getSelectedItem().toString();
+
+                if(mCurrentGroup.equals(getString(R.string.empty))) mCurrentGroup = "";
+                if(mCurrentCity.equals(getString(R.string.empty))) mCurrentCity = "";
+                if(mCurrentCountry.equals(getString(R.string.empty))) mCurrentCountry = "";
+
                 if(mCurrentGroup.equals(getString(R.string.all))) mCurrentGroup = null;
                 if(mCurrentCity.equals(getString(R.string.all))) mCurrentCity = null;
                 if(mCurrentCountry.equals(getString(R.string.all))) mCurrentCountry = null;
+
+                ad.dismiss();
                 refreshCustomersFromLocalDatabase();
             }
         });
         ad.findViewById(R.id.buttonAllSelect).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ad.dismiss();
                 mCurrentGroup = null;
                 mCurrentCity = null;
                 mCurrentCountry = null;
+                ad.dismiss();
                 refreshCustomersFromLocalDatabase();
             }
         });
@@ -1698,7 +1704,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     private String[] getGroups(boolean withAllEntry) {
         ArrayList<String> groups = new ArrayList<>();
-        if(withAllEntry) groups.add(getResources().getString(R.string.all));
+        if(withAllEntry) {
+            groups.add(getResources().getString(R.string.all));
+            groups.add(getResources().getString(R.string.empty));
+        }
         for(Customer c : mDb.getCustomers(null, false, false)) {
             if(!groups.contains(c.mCustomerGroup) && !c.mCustomerGroup.equals(""))
                 groups.add(c.mCustomerGroup);
@@ -1709,7 +1718,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     private String[] getCities(boolean withAllEntry) {
         ArrayList<String> groups = new ArrayList<>();
-        if(withAllEntry) groups.add(getResources().getString(R.string.all));
+        if(withAllEntry) {
+            groups.add(getResources().getString(R.string.all));
+            groups.add(getResources().getString(R.string.empty));
+        }
         for(Customer c : mDb.getCustomers(null, false, false)) {
             if(!groups.contains(c.mCity) && !c.mCity.equals(""))
                 groups.add(c.mCity);
@@ -1720,7 +1732,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     private String[] getCountries(boolean withAllEntry) {
         ArrayList<String> groups = new ArrayList<>();
-        if(withAllEntry) groups.add(getResources().getString(R.string.all));
+        if(withAllEntry) {
+            groups.add(getResources().getString(R.string.all));
+            groups.add(getResources().getString(R.string.empty));
+        }
         for(Customer c : mDb.getCustomers(null, false, false)) {
             if(!groups.contains(c.mCountry) && !c.mCountry.equals(""))
                 groups.add(c.mCountry);

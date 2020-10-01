@@ -101,7 +101,7 @@
     <string name="copy_to_clipboard">In Zwischenablage kopieren</string>
     <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
     <string name="send_message">Nachricht senden</string>
-    <string name="all">Alle</string>
+    <string name="all">&lt;Alle&gt;</string>
     <string name="show_all">Alle anzeigen</string>
     <string name="newsletter_compose">Newsletter mit E-Mail-App schreiben</string>
     <string name="newsletter_select_receiver">Empfänger auswählen</string>
@@ -386,4 +386,5 @@
     <string name="default_appointment_location">Standard-Ort für Termine</string>
     <string name="ballbreak_for_android">BallBreak für Android</string>
     <string name="removed_placeholder">*GELÖSCHT*</string>
+    <string name="empty">&lt;Leer&gt;</string>
 </resources>

@@ -115,7 +115,7 @@
     <string name="copy_to_clipboard">Copy to Clipboard</string>
     <string name="copied_to_clipboard">Copied to Clipboard</string>
     <string name="send_message">Send Message</string>
-    <string name="all">All</string>
+    <string name="all">&lt;All&gt;</string>
     <string name="show_all">Show All</string>
     <string name="newsletter_compose">Compose newsletter with email app</string>
     <string name="newsletter_select_receiver">Select receiver</string>
@@ -388,4 +388,5 @@
     <string name="default_appointment_location">Default Appointment Location</string>
     <string name="ballbreak_for_android">BallBreak for Android</string>
     <string name="removed_placeholder">*REMOVED*</string>
+    <string name="empty">&lt;Empty&gt;</string>
 </resources>
