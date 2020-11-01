@@ -58,6 +58,7 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -1244,10 +1245,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 boolean onlySelected = ((CheckBox) ad.findViewById(R.id.checkBoxExportOnlySelected)).isChecked();
                 boolean sendEmail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmail)).isChecked();
                 CustomerVcfBuilder content;
-                if(onlySelected)
-                    content = new CustomerVcfBuilder(mCurrentCustomerAdapter.getCheckedItems());
-                else
-                    content = new CustomerVcfBuilder(mCustomers);
+                if(onlySelected) {
+                    List<Customer> exportCustomers = new ArrayList<>();
+                    for(Customer c : mCurrentCustomerAdapter.getCheckedItems()) {
+                        exportCustomers.add(mDb.getCustomerById(c.mId, false, true));
+                    }
+                    content = new CustomerVcfBuilder(exportCustomers);
+                } else {
+                    content = new CustomerVcfBuilder(mDb.getCustomers(null, false, true));
+                }
                 File f = StorageControl.getStorageExportVcf(me);
                 if(content.saveVcfFile(f)) {
                     if(sendEmail) {

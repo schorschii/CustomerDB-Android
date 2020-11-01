@@ -1,6 +1,7 @@
 package de.georgsieber.customerdb.importexport;
 
 import android.annotation.SuppressLint;
+import android.util.Base64;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -74,7 +75,11 @@ public class CustomerVcfBuilder {
                 content.append("NOTE;ENCODING=QUOTED-PRINTABLE:").append(QuotedPrintable.encode(currentCustomer.mNotes)).append("\n");
             if(!currentCustomer.mCustomFields.equals(""))
                 content.append("X-CUSTOM-FIELDS:").append(escapeVcfValue(currentCustomer.mCustomFields)).append("\n");
-
+            if(currentCustomer.mImage != null && currentCustomer.mImage.length > 0) {
+                String base64String = Base64.encodeToString(currentCustomer.mImage, Base64.DEFAULT);
+                base64String = base64String.replace("\n", "\n ").trim();
+                content.append("PHOTO;ENCODING=BASE64;JPEG:").append(base64String).append("\n");
+            }
             content.append("END:VCARD\n\n");
         }
 
