@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -1243,7 +1244,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 ad.dismiss();
-                startActivityForResult(new Intent(me, ScanActivity.class), SCAN_REQUEST);
+                PackageManager pm = getPackageManager();
+                if(pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+                    startActivityForResult(new Intent(me, ScanActivity.class), SCAN_REQUEST);
+                }
             }
         });
         ad.findViewById(R.id.buttonExportVCF).setOnClickListener(new View.OnClickListener() {
