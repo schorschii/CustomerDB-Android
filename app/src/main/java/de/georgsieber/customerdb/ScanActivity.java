@@ -160,7 +160,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         // ask for import dialog
         String importDescription = "";
         for(Customer c : customers) {
-            importDescription += c.toString() + "\n";
+            importDescription += c.getFirstLine() + "\n";
         }
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
