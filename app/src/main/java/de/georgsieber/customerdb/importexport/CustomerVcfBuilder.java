@@ -129,7 +129,7 @@ public class CustomerVcfBuilder {
     private static boolean isVcfField(String text) {
         String upperText = text.toUpperCase();
         String[] keyValue = upperText.split(":");
-        if(keyValue.length > 1) {
+        if(keyValue.length >= 1) {
             String[] subKeys = keyValue[0].split(";");
             if(subKeys[0].startsWith("X-")) {
                 return true;

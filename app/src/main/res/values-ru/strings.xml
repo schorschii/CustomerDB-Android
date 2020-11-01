@@ -388,4 +388,8 @@
     <string name="ballbreak_for_android">BallBreak для Android</string>
     <string name="removed_placeholder">*УДАЛЕНО*</string>
     <string name="empty">&lt;Пустой&gt;</string>
+    <string name="invalid_code">Неверный код - в этом коде не найдено действительных записей.</string>
+    <string name="please_grant_camera_permission">Пожалуйста, предоставьте камере разрешение на использование сканера.</string>
+    <string name="do_you_want_to_import_this_customer">Вы хотите импортировать этого клиента?</string>
+    <string name="import_from_qr_code">Импорт из QR-кода</string>
 </resources>

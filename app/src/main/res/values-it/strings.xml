@@ -387,4 +387,8 @@
     <string name="ballbreak_for_android">BallBreak per Android</string>
     <string name="removed_placeholder">*RIMOSSO*</string>
     <string name="empty">&lt;Vuoto&gt;</string>
+    <string name="invalid_code">Codice non valido. Impossibile trovare voci valide in questo codice.</string>
+    <string name="please_grant_camera_permission">Si prega di concedere l\'autorizzazione alla fotocamera per utilizzare lo scanner.</string>
+    <string name="do_you_want_to_import_this_customer">Vuoi importare questo cliente?</string>
+    <string name="import_from_qr_code">Importa da codice QR</string>
 </resources>

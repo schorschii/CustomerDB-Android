@@ -387,4 +387,8 @@
     <string name="ballbreak_for_android">BallBreak pour Android</string>
     <string name="removed_placeholder">*SUPPRIMÉ*</string>
     <string name="empty">&lt;Vide&gt;</string>
+    <string name="invalid_code">Code invalide - impossible de trouver des entrées valides dans ce code.</string>
+    <string name="please_grant_camera_permission">Veuillez autoriser l\'appareil photo à utiliser le scanner.</string>
+    <string name="do_you_want_to_import_this_customer">Voulez-vous importer ce client?</string>
+    <string name="import_from_qr_code">Importer à partir du code QR</string>
 </resources>

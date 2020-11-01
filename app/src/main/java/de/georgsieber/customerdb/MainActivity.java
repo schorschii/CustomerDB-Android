@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final static int NEW_APPOINTMENT_REQUEST = 11;
     private final static int PICK_CALENDAR_ICS_REQUEST = 12;
     private final static int PICK_CALENDAR_CSV_REQUEST = 13;
+    private final static int SCAN_REQUEST = 14;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1238,6 +1239,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 ad2.show();
             }
         });
+        ad.findViewById(R.id.buttonImportCode).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                startActivityForResult(new Intent(me, ScanActivity.class), SCAN_REQUEST);
+            }
+        });
         ad.findViewById(R.id.buttonExportVCF).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1923,6 +1931,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case(SETTINGS_REQUEST): {
                 //loadSettings();
                 recreate();
+                break;
+            }
+            case(SCAN_REQUEST): {
+                refreshCustomersFromLocalDatabase();
+                break;
             }
         }
     }

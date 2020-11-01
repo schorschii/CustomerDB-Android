@@ -400,4 +400,8 @@
     <string name="ballbreak_for_android">BallBreak לאנדרואיד</string>
     <string name="removed_placeholder">*הוסר*</string>
     <string name="empty">&lt;ריק&gt;</string>
+    <string name="invalid_code">קוד לא חוקי - לא ניתן למצוא רשומות חוקיות בקוד זה.</string>
+    <string name="please_grant_camera_permission">אנא הענק למצלמה הרשאה להשתמש בסורק.</string>
+    <string name="do_you_want_to_import_this_customer">האם אתה רוצה לייבא לקוח זה?</string>
+    <string name="import_from_qr_code">ייבא מקוד QR</string>
 </resources>
