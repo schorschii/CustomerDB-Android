@@ -170,6 +170,7 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
                         for(Customer c : customers) {
                             mDb.addCustomer(c);
                         }
+                        MainActivity.setUnsyncedChanges(me);
                         me.setResult(1);
                         me.finish();
                         break;

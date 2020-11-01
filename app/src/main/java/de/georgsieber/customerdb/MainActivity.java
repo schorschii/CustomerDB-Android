@@ -1934,7 +1934,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case(SCAN_REQUEST): {
-                refreshCustomersFromLocalDatabase();
+                if(resultCode == 1) {
+                    refreshCustomersFromLocalDatabase();
+                }
                 break;
             }
         }
