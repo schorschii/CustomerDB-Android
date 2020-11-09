@@ -391,4 +391,5 @@
     <string name="please_grant_camera_permission">Veuillez autoriser l\'appareil photo à utiliser le scanner.</string>
     <string name="do_you_want_to_import_this_customer">Voulez-vous importer ce client?</string>
     <string name="import_from_qr_code">Importer à partir du code QR</string>
+    <string name="digital_amp_analog_clock_screensaver">Horloge numérique et analogique pour Android</string>
 </resources>

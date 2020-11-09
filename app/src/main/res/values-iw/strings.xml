@@ -404,4 +404,5 @@
     <string name="please_grant_camera_permission">אנא הענק למצלמה הרשאה להשתמש בסורק.</string>
     <string name="do_you_want_to_import_this_customer">האם אתה רוצה לייבא לקוח זה?</string>
     <string name="import_from_qr_code">ייבא מקוד QR</string>
+    <string name="digital_amp_analog_clock_screensaver">שעון דיגיטלי ואנלוגי לאנדרואיד</string>
 </resources>

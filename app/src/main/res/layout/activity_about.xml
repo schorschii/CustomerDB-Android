@@ -800,6 +800,24 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_gravity="center_vertical"
+                        android:src="@drawable/logo_fsclock" />
+                    <Button
+                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:onClick="onClickFsClockAndroidApp"
+                        android:text="@string/digital_amp_analog_clock_screensaver"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/logo_ballbreak" />
                     <Button
                         style="@style/Widget.AppCompat.Button.Borderless.Colored"

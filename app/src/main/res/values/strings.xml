@@ -393,4 +393,5 @@
     <string name="please_grant_camera_permission">Please grant camera permission to use the scanner.</string>
     <string name="do_you_want_to_import_this_customer">Do you want to import this customer?</string>
     <string name="import_from_qr_code">Import from QR code</string>
+    <string name="digital_amp_analog_clock_screensaver"><![CDATA[Digital & Analog Clock for Android]]></string>
 </resources>
