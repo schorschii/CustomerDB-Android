@@ -204,8 +204,8 @@
     <string name="date">Datum</string>
     <string name="filter">Filtern</string>
     <string name="sort">Sortieren</string>
-    <string name="remove_drop_down_value">Auwahlfeld-Eintrag entfernen</string>
-    <string name="new_drop_down_value">Neuer Auwahlfeld-Eintrag</string>
+    <string name="remove_drop_down_value">Auswahlfeld-Eintrag entfernen</string>
+    <string name="new_drop_down_value">Neuer Auswahlfeld-Eintrag</string>
     <string name="sort_asc">Aufsteigend sortieren</string>
     <string name="sort_desc">Absteigend sortieren</string>
     <string name="locked">Gesperrt</string>
