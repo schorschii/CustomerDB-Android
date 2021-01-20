@@ -640,17 +640,17 @@ public class SettingsActivity extends AppCompatActivity {
         ad.show();
     }
     public void onRemoveCustomFieldButtonClick(View v) {
-        AlertDialog.Builder ad = new AlertDialog.Builder(me);
-        ad.setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                if(mSpinnerCustomFields.getSelectedItem() != null) {
+        if(mSpinnerCustomFields.getSelectedItem() != null) {
+            AlertDialog.Builder ad = new AlertDialog.Builder(me);
+            ad.setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
                     mDb.removeCustomField(((CustomField) mSpinnerCustomFields.getSelectedItem()).mId);
                     reloadCustomFields();
-                }
-            }});
-        ad.setNegativeButton(getResources().getString(R.string.abort), null);
-        ad.setTitle(getResources().getString(R.string.reallydelete_title));
-        ad.show();
+                }});
+            ad.setNegativeButton(getResources().getString(R.string.abort), null);
+            ad.setTitle(getResources().getString(R.string.reallydelete_title));
+            ad.show();
+        }
     }
     public void onEditCustomFieldButtonClick(View v) {
         final CustomField currentCustomField = (CustomField) mSpinnerCustomFields.getSelectedItem();
@@ -755,18 +755,18 @@ public class SettingsActivity extends AppCompatActivity {
         ad.show();
     }
     public void onRemoveCustomFieldValueButtonClick(View v) {
-        AlertDialog.Builder ad = new AlertDialog.Builder(me);
-        ad.setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                Spinner s = findViewById(R.id.spinnerCustomFieldDropDownValues);
-                if(s.getSelectedItem() != null) {
+        final Spinner s = findViewById(R.id.spinnerCustomFieldDropDownValues);
+        if(s.getSelectedItem() != null) {
+            AlertDialog.Builder ad = new AlertDialog.Builder(me);
+            ad.setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
                     mDb.removeCustomFieldPreset(((CustomField) s.getSelectedItem()).mId);
                     reloadCustomFieldPresets();
-                }
-            }});
-        ad.setNegativeButton(getResources().getString(R.string.abort), null);
-        ad.setTitle(getResources().getString(R.string.reallydelete_title));
-        ad.show();
+                }});
+            ad.setNegativeButton(getResources().getString(R.string.abort), null);
+            ad.setTitle(getResources().getString(R.string.reallydelete_title));
+            ad.show();
+        }
     }
 
     private void reloadCustomFields() {
@@ -812,6 +812,11 @@ public class SettingsActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        if(a.getCount() == 0) {
+            findViewById(R.id.buttonRemoveCustomFieldValueSettings).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.buttonRemoveCustomFieldValueSettings).setVisibility(View.VISIBLE);
+        }
     }
 
     private void reloadCalendars() {
@@ -903,17 +908,17 @@ public class SettingsActivity extends AppCompatActivity {
         ad.show();
     }
     public void onRemoveCalendarButtonClick(View v) {
-        AlertDialog.Builder ad = new AlertDialog.Builder(me);
-        ad.setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                if(mSpinnerCalendars.getSelectedItem() != null) {
+        if(mSpinnerCalendars.getSelectedItem() != null) {
+            AlertDialog.Builder ad = new AlertDialog.Builder(me);
+            ad.setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
                     mDb.removeCalendar(((CustomerCalendar) mSpinnerCalendars.getSelectedItem()));
                     reloadCalendars();
-                }
-            }});
-        ad.setNegativeButton(getResources().getString(R.string.abort), null);
-        ad.setTitle(getResources().getString(R.string.reallydelete_title));
-        ad.show();
+                }});
+            ad.setNegativeButton(getResources().getString(R.string.abort), null);
+            ad.setTitle(getResources().getString(R.string.reallydelete_title));
+            ad.show();
+        }
     }
     public void onEditCalendarButtonClick(View v) {
         final CustomerCalendar currentCalendar = (CustomerCalendar) mSpinnerCalendars.getSelectedItem();
