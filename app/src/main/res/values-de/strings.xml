@@ -64,7 +64,7 @@
     </plurals>
     <string name="birthdaytodaynote">(heute)</string>
     <string name="backup_title">Hinweise zum Backup</string>
-    <string name="backup_info">"Standardmäßig werden die Daten nur lokal auf Ihrem Gerät gespeichert. Bitte sichern Sie Ihre Datenbank regelmäßig, um die Daten im Falle eines Defekts oder Verlusts des mobilen Endgerätes nicht zu verlieren.\n\nKopieren Sie hierzu einfach regelmäßig die Datenbankdateien von Ihrem Android-Gerät auf Ihren Computer oder ein anderes externes Speichermedium. Sie finden die Dateien im Ordner /Android/data/de.georgsieber.customerdb/files. Bitte beeenden Sie vorher die App über das Menü.\n\nNoch einfacher geht das Backup, wenn Sie die Synchronisierungsfunktion verwenden. Hierbei werden die Daten auf Knopfdruck mit einem MySQL-Server abgeglichen. Weitere Informationen zu dieser Backupmöglichkeit finden Sie in den Einstellungen."</string>
+    <string name="backup_info">"Standardmäßig werden die Daten nur lokal auf Ihrem Gerät gespeichert. Bitte sichern Sie Ihre Datenbank regelmäßig, um die Daten im Falle eines Defekts oder Verlusts Ihres mobilen Endgerätes nicht zu verlieren. Dazu kopieren Sie einfach die Datenbankdateien unter /Android/data/de.georgsieber.customerdb/files auf Ihren Computer oder ein anderes externes Speichermedium.\n\nNoch einfacher geht das Backup, wenn Sie die Synchronisierungsfunktion verwenden. Hierbei werden die Daten auf Knopfdruck mit einem MySQL-Server abgeglichen. Weitere Informationen hierzu finden Sie in den Einstellungen."</string>
     <string name="fix">Beheben</string>
     <string name="export_single_csvonly">CSV-Datei speichern</string>
     <string name="export_single_title">Einzelnen Kundendatensatz exportieren</string>
