@@ -281,7 +281,7 @@
     <string name="number_symbol">#</string>
     <string name="do_call">Набери номер</string>
     <string name="voucher_no_duplicate_hint">Пожалуйста, убедитесь, что все устройства синхронизированы, чтобы не выдавать дубликаты номеров ваучеров.</string>
-    <string name="open_source_text">Это приложение с открытым исходным кодом. Если вы хотите внести свой вклад (например, для перевода на другие языки), пожалуйста, посетите страницу GitHub.</string>
+    <string name="open_source_text">Это приложение с открытым исходным кодом. Если вы хотите улучшить приложение или его переводы, посетите репозиторий на Github.</string>
     <string name="open_source">Открытый источник</string>
     <string name="customer_database_on_github">База данных клиентов на GitHub</string>
     <string name="access_license_for_cloud_service">Лицензия на облачный доступ</string>
@@ -394,4 +394,5 @@
     <string name="import_from_qr_code">Импорт из QR-кода</string>
     <string name="digital_amp_analog_clock_screensaver">Цифровые и аналоговые часы для Android</string>
     <string name="scan">Сканер</string>
+    <string name="view_apache_license">Apache License</string>
 </resources>

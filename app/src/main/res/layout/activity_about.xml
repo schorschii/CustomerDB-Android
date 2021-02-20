@@ -677,42 +677,44 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/third_party_components"
+                    android:text="@string/open_source"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onClickApacheLicenseLink"
-                    android:text="@string/third_party_components_text"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/open_source"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="@string/open_source_text"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:visibility="gone" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
                     style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onClickGithub"
-                    android:text="@string/customer_database_on_github"
-                    android:visibility="gone" />
+                    android:text="@string/customer_database_on_github" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/third_party_components"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/third_party_components_text"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                <Button
+                    style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClickApacheLicenseLink"
+                    android:text="@string/view_apache_license" />
 
                 <Space
                     android:layout_width="wrap_content"

@@ -511,7 +511,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void onClickGithub(View v) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/schorschii/customerdb-android"));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.repo_link)));
         startActivity(browserIntent);
     }
 

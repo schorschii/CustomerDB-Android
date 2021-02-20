@@ -280,7 +280,7 @@
     <string name="number_symbol">#</string>
     <string name="do_call">Chiama il numero</string>
     <string name="voucher_no_duplicate_hint">Assicurati che tutti i dispositivi siano sincronizzati per non emettere duplicati di voucher.</string>
-    <string name="open_source_text">Questa app &#232; Open Source. Se vuoi contribuire (ad es. Per tradurre in altre lingue), visita la pagina GitHub.</string>
+    <string name="open_source_text">Questa app è Open Source. Se vuoi migliorare l\'app o le sue traduzioni, controlla il repository su Github.</string>
     <string name="open_source">Open Source</string>
     <string name="customer_database_on_github">Database clienti su GitHub</string>
     <string name="access_license_for_cloud_service">Licenza di accesso al cloud</string>
@@ -393,4 +393,5 @@
     <string name="import_from_qr_code">Importa da codice QR</string>
     <string name="digital_amp_analog_clock_screensaver">Orologio digitale e analogico per Android</string>
     <string name="scan">Scanner</string>
+    <string name="view_apache_license">Apache License</string>
 </resources>

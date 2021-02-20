@@ -280,7 +280,7 @@
     <string name="number_symbol"># #</string>
     <string name="do_call">N&#250;mero de llamada</string>
     <string name="voucher_no_duplicate_hint">Aseg&#250;rese de que todos los dispositivos est&#233;n sincronizados para no emitir n&#250;meros de comprobantes duplicados.</string>
-    <string name="open_source_text">Esta aplicaci&#243;n es de c&#243;digo abierto. Si desea contribuir (por ejemplo, para traducir a otros idiomas), visite la p&#225;gina de GitHub.</string>
+    <string name="open_source_text">Esta aplicación es de código abierto. Si desea mejorar la aplicación o sus traducciones, consulte el repositorio en Github.</string>
     <string name="open_source">Fuente abierta</string>
     <string name="customer_database_on_github">Base de datos de clientes en GitHub</string>
     <string name="access_license_for_cloud_service">Licencia de acceso a la nube</string>
@@ -393,4 +393,5 @@
     <string name="import_from_qr_code">Importar desde código QR</string>
     <string name="digital_amp_analog_clock_screensaver">Reloj digital y analógico para Android</string>
     <string name="scan">Escáner</string>
+    <string name="view_apache_license">Apache License</string>
 </resources>
