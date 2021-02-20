@@ -79,13 +79,13 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         }
     }
 
-    @SuppressWarnings("SwitchStatementWithTooFewBranches")
+    @SuppressWarnings({"SwitchStatementWithTooFewBranches", "UnnecessaryReturnStatement"})
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch(requestCode) {
             case CAMERA_PERMISSION:
                 if(grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, getString(R.string.please_grant_camera_permission), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.please_grant_camera_permission), Toast.LENGTH_LONG).show();
                 }
                 return;
         }

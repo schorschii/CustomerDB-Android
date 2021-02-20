@@ -390,8 +390,9 @@
     <string name="removed_placeholder">*REMOVED*</string>
     <string name="empty">&lt;Empty&gt;</string>
     <string name="invalid_code">Invalid code - could not find any valid entries in this code.</string>
-    <string name="please_grant_camera_permission">Please grant camera permission to use the scanner.</string>
+    <string name="please_grant_camera_permission">Please grant camera permission to use this feature.</string>
     <string name="do_you_want_to_import_this_customer">Do you want to import this customer?</string>
     <string name="import_from_qr_code">Import from QR code</string>
     <string name="digital_amp_analog_clock_screensaver"><![CDATA[Digital & Analog Clock for Android]]></string>
+    <string name="scan">Scan</string>
 </resources>

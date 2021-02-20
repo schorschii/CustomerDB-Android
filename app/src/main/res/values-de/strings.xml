@@ -388,8 +388,9 @@
     <string name="removed_placeholder">*GELÖSCHT*</string>
     <string name="empty">&lt;Leer&gt;</string>
     <string name="invalid_code">Ungültiger Code - es konnten keine Einträge in dem Code gefunden werden.</string>
-    <string name="please_grant_camera_permission">Bitte gewähren Sie Kamerazugriff, um den Scanner nutzen zu können.</string>
+    <string name="please_grant_camera_permission">Bitte gewähren Sie Kamerazugriff, um diese Funktion nutzen zu können.</string>
     <string name="do_you_want_to_import_this_customer">Möchten Sie diesen Kunden importieren?</string>
     <string name="import_from_qr_code">Aus QR-Code importieren</string>
     <string name="digital_amp_analog_clock_screensaver"><![CDATA[Digital- & Analog-Uhr für Android]]></string>
+    <string name="scan">Scannen</string>
 </resources>

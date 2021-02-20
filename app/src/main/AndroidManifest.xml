@@ -109,7 +109,7 @@
         </activity>
         <activity
             android:name=".ScanActivity"
-            android:label="Scan">
+            android:label="@string/scan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.georgsieber.customerdb.MainActivity" />

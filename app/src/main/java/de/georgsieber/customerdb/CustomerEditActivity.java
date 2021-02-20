@@ -1,5 +1,6 @@
 package de.georgsieber.customerdb;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,14 +11,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.provider.MediaStore;
@@ -43,6 +48,7 @@ import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -80,6 +86,7 @@ public class CustomerEditActivity extends AppCompatActivity {
     private final static int FILE_CAMERA_REQUEST = 4;
     private final static int FILE_PICK_REQUEST = 5;
     private final static int FILE_DRAW_REQUEST = 6;
+    private final static int CAMERA_PERMISSION_REQUEST = 7;
 
     Calendar mBirthdayCalendar = null;
 
@@ -713,9 +720,13 @@ public class CustomerEditActivity extends AppCompatActivity {
         ad.findViewById(R.id.buttonConsentFromCamera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ContextCompat.checkSelfPermission(me, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(me, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+                } else {
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    me.startActivityForResult(cameraIntent, CUSTOMER_IMAGE_CAMERA_REQUEST);
+                }
                 ad.dismiss();
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                me.startActivityForResult(cameraIntent, CUSTOMER_IMAGE_CAMERA_REQUEST);
             }
         });
         ad.findViewById(R.id.buttonConsentFromGallery).setOnClickListener(new View.OnClickListener() {
@@ -753,11 +764,15 @@ public class CustomerEditActivity extends AppCompatActivity {
         ad.findViewById(R.id.buttonConsentFromCamera).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(ContextCompat.checkSelfPermission(me, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(me, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST);
+                } else {
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    Uri photoURI = FileProvider.getUriForFile(me, "de.georgsieber.customerdb.provider", StorageControl.getStorageImageTemp(me));
+                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    me.startActivityForResult(cameraIntent, FILE_CAMERA_REQUEST);
+                }
                 ad.dismiss();
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                Uri photoURI = FileProvider.getUriForFile(me, "de.georgsieber.customerdb.provider", StorageControl.getStorageImageTemp(me));
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                me.startActivityForResult(cameraIntent, FILE_CAMERA_REQUEST);
             }
         });
         ad.findViewById(R.id.buttonConsentFromGallery).setOnClickListener(new View.OnClickListener() {
@@ -785,6 +800,18 @@ public class CustomerEditActivity extends AppCompatActivity {
             }
         });
         ad.show();
+    }
+
+    @SuppressWarnings({"SwitchStatementWithTooFewBranches", "UnnecessaryReturnStatement"})
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch(requestCode) {
+            case CAMERA_PERMISSION_REQUEST:
+                if(grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, getString(R.string.please_grant_camera_permission), Toast.LENGTH_LONG).show();
+                }
+                return;
+        }
     }
 
 }
