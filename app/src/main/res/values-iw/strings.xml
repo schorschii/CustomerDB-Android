@@ -15,7 +15,7 @@
         <item quantity="many">%d שוברים</item>
         <item quantity="other">%d שוברים</item>
     </plurals>
-    <string name="copyright">© כל הזכויות 2017–2020 גיאורג סבר</string>
+    <string name="copyright">© כל הזכויות 2017–2021 גיאורג סבר</string>
     <string name="website">:אתר אינטרנט</string>
     <string name="email">:דואר</string>
     <string name="person">אדם</string>

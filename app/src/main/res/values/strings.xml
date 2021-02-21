@@ -30,7 +30,7 @@
     <string name="app_name">Customer Database</string>
     <string name="version">v%1$s</string>
     <string name="simplecustomermanagement">Simple Customer Management</string>
-    <string name="copyright">© 2017–2020 Georg Sieber</string>
+    <string name="copyright">© 2017–2021 Georg Sieber</string>
     <string name="website">Website:</string>
     <string name="email">E-Mail:</string>
     <string name="person">Person</string>
@@ -284,8 +284,8 @@
     <string name="number_symbol">#</string>
     <string name="do_call">Call Number</string>
     <string name="voucher_no_duplicate_hint">Please make sure that all devices are synchronized in order to not issue duplicate voucher numbers.</string>
-    <string name="open_source_text">This app is Open Source. If you want to improve the app or it\'s translations, please check out the repository on Github.</string>
-    <string name="open_source">Fork me</string>
+    <string name="open_source_text">This app is Open Source. If you want to improve the app or its translations, please check out the repository on Github.</string>
+    <string name="open_source">Fork Me</string>
     <string name="customer_database_on_github">Customer Database on GitHub</string>
     <string name="access_license_for_cloud_service">Cloud Access License</string>
     <string name="subscribe_to_the_cloud_sync_service">Subscribe to the cloud sync service to backup your customer data in the cloud and sync it over multiple devices.</string>
