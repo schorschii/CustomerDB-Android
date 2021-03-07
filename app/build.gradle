@@ -6,8 +6,8 @@ android {
         applicationId "de.georgsieber.customerdb"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 84
-        versionName "3.7.4"
+        versionCode 85
+        versionName "3.7.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
