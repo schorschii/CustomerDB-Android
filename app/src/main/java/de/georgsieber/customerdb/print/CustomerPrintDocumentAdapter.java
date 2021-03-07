@@ -91,6 +91,7 @@ public class CustomerPrintDocumentAdapter extends PrintDocumentAdapter {
         int x0 = 15;
         int x1 = Math.round(page.getInfo().getPageWidth()/2.8f);
         int y = lineHeight*2;
+        int charsPerLine = Math.round((page.getInfo().getPageWidth() - x1 - 10) / (fontSize/4));
 
         if(mCurrentCustomer.getImage().length != 0) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(mCurrentCustomer.getImage(), 0, mCurrentCustomer.getImage().length);
@@ -155,7 +156,7 @@ public class CustomerPrintDocumentAdapter extends PrintDocumentAdapter {
 
         y += lineHeight; y += lineHeight;
         c.drawText(mCurrentContext.getResources().getString(R.string.notes), x0, y, p_gray);
-        for(String s : mCurrentCustomer.mNotes.split("\n")) {
+        for(String s : PrintTools.wordWrap(mCurrentCustomer.mNotes, charsPerLine).split("\n")) {
             c.drawText(s, x1, y, p);
             y += lineHeight;
         }

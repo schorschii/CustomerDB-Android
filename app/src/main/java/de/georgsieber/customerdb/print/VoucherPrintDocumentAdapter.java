@@ -88,6 +88,7 @@ public class VoucherPrintDocumentAdapter extends PrintDocumentAdapter {
         int x0 = 15;
         int x1 = Math.round(page.getInfo().getPageWidth()/2.8f);
         int y = lineHeight*2;
+        int charsPerLine = Math.round((page.getInfo().getPageWidth() - 10) / (fontSize/4));
 
         Paint p = new Paint();
         Paint p_gray = new Paint();
@@ -151,7 +152,7 @@ public class VoucherPrintDocumentAdapter extends PrintDocumentAdapter {
         if(!mCurrentVoucher.mNotes.equals("")) {
             y += lineHeight*1.25f;
             c.drawText(mCurrentContext.getResources().getString(R.string.notes), x0, y, p_gray);
-            for(String s : mCurrentVoucher.mNotes.split("\n")) {
+            for(String s : PrintTools.wordWrap(mCurrentVoucher.mNotes, charsPerLine).split("\n")) {
                 y += lineHeight;
                 c.drawText(s, x0, y, p);
             }
