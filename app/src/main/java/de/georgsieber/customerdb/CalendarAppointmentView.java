@@ -56,7 +56,7 @@ public class CalendarAppointmentView extends LinearLayout {
         border.setCornerRadius(12);
         border.setColor(backgroundColor);
         border.setAlpha(220);
-        border.setStroke((int)getResources().getDimension(R.dimen.hour_divider_height), getResources().getColor(R.color.divider_color));
+        border.setStroke((int)getResources().getDimension(R.dimen.hour_divider_height), getResources().getColor(R.color.colorDivider));
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
             setBackgroundDrawable(border);
         } else {
