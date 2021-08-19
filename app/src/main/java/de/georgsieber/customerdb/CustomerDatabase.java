@@ -60,7 +60,7 @@ public class CustomerDatabase {
     private SQLiteDatabase db;
     private Context context;
 
-    CustomerDatabase(Context context) {
+    public CustomerDatabase(Context context) {
         this.context = context;
         db = context.openOrCreateDatabase(getStorage().getPath(), MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS customer (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR, first_name VARCHAR, last_name VARCHAR, phone_home VARCHAR, phone_mobile VARCHAR, phone_work VARCHAR, email VARCHAR, street VARCHAR, zipcode VARCHAR, city VARCHAR, country VARCHAR, birthday DATETIME, last_modified DATETIME, notes VARCHAR, removed INTEGER DEFAULT 0);");
@@ -1024,7 +1024,7 @@ public class CustomerDatabase {
         return c;
     }
 
-    Customer getCustomerByNumber(String number) {
+    public Customer getCustomerByNumber(String number) {
         List<Customer> allCustomers = getCustomers(null, false, false);
         List<Customer> results = new ArrayList<>();
         for(Customer c : allCustomers) {
@@ -1041,8 +1041,10 @@ public class CustomerDatabase {
                 }
             }
         }
-        if(results.size() > 0)
-            return results.get(0);
+        if(results.size() > 0) {
+            // return with customer picture for (caller id)
+            return this.getCustomerFiles(results.get(0));
+        }
         return null;
     }
 

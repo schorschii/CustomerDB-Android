@@ -130,6 +130,17 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <provider
+            android:name=".tools.CallerIdProvider"
+            android:authorities="@string/callerid_authority"
+            android:readPermission="android.permission.READ_CONTACTS"
+            android:enabled="true"
+            android:exported="true">
+            <meta-data
+                android:name="android.content.ContactDirectory"
+                android:value="true"/>
+        </provider>
+
         <receiver
             android:name=".PhoneStateReceiver2"
             android:enabled="true"
