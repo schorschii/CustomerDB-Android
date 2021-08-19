@@ -112,6 +112,8 @@ public class CallerIdProvider extends ContentProvider {
             Customer customer = mDb.getCustomerByNumber(incomingNumber);
             if(customer != null && customer.getImage().length > 0) {
                 return bytesToAssetFileDescriptor(customer.getImage());
+            } else {
+                return getContext().getResources().openRawResourceFd(R.drawable.logo_customerdb_raw);
             }
         }
         return null;
