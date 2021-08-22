@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "de.georgsieber.customerdb"
         minSdkVersion 15
-        targetSdkVersion 29
-        versionCode 85
-        versionName "3.7.5"
+        targetSdkVersion 30
+        versionCode 86
+        versionName "3.8.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
