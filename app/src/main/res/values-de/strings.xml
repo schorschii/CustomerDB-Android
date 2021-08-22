@@ -139,7 +139,7 @@
     </plurals>
     <string name="export_single_vcfonly">VCF-Datei speichern</string>
     <string name="calling">ruft an</string>
-    <string name="allow_overlay_on_incoming_phone_calls">Anzeige bei eingehenden Anrufen erlauben</string>
+    <string name="caller_id">Anruferidentifizierung</string>
     <string name="no_network_conn_title">Keine Netzwerkverbindung</string>
     <string name="no_network_conn_text">Bitte verbinden Sie Ihr Gerät mit einem Netzwerk, um die Synchronisierungsfunktion nutzen zu können.</string>
     <string name="show_on_map">Auf Karte zeigen</string>
@@ -241,7 +241,7 @@
     <string name="general">Allgemein</string>
     <string name="last_call">Letzter Anruf empfangen:</string>
     <string name="no_customer_found">kein passender Kunde gefunden</string>
-    <string name="call_log_permission_note">Für diese Funktion muss die Kundendatenbank-Plugin-App installiert werden.</string>
+    <string name="call_log_permission_note">Um diese Funktion nutzen zu können ist auf einigen Geräten die Kundendatenbank-Plugin-App erforderlich.</string>
     <string name="no_details">Keine Kontaktdetails</string>
     <string name="select_all">Alle</string>
     <string name="deselect">Aufheben</string>

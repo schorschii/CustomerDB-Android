@@ -148,7 +148,7 @@
     </plurals>
     <string name="export_single_vcfonly">שמור VCF קובץ</string>
     <string name="calling">מתקשר</string>
-    <string name="allow_overlay_on_incoming_phone_calls">לאפשר כיסוי על שיחות טלפון נכנסות</string>
+    <string name="caller_id">זיהוי מתקשר</string>
     <string name="no_network_conn_title">אין חיבור לרשת</string>
     <string name="no_network_conn_text">בבקשה לחבר את המכשיר עם רשת להשתמש בתכונת הסינכרון.</string>
     <string name="show_on_map">הראה במפה</string>
@@ -254,7 +254,7 @@
     <string name="general">כללי</string>
     <string name="last_call">:השיחה האחרונה התקבל</string>
     <string name="no_customer_found">שום לקוח תואמות נמצאו</string>
-    <string name="call_log_permission_note">תכונה זו מחייבת התקנה של אפליקציית הפלאגין של מסד הנתונים של הלקוחות.</string>
+    <string name="call_log_permission_note">במכשירים מסוימים, תכונה זו דורשת התקנה של אפליקציית הפלאגין של מסד הנתונים של הלקוח.</string>
     <string name="no_details">אין פרטים ליצירת קשר</string>
     <string name="select_all">את כל</string>
     <string name="deselect">בטל בחירה</string>

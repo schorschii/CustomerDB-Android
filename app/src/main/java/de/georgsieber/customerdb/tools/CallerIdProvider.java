@@ -1,7 +1,10 @@
 package de.georgsieber.customerdb.tools;
 
+import android.annotation.SuppressLint;
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
@@ -16,9 +19,12 @@ import androidx.annotation.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.georgsieber.customerdb.CustomerDatabase;
+import de.georgsieber.customerdb.MainActivity;
 import de.georgsieber.customerdb.R;
 import de.georgsieber.customerdb.model.Customer;
 
@@ -72,6 +78,7 @@ public class CallerIdProvider extends ContentProvider {
                 String incomingNumber = uri.getPathSegments().get(1);
                 Customer customer = mDb.getCustomerByNumber(incomingNumber);
                 if(customer != null) {
+                    saveLastCallInfo(getContext(), incomingNumber, customer.getFullName(false));
                     for(String c : strings) {
                         switch(c) {
                             case(ContactsContract.PhoneLookup._ID):
@@ -98,8 +105,10 @@ public class CallerIdProvider extends ContentProvider {
                             default: values.add(null);
                         }
                     }
+                    cursor.addRow(values.toArray());
+                } else {
+                    saveLastCallInfo(getContext(), incomingNumber, null);
                 }
-                cursor.addRow(values.toArray());
                 return cursor;
         }
         return null;
@@ -111,8 +120,10 @@ public class CallerIdProvider extends ContentProvider {
             String incomingNumber = uri.getPathSegments().get(2);
             Customer customer = mDb.getCustomerByNumber(incomingNumber);
             if(customer != null && customer.getImage().length > 0) {
+                // image from database
                 return bytesToAssetFileDescriptor(customer.getImage());
             } else {
+                // fallback image from resources
                 return getContext().getResources().openRawResourceFd(R.drawable.logo_customerdb_raw);
             }
         }
@@ -135,6 +146,18 @@ public class CallerIdProvider extends ContentProvider {
         } catch(IOException ignored) {
             return null;
         }
+    }
+
+    private void saveLastCallInfo(Context c, String number, String customer) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        String callInfo = sdf.format(new Date()) +" via ContentProvider: "+
+                number +" ("+ (customer == null ? c.getResources().getString(R.string.no_customer_found) : customer) +")";
+
+        SharedPreferences settings = c.getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("last-call-received", callInfo);
+        editor.apply();
     }
 
     @Nullable

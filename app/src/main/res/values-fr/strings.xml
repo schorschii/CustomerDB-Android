@@ -147,7 +147,7 @@
     <string name="import_fail_no_entries">Le fichier ne contient aucun enregistrement valide.</string>
     <string name="export_single_vcfonly">Enregistrer le fichier VCF</string>
     <string name="calling">appel</string>
-    <string name="allow_overlay_on_incoming_phone_calls">Autoriser la superposition sur les appels t&#233;l&#233;phoniques entrants</string>
+    <string name="caller_id">Identification de l\'appelant</string>
     <string name="no_network_conn_title">Pas de connexion r&#233;seau</string>
     <string name="no_network_conn_text">Veuillez connecter votre appareil &#224; un r&#233;seau pour utiliser la fonction de synchronisation.</string>
     <string name="show_on_map">Afficher sur la carte</string>
@@ -241,7 +241,7 @@
     <string name="general">G&#233;n&#233;rale</string>
     <string name="last_call">Dernier appel re&#231;u:</string>
     <string name="no_customer_found">aucun client correspondant trouv&#233;</string>
-    <string name="call_log_permission_note">Cette fonctionnalit&#233; n&#233;cessite l\'installation de l\'application Customer Database Plugin.</string>
+    <string name="call_log_permission_note">Sur certains appareils, cette fonctionnalité nécessite l\'installation de l\'application Customer Database Plugin.</string>
     <string name="no_details">Pas de coordonn&#233;es</string>
     <string name="select_all">Tout s&#233;lectionner</string>
     <string name="deselect">D&#233;s&#233;lectionner</string>

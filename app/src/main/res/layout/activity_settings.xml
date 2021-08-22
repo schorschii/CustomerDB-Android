@@ -593,7 +593,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/allow_overlay_on_incoming_phone_calls"
+                    android:text="@string/caller_id"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
                 <TextView

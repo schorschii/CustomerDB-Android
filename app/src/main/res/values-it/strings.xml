@@ -147,7 +147,7 @@
     <string name="import_fail_no_entries">Il file non contiene alcun record valido.</string>
     <string name="export_single_vcfonly">Salva il file VCF</string>
     <string name="calling">chiamata</string>
-    <string name="allow_overlay_on_incoming_phone_calls">Consenti overlay su chiamate telefoniche in arrivo</string>
+    <string name="caller_id">Identificazione del chiamante</string>
     <string name="no_network_conn_title">Nessuna connessione di rete</string>
     <string name="no_network_conn_text">Connetti il dispositivo a una rete per utilizzare la funzione di sincronizzazione.</string>
     <string name="show_on_map">Mostra sulla mappa</string>
@@ -241,7 +241,7 @@
     <string name="general">Generale</string>
     <string name="last_call">Ultima chiamata ricevuta:</string>
     <string name="no_customer_found">nessun cliente corrispondente trovato</string>
-    <string name="call_log_permission_note">Questa funzione richiede l\'installazione dell\'app Plugin database clienti.</string>
+    <string name="call_log_permission_note">Su alcuni dispositivi, questa funzionalità richiede l\'installazione dell\'app Customer Database Plugin.</string>
     <string name="no_details">Nessun dato di contatto</string>
     <string name="select_all">Seleziona tutto</string>
     <string name="deselect">Deseleziona</string>

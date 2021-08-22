@@ -152,7 +152,7 @@
     <string name="import_fail_no_entries">The file does not contain any valid records.</string>
     <string name="export_single_vcfonly">Save VCF file</string>
     <string name="calling">calling</string>
-    <string name="allow_overlay_on_incoming_phone_calls">Allow Overlay on Incoming Phone Calls</string>
+    <string name="caller_id">Caller Identification</string>
     <string name="no_network_conn_title">No network connection</string>
     <string name="no_network_conn_text">Please connect your device with a network to use the sync feature.</string>
     <string name="show_on_map">Show on map</string>
@@ -246,7 +246,7 @@
     <string name="general">General</string>
     <string name="last_call">Last call received:</string>
     <string name="no_customer_found">no matching customer found</string>
-    <string name="call_log_permission_note">This feature requires the installation of the Customer Database Plugin app.</string>
+    <string name="call_log_permission_note">On some devices, this feature requires the installation of the Customer Database Plugin app.</string>
     <string name="no_details">No contact details</string>
     <string name="select_all">Select All</string>
     <string name="deselect">Deselect</string>

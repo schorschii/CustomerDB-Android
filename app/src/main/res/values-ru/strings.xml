@@ -140,7 +140,7 @@
     </plurals>
     <string name="export_single_vcfonly">Сохранить файл VCF</string>
     <string name="calling"></string>
-    <string name="allow_overlay_on_incoming_phone_calls">Разрешить отображение на входящих звонках</string>
+    <string name="caller_id">Идентификация вызывающего абонента</string>
     <string name="no_network_conn_title">Нет сетевого подключения</string>
     <string name="no_network_conn_text">Пожалуйста, подключите ваше устройство к сети, чтобы использовать функцию синхронизации.</string>
     <string name="show_on_map">Показать на карте</string>
@@ -242,7 +242,7 @@
     <string name="general">Общие</string>
     <string name="last_call">Последний полученный звонок:</string>
     <string name="no_customer_found">подходящий клиент не найден</string>
-    <string name="call_log_permission_note">Эта функция требует установки приложения плагин базы данных клиентов.</string>
+    <string name="call_log_permission_note">На некоторых устройствах для этой функции требуется установка подключаемого модуля клиентской базы данных.</string>
     <string name="no_details">Нет контактных данных</string>
     <string name="select_all">Все</string>
     <string name="deselect">Отмените</string>

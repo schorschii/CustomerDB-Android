@@ -147,7 +147,7 @@
     <string name="import_fail_no_entries">El archivo no contiene ning&#250;n registro v&#225;lido.</string>
     <string name="export_single_vcfonly">Guardar archivo VCF</string>
     <string name="calling">vocaci&#243;n</string>
-    <string name="allow_overlay_on_incoming_phone_calls">Permitir superposici&#243;n en llamadas telef&#243;nicas entrantes</string>
+    <string name="caller_id">Identificación de llamadas</string>
     <string name="no_network_conn_title">No hay conexion de red</string>
     <string name="no_network_conn_text">Conecte su dispositivo con una red para usar la funci&#243;n de sincronizaci&#243;n.</string>
     <string name="show_on_map">Mostrar en el mapa</string>
@@ -241,7 +241,7 @@
     <string name="general">General</string>
     <string name="last_call">&#218;ltima llamada recibida:</string>
     <string name="no_customer_found">No se encontr&#243; ninguna cliente coincidente</string>
-    <string name="call_log_permission_note">Esta funci&#243;n requiere la instalaci&#243;n de la aplicaci&#243;n Complemento de base de datos del cliente.</string>
+    <string name="call_log_permission_note">En algunos dispositivos, esta función requiere la instalación de la aplicación Customer Database Plugin.</string>
     <string name="no_details">Sin detalles de contacto</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="deselect">Deseleccionar</string>
