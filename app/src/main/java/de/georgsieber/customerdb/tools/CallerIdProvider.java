@@ -38,6 +38,7 @@ public class CallerIdProvider extends ContentProvider {
     private Uri authorityUri;
 
     private CustomerDatabase mDb;
+    private SharedPreferences mSettings;
 
     @Override
     public boolean onCreate() {
@@ -47,6 +48,7 @@ public class CallerIdProvider extends ContentProvider {
         uriMatcher.addURI(authority, "phone_lookup/*", PHONE_LOOKUP);
         uriMatcher.addURI(authority, "photo/primary_photo/*", PRIMARY_PHOTO);
         mDb = new CustomerDatabase(getContext());
+        mSettings = getContext().getSharedPreferences(MainActivity.PREFS_NAME, 0);
         return true;
     }
 
@@ -75,6 +77,17 @@ public class CallerIdProvider extends ContentProvider {
                 cursor.addRow(values.toArray());
                 return cursor;
             case(PHONE_LOOKUP):
+                // check caller package - we only allow native android phone app
+                String callerPackage = uri.getQueryParameter("callerPackage");
+                if(callerPackage == null || !callerPackage.equals("com.android.dialer")) return cursor;
+
+                // prevent bulk queries
+                int currentTime = (int)(System.currentTimeMillis() / 1000L);
+                int lastLookup = mSettings.getInt("last-caller-id-lookup", 0);
+                if(currentTime - lastLookup < 4) return cursor;
+                mSettings.edit().putInt("last-caller-id-lookup", currentTime).apply();
+
+                // do the lookup
                 String incomingNumber = uri.getPathSegments().get(1);
                 Customer customer = mDb.getCustomerByNumber(incomingNumber);
                 if(customer != null) {
@@ -154,8 +167,7 @@ public class CallerIdProvider extends ContentProvider {
         String callInfo = sdf.format(new Date()) +" via ContentProvider: "+
                 number +" ("+ (customer == null ? c.getResources().getString(R.string.no_customer_found) : customer) +")";
 
-        SharedPreferences settings = c.getSharedPreferences(MainActivity.PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
+        SharedPreferences.Editor editor = mSettings.edit();
         editor.putString("last-call-received", callInfo);
         editor.apply();
     }
