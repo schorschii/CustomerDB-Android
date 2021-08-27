@@ -13,7 +13,9 @@
         android:hint="@string/name"
         android:minWidth="200dp"
         android:maxLength="20"
-        android:inputType="text"/>
+        android:inputType="text">
+        <requestFocus />
+    </EditText>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -611,9 +611,6 @@ public class SettingsActivity extends AppCompatActivity {
         ad.findViewById(R.id.buttonNewCustomFieldOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                if(imm != null) imm.hideSoftInputFromWindow(ad.findViewById(R.id.editTextCustomFieldTitle).getWindowToken(), 0);
-
                 String input = ((EditText) ad.findViewById(R.id.editTextCustomFieldTitle)).getText().toString();
                 int type = -1;
                 if(((RadioButton) ad.findViewById(R.id.radioButtonNewFieldAlphanumeric)).isChecked())
@@ -675,9 +672,6 @@ public class SettingsActivity extends AppCompatActivity {
         ad.findViewById(R.id.buttonNewCustomFieldOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                if(imm != null) imm.hideSoftInputFromWindow(ad.findViewById(R.id.editTextCustomFieldTitle).getWindowToken(), 0);
-
                 String input = ((EditText) ad.findViewById(R.id.editTextCustomFieldTitle)).getText().toString();
                 int type = -1;
                 if(radioButtonAlphanumeric.isChecked()) type = 0;
@@ -720,6 +714,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         ad.show();
+        ((EditText) ad.findViewById(R.id.editTextCustomFieldTitle)).selectAll();
     }
 
     public void onAddCustomFieldValueButtonClick(View v) {
@@ -737,9 +732,6 @@ public class SettingsActivity extends AppCompatActivity {
         ad.findViewById(R.id.buttonInputBoxOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                if(imm != null) imm.hideSoftInputFromWindow(ad.findViewById(R.id.editTextInputBox).getWindowToken(), 0);
-
                 String input = ((EditText) ad.findViewById(R.id.editTextInputBox)).getText().toString();
                 if(!input.equals("")) mDb.addCustomFieldPreset(fieldId, input);
                 ad.dismiss();
@@ -888,9 +880,6 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ad.dismiss();
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                if(imm != null) imm.hideSoftInputFromWindow(editTextTitle.getWindowToken(), 0);
-
                 CustomerCalendar c = new CustomerCalendar();
                 c.mId = CustomerCalendar.generateID();
                 c.mTitle = editTextTitle.getText().toString();
@@ -972,9 +961,6 @@ public class SettingsActivity extends AppCompatActivity {
         ad.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                if(imm != null) imm.hideSoftInputFromWindow(editTextTitle.getWindowToken(), 0);
-
                 if(!editTextTitle.getText().toString().equals("")) {
                     currentCalendar.mTitle = editTextTitle.getText().toString();
                     currentCalendar.mColor = ColorControl.getHexColor(Color.rgb(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress()));
@@ -992,6 +978,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         ad.show();
+        editTextTitle.selectAll();
     }
 
     public void onChooseLogoButtonClick(View v) {

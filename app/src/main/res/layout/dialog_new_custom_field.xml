@@ -13,7 +13,9 @@
         android:hint="@string/custom_field_title"
         android:minWidth="200dp"
         android:maxLength="20"
-        android:inputType="text"/>
+        android:inputType="text">
+        <requestFocus />
+    </EditText>
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
