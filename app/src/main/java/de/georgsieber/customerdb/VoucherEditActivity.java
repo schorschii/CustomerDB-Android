@@ -321,6 +321,7 @@ public class VoucherEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ad.dismiss();
+                if(listView.getCheckedItemPosition() < 0) return;
                 Customer newCustomer = (Customer) listView.getAdapter().getItem(listView.getCheckedItemPosition());
                 if(setFromCustomer) {
                     mButtonShowFromCustomer.setEnabled(true);

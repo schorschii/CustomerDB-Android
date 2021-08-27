@@ -488,6 +488,7 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ad.dismiss();
+                if(listView.getCheckedItemPosition() < 0) return;
                 Customer newCustomer = (Customer) listView.getAdapter().getItem(listView.getCheckedItemPosition());
                 mButtonShowCustomer.setEnabled(true);
                 mCurrentAppointment.mCustomerId = newCustomer.mId;
