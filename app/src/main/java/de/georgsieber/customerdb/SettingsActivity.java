@@ -1127,7 +1127,8 @@ public class SettingsActivity extends AppCompatActivity {
         ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
         ad.setContentView(R.layout.dialog_input_box);
         ((TextView) ad.findViewById(R.id.textViewInputBox)).setText(text);
-        ((TextView) ad.findViewById(R.id.editTextInputBox)).setText(defaultValue);
+        ((EditText) ad.findViewById(R.id.editTextInputBox)).setText(defaultValue);
+        ((EditText) ad.findViewById(R.id.editTextInputBox)).selectAll();
         if(ad.getWindow() != null) ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         ad.show();
         return ad;
