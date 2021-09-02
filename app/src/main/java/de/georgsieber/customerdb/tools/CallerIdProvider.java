@@ -47,8 +47,12 @@ public class CallerIdProvider extends ContentProvider {
         uriMatcher.addURI(authority, "directories", DIRECTORIES);
         uriMatcher.addURI(authority, "phone_lookup/*", PHONE_LOOKUP);
         uriMatcher.addURI(authority, "photo/primary_photo/*", PRIMARY_PHOTO);
-        mDb = new CustomerDatabase(getContext());
         mSettings = getContext().getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        try {
+            mDb = new CustomerDatabase(getContext());
+        } catch(Exception ex) {
+            return false;
+        }
         return true;
     }
 
@@ -61,6 +65,8 @@ public class CallerIdProvider extends ContentProvider {
             case(DIRECTORIES):
                 for(String c : strings) {
                     switch(c) {
+                        //case(ContactsContract.Directory.PHOTO_SUPPORT):
+                        //    values.add(ContactsContract.Directory.PHOTO_SUPPORT_FULL); break;
                         case(ContactsContract.Directory.ACCOUNT_NAME):
                         case(ContactsContract.Directory.ACCOUNT_TYPE):
                         case(ContactsContract.Directory.DISPLAY_NAME):
@@ -79,7 +85,8 @@ public class CallerIdProvider extends ContentProvider {
             case(PHONE_LOOKUP):
                 // check caller package - we only allow native android phone app
                 String callerPackage = uri.getQueryParameter("callerPackage");
-                if(callerPackage == null || !callerPackage.equals("com.android.dialer")) return cursor;
+                if(callerPackage == null) return cursor;
+                if(!callerPackage.equals("com.android.dialer") && !callerPackage.equals("com.google.android.dialer")) return cursor;
 
                 // prevent bulk queries
                 int currentTime = (int)(System.currentTimeMillis() / 1000L);
@@ -88,6 +95,7 @@ public class CallerIdProvider extends ContentProvider {
                 mSettings.edit().putInt("last-caller-id-lookup", currentTime).apply();
 
                 // do the lookup
+                if(mDb == null) return cursor;
                 String incomingNumber = uri.getPathSegments().get(1);
                 Customer customer = mDb.getCustomerByNumber(incomingNumber);
                 if(customer != null) {
@@ -129,7 +137,7 @@ public class CallerIdProvider extends ContentProvider {
 
     @Override
     public AssetFileDescriptor openAssetFile(@NonNull Uri uri, @NonNull String mode) {
-        if(uriMatcher.match(uri) == PRIMARY_PHOTO) {
+        if(uriMatcher.match(uri) == PRIMARY_PHOTO && mDb != null) {
             String incomingNumber = uri.getPathSegments().get(2);
             Customer customer = mDb.getCustomerByNumber(incomingNumber);
             if(customer != null && customer.getImage().length > 0) {
