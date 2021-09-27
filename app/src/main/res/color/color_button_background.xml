@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="false" android:color="#E7E8E8" />
+
+    <!-- this is for older Androids only - newer Androids automatically doing color gradation on focus/click -->
+    <item android:state_focused="true" android:color="#007391" />
+    <item android:state_pressed="true" android:color="#006D8A" />
+
     <item android:color="@color/colorPrimary" />
 </selector>
