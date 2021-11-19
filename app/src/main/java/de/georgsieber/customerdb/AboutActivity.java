@@ -509,7 +509,6 @@ public class AboutActivity extends AppCompatActivity {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.developer_website)));
         startActivity(browserIntent);
     }
-
     public void onClickGithub(View v) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.repo_link)));
         startActivity(browserIntent);
@@ -519,19 +518,19 @@ public class AboutActivity extends AppCompatActivity {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://apps.apple.com/us/app/customer-database/id1496659447"));
         startActivity(browserIntent);
     }
-
     public void onClickRemotePointerAndroidApp(View v) {
         MainActivity.openPlayStore(this, "systems.sieber.remotespotlight");
     }
-
     public void onClickFsClockAndroidApp(View v) {
         MainActivity.openPlayStore(this, "systems.sieber.fsclock");
     }
-
     public void onClickBallBreakAndroidApp(View v) {
         MainActivity.openPlayStore(this, "de.georgsieber.ballbreak");
     }
-
+    public void onClickOco(View v) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/schorschii/oco-server"));
+        startActivity(browserIntent);
+    }
     public void onClickMasterplan(View v) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/schorschii/masterplan"));
         startActivity(browserIntent);
