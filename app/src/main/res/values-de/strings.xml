@@ -152,15 +152,15 @@
     <string name="apply">Übernehmen</string>
     <string name="not_licensed">Nicht lizenziert für kommerzielle Verwendung.</string>
     <string name="commercial_use">Kommerzielle Verwendung</string>
-    <string name="commercial_use_description">Kostenfrei nur für Privatnutzung, gemeinnützige Organisationen und für Lehr- oder Testzwecke. Bitte kontaktieren Sie mich per E-Mail, wenn Sie nicht sicher sind, ob Sie die App für kommerzielle Verwendung lizenzieren müssen.</string>
+    <string name="commercial_use_description">Kostenfrei nur für Privatnutzung, gemeinnützige Organisationen und für Lehr- oder Testzwecke. Bitte kontaktieren Sie mich per E-Mail, wenn Sie nicht sicher sind, ob Sie die App für kommerzielle Verwendung lizenzieren müssen. Einmalige Zahlung.</string>
     <string name="buy_now">Kaufen</string>
     <string name="features">Funktionen</string>
     <string name="feature_icon_hint">Dieses Symbol zeigt, ob das Feature freigeschalten ist.</string>
     <string name="input_only_mode">Nur-Eingabe-Modus</string>
     <string name="input_only_mode_inapp_title">Nur-Eingabe-Modus und App-Sperre</string>
-    <string name="input_only_mode_description">Optional aktivierbarer Modus, der nur das Anlegen neuer Einträge zulässt. Zum Beispiel zum Herausgeben des Gerätes, sodass sich Benutzer selber registrieren können. Außerdem können Sie die App komplett sperren.</string>
+    <string name="input_only_mode_description">Optional aktivierbarer Modus, der nur das Anlegen neuer Einträge zulässt. Zum Beispiel zum Herausgeben des Gerätes, sodass sich Benutzer selber registrieren können. Außerdem können Sie die App komplett sperren. Einmalige Zahlung.</string>
     <string name="design_options">Designoptionen</string>
-    <string name="design_options_description">Schaltet den Dark Mode frei und ermöglicht es eine eigene Farbe für Titelleisten, sowie ein eigenes Startlogo in den Einstellungen festzulegen.</string>
+    <string name="design_options_description">Schaltet den Dark Mode frei und ermöglicht es eine eigene Farbe für Titelleisten, sowie ein eigenes Startlogo in den Einstellungen festzulegen. Einmalige Zahlung.</string>
     <string name="new_customer">Neuer Kunde</string>
     <string name="edit_customer">Kunden bearbeiten</string>
     <string name="new_voucher">Neuer Gutschein</string>
@@ -194,7 +194,7 @@
     <string name="removed_logo">Logo wurde entfernt</string>
     <string name="removed_logo_failed">Logo konnte nicht entfernt werden</string>
     <string name="custom_fields">Benutzerdefinierte Felder</string>
-    <string name="custom_fields_description">Ermöglicht es beliebig viele eigene Felder zu Kundendatensätzen hinzuzufügen. Sie können auch Auswahllisten erstellen und die Kundenliste nach benutzerdefinierten Feldern sortieren.</string>
+    <string name="custom_fields_description">Ermöglicht es beliebig viele eigene Felder zu Kundendatensätzen hinzuzufügen. Sie können auch Auswahllisten erstellen und die Kundenliste nach benutzerdefinierten Feldern sortieren. Einmalige Zahlung.</string>
     <string name="new_custom_field">Neues benutzerdefiniertes Feld</string>
     <string name="remove_custom_field">Beutzerdefiniertes Feld entfernen</string>
     <string name="custom_field_title">Feldbezeichnung</string>
@@ -251,7 +251,7 @@
     <string name="image_from_camera">Mit Kamera aufnehmen</string>
     <string name="install_plugin_app">Plugin-App installieren</string>
     <string name="more_than_500_customers">Mehr als 500 Kunden</string>
-    <string name="create_more_than_500_customer_records">Erstellen Sie mehr als 500 Kundendatensätze.</string>
+    <string name="create_more_than_500_customer_records">Erstellen Sie mehr als 500 Kundendatensätze. Einmalige Zahlung.</string>
     <string name="third_party_components">Komponenten von Drittanbietern</string>
     <string name="third_party_components_text">Diese App verwendet die opencsv-Bibliothek (Copyright 2019 opencsv Contributors, Apache License 2.0) und die ZXing-Barcode-Bibliothek (Copyright 2019 ZXing Contributors, Apache License 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">Kunden</string>
@@ -284,7 +284,7 @@
     <string name="open_source">Gabel mich</string>
     <string name="customer_database_on_github">Kundendatenbank auf GitHub</string>
     <string name="access_license_for_cloud_service">Cloud-Dienst Zugriffslizenz</string>
-    <string name="subscribe_to_the_cloud_sync_service">Abonnieren Sie den Cloud-Synchronisierungs-Dienst, um Ihre Kundendaten in der Cloud zu speichern und mit anderen Geräten abzugleichen.</string>
+    <string name="subscribe_to_the_cloud_sync_service">Abonnieren Sie den Cloud-Synchronisierungs-Dienst, um Ihre Kundendaten in der Cloud zu speichern und mit anderen Geräten abzugleichen. Eine monatliche Zahlung ist erforderlich, da für den Datenbankserver laufende Kosten anfallen.</string>
     <string name="cloud_service">Cloud-Dienst</string>
     <string name="subscribe_to_cloud_service">Cloud-Dienst abonnieren</string>
     <string name="create_cloud_account">Account erstellen</string>
@@ -303,7 +303,7 @@
     <string name="sync_feature_capabilities_text">Mit der Synchronisierungsfunktion können Sie ein Backup Ihrer Kundendaten auf einem Datenbankserver ablegen sowie die Daten über mehrere Geräte synchronisieren. Sie haben die folgenden Optionen diese Funktion zu nutzen.</string>
     <string name="cloud_service_text1">Sie können die kostenpflichtige Kundendatenbank-Cloud verwenden.</string>
     <string name="cloud_service_step1">1. Erstellen Sie einen Account.</string>
-    <string name="cloud_service_step2">2. Abonnieren Sie die Cloud-Zugriffslizenz, um eine Verbindung mit der Cloud herstellen zu können. (Eine wiederkehrende Zahlung ist notwendig, da der Datenbankserver laufende Kosten verursacht.)</string>
+    <string name="cloud_service_step2">2. Abonnieren Sie die Cloud-Zugriffslizenz, um eine Verbindung mit der Cloud herstellen zu können. (Eine wiederkehrende Zahlung ist notwendig, da der Datenbankserver, der für diesen Service verwendet wird, laufende Kosten verursacht.)</string>
     <string name="cloud_service_step3">3. Tippen Sie regelmäßig auf den Synchronisieren-Button im Hauptbildschirm, um Ihre Daten in die Cloud hochzuladen. Optional können Sie sich mit dem gleichen Account auf anderen Geräten anmelden, um die Daten mit dem Gerät anzugleichen.</string>
     <string name="register_now2">Jetzt registrieren</string>
     <string name="confirmation_mail_will_be_sent">Ein Bestätigungs-Link wird an Ihre E-Mail-Adresse gesendet.</string>
@@ -359,8 +359,8 @@
     <string name="add_calendar">Neuer Kalender</string>
     <string name="edit_calendar">Kalender bearbeiten</string>
     <string name="remove_calendar">Kalender entfernen</string>
-    <string name="attach_files_to_customer_records">Fügen Sie Dateien an Kundendatensätze an (maximal 20 Dateien und 1MB pro Datei).</string>
-    <string name="unlocks_the_calendar_features">Schaltet die Kalenderfunktionen frei.</string>
+    <string name="attach_files_to_customer_records">Fügen Sie Dateien an Kundendatensätze an (maximal 20 Dateien und 1MB pro Datei). Einmalige Zahlung.</string>
+    <string name="unlocks_the_calendar_features">Schaltet die Kalenderfunktionen frei. Einmalige Zahlung.</string>
     <string name="no_calendar_selected">Kein Kalender ausgewählt! Bitte erstellen Sie einen Kalender in den Einstellungen.</string>
     <string name="qr_code_for_customer">QR-Code für Kunden</string>
     <string name="location">Ort</string>

@@ -165,15 +165,15 @@
     <string name="apply">Apply</string>
     <string name="not_licensed">Not licensed for commercial use.</string>
     <string name="commercial_use">Commercial Usage</string>
-    <string name="commercial_use_description">Free only for private use, non-profit organisations and educational or testing purposes. Please contact me via email if you are not sure, whether your application needs commercial licensing.</string>
+    <string name="commercial_use_description">Free only for private use, non-profit organisations and educational or testing purposes. Please contact me via email if you are not sure, whether your application needs commercial licensing. One time purchase.</string>
     <string name="buy_now">Buy</string>
     <string name="features">Features</string>
     <string name="feature_icon_hint">This icon indicates, if the feature is unlocked.</string>
     <string name="input_only_mode">Input-Only Mode</string>
     <string name="input_only_mode_inapp_title">Input-Only Mode and App Lock</string>
-    <string name="input_only_mode_description">Optional activatable mode that allows only data entry. For example, the device can be handed to showroom visitors. Furthermore you can lock the app completely.</string>
+    <string name="input_only_mode_description">Optional activatable mode that allows only data entry. For example, the device can be handed to showroom visitors. Furthermore you can lock the app completely. One time purchase.</string>
     <string name="design_options">Design Options</string>
-    <string name="design_options_description">Unlocks the dark mode and allows you to set your own title bar color and startup logo in the settings.</string>
+    <string name="design_options_description">Unlocks the dark mode and allows you to set your own title bar color and startup logo in the settings. One time purchase.</string>
     <string name="new_customer">New Customer</string>
     <string name="edit_customer">Edit Customer</string>
     <string name="new_voucher">New Voucher</string>
@@ -207,7 +207,7 @@
     <string name="removed_logo">Logo removed</string>
     <string name="removed_logo_failed">Logo could not be removed</string>
     <string name="custom_fields">Custom Fields</string>
-    <string name="custom_fields_description">Allows you to add any number of custom fields to customer records. You can also add drop down lists and sort the customer list by your custom fields.</string>
+    <string name="custom_fields_description">Allows you to add any number of custom fields to customer records. You can also add drop down lists and sort the customer list by your custom fields. One time purchase.</string>
     <string name="new_custom_field">New Custom Field</string>
     <string name="remove_custom_field">Remove Custom Field</string>
     <string name="custom_field_title">Field Name</string>
@@ -256,7 +256,7 @@
     <string name="image_from_camera">Image from Camera</string>
     <string name="install_plugin_app">Install Plugin App</string>
     <string name="more_than_500_customers">More Than 500 Customers</string>
-    <string name="create_more_than_500_customer_records">Create more than 500 customer records.</string>
+    <string name="create_more_than_500_customer_records">Create more than 500 customer records. One time purchase.</string>
     <string name="third_party_components">Third Party Components</string>
     <string name="third_party_components_text">This app uses the opencsv library (Copyright 2019 opencsv Contributors, Apache License 2.0) and the ZXing barcode library (Copyright 2019 ZXing Contributors, Apache License 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">Customers</string>
@@ -289,7 +289,7 @@
     <string name="open_source">Fork Me</string>
     <string name="customer_database_on_github">Customer Database on GitHub</string>
     <string name="access_license_for_cloud_service">Cloud Access License</string>
-    <string name="subscribe_to_the_cloud_sync_service">Subscribe to the cloud sync service to backup your customer data in the cloud and sync it over multiple devices.</string>
+    <string name="subscribe_to_the_cloud_sync_service">Subscribe to the cloud sync service to backup your customer data in the cloud and sync it over multiple devices. A monthly payment is necessary because the database server incurs running costs.</string>
     <string name="cloud_service">Cloud Service</string>
     <string name="subscribe_to_cloud_service">Subscribe to Cloud Service</string>
     <string name="create_cloud_account">Create Account</string>
@@ -308,7 +308,7 @@
     <string name="sync_feature_capabilities_text">With the sync feature you can backup your customer data on a database server and sync it over multiple devices. You have the following options to use this feature.</string>
     <string name="cloud_service_text1">You can use the paid customer database cloud.</string>
     <string name="cloud_service_step1">1. Create an account.</string>
-    <string name="cloud_service_step2">2. Please subscribe to the customer database cloud access license to connect to the cloud. (A recurring payment is necessary because the database server incurs running costs.)</string>
+    <string name="cloud_service_step2">2. Please subscribe to the customer database cloud access license to connect to the cloud. (A recurring payment is necessary because the database server used for this service incurs running costs.)</string>
     <string name="cloud_service_step3">3. Press the sync button on the main screen regularly to upload your data in the cloud. Optionally, you can log in with the same account on other devices to sync the data to this device.</string>
     <string name="register_now2">Register Now</string>
     <string name="confirmation_mail_will_be_sent">A confirmation link will be sent to your email address.</string>
@@ -364,8 +364,8 @@
     <string name="add_calendar">New Calendar</string>
     <string name="edit_calendar">Edit Calendar</string>
     <string name="remove_calendar">Remove Calendar</string>
-    <string name="attach_files_to_customer_records">Attach files to customer records (maximum 20 files and 1MB per file).</string>
-    <string name="unlocks_the_calendar_features">Unlocks the calendar features.</string>
+    <string name="attach_files_to_customer_records">Attach files to customer records (maximum 20 files and 1MB per file). One time purchase.</string>
+    <string name="unlocks_the_calendar_features">Unlocks the calendar features. One time purchase.</string>
     <string name="no_calendar_selected">No calendar selected! Please create a calendar in the settings.</string>
     <string name="qr_code_for_customer">QR Code for Customer</string>
     <string name="location">Location</string>

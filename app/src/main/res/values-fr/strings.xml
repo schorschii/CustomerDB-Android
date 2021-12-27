@@ -160,15 +160,15 @@
     <string name="apply">Appliquer</string>
     <string name="not_licensed">Pas de licence pour un usage commercial.</string>
     <string name="commercial_use">Utilisation commerciale</string>
-    <string name="commercial_use_description">Gratuit uniquement pour un usage priv&#233;, des organisations &#224; but non lucratif et &#224; des fins &#233;ducatives ou de test. Veuillez me contacter par e-mail si vous n\'&#234;tes pas s&#251;r, si votre application a besoin d\'une licence commerciale.</string>
+    <string name="commercial_use_description">Gratuit uniquement pour un usage priv&#233;, des organisations &#224; but non lucratif et &#224; des fins &#233;ducatives ou de test. Veuillez me contacter par e-mail si vous n\'&#234;tes pas s&#251;r, si votre application a besoin d\'une licence commerciale. Paiement unique.</string>
     <string name="buy_now">Acheter</string>
     <string name="features">Caract&#233;ristiques</string>
     <string name="feature_icon_hint">Cette ic&#244;ne indique si la fonction est d&#233;verrouill&#233;e.</string>
     <string name="input_only_mode">Mode entr&#233;e seule</string>
     <string name="input_only_mode_inapp_title">Mode entr&#233;e seule et verrouillage d\'application</string>
-    <string name="input_only_mode_description">Mode activable en option qui permet uniquement la saisie de donn&#233;es. Par exemple, l\'appareil peut &#234;tre remis aux visiteurs du showroom. De plus, vous pouvez verrouiller compl&#232;tement l\'application.</string>
+    <string name="input_only_mode_description">Mode activable en option qui permet uniquement la saisie de donn&#233;es. Par exemple, l\'appareil peut &#234;tre remis aux visiteurs du showroom. De plus, vous pouvez verrouiller compl&#232;tement l\'application. Paiement unique.</string>
     <string name="design_options">Options de conception</string>
-    <string name="design_options_description">D&#233;verrouille le mode sombre et vous permet de d&#233;finir votre propre couleur de barre de titre et votre logo de d&#233;marrage dans les param&#232;tres.</string>
+    <string name="design_options_description">D&#233;verrouille le mode sombre et vous permet de d&#233;finir votre propre couleur de barre de titre et votre logo de d&#233;marrage dans les param&#232;tres. Paiement unique.</string>
     <string name="new_customer">Nouveau client</string>
     <string name="edit_customer">Modifier le client</string>
     <string name="new_voucher">Nouveau bon</string>
@@ -202,7 +202,7 @@
     <string name="removed_logo">Logo supprim&#233;</string>
     <string name="removed_logo_failed">Le logo n\'a pas pu &#234;tre supprim&#233;</string>
     <string name="custom_fields">Les champs personnalis&#233;s</string>
-    <string name="custom_fields_description">Vous permet d\'ajouter un nombre quelconque de champs personnalis&#233;s aux enregistrements client. Vous pouvez &#233;galement ajouter des listes d&#233;roulantes et trier la liste des clients en fonction de vos champs personnalis&#233;s.</string>
+    <string name="custom_fields_description">Vous permet d\'ajouter un nombre quelconque de champs personnalis&#233;s aux enregistrements client. Vous pouvez &#233;galement ajouter des listes d&#233;roulantes et trier la liste des clients en fonction de vos champs personnalis&#233;s. Paiement unique.</string>
     <string name="new_custom_field">Nouveau champ personnalis&#233;</string>
     <string name="remove_custom_field">Supprimer un champ personnalis&#233;</string>
     <string name="custom_field_title">Nom de domaine</string>
@@ -251,7 +251,7 @@
     <string name="image_from_camera">Image de la cam&#233;ra</string>
     <string name="install_plugin_app">Installer l\'application plugin</string>
     <string name="more_than_500_customers">Plus de 500 clients</string>
-    <string name="create_more_than_500_customer_records">Cr&#233;ez plus de 500 fiches clients.</string>
+    <string name="create_more_than_500_customer_records">Cr&#233;ez plus de 500 fiches clients. Paiement unique.</string>
     <string name="third_party_components">Composants tiers</string>
     <string name="third_party_components_text">Cette application utilise la bibliothèque opencsv (Copyright 2019 opencsv Contributors, Apache License 2.0) et la bibliothèque de codes à barres ZXing (Copyright 2019 ZXing Contributors, Apache License 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">Les clients</string>
@@ -284,7 +284,7 @@
     <string name="open_source">Open source</string>
     <string name="customer_database_on_github">Base de donn&#233;es clients sur GitHub</string>
     <string name="access_license_for_cloud_service">Licence d\'acc&#232;s au cloud</string>
-    <string name="subscribe_to_the_cloud_sync_service">Abonnez-vous au service de synchronisation dans le cloud pour sauvegarder vos donn&#233;es client dans le cloud et synchronisez-les sur plusieurs appareils.</string>
+    <string name="subscribe_to_the_cloud_sync_service">Abonnez-vous au service de synchronisation dans le cloud pour sauvegarder vos donn&#233;es client dans le cloud et synchronisez-les sur plusieurs appareils. Un paiement mensuel est nécessaire car le serveur de base de données entraîne des frais de fonctionnement.</string>
     <string name="cloud_service">Service cloud</string>
     <string name="subscribe_to_cloud_service">Abonnez-vous au service cloud</string>
     <string name="create_cloud_account">Cr&#233;er un compte</string>
@@ -359,8 +359,8 @@
     <string name="add_calendar">Ajouter un calendrier</string>
     <string name="edit_calendar">Modifier le calendrier</string>
     <string name="remove_calendar">Supprimer le calendrier</string>
-    <string name="attach_files_to_customer_records">Joindre des fichiers aux enregistrements des clients (maximum 20 fichiers et 1 Mo par fichier).</string>
-    <string name="unlocks_the_calendar_features">Déverrouille les fonctionnalités du calendrier.</string>
+    <string name="attach_files_to_customer_records">Joindre des fichiers aux enregistrements des clients (maximum 20 fichiers et 1 Mo par fichier). Paiement unique.</string>
+    <string name="unlocks_the_calendar_features">Déverrouille les fonctionnalités du calendrier. Paiement unique.</string>
     <string name="no_calendar_selected">Aucun calendrier sélectionné! Veuillez créer un calendrier dans les paramètres.</string>
     <string name="qr_code_for_customer">Code QR pour le client</string>
     <string name="location">Emplacement</string>

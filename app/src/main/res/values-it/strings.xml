@@ -160,15 +160,15 @@
     <string name="apply">Applicare</string>
     <string name="not_licensed">Non concesso in licenza per uso commerciale.</string>
     <string name="commercial_use">Uso commerciale</string>
-    <string name="commercial_use_description">Gratuito solo per uso privato, organizzazioni senza scopo di lucro e scopi educativi o di test. Vi prego di contattarmi via e-mail se non siete sicuri, se la vostra applicazione necessita di licenze commerciali.</string>
+    <string name="commercial_use_description">Gratuito solo per uso privato, organizzazioni senza scopo di lucro e scopi educativi o di test. Vi prego di contattarmi via e-mail se non siete sicuri, se la vostra applicazione necessita di licenze commerciali. Pagamento unico.</string>
     <string name="buy_now">Acquistare</string>
     <string name="features">Caratteristiche</string>
     <string name="feature_icon_hint">Questa icona indica se la funzione &#232; sbloccata.</string>
     <string name="input_only_mode">Modalit&#224; solo input</string>
     <string name="input_only_mode_inapp_title">Modalit&#224; Solo input e Blocco app</string>
-    <string name="input_only_mode_description">Modalit&#224; attivabile opzionale che consente solo l\'immissione di dati. Ad esempio, il dispositivo pu&#242; essere consegnato ai visitatori dello showroom. Inoltre puoi bloccare completamente l\'app.</string>
+    <string name="input_only_mode_description">Modalit&#224; attivabile opzionale che consente solo l\'immissione di dati. Ad esempio, il dispositivo pu&#242; essere consegnato ai visitatori dello showroom. Inoltre puoi bloccare completamente l\'app. Pagamento unico.</string>
     <string name="design_options">Opzioni di progettazione</string>
-    <string name="design_options_description">Sblocca la modalit&#224; scura e ti consente di impostare il colore della barra del titolo e il logo di avvio nelle impostazioni.</string>
+    <string name="design_options_description">Sblocca la modalit&#224; scura e ti consente di impostare il colore della barra del titolo e il logo di avvio nelle impostazioni. Pagamento unico.</string>
     <string name="new_customer">Nuovo cliente</string>
     <string name="edit_customer">Modifica cliente</string>
     <string name="new_voucher">Nuovo buono</string>
@@ -202,7 +202,7 @@
     <string name="removed_logo">Logo rimosso</string>
     <string name="removed_logo_failed">Il logo non pu&#242; essere rimosso</string>
     <string name="custom_fields">Campi personalizzati</string>
-    <string name="custom_fields_description">Consente di aggiungere un numero qualsiasi di campi personalizzati ai record dei clienti. Puoi anche aggiungere elenchi a discesa e ordinare l\'elenco dei clienti in base ai tuoi campi personalizzati.</string>
+    <string name="custom_fields_description">Consente di aggiungere un numero qualsiasi di campi personalizzati ai record dei clienti. Puoi anche aggiungere elenchi a discesa e ordinare l\'elenco dei clienti in base ai tuoi campi personalizzati. Pagamento unico.</string>
     <string name="new_custom_field">Nuovo campo personalizzato</string>
     <string name="remove_custom_field">Rimuovi campo personalizzato</string>
     <string name="custom_field_title">Nome campo</string>
@@ -251,7 +251,7 @@
     <string name="image_from_camera">Immagine dalla fotocamera</string>
     <string name="install_plugin_app">Installa l\'app plug-in</string>
     <string name="more_than_500_customers">Pi&#249; di 500 clienti</string>
-    <string name="create_more_than_500_customer_records">Crea oltre 500 record di clienti.</string>
+    <string name="create_more_than_500_customer_records">Crea oltre 500 record di clienti. Pagamento unico.</string>
     <string name="third_party_components">Componenti di terze parti</string>
     <string name="third_party_components_text">Questa app utilizza la libreria opencsv (Copyright 2019 opencsv Contributors, Apache License 2.0) e la libreria di codici a barre ZXing (Copyright 2019 ZXing Contributors, Apache License 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">I clienti</string>
@@ -284,7 +284,7 @@
     <string name="open_source">Open Source</string>
     <string name="customer_database_on_github">Database clienti su GitHub</string>
     <string name="access_license_for_cloud_service">Licenza di accesso al cloud</string>
-    <string name="subscribe_to_the_cloud_sync_service">Abbonati al servizio di sincronizzazione cloud per eseguire il backup dei dati dei clienti nel cloud e sincronizzarli su pi&#249; dispositivi.</string>
+    <string name="subscribe_to_the_cloud_sync_service">Abbonati al servizio di sincronizzazione cloud per eseguire il backup dei dati dei clienti nel cloud e sincronizzarli su pi&#249; dispositivi. È necessario un pagamento mensile perché il server del database sostiene i costi di gestione.</string>
     <string name="cloud_service">Servizio cloud</string>
     <string name="subscribe_to_cloud_service">Iscriviti al servizio cloud</string>
     <string name="create_cloud_account">Creare un profilo</string>
@@ -359,8 +359,8 @@
     <string name="add_calendar">Aggiungi calendario</string>
     <string name="edit_calendar">Modifica calendario</string>
     <string name="remove_calendar">Rimuovi calendario</string>
-    <string name="attach_files_to_customer_records">Allega file ai record dei clienti (massimo 20 file e 1 MB per file).</string>
-    <string name="unlocks_the_calendar_features">Sblocca le funzioni del calendario.</string>
+    <string name="attach_files_to_customer_records">Allega file ai record dei clienti (massimo 20 file e 1 MB per file). Pagamento unico.</string>
+    <string name="unlocks_the_calendar_features">Sblocca le funzioni del calendario. Pagamento unico.</string>
     <string name="no_calendar_selected">Nessun calendario selezionato! Si prega di creare un calendario nelle impostazioni.</string>
     <string name="qr_code_for_customer">Codice QR per il cliente</string>
     <string name="location">Posizione</string>

@@ -160,15 +160,15 @@
     <string name="apply">Aplicar</string>
     <string name="not_licensed">No tiene licencia para uso comercial.</string>
     <string name="commercial_use">Uso comercial</string>
-    <string name="commercial_use_description">Gratis solo para uso privado, organizaciones sin fines de lucro y con fines educativos o de prueba. P&#243;ngase en contacto conmigo por correo electr&#243;nico si no est&#225; seguro, si su aplicaci&#243;n necesita una licencia comercial.</string>
+    <string name="commercial_use_description">Gratis solo para uso privado, organizaciones sin fines de lucro y con fines educativos o de prueba. P&#243;ngase en contacto conmigo por correo electr&#243;nico si no est&#225; seguro, si su aplicaci&#243;n necesita una licencia comercial. Pago único.</string>
     <string name="buy_now">Comprar</string>
     <string name="features">Caracteristicas</string>
     <string name="feature_icon_hint">Este icono indica si la funci&#243;n est&#225; desbloqueada.</string>
     <string name="input_only_mode">Modo de solo entrada</string>
     <string name="input_only_mode_inapp_title">Modo de solo entrada y bloqueo de aplicaciones</string>
-    <string name="input_only_mode_description">Modo activable opcional que solo permite la entrada de datos. Por ejemplo, el dispositivo se puede entregar a los visitantes de la sala de exposici&#243;n. Adem&#225;s, puedes bloquear la aplicaci&#243;n por completo.</string>
+    <string name="input_only_mode_description">Modo activable opcional que solo permite la entrada de datos. Por ejemplo, el dispositivo se puede entregar a los visitantes de la sala de exposici&#243;n. Adem&#225;s, puedes bloquear la aplicaci&#243;n por completo. Pago único.</string>
     <string name="design_options">Opciones de dise&#241;o</string>
-    <string name="design_options_description">Desbloquea el modo oscuro y le permite establecer su propio color de barra de t&#237;tulo y logotipo de inicio en la configuraci&#243;n.</string>
+    <string name="design_options_description">Desbloquea el modo oscuro y le permite establecer su propio color de barra de t&#237;tulo y logotipo de inicio en la configuraci&#243;n. Pago único.</string>
     <string name="new_customer">Nueva cliente</string>
     <string name="edit_customer">Editar cliente</string>
     <string name="new_voucher">Vale nuevo</string>
@@ -202,7 +202,7 @@
     <string name="removed_logo">Logo eliminado</string>
     <string name="removed_logo_failed">No se pudo eliminar el logotipo.</string>
     <string name="custom_fields">Campos Personalizados</string>
-    <string name="custom_fields_description">Le permite agregar cualquier n&#250;mero de campos personalizados a los registros de clientes. Tambi&#233;n puede agregar listas desplegables y ordenar la lista de clientes por sus campos personalizados.</string>
+    <string name="custom_fields_description">Le permite agregar cualquier n&#250;mero de campos personalizados a los registros de clientes. Tambi&#233;n puede agregar listas desplegables y ordenar la lista de clientes por sus campos personalizados. Pago único.</string>
     <string name="new_custom_field">Nuevo campo personalizado</string>
     <string name="remove_custom_field">Eliminar campo personalizado</string>
     <string name="custom_field_title">Nombre del campo</string>
@@ -251,7 +251,7 @@
     <string name="image_from_camera">Imagen de la c&#225;mara</string>
     <string name="install_plugin_app">Instalar aplicaci&#243;n de complemento</string>
     <string name="more_than_500_customers">M&#225;s de 500 clientas</string>
-    <string name="create_more_than_500_customer_records">Crea m&#225;s de 500 registros de clientes.</string>
+    <string name="create_more_than_500_customer_records">Crea m&#225;s de 500 registros de clientes. Pago único.</string>
     <string name="third_party_components">Componentes de terceros</string>
     <string name="third_party_components_text">Esta aplicación utiliza la biblioteca opencsv (Copyright 2019 opencsv Contributors, Apache License 2.0) y la biblioteca de códigos de barras ZXing (Copyright 2019 ZXing Contributors, Apache License 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">Clientes</string>
@@ -284,7 +284,7 @@
     <string name="open_source">Fuente abierta</string>
     <string name="customer_database_on_github">Base de datos de clientes en GitHub</string>
     <string name="access_license_for_cloud_service">Licencia de acceso a la nube</string>
-    <string name="subscribe_to_the_cloud_sync_service">Suscr&#237;base al servicio de sincronizaci&#243;n en la nube para hacer una copia de seguridad de los datos de sus clientes en la nube y sincronizarlos en varios dispositivos.</string>
+    <string name="subscribe_to_the_cloud_sync_service">Suscr&#237;base al servicio de sincronizaci&#243;n en la nube para hacer una copia de seguridad de los datos de sus clientes en la nube y sincronizarlos en varios dispositivos. Es necesario un pago mensual porque el servidor de la base de datos incurre en costos de funcionamiento.</string>
     <string name="cloud_service">Servicio de almacenamiento en la nube</string>
     <string name="subscribe_to_cloud_service">Suscr&#237;base al servicio en la nube</string>
     <string name="create_cloud_account">Crear una cuenta</string>
@@ -359,8 +359,8 @@
     <string name="add_calendar">Agregar calendario</string>
     <string name="edit_calendar">Editar calendario</string>
     <string name="remove_calendar">Eliminar calendario</string>
-    <string name="attach_files_to_customer_records">Adjunte archivos a los registros del cliente (máximo 20 archivos y 1 MB por archivo).</string>
-    <string name="unlocks_the_calendar_features">Desbloquea las funciones del calendario.</string>
+    <string name="attach_files_to_customer_records">Adjunte archivos a los registros del cliente (máximo 20 archivos y 1 MB por archivo). Pago único.</string>
+    <string name="unlocks_the_calendar_features">Desbloquea las funciones del calendario. Pago único.</string>
     <string name="no_calendar_selected">No hay calendario seleccionado! Cree un calendario en la configuración.</string>
     <string name="qr_code_for_customer">Código QR para el cliente</string>
     <string name="location">Ubicación</string>

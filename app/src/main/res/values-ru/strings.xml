@@ -153,15 +153,15 @@
     <string name="apply">Применять</string>
     <string name="not_licensed">Ne лицензирован для коммерческого использования.</string>
     <string name="commercial_use">Коммерческое использование</string>
-    <string name="commercial_use_description">Бесплатно только для частного использования, некоммерческих организаций и в образовательных или тестовых целях. Пожалуйста, свяжитесь со мной по электронной почте, если вы не уверены, что вам нужно лицензировать приложение для коммерческого использования.</string>
+    <string name="commercial_use_description">Бесплатно только для частного использования, некоммерческих организаций и в образовательных или тестовых целях. Пожалуйста, свяжитесь со мной по электронной почте, если вы не уверены, что вам нужно лицензировать приложение для коммерческого использования. Одноразовый платеж.</string>
     <string name="buy_now">Купить</string>
     <string name="features">Черты</string>
     <string name="feature_icon_hint">Этот значок показывает, разблокирована ли функция.</string>
     <string name="input_only_mode">Режим только вход</string>
     <string name="input_only_mode_inapp_title">Режим только ввода и блокировка приложения</string>
-    <string name="input_only_mode_description">Необязательный активируемый режим, который позволяет создавать только новые записи. Например, опубликовать устройство, чтобы пользователи могли зарегистрироваться сами. Вы также можете полностью заблокировать приложение.</string>
+    <string name="input_only_mode_description">Необязательный активируемый режим, который позволяет создавать только новые записи. Например, опубликовать устройство, чтобы пользователи могли зарегистрироваться сами. Вы также можете полностью заблокировать приложение. Одноразовый платеж.</string>
     <string name="design_options">Варианты дизайна</string>
-    <string name="design_options_description">Позволяет установить собственный цвет для строк заголовка, а также собственный стартовый логотип в настройках.</string>
+    <string name="design_options_description">Позволяет установить собственный цвет для строк заголовка, а также собственный стартовый логотип в настройках. Одноразовый платеж.</string>
     <string name="new_customer">Создать нового клиента</string>
     <string name="edit_customer">Редактировать клиентов</string>
     <string name="new_voucher">Создать новый ваучер</string>
@@ -195,7 +195,7 @@
     <string name="removed_logo">Логотип был удален</string>
     <string name="removed_logo_failed">Логотип не может быть удален</string>
     <string name="custom_fields">Пользовательские поля</string>
-    <string name="custom_fields_description">Позволяет добавлять любое количество настраиваемых полей в записи клиентов. Вы также можете создавать списки выбора и сортировать список клиентов по настраиваемым полям.</string>
+    <string name="custom_fields_description">Позволяет добавлять любое количество настраиваемых полей в записи клиентов. Вы также можете создавать списки выбора и сортировать список клиентов по настраиваемым полям. Одноразовый платеж.</string>
     <string name="new_custom_field">Новое настраиваемое поле</string>
     <string name="remove_custom_field">Удалить пользовательское поле</string>
     <string name="custom_field_title">Имя поля</string>
@@ -252,7 +252,7 @@
     <string name="image_from_camera">Изображение с камеры</string>
     <string name="install_plugin_app">Установить плагин приложение</string>
     <string name="more_than_500_customers">Более 500 клиентов</string>
-    <string name="create_more_than_500_customer_records">Создайте более 500 записей клиентов.</string>
+    <string name="create_more_than_500_customer_records">Создайте более 500 записей клиентов. Одноразовый платеж.</string>
     <string name="third_party_components">Сторонние компоненты</string>
     <string name="third_party_components_text">Это приложение использует библиотеку opencsv (авторские права 2019, авторы opencsv, лицензия Apache 2.0) и библиотеку штрих-кодов ZXing (авторские права 2019 ZXing Contributors, лицензия Apache 2.0, https://github.com/zxing/zxing).</string>
     <string name="customers">Клиенты</string>
@@ -285,7 +285,7 @@
     <string name="open_source">Открытый источник</string>
     <string name="customer_database_on_github">База данных клиентов на GitHub</string>
     <string name="access_license_for_cloud_service">Лицензия на облачный доступ</string>
-    <string name="subscribe_to_the_cloud_sync_service">Подпишитесь на сервис облачной синхронизации, чтобы создавать резервные копии данных ваших клиентов в облаке и синхронизировать их на нескольких устройствах.</string>
+    <string name="subscribe_to_the_cloud_sync_service">Подпишитесь на сервис облачной синхронизации, чтобы создавать резервные копии данных ваших клиентов в облаке и синхронизировать их на нескольких устройствах. Ежемесячный платеж необходим, поскольку сервер базы данных несет текущие расходы.</string>
     <string name="cloud_service">Облачный сервис</string>
     <string name="subscribe_to_cloud_service">Подписаться на облачный сервис</string>
     <string name="create_cloud_account">Регистрация</string>
@@ -360,8 +360,8 @@
     <string name="add_calendar">Добавить календарь</string>
     <string name="edit_calendar">Изменить календарь</string>
     <string name="remove_calendar">Удалить календарь</string>
-    <string name="attach_files_to_customer_records">Прикрепляйте файлы к записям о клиентах (максимум 20 файлов и 1 МБ на файл).</string>
-    <string name="unlocks_the_calendar_features">Разблокирует функции календаря.</string>
+    <string name="attach_files_to_customer_records">Прикрепляйте файлы к записям о клиентах (максимум 20 файлов и 1 МБ на файл). Одноразовый платеж.</string>
+    <string name="unlocks_the_calendar_features">Разблокирует функции календаря. Одноразовый платеж.</string>
     <string name="no_calendar_selected">Календарь не выбран! Пожалуйста, создайте календарь в настройках.</string>
     <string name="qr_code_for_customer">QR-код для клиента</string>
     <string name="location">Расположение</string>
