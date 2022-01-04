@@ -295,7 +295,6 @@
     <string name="voucher_no_duplicate_hint">אנא וודא כי כל המכשירים מסונכרנים כדי לא להנפיק מספרי שובר כפולים.</string>
     <string name="open_source_text">יישום זה הוא קוד פתוח. אם ברצונך לשפר את האפליקציה או את התרגומים שלה, אנא עיין במאגר ב- Github.</string>
     <string name="open_source">קוד פתוח</string>
-    <string name="customer_database_on_github">מאגר לקוחות ב- GitHub</string>
     <string name="access_license_for_cloud_service">רישיון גישה לענן</string>
     <string name="subscribe_to_the_cloud_sync_service">הירשם לשירות סנכרון הענן לגיבוי נתוני הלקוחות שלך בענן וסנכרון זה באמצעות מכשירים מרובים. יש צורך בתשלום חודשי מכיוון ששרת מסד הנתונים כרוך בעלויות שוטפות.</string>
     <string name="cloud_service">שירות ענן</string>

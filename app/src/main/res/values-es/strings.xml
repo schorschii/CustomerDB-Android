@@ -282,7 +282,6 @@
     <string name="voucher_no_duplicate_hint">Aseg&#250;rese de que todos los dispositivos est&#233;n sincronizados para no emitir n&#250;meros de comprobantes duplicados.</string>
     <string name="open_source_text">Esta aplicación es de código abierto. Si desea mejorar la aplicación o sus traducciones, consulte el repositorio en Github.</string>
     <string name="open_source">Fuente abierta</string>
-    <string name="customer_database_on_github">Base de datos de clientes en GitHub</string>
     <string name="access_license_for_cloud_service">Licencia de acceso a la nube</string>
     <string name="subscribe_to_the_cloud_sync_service">Suscr&#237;base al servicio de sincronizaci&#243;n en la nube para hacer una copia de seguridad de los datos de sus clientes en la nube y sincronizarlos en varios dispositivos. Es necesario un pago mensual porque el servidor de la base de datos incurre en costos de funcionamiento.</string>
     <string name="cloud_service">Servicio de almacenamiento en la nube</string>

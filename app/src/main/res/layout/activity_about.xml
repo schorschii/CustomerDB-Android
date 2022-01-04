@@ -687,11 +687,12 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
-                    style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="false"
                     android:onClick="onClickGithub"
-                    android:text="@string/customer_database_on_github" />
+                    android:text="@string/repo_link" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -710,9 +711,10 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
-                    style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="false"
                     android:onClick="onClickApacheLicenseLink"
                     android:text="@string/view_apache_license" />
 

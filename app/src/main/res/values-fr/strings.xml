@@ -282,7 +282,6 @@
     <string name="voucher_no_duplicate_hint">Veuillez vous assurer que tous les appareils sont synchronis&#233;s afin de ne pas &#233;mettre de num&#233;ros de bons en double.</string>
     <string name="open_source_text">Cette application est Open Source. Si vous souhaitez améliorer l\'application ou ses traductions, veuillez consulter le référentiel sur Github.</string>
     <string name="open_source">Open source</string>
-    <string name="customer_database_on_github">Base de donn&#233;es clients sur GitHub</string>
     <string name="access_license_for_cloud_service">Licence d\'acc&#232;s au cloud</string>
     <string name="subscribe_to_the_cloud_sync_service">Abonnez-vous au service de synchronisation dans le cloud pour sauvegarder vos donn&#233;es client dans le cloud et synchronisez-les sur plusieurs appareils. Un paiement mensuel est nécessaire car le serveur de base de données entraîne des frais de fonctionnement.</string>
     <string name="cloud_service">Service cloud</string>

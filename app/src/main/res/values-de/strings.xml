@@ -282,7 +282,6 @@
     <string name="voucher_no_duplicate_hint">Bitte stellen Sie sicher, dass alle Geräte synchronisiert sind, damit keine doppelten Gutscheinnummern vergeben werden.</string>
     <string name="open_source_text">Diese App ist Open Source. Wenn Sie die App oder die Übersetzungen verbessern möchten, besuchen Sie bitte das Repository auf Github.</string>
     <string name="open_source">Gabel mich</string>
-    <string name="customer_database_on_github">Kundendatenbank auf GitHub</string>
     <string name="access_license_for_cloud_service">Cloud-Dienst Zugriffslizenz</string>
     <string name="subscribe_to_the_cloud_sync_service">Abonnieren Sie den Cloud-Synchronisierungs-Dienst, um Ihre Kundendaten in der Cloud zu speichern und mit anderen Geräten abzugleichen. Eine monatliche Zahlung ist erforderlich, da für den Datenbankserver laufende Kosten anfallen.</string>
     <string name="cloud_service">Cloud-Dienst</string>

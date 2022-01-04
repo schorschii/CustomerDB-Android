@@ -1,7 +1,7 @@
 <resources>
     <string name="developer_website" translatable="false">https://georg-sieber.de</string>
     <string name="developer_email" translatable="false">support@georg-sieber.de</string>
-    <string name="repo_link" translatable="false">https://github.com/schorschii/customerdb-android</string>
+    <string name="repo_link" translatable="false">https://github.com/schorschii/CustomerDB-Android</string>
     <string name="callerid_authority" translatable="false">de.georgsieber.customerdb.callerid</string>
 
     <plurals name="customersamount">
@@ -287,7 +287,6 @@
     <string name="voucher_no_duplicate_hint">Please make sure that all devices are synchronized in order to not issue duplicate voucher numbers.</string>
     <string name="open_source_text">This app is Open Source. If you want to improve the app or its translations, please check out the repository on Github.</string>
     <string name="open_source">Fork Me</string>
-    <string name="customer_database_on_github">Customer Database on GitHub</string>
     <string name="access_license_for_cloud_service">Cloud Access License</string>
     <string name="subscribe_to_the_cloud_sync_service">Subscribe to the cloud sync service to backup your customer data in the cloud and sync it over multiple devices. A monthly payment is necessary because the database server incurs running costs.</string>
     <string name="cloud_service">Cloud Service</string>

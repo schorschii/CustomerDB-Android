@@ -283,7 +283,6 @@
     <string name="voucher_no_duplicate_hint">Пожалуйста, убедитесь, что все устройства синхронизированы, чтобы не выдавать дубликаты номеров ваучеров.</string>
     <string name="open_source_text">Это приложение с открытым исходным кодом. Если вы хотите улучшить приложение или его переводы, посетите репозиторий на Github.</string>
     <string name="open_source">Открытый источник</string>
-    <string name="customer_database_on_github">База данных клиентов на GitHub</string>
     <string name="access_license_for_cloud_service">Лицензия на облачный доступ</string>
     <string name="subscribe_to_the_cloud_sync_service">Подпишитесь на сервис облачной синхронизации, чтобы создавать резервные копии данных ваших клиентов в облаке и синхронизировать их на нескольких устройствах. Ежемесячный платеж необходим, поскольку сервер базы данных несет текущие расходы.</string>
     <string name="cloud_service">Облачный сервис</string>

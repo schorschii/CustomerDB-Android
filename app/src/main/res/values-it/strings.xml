@@ -282,7 +282,6 @@
     <string name="voucher_no_duplicate_hint">Assicurati che tutti i dispositivi siano sincronizzati per non emettere duplicati di voucher.</string>
     <string name="open_source_text">Questa app è Open Source. Se vuoi migliorare l\'app o le sue traduzioni, controlla il repository su Github.</string>
     <string name="open_source">Open Source</string>
-    <string name="customer_database_on_github">Database clienti su GitHub</string>
     <string name="access_license_for_cloud_service">Licenza di accesso al cloud</string>
     <string name="subscribe_to_the_cloud_sync_service">Abbonati al servizio di sincronizzazione cloud per eseguire il backup dei dati dei clienti nel cloud e sincronizzarli su pi&#249; dispositivi. È necessario un pagamento mensile perché il server del database sostiene i costi di gestione.</string>
     <string name="cloud_service">Servizio cloud</string>
