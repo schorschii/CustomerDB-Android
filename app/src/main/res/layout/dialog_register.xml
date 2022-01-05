@@ -40,6 +40,7 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
             android:textAlignment="textStart"
             android:text="@string/i_accept_cloud_terms"
             android:gravity="start" />
