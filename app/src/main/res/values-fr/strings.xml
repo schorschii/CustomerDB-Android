@@ -287,7 +287,6 @@
     <string name="cloud_service">Service cloud</string>
     <string name="subscribe_to_cloud_service">Abonnez-vous au service cloud</string>
     <string name="create_cloud_account">Cr&#233;er un compte</string>
-    <string name="customer_database_server_on_github">Serveur de base de donn&#233;es client sur GitHub</string>
     <string name="reallydelete_voucher">Voulez-vous vraiment supprimer ce bon?</string>
     <string name="name_empty">Nom vide</string>
     <string name="please_fill_name">Veuillez saisir un nom</string>

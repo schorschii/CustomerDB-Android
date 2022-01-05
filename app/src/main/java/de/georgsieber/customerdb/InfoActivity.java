@@ -201,7 +201,7 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     public void onServerGithubClick(View v) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/schorschii/customerdb-server"));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.server_repo_link)));
         startActivity(browserIntent);
     }
 

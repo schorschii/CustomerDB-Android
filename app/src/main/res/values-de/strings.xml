@@ -287,7 +287,6 @@
     <string name="cloud_service">Cloud-Dienst</string>
     <string name="subscribe_to_cloud_service">Cloud-Dienst abonnieren</string>
     <string name="create_cloud_account">Account erstellen</string>
-    <string name="customer_database_server_on_github">Customer Database Server auf GitHub</string>
     <string name="reallydelete_voucher">Möchten Sie diesen Gutschein wirklich löschen?</string>
     <string name="name_empty">Kein Name eingegeben</string>
     <string name="please_fill_name">Bitte tragen Sie einen Namen ein</string>

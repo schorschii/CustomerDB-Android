@@ -151,8 +151,9 @@
                         style="@style/Widget.AppCompat.Button.Borderless.Colored"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textAllCaps="false"
                         android:onClick="onServerGithubClick"
-                        android:text="@string/customer_database_server_on_github"
+                        android:text="@string/server_repo_link"
                         android:visibility="visible" />
                 </LinearLayout>
 

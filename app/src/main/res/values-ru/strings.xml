@@ -288,7 +288,6 @@
     <string name="cloud_service">Облачный сервис</string>
     <string name="subscribe_to_cloud_service">Подписаться на облачный сервис</string>
     <string name="create_cloud_account">Регистрация</string>
-    <string name="customer_database_server_on_github">Сервер базы данных клиентов на GitHub</string>
     <string name="reallydelete_voucher">Вы действительно хотите удалить этот ваучер?</string>
     <string name="name_empty">Имя пустое</string>
     <string name="please_fill_name">Пожалуйста, введите имя</string>

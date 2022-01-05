@@ -2,6 +2,7 @@
     <string name="developer_website" translatable="false">https://georg-sieber.de</string>
     <string name="developer_email" translatable="false">support@georg-sieber.de</string>
     <string name="repo_link" translatable="false">https://github.com/schorschii/CustomerDB-Android</string>
+    <string name="server_repo_link" translatable="false">https://github.com/schorschii/CustomerDB-Server</string>
     <string name="callerid_authority" translatable="false">de.georgsieber.customerdb.callerid</string>
 
     <plurals name="customersamount">
@@ -292,7 +293,6 @@
     <string name="cloud_service">Cloud Service</string>
     <string name="subscribe_to_cloud_service">Subscribe to Cloud Service</string>
     <string name="create_cloud_account">Create Account</string>
-    <string name="customer_database_server_on_github">Customer Database Server on GitHub</string>
     <string name="reallydelete_voucher">Do you really want to delete this voucher?</string>
     <string name="name_empty">Name empty</string>
     <string name="please_fill_name">Please enter a name</string>
