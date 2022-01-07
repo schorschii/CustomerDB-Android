@@ -11,7 +11,6 @@
         <item quantity="one">%d ваучер</item>
         <item quantity="other">%d ваучеры</item>
     </plurals>
-    <string name="copyright">© 2017–2021 Георг Зибер</string>
     <string name="website">веб-сайт:</string>
     <string name="email">Электронная почта:</string>
     <string name="person">Лицо</string>

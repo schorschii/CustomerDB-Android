@@ -26,7 +26,6 @@
     <string name="app_name">Database dei clienti</string>
     <string name="version">v%1$s</string>
     <string name="simplecustomermanagement">Semplice gestione dei clienti</string>
-    <string name="copyright">&#169; 2017&#8211;2021 Georg Sieber</string>
     <string name="website">Sito web:</string>
     <string name="email">E-mail:</string>
     <string name="person">Persona</string>

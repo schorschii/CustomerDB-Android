@@ -1,4 +1,5 @@
 <resources>
+    <string name="copyright" translatable="false">© 2017–2022 Georg Sieber</string>
     <string name="developer_website" translatable="false">https://georg-sieber.de</string>
     <string name="developer_email" translatable="false">support@georg-sieber.de</string>
     <string name="repo_link" translatable="false">https://github.com/schorschii/CustomerDB-Android</string>
@@ -32,7 +33,6 @@
     <string name="app_name">Customer Database</string>
     <string name="version">v%1$s</string>
     <string name="simplecustomermanagement">Simple Customer Management</string>
-    <string name="copyright">© 2017–2021 Georg Sieber</string>
     <string name="website">Website:</string>
     <string name="email">E-Mail:</string>
     <string name="person">Person</string>
