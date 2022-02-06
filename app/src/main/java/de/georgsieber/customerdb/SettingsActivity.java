@@ -66,6 +66,7 @@ public class SettingsActivity extends AppCompatActivity {
     EditText mEditTextUrl;
     EditText mEditTextUsername;
     EditText mEditTextPassword;
+    EditText mEditTextBirthdayPreviewDays;
     EditText mEditTextCurrency;
     EditText mEditTextInputOnlyModePassword;
     EditText mEditTextInputOnlyModePasswordConfirm;
@@ -89,10 +90,11 @@ public class SettingsActivity extends AppCompatActivity {
     CheckBox mCheckBoxShowFiles;
     CheckBox mCheckBoxShowConsentField;
 
-    int mRemoteDatabaseConnType = 0;
-    String mRemoteDatabaseConnURL = "";
-    String mRemoteDatabaseConnUsername = "";
-    String mRemoteDatabaseConnPassword = "";
+    private int mRemoteDatabaseConnType = 0;
+    private String mRemoteDatabaseConnURL = "";
+    private String mRemoteDatabaseConnUsername = "";
+    private String mRemoteDatabaseConnPassword = "";
+    private int mBirthdayPreviewDays = 0;
     private String mCurrency = "";
     private Boolean mAllowTextInPhoneNumbers = false;
     private String mDefaultCustomerTitle = "";
@@ -148,6 +150,7 @@ public class SettingsActivity extends AppCompatActivity {
         mEditTextUrl = findViewById(R.id.editTextURL);
         mEditTextUsername = findViewById(R.id.editTextUsername);
         mEditTextPassword = findViewById(R.id.editTextPassword);
+        mEditTextBirthdayPreviewDays = findViewById(R.id.editTextBirthdayPreviewDays);
         mEditTextCurrency = findViewById(R.id.editTextCurrency);
         mEditTextInputOnlyModePassword = findViewById(R.id.editTextInputOnlyModePassword);
         mEditTextInputOnlyModePasswordConfirm = findViewById(R.id.editTextInputOnlyModePasswordConfirm);
@@ -252,6 +255,7 @@ public class SettingsActivity extends AppCompatActivity {
         mRemoteDatabaseConnURL = mSettings.getString("webapi-url","");
         mRemoteDatabaseConnUsername = mSettings.getString("webapi-username","");
         mRemoteDatabaseConnPassword = mSettings.getString("webapi-password","");
+        mBirthdayPreviewDays = mSettings.getInt("birthday-preview-days", BirthdayActivity.DEFAULT_BIRTHDAY_PREVIEW_DAYS);
         mCurrency = mSettings.getString("currency", "€");
         mAllowTextInPhoneNumbers = mSettings.getBoolean("phone-allow-text", false);
         mDefaultCustomerTitle = mSettings.getString("default-customer-title", getResources().getString(R.string.titledefault));
@@ -307,6 +311,7 @@ public class SettingsActivity extends AppCompatActivity {
         mEditTextUrl.setText(mRemoteDatabaseConnURL);
         mEditTextUsername.setText(mRemoteDatabaseConnUsername);
         mEditTextPassword.setText(mRemoteDatabaseConnPassword);
+        mEditTextBirthdayPreviewDays.setText(Integer.toString(mBirthdayPreviewDays));
         mEditTextCurrency.setText(mCurrency);
         mCheckBoxAllowTextInPhoneNumbers.setChecked(mAllowTextInPhoneNumbers);
         mEditTextInputOnlyModePassword.setText(mIomPassword);
@@ -430,6 +435,7 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putString("webapi-url", mRemoteDatabaseConnURL);
         editor.putString("webapi-username", mRemoteDatabaseConnUsername);
         editor.putString("webapi-password", mRemoteDatabaseConnPassword);
+        editor.putInt("birthday-preview-days", mBirthdayPreviewDays);
         editor.putString("currency", mCurrency);
         editor.putBoolean("phone-allow-text", mAllowTextInPhoneNumbers);
         editor.putString("default-customer-title", mDefaultCustomerTitle);
@@ -509,6 +515,9 @@ public class SettingsActivity extends AppCompatActivity {
             CustomerDatabaseApp.setAppTheme(mColorDarkMode);
         }
 
+        try {
+            mBirthdayPreviewDays = Integer.parseInt(mEditTextBirthdayPreviewDays.getText().toString());
+        } catch(NumberFormatException ignored) {}
         mCurrency = mEditTextCurrency.getText().toString();
         mAllowTextInPhoneNumbers = mCheckBoxAllowTextInPhoneNumbers.isChecked();
         showCustomerPicture = mCheckBoxShowPicture.isChecked();
@@ -586,6 +595,7 @@ public class SettingsActivity extends AppCompatActivity {
         mEditTextUrl.setFocusable(focusable);
         mEditTextUsername.setFocusable(focusable);
         mEditTextPassword.setFocusable(focusable);
+        mEditTextBirthdayPreviewDays.setFocusable(focusable);
         mEditTextCurrency.setFocusable(focusable);
         mEditTextInputOnlyModePassword.setFocusable(focusable);
         mEditTextInputOnlyModePasswordConfirm.setFocusable(focusable);

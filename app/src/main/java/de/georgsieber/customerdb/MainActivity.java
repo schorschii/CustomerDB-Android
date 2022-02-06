@@ -59,12 +59,9 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -936,9 +933,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void openBirthdaysIntent() {
-        ArrayList<Customer> birthdays = getSoonBirthdayCustomers(mCustomers);
+        int previewDays = BirthdayActivity.getBirthdayPreviewDays(mSettings);
+        ArrayList<Customer> birthdays = BirthdayActivity.getSoonBirthdayCustomers(mCustomers, previewDays);
         if(birthdays.size() == 0) {
-            CommonDialog.show(this, getResources().getString(R.string.nobirthdays), "", CommonDialog.TYPE.WARN, false);
+            CommonDialog.show(this, getResources().getQuantityString(R.plurals.nobirthdayssoon, previewDays, previewDays), "", CommonDialog.TYPE.WARN, false);
             return;
         }
         me.startActivityForResult(new Intent(me, BirthdayActivity.class), BIRTHDAY_REQUEST);
@@ -953,30 +951,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(connectivityManager == null) return true;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-    static ArrayList<Customer> getSoonBirthdayCustomers(List<Customer> customers) {
-        ArrayList<Customer> birthdayCustomers = new ArrayList<>();
-        Date start = new Date();
-        Date end = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(end);
-        cal.add(Calendar.DATE, 14); // number of days to add
-        end = cal.getTime();
-        cal.setTime(start);
-        cal.add(Calendar.DATE, -1); // number of days to add
-        start = cal.getTime();
-        for(Customer c: customers) {
-            Date birthday = c.getNextBirthday();
-            if(birthday != null && isWithinRange(birthday, start, end))
-                birthdayCustomers.add(c);
-        }
-        Collections.sort(birthdayCustomers, new Comparator<Customer>() {
-            public int compare(Customer o1, Customer o2) {
-                return o1.getNextBirthday().compareTo(o2.getNextBirthday());
-            }
-        });
-        return birthdayCustomers;
     }
 
     private void checkSnackbarMessage() {
@@ -1004,7 +978,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void checkBirthdays() {
-        ArrayList<Customer> birthdays = getSoonBirthdayCustomers(mCustomers);
+        int previewDays = BirthdayActivity.getBirthdayPreviewDays(mSettings);
+        ArrayList<Customer> birthdays = BirthdayActivity.getSoonBirthdayCustomers(mCustomers, previewDays);
         if(birthdays.size() > 0 && !isInputOnlyModeActive && !isLockActive) {
             Snackbar.make(
                     findViewById(R.id.coordinatorLayoutInner),
@@ -1018,10 +993,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     })
                     .show();
         }
-    }
-
-    private static boolean isWithinRange(Date testDate, Date startDate, Date endDate) {
-        return ((!testDate.before(startDate)) && (!testDate.after(endDate)));
     }
 
     private Snackbar mCheckedCountInfoSnackbar;

@@ -55,7 +55,6 @@
     <string name="sendfeedback">שלח משוב</string>
     <string name="feedbacktitle">Feedback Customer Database Android</string>
     <string name="emailtocustomer">שלח דואר לקוח</string>
-    <string name="nobirthdays">אין ימי הולדת תוך 14 הימים.</string>
     <string name="syncsuccess">סינכרון מוצלח</string>
     <string name="syncfail">הסינכרון נכשל</string>
     <string name="ok">אוקיי</string>
@@ -67,6 +66,10 @@
         <item quantity="two">ימי הולדת בקרוב %d</item>
         <item quantity="many">ימי הולדת בקרוב %d</item>
         <item quantity="other">ימי הולדת בקרוב %d</item>
+    </plurals>
+    <plurals name="nobirthdayssoon">
+        <item quantity="one">No birthdays in the next %d day.</item>
+        <item quantity="other">No birthdays in the next %d days.</item>
     </plurals>
     <string name="birthdaytodaynote">(כיום)</string>
     <string name="backup_title">גיבוי הערות</string>
@@ -405,4 +408,6 @@
     <string name="digital_amp_analog_clock_screensaver">שעון דיגיטלי ואנלוגי לאנדרואיד</string>
     <string name="scan">סוֹרֵק</string>
     <string name="view_apache_license">Apache License</string>
+    <string name="birthday_preview">תצוגה מקדימה של יום הולדת</string>
+    <string name="days">ימים</string>
 </resources>

@@ -50,7 +50,6 @@
     <string name="sendfeedback">Feedback senden</string>
     <string name="feedbacktitle">Feedback Kundendatenbank Android</string>
     <string name="emailtocustomer">E-Mail an Kunden senden</string>
-    <string name="nobirthdays">Keine Geburtstage in den nächsten 14 Tagen.</string>
     <string name="syncsuccess">Synchronisierung erfolgreich</string>
     <string name="syncfail">Synchronisierung fehlgeschlagen</string>
     <string name="ok">OK</string>
@@ -60,6 +59,10 @@
     <plurals name="birthdayssoon">
         <item quantity="one">Demnächst %d Geburtstag</item>
         <item quantity="other">Demnächst %d Geburtstage</item>
+    </plurals>
+    <plurals name="nobirthdayssoon">
+        <item quantity="one">Keine Geburtstage am kommenden Tag.</item>
+        <item quantity="other">Keine Geburtstage in den nächsten %d Tagen.</item>
     </plurals>
     <string name="birthdaytodaynote">(heute)</string>
     <string name="backup_title">Hinweise zum Backup</string>
@@ -392,4 +395,6 @@
     <string name="digital_amp_analog_clock_screensaver"><![CDATA[Digital- & Analog-Uhr für Android]]></string>
     <string name="scan">Scannen</string>
     <string name="view_apache_license">Apache License</string>
+    <string name="birthday_preview">Geburtstagsvorschau</string>
+    <string name="days">Tage</string>
 </resources>

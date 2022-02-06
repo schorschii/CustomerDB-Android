@@ -51,7 +51,6 @@
     <string name="sendfeedback">Отправить отзыв</string>
     <string name="feedbacktitle">Feedback Customer Database Android</string>
     <string name="emailtocustomer">Отправить E-Mail клиентам</string>
-    <string name="nobirthdays">Нет дней рождения в ближайшие 14 дней.</string>
     <string name="syncsuccess">Синхронизация успешна</string>
     <string name="syncfail">Синхронизация не удалась</string>
     <string name="ok">OK</string>
@@ -61,6 +60,10 @@
     <plurals name="birthdayssoon">
         <item quantity="one">Скоро %d день рождения</item>
         <item quantity="other">Скоро %d день рождения</item>
+    </plurals>
+    <plurals name="nobirthdayssoon">
+        <item quantity="one">No birthdays in the next %d day.</item>
+        <item quantity="other">No birthdays in the next %d days.</item>
     </plurals>
     <string name="birthdaytodaynote">(сегодня)</string>
     <string name="backup_title">Примечания по резервному копированию</string>
@@ -393,4 +396,6 @@
     <string name="digital_amp_analog_clock_screensaver">Цифровые и аналоговые часы для Android</string>
     <string name="scan">Сканер</string>
     <string name="view_apache_license">Apache License</string>
+    <string name="birthday_preview">Предварительный просмотр дня рождения</string>
+    <string name="days">Дни</string>
 </resources>

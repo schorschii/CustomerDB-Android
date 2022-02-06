@@ -13,12 +13,19 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
 
 import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.tools.ColorControl;
 
 
 public class BirthdayActivity extends AppCompatActivity {
+
+    final static int DEFAULT_BIRTHDAY_PREVIEW_DAYS = 14;
 
     private final static int VIEW_REQUEST = 1;
     private BirthdayActivity me;
@@ -48,9 +55,10 @@ public class BirthdayActivity extends AppCompatActivity {
 
         // show birthdays from intent extra
         try {
-            ArrayList<Customer> birthdays = MainActivity.getSoonBirthdayCustomers(mDb.getCustomers(null, false, false));
+            int previewDays = BirthdayActivity.getBirthdayPreviewDays(settings);
+            ArrayList<Customer> birthdays = getSoonBirthdayCustomers(mDb.getCustomers(null, false, false), previewDays);
             bindToListView(birthdays);
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
 
@@ -83,7 +91,7 @@ public class BirthdayActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode) {
             case(VIEW_REQUEST): {
-                if (resultCode == Activity.RESULT_OK) {
+                if(resultCode == Activity.RESULT_OK) {
                     // end birthday activity if changes were made and pass data to MainActivity
                     if(data.getStringExtra("action").equals("update")) {
                         Intent output = new Intent();
@@ -100,4 +108,39 @@ public class BirthdayActivity extends AppCompatActivity {
     private void bindToListView(ArrayList<Customer> customers) {
         ((ListView)findViewById(R.id.mainBirthdayList)).setAdapter(new CustomerAdapterBirthday(this, customers));
     }
+
+    static int getBirthdayPreviewDays(SharedPreferences settings) {
+        int days = BirthdayActivity.DEFAULT_BIRTHDAY_PREVIEW_DAYS;
+        if(settings != null) {
+            days = settings.getInt("birthday-preview-days", days);
+        }
+        return days;
+    }
+    static ArrayList<Customer> getSoonBirthdayCustomers(List<Customer> customers, int days) {
+        ArrayList<Customer> birthdayCustomers = new ArrayList<>();
+        Date start = new Date();
+        Date end = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(end);
+        cal.add(Calendar.DATE, days); // number of days to add
+        end = cal.getTime();
+        cal.setTime(start);
+        cal.add(Calendar.DATE, -1); // number of days to add
+        start = cal.getTime();
+        for(Customer c: customers) {
+            Date birthday = c.getNextBirthday();
+            if(birthday != null && isWithinRange(birthday, start, end))
+                birthdayCustomers.add(c);
+        }
+        Collections.sort(birthdayCustomers, new Comparator<Customer>() {
+            public int compare(Customer o1, Customer o2) {
+                return o1.getNextBirthday().compareTo(o2.getNextBirthday());
+            }
+        });
+        return birthdayCustomers;
+    }
+    private static boolean isWithinRange(Date testDate, Date startDate, Date endDate) {
+        return ((!testDate.before(startDate)) && (!testDate.after(endDate)));
+    }
+
 }

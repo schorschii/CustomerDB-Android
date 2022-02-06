@@ -11,6 +11,10 @@
         <item quantity="one">%d compleanno presto</item>
         <item quantity="other">%d compleanni presto</item>
     </plurals>
+    <plurals name="nobirthdayssoon">
+        <item quantity="one">No birthdays in the next %d day.</item>
+        <item quantity="other">No birthdays in the next %d days.</item>
+    </plurals>
     <plurals name="imported">
         <item quantity="one">Importato %d record.</item>
         <item quantity="other">Importati %d record.</item>
@@ -66,7 +70,6 @@
     <string name="sendfeedback">Invia feedback</string>
     <string name="feedbacktitle">Feedback Customer Database Android</string>
     <string name="emailtocustomer">Invia e-mail al cliente</string>
-    <string name="nobirthdays">Nessun compleanno nei prossimi 14 giorni.</string>
     <string name="syncsuccess">Sincronizzazione riuscita</string>
     <string name="syncfail">Sincronizzazione non riuscita</string>
     <string name="ok">ok</string>
@@ -392,4 +395,6 @@
     <string name="digital_amp_analog_clock_screensaver">Orologio digitale e analogico per Android</string>
     <string name="scan">Scanner</string>
     <string name="view_apache_license">Apache License</string>
+    <string name="birthday_preview">Anteprima di compleanno</string>
+    <string name="days">Giorni</string>
 </resources>

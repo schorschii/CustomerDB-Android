@@ -18,6 +18,10 @@
         <item quantity="one">%d birthday soon</item>
         <item quantity="other">%d birthdays soon</item>
     </plurals>
+    <plurals name="nobirthdayssoon">
+        <item quantity="one">No birthdays tomorrow.</item>
+        <item quantity="other">No birthdays in the next %d days.</item>
+    </plurals>
     <plurals name="imported">
         <item quantity="one">Imported %d record.</item>
         <item quantity="other">Imported %d records.</item>
@@ -73,7 +77,6 @@
     <string name="sendfeedback">Send Feedback</string>
     <string name="feedbacktitle">Feedback Customer Database Android</string>
     <string name="emailtocustomer">Send E-Mail to Customer</string>
-    <string name="nobirthdays">No birthdays in the next 14 days.</string>
     <string name="syncsuccess">Sync successful</string>
     <string name="syncfail">Sync failed</string>
     <string name="ok">OK</string>
@@ -399,4 +402,6 @@
     <string name="digital_amp_analog_clock_screensaver"><![CDATA[Digital & Analog Clock for Android]]></string>
     <string name="scan">Scan</string>
     <string name="view_apache_license">Apache License</string>
+    <string name="birthday_preview">Birthday Preview</string>
+    <string name="days">Days</string>
 </resources>

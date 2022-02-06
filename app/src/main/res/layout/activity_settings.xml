@@ -121,7 +121,7 @@
                         android:layout_row="0"
                         android:layout_column="0"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/currency"
+                        android:text="@string/birthday_preview"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <Space
@@ -131,10 +131,35 @@
                         android:layout_column="1" />
 
                     <EditText
-                        android:id="@+id/editTextCurrency"
+                        android:id="@+id/editTextBirthdayPreviewDays"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_row="0"
+                        android:layout_column="2"
+                        android:layout_gravity="fill_horizontal"
+                        android:hint="@string/days"
+                        android:inputType="number" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/currency"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"
+                        android:layout_row="1"
+                        android:layout_column="1" />
+
+                    <EditText
+                        android:id="@+id/editTextCurrency"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_row="1"
                         android:layout_column="2"
                         android:layout_gravity="fill_horizontal"
                         android:hint="@string/currency"
@@ -144,7 +169,7 @@
                         android:id="@+id/textViewInputOnlyModePassword"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_row="1"
+                        android:layout_row="2"
                         android:layout_column="0"
                         android:layout_gravity="center_vertical"
                         android:maxWidth="110dp"
@@ -154,13 +179,13 @@
                     <Space
                         android:layout_width="5dp"
                         android:layout_height="match_parent"
-                        android:layout_row="1"
+                        android:layout_row="2"
                         android:layout_column="1" />
 
                     <LinearLayout
                         android:id="@+id/linearLayoutInputOnlyModePassword"
                         android:layout_width="0dp"
-                        android:layout_row="1"
+                        android:layout_row="2"
                         android:layout_column="2"
                         android:layout_gravity="fill_horizontal"
                         android:orientation="vertical">
