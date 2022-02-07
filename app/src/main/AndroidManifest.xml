@@ -117,10 +117,6 @@
         </activity>
         <activity android:name=".DrawActivity" />
 
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9874695726033794~7677647063" />
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="de.georgsieber.customerdb.provider"
