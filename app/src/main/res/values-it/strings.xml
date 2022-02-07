@@ -187,7 +187,7 @@
     <string name="register_now">Iscriviti ora&#8230;</string>
     <string name="password">Parola d\'ordine</string>
     <string name="password_incorrect">Password non corretta</string>
-    <string name="iom_unlock_text">Immettere la password per uscire dalla modalit&#224; di solo input.</string>
+    <string name="iom_unlock_text">Inserisci la password corretta per sbloccare l\'app.</string>
     <string name="unlock">Sbloccare</string>
     <string name="feature_locked">Funzione bloccata</string>
     <string name="feature_locked_text">Puoi sbloccare questa funzione con un acquisto in-app.</string>
@@ -200,7 +200,7 @@
     <string name="confirm">Confermare</string>
     <string name="send_via_email">Invia via email</string>
     <string name="remove_logo">Rimuovi logo</string>
-    <string name="passwords_not_matching">Le password non corrispondono - le impostazioni non sono state salvate.</string>
+    <string name="passwords_not_matching">Le password non corrispondono</string>
     <string name="removed_logo">Logo rimosso</string>
     <string name="removed_logo_failed">Il logo non pu&#242; essere rimosso</string>
     <string name="custom_fields">Campi personalizzati</string>
@@ -295,8 +295,7 @@
     <string name="email_empty">Email vuota</string>
     <string name="please_fill_email">La casella di controllo Newsletter &#232; stata selezionata ma non &#232; stato inserito alcun indirizzo e-mail. Inserisci un indirizzo email o deseleziona la casella di controllo della newsletter.</string>
     <string name="disabled">Disabilitata</string>
-    <string name="hint_screen_pinning">Blocco dello schermo (modalit&#224; Kiosk)</string>
-    <string name="hint_screen_pinning_text">&#200; possibile utilizzare la funzione Android \'Screen Pinning\' per impedire l\'utilizzo di altre app e per impedire la cancellazione dell\'app Database clienti. Per abilitare, apri le impostazioni di Android - \'Sicurezza e posizione\' - \'Blocco schermo\'.</string>
+    <string name="input_only_mode_instructions">In questa modalità, puoi dare il tablet ai clienti in modo che possano registrarsi senza poter visualizzare o eliminare i dati degli altri clienti.\n\n&#200; possibile utilizzare la funzione Android \'Screen Pinning\' per impedire l\'utilizzo di altre app e per impedire la cancellazione dell\'app Database clienti. Per abilitare, apri le impostazioni di Android - \'Sicurezza e posizione\' - \'Blocco schermo\'.</string>
     <string name="own_server">Proprio server</string>
     <string name="own_server_text">Il server di database del cliente &#232; Open Source, quindi &#232; possibile configurare un proprio server di database. Questo presuppone che tu abbia familiarit&#224; con Apache Webserver, PHP e MySQL. Per ulteriori informazioni, visitare la pagina GitHub.</string>
     <string name="sync_feature_capabilities">Funzionalit&#224; di sincronizzazione delle funzionalit&#224;</string>
@@ -397,4 +396,6 @@
     <string name="view_apache_license">Apache License</string>
     <string name="birthday_preview">Anteprima di compleanno</string>
     <string name="days">Giorni</string>
+    <string name="set_password">Impostare la password…</string>
+    <string name="please_set_password_first">Si prega di impostare prima una password nelle impostazioni.</string>
 </resources>

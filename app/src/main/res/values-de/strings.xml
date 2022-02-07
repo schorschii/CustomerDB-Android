@@ -179,7 +179,7 @@
     <string name="register_now">Jetzt registrieren…</string>
     <string name="password">Kennwort</string>
     <string name="password_incorrect">Kennwort nicht korrekt</string>
-    <string name="iom_unlock_text">Bitte geben Sie das Kennwort ein, um den Nur-Eingabe-Modus zu beenden.</string>
+    <string name="iom_unlock_text">Bitte geben Sie das korrekte Passwort ein, um die App zu entsperren.</string>
     <string name="unlock">Entsperren</string>
     <string name="feature_locked">Funktion noch nicht freigeschaltet</string>
     <string name="feature_locked_text">Sie können diese Funktion mit einem In-App-Einkauf freischalten.</string>
@@ -192,7 +192,7 @@
     <string name="confirm">Bestätigen</string>
     <string name="send_via_email">Per E-Mail senden</string>
     <string name="remove_logo">Logo entfernen</string>
-    <string name="passwords_not_matching">Kennwörter stimmen nicht überein - Einstellungen werden nicht gespeichert.</string>
+    <string name="passwords_not_matching">Kennwörter stimmen nicht überein</string>
     <string name="removed_logo">Logo wurde entfernt</string>
     <string name="removed_logo_failed">Logo konnte nicht entfernt werden</string>
     <string name="custom_fields">Benutzerdefinierte Felder</string>
@@ -295,8 +295,7 @@
     <string name="email_empty">Keine E-Mail-Adresse eingegeben</string>
     <string name="please_fill_email">Die Newsletter-Checkbox wurde aktiviert, jedoch keine E-Mail-Adresse eingegeben. Bitte geben Sie eine E-Mail-Adresse ein oder deaktivieren Sie die Newsletter-Checkbox.</string>
     <string name="disabled">Deaktiviert</string>
-    <string name="hint_screen_pinning">Bildschirmfixierung (Kiosk-Modus)</string>
-    <string name="hint_screen_pinning_text"><![CDATA[Sie können die Android-Funktion \'Bildschirmfixierung\' verwenden um zu verhindern dass andere Apps verwendet werden oder die Kundendatenbank-App gelöscht wird. Gehen Sie zum Aktivieren der Funktion in die Android-Einstellungen - \'Sicherheit & Standort\' - \'Bildschirmfixierung\'.]]></string>
+    <string name="input_only_mode_instructions"><![CDATA[In diesem Modus können Sie das Tablet an Kunden herausgeben, sodass diese sich selbstständig registrieren können, ohne die anderen Kundendaten einsehen oder löschen zu können.\n\nSie können die Android-Funktion \'Bildschirmfixierung\' verwenden um zu verhindern, dass andere Apps verwendet werden oder die Kundendatenbank-App gelöscht wird. Gehen Sie zum Aktivieren der Funktion in die Android-Einstellungen - \'Sicherheit & Standort\' - \'Bildschirmfixierung\'.]]></string>
     <string name="own_server">Eigener Server</string>
     <string name="own_server_text">Der Kundendatenbank-Server ist Open Source, Sie können daher Ihren eigenen Datenbank-Server aufsetzen. Dies setzt voraus, dass Sie sich mit dem Apache-Webserver, PHP und MySQL auskennen. Bitte besuchen Sie die GitHub-Seite für weitere Informationen.</string>
     <string name="sync_feature_capabilities">Möglichkeiten der Synchronisierungsfunktion</string>
@@ -397,4 +396,6 @@
     <string name="view_apache_license">Apache License</string>
     <string name="birthday_preview">Geburtstagsvorschau</string>
     <string name="days">Tage</string>
+    <string name="set_password">Password ändern…</string>
+    <string name="please_set_password_first">Bitte legen Sie zuerst ein Passwort in den Einstellungen fest.</string>
 </resources>

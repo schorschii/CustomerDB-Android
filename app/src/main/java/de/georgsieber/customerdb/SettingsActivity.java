@@ -68,8 +68,6 @@ public class SettingsActivity extends AppCompatActivity {
     EditText mEditTextPassword;
     EditText mEditTextBirthdayPreviewDays;
     EditText mEditTextCurrency;
-    EditText mEditTextInputOnlyModePassword;
-    EditText mEditTextInputOnlyModePasswordConfirm;
     CheckBox mCheckBoxAllowTextInPhoneNumbers;
     RadioGroup mRadioGroupTheme;
     RadioButton mRadioButtonDarkModeSystem;
@@ -152,8 +150,6 @@ public class SettingsActivity extends AppCompatActivity {
         mEditTextPassword = findViewById(R.id.editTextPassword);
         mEditTextBirthdayPreviewDays = findViewById(R.id.editTextBirthdayPreviewDays);
         mEditTextCurrency = findViewById(R.id.editTextCurrency);
-        mEditTextInputOnlyModePassword = findViewById(R.id.editTextInputOnlyModePassword);
-        mEditTextInputOnlyModePasswordConfirm = findViewById(R.id.editTextInputOnlyModePasswordConfirm);
         mCheckBoxAllowTextInPhoneNumbers = findViewById(R.id.checkBoxAllowTextInPhoneNumbers);
         mRadioGroupTheme = findViewById(R.id.radioGroupTheme);
         mRadioButtonDarkModeSystem = findViewById(R.id.radioButtonDarkModeSystem);
@@ -230,11 +226,9 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void featureCheckReady(boolean fetchSuccess) {
                 if(mFc.unlockedInputOnlyMode) {
-                    (findViewById(R.id.linearLayoutInputOnlyModePassword)).setVisibility(View.VISIBLE);
-                    (findViewById(R.id.textViewInputOnlyModePassword)).setVisibility(View.VISIBLE);
+                    (findViewById(R.id.linearLayoutPassword)).setVisibility(View.VISIBLE);
                 } else {
-                    (findViewById(R.id.linearLayoutInputOnlyModePassword)).setVisibility(View.GONE);
-                    (findViewById(R.id.textViewInputOnlyModePassword)).setVisibility(View.GONE);
+                    (findViewById(R.id.linearLayoutPassword)).setVisibility(View.GONE);
                 }
                 if(!mFc.unlockedDesignOptions) {
                     (findViewById(R.id.seekBarRed)).setEnabled(false);
@@ -314,8 +308,6 @@ public class SettingsActivity extends AppCompatActivity {
         mEditTextBirthdayPreviewDays.setText(Integer.toString(mBirthdayPreviewDays));
         mEditTextCurrency.setText(mCurrency);
         mCheckBoxAllowTextInPhoneNumbers.setChecked(mAllowTextInPhoneNumbers);
-        mEditTextInputOnlyModePassword.setText(mIomPassword);
-        mEditTextInputOnlyModePasswordConfirm.setText(mIomPassword);
         mSeekBarRed.setProgress(mColorRed);
         mSeekBarGreen.setProgress(mColorGreen);
         mSeekBarBlue.setProgress(mColorBlue);
@@ -482,14 +474,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onSetMiscButtonClick() {
-        String password1 = mEditTextInputOnlyModePassword.getText().toString();
-        String password2 = mEditTextInputOnlyModePasswordConfirm.getText().toString();
-        if(!password1.equals(password2)) {
-            dialog(getResources().getString(R.string.passwords_not_matching), false);
-            return;
-        }
-        mIomPassword = password1;
-
         mRemoteDatabaseConnURL = mEditTextUrl.getText().toString();
         mRemoteDatabaseConnUsername = mEditTextUsername.getText().toString();
         mRemoteDatabaseConnPassword = mEditTextPassword.getText().toString();
@@ -597,15 +581,32 @@ public class SettingsActivity extends AppCompatActivity {
         mEditTextPassword.setFocusable(focusable);
         mEditTextBirthdayPreviewDays.setFocusable(focusable);
         mEditTextCurrency.setFocusable(focusable);
-        mEditTextInputOnlyModePassword.setFocusable(focusable);
-        mEditTextInputOnlyModePasswordConfirm.setFocusable(focusable);
 
         mEditTextUrl.setFocusableInTouchMode(focusable);
         mEditTextUsername.setFocusableInTouchMode(focusable);
         mEditTextPassword.setFocusableInTouchMode(focusable);
         mEditTextCurrency.setFocusableInTouchMode(focusable);
-        mEditTextInputOnlyModePassword.setFocusableInTouchMode(focusable);
-        mEditTextInputOnlyModePasswordConfirm.setFocusableInTouchMode(focusable);
+    }
+
+    public void onSetPasswordButtonClick(View v) {
+        final Dialog ad = new Dialog(this);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_set_password);
+        if(ad.getWindow() != null) ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        ad.show();
+        ad.findViewById(R.id.buttonInputBoxOK).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String password1 = ((EditText) ad.findViewById(R.id.editTextPassword)).getText().toString();
+                String password2 = ((EditText) ad.findViewById(R.id.editTextPasswordConfirm)).getText().toString();
+                if(!password1.equals(password2)) {
+                    dialog(getResources().getString(R.string.passwords_not_matching), false);
+                    return;
+                }
+                mIomPassword = password1;
+                ad.dismiss();
+            }
+        });
     }
 
     public void onAddCustomFieldButtonClick(View v) {

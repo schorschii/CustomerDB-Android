@@ -187,7 +187,7 @@
     <string name="register_now">S\'inscrire maintenant&#8230;</string>
     <string name="password">Mot de passe</string>
     <string name="password_incorrect">Mot de passe incorrect</string>
-    <string name="iom_unlock_text">Veuillez entrer le mot de passe pour quitter le mode de saisie uniquement.</string>
+    <string name="iom_unlock_text">Veuillez entrer le mot de passe correct pour déverrouiller l\'application.</string>
     <string name="unlock">Ouvrir</string>
     <string name="feature_locked">Fonction verrouill&#233;e</string>
     <string name="feature_locked_text">Vous pouvez d&#233;verrouiller cette fonctionnalit&#233; avec un achat dans l\'application.</string>
@@ -200,7 +200,7 @@
     <string name="confirm">Confirmer</string>
     <string name="send_via_email">Envoyer par e-mail</string>
     <string name="remove_logo">Supprimer le logo</string>
-    <string name="passwords_not_matching">Les mots de passe ne correspondent pas - les param&#232;tres n\'ont pas &#233;t&#233; enregistr&#233;s.</string>
+    <string name="passwords_not_matching">Les mots de passe ne correspondent pas</string>
     <string name="removed_logo">Logo supprim&#233;</string>
     <string name="removed_logo_failed">Le logo n\'a pas pu &#234;tre supprim&#233;</string>
     <string name="custom_fields">Les champs personnalis&#233;s</string>
@@ -295,8 +295,7 @@
     <string name="email_empty">Email vide</string>
     <string name="please_fill_email">La case &#224; cocher de la newsletter a &#233;t&#233; coch&#233;e mais aucune adresse e-mail n\'a &#233;t&#233; saisie. Veuillez saisir une adresse e-mail ou d&#233;cochez la case newsletter.</string>
     <string name="disabled">d&#233;sactiv&#233;</string>
-    <string name="hint_screen_pinning">&#201;pinglage d\'&#233;cran (mode kiosque)</string>
-    <string name="hint_screen_pinning_text">Vous pouvez utiliser la fonction Android \'Screen Pinning\' pour emp&#234;cher l\'utilisation d\'autres applications et pour emp&#234;cher la suppression de l\'application Base de donn&#233;es clients. Pour l\'activer, veuillez ouvrir les param&#232;tres Android - \'Security &amp; Location\' - \'Screen Pinning\'.</string>
+    <string name="input_only_mode_instructions">Dans ce mode, vous pouvez donner la tablette aux clients afin qu\'ils puissent s\'enregistrer sans pouvoir voir ou supprimer les autres données client.\n\nVous pouvez utiliser la fonction Android \'Screen Pinning\' pour emp&#234;cher l\'utilisation d\'autres applications et pour emp&#234;cher la suppression de l\'application Base de donn&#233;es clients. Pour l\'activer, veuillez ouvrir les param&#232;tres Android - \'Security &amp; Location\' - \'Screen Pinning\'.</string>
     <string name="own_server">Propre serveur</string>
     <string name="own_server_text">Le serveur de base de donn&#233;es client est Open Source, vous pouvez donc configurer un propre serveur de base de donn&#233;es. Cela suppose que vous connaissez le serveur Web Apache, PHP et MySQL. Veuillez visiter la page GitHub pour plus d\'informations.</string>
     <string name="sync_feature_capabilities">Fonctionnalit&#233;s de synchronisation</string>
@@ -397,4 +396,6 @@
     <string name="view_apache_license">Apache License</string>
     <string name="birthday_preview">Aperçu de l\'anniversaire</string>
     <string name="days">Jours</string>
+    <string name="set_password">Définir le mot de passe…</string>
+    <string name="please_set_password_first">Veuillez d\'abord définir un mot de passe dans les paramètres.</string>
 </resources>

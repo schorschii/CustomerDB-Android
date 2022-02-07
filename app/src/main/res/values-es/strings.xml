@@ -187,7 +187,7 @@
     <string name="register_now">Reg&#237;strate ahora&#8230;</string>
     <string name="password">Contrase&#241;a</string>
     <string name="password_incorrect">Contrase&#241;a incorrecta</string>
-    <string name="iom_unlock_text">Ingrese la contrase&#241;a para salir del modo de solo entrada.</string>
+    <string name="iom_unlock_text">Ingrese la contraseña correcta para desbloquear la aplicación.</string>
     <string name="unlock">desbloquear</string>
     <string name="feature_locked">Caracter&#237;stica bloqueada</string>
     <string name="feature_locked_text">Puede desbloquear esta funci&#243;n con una compra en la aplicaci&#243;n.</string>
@@ -200,7 +200,7 @@
     <string name="confirm">Confirmar</string>
     <string name="send_via_email">Enviar por correo electr&#243;nico</string>
     <string name="remove_logo">Eliminar logotipo</string>
-    <string name="passwords_not_matching">Las contrase&#241;as no coinciden: la configuraci&#243;n no se guard&#243;.</string>
+    <string name="passwords_not_matching">Las contrase&#241;as no coinciden</string>
     <string name="removed_logo">Logo eliminado</string>
     <string name="removed_logo_failed">No se pudo eliminar el logotipo.</string>
     <string name="custom_fields">Campos Personalizados</string>
@@ -295,8 +295,7 @@
     <string name="email_empty">Correo electr&#243;nico vac&#237;a</string>
     <string name="please_fill_email">La casilla de verificaci&#243;n Bolet&#237;n se marc&#243; pero no se ingres&#243; ninguna direcci&#243;n de correo electr&#243;nico. Ingrese una direcci&#243;n de correo electr&#243;nico o desactive la casilla de verificaci&#243;n del bolet&#237;n.</string>
     <string name="disabled">Discapacitado</string>
-    <string name="hint_screen_pinning">Fijaci&#243;n de pantalla (modo quiosco)</string>
-    <string name="hint_screen_pinning_text">Puede usar la funci&#243;n de Android \'Fijar pantalla\' para evitar el uso de otras aplicaciones y para evitar la eliminaci&#243;n de la aplicaci&#243;n Base de datos del cliente. Para habilitar, abra la configuraci&#243;n de Android - \'Seguridad y ubicaci&#243;n\' - \'Fijar pantalla\'.</string>
+    <string name="input_only_mode_instructions">En este modo, puede entregar la tableta a los clientes para que puedan registrarse sin poder ver o eliminar los otros datos del cliente.\n\nPuede usar la funci&#243;n de Android \'Fijar pantalla\' para evitar el uso de otras aplicaciones y para evitar la eliminaci&#243;n de la aplicaci&#243;n Base de datos del cliente. Para habilitar, abra la configuraci&#243;n de Android - \'Seguridad y ubicaci&#243;n\' - \'Fijar pantalla\'.</string>
     <string name="own_server">Servidor propio</string>
     <string name="own_server_text">El servidor de la base de datos del cliente es de c&#243;digo abierto, por lo que puede configurar un servidor de base de datos propio. Esto supone que est&#225; familiarizado con el servidor web Apache, PHP y MySQL. Visite la p&#225;gina de GitHub para obtener m&#225;s informaci&#243;n.</string>
     <string name="sync_feature_capabilities">Capacidades de funciones de sincronizaci&#243;n</string>
@@ -397,4 +396,6 @@
     <string name="view_apache_license">Apache License</string>
     <string name="birthday_preview">Vista previa de cumpleaños</string>
     <string name="days">Días</string>
+    <string name="set_password">Configurar la clave…</string>
+    <string name="please_set_password_first">Primero establezca una contraseña en la configuración.</string>
 </resources>

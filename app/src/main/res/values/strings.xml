@@ -194,7 +194,7 @@
     <string name="register_now">Register now…</string>
     <string name="password">Password</string>
     <string name="password_incorrect">Password incorrect</string>
-    <string name="iom_unlock_text">Please enter password to exit input-only mode.</string>
+    <string name="iom_unlock_text">Please enter the correct password to unlock the app.</string>
     <string name="unlock">Unlock</string>
     <string name="feature_locked">Feature locked</string>
     <string name="feature_locked_text">You can unlock this feature with an in-app purchase.</string>
@@ -207,7 +207,7 @@
     <string name="confirm">Confirm</string>
     <string name="send_via_email">Send via email</string>
     <string name="remove_logo">Remove Logo</string>
-    <string name="passwords_not_matching">Passwords do not match - settings were not saved.</string>
+    <string name="passwords_not_matching">Passwords do not match</string>
     <string name="removed_logo">Logo removed</string>
     <string name="removed_logo_failed">Logo could not be removed</string>
     <string name="custom_fields">Custom Fields</string>
@@ -302,8 +302,7 @@
     <string name="email_empty">Email empty</string>
     <string name="please_fill_email">Newsletter checkbox was checked but no email address was entered. Please enter an email address or uncheck the newsletter checkbox.</string>
     <string name="disabled">Disabled</string>
-    <string name="hint_screen_pinning">Screen Pinning (Kiosk Mode)</string>
-    <string name="hint_screen_pinning_text"><![CDATA[You can use the Android feature \'Screen Pinning\' to prevent the usage of other apps and to prevent deletion of the Customer Database app. To enable, please open the Android settings - \'Security & Location\' - \'Screen Pinning\'.]]></string>
+    <string name="input_only_mode_instructions"><![CDATA[In this mode, you can give the tablet to customers so that they can register themselves without being able to view or delete the other customer data.\n\nYou can use the Android feature \'Screen Pinning\' to prevent the usage of other apps and to prevent deletion of the Customer Database app. To enable, please open the Android settings - \'Security & Location\' - \'Screen Pinning\'.]]></string>
     <string name="own_server">Own Server</string>
     <string name="own_server_text">The customer database server is Open Source, so you can set up an own database server. This assumes that you are familiar with the Apache Webserver, PHP and MySQL. Please visit the GitHub page for more information.</string>
     <string name="sync_feature_capabilities">Sync Feature Capabilities</string>
@@ -404,4 +403,6 @@
     <string name="view_apache_license">Apache License</string>
     <string name="birthday_preview">Birthday Preview</string>
     <string name="days">Days</string>
+    <string name="set_password">Set Password…</string>
+    <string name="please_set_password_first">Please set a password in the settings first.</string>
 </resources>

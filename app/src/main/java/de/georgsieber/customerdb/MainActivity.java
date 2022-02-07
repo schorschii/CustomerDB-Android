@@ -770,33 +770,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void onToggleLockButtonClick() {
         if(isLockActive) {
-            if(mIomPassword.equals("")) {
-                enableDisableLock(false);
-            } else {
-                // password check
-                final Dialog ad = new Dialog(this);
-                ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                ad.setContentView(R.layout.dialog_iom_unlock);
-                Button button = ad.findViewById(R.id.buttonInputOnlyModeUnlock);
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String passwordInput = ((EditText) ad.findViewById(R.id.editTextInputOnlyModeUnlockPassword)).getText().toString();
-                        if(passwordInput.equals(mIomPassword)) {
-                            ad.dismiss();
-                            enableDisableLock(false);
-                        } else {
-                            ad.dismiss();
-                            CommonDialog.show(me, getResources().getString(R.string.password_incorrect), "", CommonDialog.TYPE.FAIL, false);
-                        }
+            // password check
+            final Dialog ad = new Dialog(this);
+            ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            ad.setContentView(R.layout.dialog_unlock_password);
+            Button button = ad.findViewById(R.id.buttonInputOnlyModeUnlock);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String passwordInput = ((EditText) ad.findViewById(R.id.editTextInputOnlyModeUnlockPassword)).getText().toString();
+                    if(passwordInput.equals(mIomPassword)) {
+                        ad.dismiss();
+                        enableDisableLock(false);
+                    } else {
+                        ad.dismiss();
+                        CommonDialog.show(me, getResources().getString(R.string.password_incorrect), "", CommonDialog.TYPE.FAIL, false);
                     }
-                });
-                if(ad.getWindow() != null) ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                ad.show();
-            }
+                }
+            });
+            if(ad.getWindow() != null) ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            ad.show();
         } else {
             if(mFc.unlockedInputOnlyMode) {
-                enableDisableLock(true);
+                if(mIomPassword.equals("")) {
+                    CommonDialog.show(this, "", getString(R.string.please_set_password_first), CommonDialog.TYPE.WARN, false);
+                } else {
+                    enableDisableLock(true);
+                }
             } else {
                 dialogInApp(getResources().getString(R.string.feature_locked), getResources().getString(R.string.feature_locked_text));
             }
@@ -852,33 +852,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void onToggleInputOnlyModeButtonClick() {
         if(isInputOnlyModeActive) {
-            if(mIomPassword.equals("")) {
-                enableDisableInputOnlyMode(false);
-            } else {
-                // password check
-                final Dialog ad = new Dialog(this);
-                ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                ad.setContentView(R.layout.dialog_iom_unlock);
-                Button button = ad.findViewById(R.id.buttonInputOnlyModeUnlock);
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String passwordInput = ((EditText) ad.findViewById(R.id.editTextInputOnlyModeUnlockPassword)).getText().toString();
-                        if(passwordInput.equals(mIomPassword)) {
-                            ad.dismiss();
-                            enableDisableInputOnlyMode(false);
-                        } else {
-                            ad.dismiss();
-                            CommonDialog.show(me, getResources().getString(R.string.password_incorrect), "", CommonDialog.TYPE.FAIL, false);
-                        }
+            // password check
+            final Dialog ad = new Dialog(this);
+            ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            ad.setContentView(R.layout.dialog_unlock_password);
+            Button button = ad.findViewById(R.id.buttonInputOnlyModeUnlock);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String passwordInput = ((EditText) ad.findViewById(R.id.editTextInputOnlyModeUnlockPassword)).getText().toString();
+                    if(passwordInput.equals(mIomPassword)) {
+                        ad.dismiss();
+                        enableDisableInputOnlyMode(false);
+                    } else {
+                        ad.dismiss();
+                        CommonDialog.show(me, getResources().getString(R.string.password_incorrect), "", CommonDialog.TYPE.FAIL, false);
                     }
-                });
-                if(ad.getWindow() != null) ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                ad.show();
-            }
+                }
+            });
+            if(ad.getWindow() != null) ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            ad.show();
         } else {
             if(mFc.unlockedInputOnlyMode) {
-                enableDisableInputOnlyMode(true);
+                if(mIomPassword.equals("")) {
+                    CommonDialog.show(this, "", getString(R.string.please_set_password_first), CommonDialog.TYPE.WARN, false);
+                } else {
+                    enableDisableInputOnlyMode(true);
+                    if(!mSettings.getBoolean("input-only-mode-instructions-shown", false)) {
+                        CommonDialog.show(this, getString(R.string.input_only_mode), getString(R.string.input_only_mode_instructions), CommonDialog.TYPE.NONE, false);
+                        mSettings.edit().putBoolean("input-only-mode-instructions-shown", true).apply();
+                    }
+                }
             } else {
                 dialogInApp(getResources().getString(R.string.feature_locked), getResources().getString(R.string.feature_locked_text));
             }

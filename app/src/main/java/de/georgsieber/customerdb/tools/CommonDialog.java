@@ -9,7 +9,7 @@ import de.georgsieber.customerdb.R;
 
 public class CommonDialog {
     public enum TYPE {
-        OK, WARN, FAIL
+        OK, WARN, FAIL, NONE
     }
     public static void show(final AppCompatActivity context, String title, String text, TYPE icon, final boolean finish) {
         AlertDialog ad = new AlertDialog.Builder(context).create();

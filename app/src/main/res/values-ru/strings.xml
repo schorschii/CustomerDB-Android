@@ -180,7 +180,7 @@
     <string name="register_now">Зарегистрируйтесь сейчас…</string>
     <string name="password">Пароль</string>
     <string name="password_incorrect">Неверный пароль</string>
-    <string name="iom_unlock_text">Пожалуйста, введите пароль для выхода из режима только для входа.</string>
+    <string name="iom_unlock_text">Введите правильный пароль, чтобы разблокировать приложение.</string>
     <string name="unlock">Размыкание</string>
     <string name="feature_locked">Функция еще не разблокирована</string>
     <string name="feature_locked_text">Вы можете разблокировать эту функцию с помощью покупки в приложении.</string>
@@ -193,7 +193,7 @@
     <string name="confirm">Подтвердить</string>
     <string name="send_via_email">Отправить по электронной почте</string>
     <string name="remove_logo">Удалить логотип</string>
-    <string name="passwords_not_matching">Пароли не совпадают - настройки не сохраняются.</string>
+    <string name="passwords_not_matching">Пароли не совпадают</string>
     <string name="removed_logo">Логотип был удален</string>
     <string name="removed_logo_failed">Логотип не может быть удален</string>
     <string name="custom_fields">Пользовательские поля</string>
@@ -296,8 +296,7 @@
     <string name="email_empty">Электронная почта пуста</string>
     <string name="please_fill_email">Флажок новостной рассылки был установлен, но адрес электронной почты не был введен. Пожалуйста, введите адрес электронной почты или снимите флажок новостной рассылки.</string>
     <string name="disabled">Отключено</string>
-    <string name="hint_screen_pinning">Закрепление экрана (режим киоска)</string>
-    <string name="hint_screen_pinning_text"><![CDATA[Вы можете использовать функцию Android «Закрепление экрана», чтобы предотвратить использование других приложений и удалить приложение базы данных клиентов. Чтобы включить, пожалуйста, откройте настройки Android - «Безопасность и местоположение» - «Прикрепление экрана».]]></string>
+    <string name="input_only_mode_instructions"><![CDATA[В этом режиме вы можете дать планшет клиентам, чтобы они могли зарегистрироваться, не имея возможности просматривать или удалять другие данные клиентов.\n\nВы можете использовать функцию Android «Закрепление экрана», чтобы предотвратить использование других приложений и удалить приложение базы данных клиентов. Чтобы включить, пожалуйста, откройте настройки Android - «Безопасность и местоположение» - «Прикрепление экрана».]]></string>
     <string name="own_server">Собственный сервер</string>
     <string name="own_server_text">Сервер базы данных клиентов имеет открытый исходный код, поэтому вы можете настроить собственный сервер базы данных. Это предполагает, что вы знакомы с веб-сервером Apache, PHP и MySQL. Пожалуйста, посетите страницу GitHub для получения дополнительной информации.</string>
     <string name="sync_feature_capabilities">Возможности синхронизации</string>
@@ -398,4 +397,6 @@
     <string name="view_apache_license">Apache License</string>
     <string name="birthday_preview">Предварительный просмотр дня рождения</string>
     <string name="days">Дни</string>
+    <string name="set_password">Установка пароля…</string>
+    <string name="please_set_password_first">Сначала установите пароль в настройках.</string>
 </resources>

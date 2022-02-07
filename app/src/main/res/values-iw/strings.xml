@@ -188,7 +188,7 @@
     <string name="register_now">הירשם עכשיו …</string>
     <string name="password">סיסמה</string>
     <string name="password_incorrect">סיסמה שגויה</string>
-    <string name="iom_unlock_text">אנא הכניסו את הסיסמה כדי לצאת ממצב input - בלבד</string>
+    <string name="iom_unlock_text">אנא הזן את הסיסמה הנכונה כדי לבטל את נעילת האפליקציה.</string>
     <string name="unlock">לבטל את הנעילה</string>
     <string name="feature_locked">תכונה נעול</string>
     <string name="feature_locked_text">אתה יכול לפתוח את תכונה זו עם לרכוש ב -app .</string>
@@ -201,7 +201,7 @@
     <string name="confirm">לאשר</string>
     <string name="send_via_email">שלח בדואר אלקטרוני</string>
     <string name="remove_logo">הסרת לוגו</string>
-    <string name="passwords_not_matching">סיסמאות אינן מתאימות - הגדרות לא נשמרו.</string>
+    <string name="passwords_not_matching">סיסמאות אינן מתאימות</string>
     <string name="removed_logo">לוגו הוסר</string>
     <string name="removed_logo_failed">לא היתה אפשרות להסיר את הלוגו</string>
     <string name="custom_fields">שדות מותאמים אישית</string>
@@ -308,10 +308,9 @@
     <string name="email_empty">הדוא"ל ריק</string>
     <string name="please_fill_email">תיבת הסימון של הניוזלטר סומנה אך לא הוזנה כתובת דוא"ל. אנא הכנס כתובת דוא"ל או בטל את סימון תיבת הסימון של הידיעון.</string>
     <string name="disabled">נכים</string>
-    <string name="hint_screen_pinning">הצמדת מסך (מצב קיוסק)</string>
-    <string name="hint_screen_pinning_text">אתה יכול להשתמש בתכונה אנדרואיד "הצמדת מסך" כדי למנוע שימוש באפליקציות אחרות וכדי למנוע מחיקה של אפליקציית מסד הנתונים של הלקוחות. כדי לאפשר, פתח את הגדרות אנדרואיד - "אבטחה ומיקום" - "הצמדת מסך".</string>
+    <string name="input_only_mode_instructions">במצב זה, אתה יכול לתת את הטאבלט ללקוחות כדי שיוכלו לרשום את עצמם מבלי שהם יוכלו לראות או למחוק את נתוני הלקוחות האחרים.\n\nאתה יכול להשתמש בתכונת אנדרואיד \'הצמדת מסך\' כדי למנוע שימוש באפליקציות אחרות ולמנוע מחיקה של אפליקציית מאגר הלקוחות. כדי להפעיל, פתח את הגדרות אנדרואיד - \'אבטחה ומיקום\' - \'הצמדת מסך\'.</string>
     <string name="own_server">שרת משלו</string>
-    <string name="own_server_text">The customer database server is Open Source, so you can set up an own database server. This assumes that you are familiar with the Apache Webserver, PHP and MySQL. Please visit the GitHub page for more information.</string>
+    <string name="own_server_text">שרת מסד הנתונים של הלקוחות הוא קוד פתוח, כך שתוכל להגדיר שרת מסד נתונים משלך. זה בהנחה שאתה מכיר את שרת האינטרנט של Apache, PHP ו-MySQL. אנא בקר בדף GitHub למידע נוסף.</string>
     <string name="sync_feature_capabilities">יכולות סינכרון תכונות</string>
     <string name="sync_feature_capabilities_text">בעזרת תכונת הסנכרון תוכלו לגבות את נתוני הלקוחות שלכם בשרת מסד נתונים ולסנכרן אותם על גבי מספר מכשירים. יש לך את האפשרויות הבאות לשימוש בתכונה זו.</string>
     <string name="cloud_service_text1">אתה יכול להשתמש בענן מסד הנתונים של הלקוחות בתשלום.</string>
@@ -410,4 +409,6 @@
     <string name="view_apache_license">Apache License</string>
     <string name="birthday_preview">תצוגה מקדימה של יום הולדת</string>
     <string name="days">ימים</string>
+    <string name="set_password">הגדר סיסמא…</string>
+    <string name="please_set_password_first">אנא הגדר תחילה סיסמה בהגדרות.</string>
 </resources>
