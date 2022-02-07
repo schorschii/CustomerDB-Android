@@ -396,6 +396,6 @@
     <string name="view_apache_license">Apache License</string>
     <string name="birthday_preview">Geburtstagsvorschau</string>
     <string name="days">Tage</string>
-    <string name="set_password">Password ändern…</string>
+    <string name="set_password">Passwort ändern…</string>
     <string name="please_set_password_first">Bitte legen Sie zuerst ein Passwort in den Einstellungen fest.</string>
 </resources>
