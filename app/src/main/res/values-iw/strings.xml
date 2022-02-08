@@ -36,7 +36,6 @@
     <string name="birthday">יום הולדת</string>
     <string name="apiconnection">חיבור שרת עבור סינכרון</string>
     <string name="apiurl">כתובת אינטרנט Web-API</string>
-    <string name="apipassword">קוד אימות</string>
     <string name="name">השם</string>
     <string name="lastchanged">שונה לאחרונה</string>
     <string name="search">חיפוש …</string>

@@ -51,7 +51,6 @@
     <string name="birthday">Compleanno</string>
     <string name="apiconnection">Sincronizzazione</string>
     <string name="apiurl">URL per l\'API Web</string>
-    <string name="apipassword">Parola d\'ordine</string>
     <string name="name">Nome</string>
     <string name="lastchanged">Ultima modifica</string>
     <string name="search">Ricerca &#8230;</string>

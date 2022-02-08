@@ -58,7 +58,6 @@
     <string name="birthday">Birthday</string>
     <string name="apiconnection">Synchronization</string>
     <string name="apiurl">URL to Web-API</string>
-    <string name="apipassword">Password</string>
     <string name="name">Name</string>
     <string name="lastchanged">Last changed</string>
     <string name="search">Search …</string>
