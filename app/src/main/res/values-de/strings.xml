@@ -31,7 +31,7 @@
     <string name="birthday">Geburtstag</string>
     <string name="apiconnection">Synchronisierung</string>
     <string name="apiurl">URL zur Web-API</string>
-    <string name="apipassword">Kennwort</string>
+    <string name="apipassword">Passwort</string>
     <string name="name">Name</string>
     <string name="lastchanged">Zuletzt geändert</string>
     <string name="search">Suche …</string>
@@ -177,8 +177,8 @@
     <string name="more">Mehr…</string>
     <string name="customer_registration">Registrierung</string>
     <string name="register_now">Jetzt registrieren…</string>
-    <string name="password">Kennwort</string>
-    <string name="password_incorrect">Kennwort nicht korrekt</string>
+    <string name="password">Passwort</string>
+    <string name="password_incorrect">Passwort nicht korrekt</string>
     <string name="iom_unlock_text">Bitte geben Sie das korrekte Passwort ein, um die App zu entsperren.</string>
     <string name="unlock">Entsperren</string>
     <string name="feature_locked">Funktion noch nicht freigeschaltet</string>
