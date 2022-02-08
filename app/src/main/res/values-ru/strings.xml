@@ -270,8 +270,6 @@
     <string name="show_email_field">Показать поле электронной почты</string>
     <string name="show_phone_fields">Показать поля телефона</string>
     <string name="apiusername">Имя пользователя / электронная почта</string>
-    <string name="use_cloud_service">Использовать облачный сервис</string>
-    <string name="use_own_server">Использовать собственный сервер</string>
     <string name="alphanumeric_multi_line">Буквенно-цифровая (Multi Line)</string>
     <string name="ios_app_available">Доступно приложение для iOS</string>
     <string name="sync_data_with_your_ios_device">Синхронизируйте данные с вашим устройством iOS!</string>

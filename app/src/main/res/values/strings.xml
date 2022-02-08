@@ -276,8 +276,6 @@
     <string name="show_email_field">Show Email Field</string>
     <string name="show_phone_fields">Show Phone Fields</string>
     <string name="apiusername">Username / eMail</string>
-    <string name="use_cloud_service">Use Cloud Service</string>
-    <string name="use_own_server">Use Own Server</string>
     <string name="alphanumeric_multi_line">Alphanumeric (Multi Line)</string>
     <string name="ios_app_available">iOS App Available</string>
     <string name="sync_data_with_your_ios_device">Sync data with your iOS device!</string>

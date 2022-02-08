@@ -282,8 +282,6 @@
     <string name="show_email_field">הצג שדה דוא"ל</string>
     <string name="show_phone_fields">הצג שדות טלפון</string>
     <string name="apiusername">שם משתמש / דואר אלקטרוני</string>
-    <string name="use_cloud_service">השתמש בשירות ענן</string>
-    <string name="use_own_server">השתמש בשרת משלך</string>
     <string name="alphanumeric_multi_line">אלפאנומרי (רב קו)</string>
     <string name="ios_app_available">אפליקציית iOS זמינה</string>
     <string name="sync_data_with_your_ios_device">סנכרן נתונים עם מכשיר ה- iOS שלך!</string>

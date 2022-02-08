@@ -48,29 +48,41 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
                 <RadioGroup
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/radioButtonNoSync"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="showHideSyncOptions"
-                        android:text="@string/disabled" />
+                        android:hyphenationFrequency="normal"
+                        android:text="@string/disabled"
+                        tools:ignore="UnusedAttribute" />
 
                     <RadioButton
                         android:id="@+id/radioButtonCloudSync"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="showHideSyncOptions"
-                        android:text="@string/use_cloud_service" />
+                        android:hyphenationFrequency="normal"
+                        android:text="@string/cloud_service"
+                        tools:ignore="UnusedAttribute" />
 
                     <RadioButton
                         android:id="@+id/radioButtonOwnServerSync"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:onClick="showHideSyncOptions"
-                        android:text="@string/use_own_server" />
+                        android:hyphenationFrequency="normal"
+                        android:text="@string/own_server"
+                        tools:ignore="UnusedAttribute" />
                 </RadioGroup>
 
                 <EditText
