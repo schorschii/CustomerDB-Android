@@ -215,6 +215,12 @@ public class AboutActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBillingClient.endConnection();
+    }
+
     private void unlockPurchase(String sku) {
         SharedPreferences.Editor editor = mSettings.edit();
         switch(sku) {
