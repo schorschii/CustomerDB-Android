@@ -2,6 +2,8 @@ package de.georgsieber.customerdb.tools;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +14,11 @@ public class CommonDialog {
         OK, WARN, FAIL, NONE
     }
     public static void show(final AppCompatActivity context, String title, String text, TYPE icon, final boolean finish) {
+        if(context == null || context.isFinishing()) return;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if(context.isDestroyed()) return;
+        }
+
         AlertDialog ad = new AlertDialog.Builder(context).create();
         ad.setCancelable(!finish);
         if(title != null && !title.equals("")) ad.setTitle(title);
@@ -34,6 +41,8 @@ public class CommonDialog {
                 if(finish) context.finish();
             }
         });
-        ad.show();
+        try {
+            ad.show();
+        } catch(WindowManager.BadTokenException ignored) {}
     }
 }
