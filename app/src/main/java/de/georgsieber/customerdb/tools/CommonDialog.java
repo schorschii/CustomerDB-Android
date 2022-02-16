@@ -41,8 +41,6 @@ public class CommonDialog {
                 if(finish) context.finish();
             }
         });
-        try {
-            ad.show();
-        } catch(WindowManager.BadTokenException ignored) {}
+        ad.show();
     }
 }
