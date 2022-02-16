@@ -83,8 +83,6 @@
     <string name="eula_title">End User License Agreement</string>
     <string name="eula">There is no warranty for this software, to the extent permitted by applicable law. The copyright holders provide the program "as is", without any guarantee, neither expressly nor implicitly, including - but not limited to - the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair or correction. In no event unless required by applicable law or agreed to in writing will any copyright holder, or any other party who modifies and/or conveys the program, be liable to you for damages.\n\nPlease make sure to inform your customers about the digital processing of personal data in accordance with the General Data Protection Regulation (EU GDPR).</string>
     <string name="birthdaytodaynote">(today)</string>
-    <string name="backup_title">Backup Notes</string>
-    <string name="backup_info">"By default, the data is stored only locally on your device. Please back up your database regularly to not lose your data in case of malfunction or loss of your mobile device. This is done by simply copying the database files under /Android/data/de.georgsieber.customerdb/files to your computer or another external storage.\n\nThe backup is even easier if you use the sync feature. The data will then be synchronized with an (own) MySQL server. For more information about this backup option, please visit the settings."</string>
     <string name="fix">Fix</string>
     <string name="export_single_csvonly">Save CSV file</string>
     <string name="export_single_title">Export single customer record</string>
@@ -397,9 +395,17 @@
     <string name="import_from_qr_code">Import from QR code</string>
     <string name="digital_amp_analog_clock_screensaver"><![CDATA[Digital & Analog Clock for Android]]></string>
     <string name="scan">Scan</string>
-    <string name="view_apache_license">Apache License</string>
+    <string name="view_apache_license_button">Apache License »</string>
     <string name="birthday_preview">Birthday Preview</string>
     <string name="days">Days</string>
     <string name="set_password">Set Password…</string>
     <string name="please_set_password_first">Please set a password in the settings first.</string>
+    <string name="backup_info_button">Backup »</string>
+    <string name="backup_info">"By default, the data is stored only locally on your device. Please back up your database regularly to not lose your data in case of malfunction or loss of your mobile device. This is done by simply copying the database files under /Android/data/de.georgsieber.customerdb/files to your computer or another external storage.\n\nThe backup is even easier if you use the sync feature. The data will then be synchronized with an (own) MySQL server. For more information about this backup option, please visit the settings."</string>
+    <string name="more_information">More Information</string>
+    <string name="backup">Backup</string>
+    <string name="input_only_mode_info_button">Input Only Mode »</string>
+    <string name="carddav_api_info_button">CardDAV API »</string>
+    <string name="carddav_api">CardDAV API</string>
+    <string name="carddav_api_info">The customer database cloud and self-hosted server offers a read-only CardDAV API for syncing your customers into AVM FRITZ!Box, Thunderbird (with CardBook addon), Evolution or macOS/iOS contacts app (the customers can only be read into these programs, but not edited!).\n\nCardDAV Server:\nhttps://customerdb.sieber.systems/carddav.php\n\nUsername:\n&lt;your customer database account email address&gt;\n\nPassword:\n&lt;your customer database account password&gt;</string>
 </resources>

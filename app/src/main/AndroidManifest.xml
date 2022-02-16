@@ -95,7 +95,7 @@
                 android:value="de.georgsieber.customerdb.MainActivity" />
         </activity>
         <activity
-            android:name=".ScriptActivity"
+            android:name=".TextViewActivity"
             android:label="@string/app_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

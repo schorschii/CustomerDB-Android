@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.georgsieber.customerdb.ScriptActivity">
+    tools:context="de.georgsieber.customerdb.TextViewActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -25,19 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ScriptActivity">
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onSendViaEmailButtonClick"
-            android:text="@string/send_via_email" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onCopyToClipboardButtonClick"
-            android:text="@string/copy_to_clipboard" />
+        tools:context=".TextViewActivity">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -47,7 +35,9 @@
                 android:id="@+id/textViewScript"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp" />
+                android:layout_margin="16dp"
+                android:textIsSelectable="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         </ScrollView>
     </LinearLayout>
 

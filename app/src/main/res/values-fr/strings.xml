@@ -76,8 +76,6 @@
     <string name="eula_title">Contrat de licence de l\'utilisateur final</string>
     <string name="eula">Il n\'y a aucune garantie pour ce logiciel, dans la mesure permise par la loi applicable. Les titulaires des droits d\'auteur fournissent le programme &#171;tel quel&#187;, sans aucune garantie, ni express&#233;ment ni implicitement, y compris - mais sans s\'y limiter - les garanties implicites de qualit&#233; marchande et d\'ad&#233;quation &#224; un usage particulier. Le risque entier quant &#224; la qualit&#233; et la performance du programme est avec vous. Si le programme s\'av&#233;rait d&#233;fectueux, vous assumez le co&#251;t de tous les services, r&#233;parations ou corrections n&#233;cessaires. En aucun cas, sauf si requis par la loi applicable ou accept&#233; par &#233;crit, tout d&#233;tenteur de droits d\'auteur ou toute autre partie qui modifie et / ou transmet le programme sera responsable envers vous des dommages et int&#233;r&#234;ts. \n \nVeuillez vous assurer d\'informer vos clients des traitement num&#233;rique des donn&#233;es personnelles conform&#233;ment au r&#232;glement g&#233;n&#233;ral sur la protection des donn&#233;es (RGPD UE).</string>
     <string name="birthdaytodaynote">(aujourd\'hui)</string>
-    <string name="backup_title">Notes de sauvegarde</string>
-    <string name="backup_info">Par défaut, les données sont stockées uniquement localement sur votre appareil. Merci de sauvegarder régulièrement votre base de données pour ne pas perdre vos données en cas de dysfonctionnement ou de perte de votre appareil mobile. Cela se fait simplement en copiant les fichiers de base de données sous /Android/data/de.georgsieber.customerdb/files sur votre ordinateur ou un autre stockage externe.\n\nLa sauvegarde est encore plus facile si vous utilisez la fonction de synchronisation. Les donn&#233;es seront ensuite synchronis&#233;es avec un (propre) serveur MySQL. Pour plus d\'informations sur cette option de sauvegarde, consultez les param&#232;tres.</string>
     <string name="fix">R&#233;parer</string>
     <string name="export_single_csvonly">Enregistrer le fichier CSV</string>
     <string name="export_single_title">Exporter un enregistrement client unique</string>
@@ -390,9 +388,17 @@
     <string name="import_from_qr_code">Importer à partir du code QR</string>
     <string name="digital_amp_analog_clock_screensaver">Horloge numérique et analogique pour Android</string>
     <string name="scan">Scanner</string>
-    <string name="view_apache_license">Apache License</string>
+    <string name="view_apache_license_button">Apache License »</string>
     <string name="birthday_preview">Aperçu de l\'anniversaire</string>
     <string name="days">Jours</string>
     <string name="set_password">Définir le mot de passe…</string>
     <string name="please_set_password_first">Veuillez d\'abord définir un mot de passe dans les paramètres.</string>
+    <string name="backup_info_button">Sauvegarde »</string>
+    <string name="backup_info">Par défaut, les données sont stockées uniquement localement sur votre appareil. Merci de sauvegarder régulièrement votre base de données pour ne pas perdre vos données en cas de dysfonctionnement ou de perte de votre appareil mobile. Cela se fait simplement en copiant les fichiers de base de données sous /Android/data/de.georgsieber.customerdb/files sur votre ordinateur ou un autre stockage externe.\n\nLa sauvegarde est encore plus facile si vous utilisez la fonction de synchronisation. Les donn&#233;es seront ensuite synchronis&#233;es avec un (propre) serveur MySQL. Pour plus d\'informations sur cette option de sauvegarde, consultez les param&#232;tres.</string>
+    <string name="more_information">Plus d\'information</string>
+    <string name="backup">Sauvegarde</string>
+    <string name="input_only_mode_info_button">Mode d\'entrée uniquement »</string>
+    <string name="carddav_api_info_button">CardDAV API »</string>
+    <string name="carddav_api">CardDAV API</string>
+    <string name="carddav_api_info">"Le cloud de base de données client et le serveur auto-hébergé offrent une API CardDAV en lecture seule pour synchroniser vos clients dans AVM FRITZ!Box, Thunderbird (avec l'addon CardBook), Evolution ou l'application de contacts macOS/iOS (les clients ne peuvent être lus que dans ces programmes , mais pas édité !).\n\nServeurs CardDAV :\nhttps://customerdb.sieber.systems/carddav.php\n\nNom d'utilisateur:\n&lt;l'adresse e-mail de votre compte de base de données clients&gt;\n\nMot de passe:\n&lt;le mot de passe de votre compte de base de données client&gt;"</string>
 </resources>

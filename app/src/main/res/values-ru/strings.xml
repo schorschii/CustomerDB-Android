@@ -65,8 +65,6 @@
         <item quantity="other">No birthdays in the next %d days.</item>
     </plurals>
     <string name="birthdaytodaynote">(сегодня)</string>
-    <string name="backup_title">Примечания по резервному копированию</string>
-    <string name="backup_info">По умолчанию данные хранятся только локально на вашем устройстве. Регулярно выполняйте резервное копирование базы данных, чтобы не потерять данные в случае неисправности или потери мобильного устройства. Это делается путем простого копирования файлов базы данных в /Android/data/de.georgsieber.customerdb/files на свой компьютер или другое внешнее хранилище.\n\nРезервное копирование еще проще, если вы используете функцию синхронизации. Данные автоматически синхронизируются с (собственным) сервером MySQL. Для получения дополнительной информации об этом параметре резервного копирования см. Параметры.</string>
     <string name="fix">Устранить</string>
     <string name="export_single_csvonly">Сохранить файл CSV</string>
     <string name="export_single_title">Экспорт данных одного клиента</string>
@@ -391,9 +389,17 @@
     <string name="import_from_qr_code">Импорт из QR-кода</string>
     <string name="digital_amp_analog_clock_screensaver">Цифровые и аналоговые часы для Android</string>
     <string name="scan">Сканер</string>
-    <string name="view_apache_license">Apache License</string>
+    <string name="view_apache_license_button">Apache License »</string>
     <string name="birthday_preview">Предварительный просмотр дня рождения</string>
     <string name="days">Дни</string>
     <string name="set_password">Установка пароля…</string>
     <string name="please_set_password_first">Сначала установите пароль в настройках.</string>
+    <string name="backup_info_button">Резервный »</string>
+    <string name="backup_info">По умолчанию данные хранятся только локально на вашем устройстве. Регулярно выполняйте резервное копирование базы данных, чтобы не потерять данные в случае неисправности или потери мобильного устройства. Это делается путем простого копирования файлов базы данных в /Android/data/de.georgsieber.customerdb/files на свой компьютер или другое внешнее хранилище.\n\nРезервное копирование еще проще, если вы используете функцию синхронизации. Данные автоматически синхронизируются с (собственным) сервером MySQL. Для получения дополнительной информации об этом параметре резервного копирования см. Параметры.</string>
+    <string name="more_information">Дополнительная информация</string>
+    <string name="backup">Резервный</string>
+    <string name="input_only_mode_info_button">Режим только ввода »</string>
+    <string name="carddav_api_info_button">CardDAV API »</string>
+    <string name="carddav_api">CardDAV API</string>
+    <string name="carddav_api_info">Облако базы данных клиентов и собственный сервер предлагают CardDAV API только для чтения для синхронизации ваших клиентов с AVM FRITZ!Box, Thunderbird (с надстройкой CardBook), Evolution или приложением контактов macOS/iOS (клиенты могут быть прочитаны только в этих программах). , но не редактируется!).\n\nСерверы CardDAV:\nhttps://customerdb.sieber.systems/carddav.php\n\nИмя пользователя:\n&lt;адрес электронной почты вашей базы данных клиентов&gt;\n\nПароль:\n&lt;пароль вашей учетной записи базы данных клиентов&gt;</string>
 </resources>

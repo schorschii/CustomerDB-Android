@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -19,13 +20,13 @@ import android.widget.TextView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import de.georgsieber.customerdb.tools.ColorControl;
 
-public class ScriptActivity extends AppCompatActivity {
+public class TextViewActivity extends AppCompatActivity {
 
-    String scriptContent = "";
+    String mTitle = "";
+    String mContent = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class ScriptActivity extends AppCompatActivity {
 
         // init activity view
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_script);
+        setContentView(R.layout.activity_text_view);
 
         // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -45,16 +46,19 @@ public class ScriptActivity extends AppCompatActivity {
         ColorControl.updateActionBarColor(this, settings);
 
         // load text
-        String content = getIntent().getStringExtra("content");
-        try {
-            InputStream in_s = getResources().openRawResource(R.raw.apache_license);
-            byte[] b = new byte[in_s.available()];
-            in_s.read(b);
-            scriptContent = new String(b);
-            ((TextView) findViewById(R.id.textViewScript)).setText(scriptContent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mTitle = getIntent().getStringExtra("title");
+        if(mTitle != null)
+            this.setTitle(mTitle);
+
+        mContent = getIntent().getStringExtra("content");
+        if(mContent != null)
+            ((TextView) findViewById(R.id.textViewScript)).setText(mContent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_text_view, menu);
+        return true;
     }
 
     @Override
@@ -63,9 +67,16 @@ public class ScriptActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            case R.id.action_send_via_email:
+                if(mContent == null) break;
+                sendViaEmail(mContent);
+                break;
+            case R.id.action_copy_to_clipboard:
+                if(mContent == null) break;
+                toClipboard(mContent);
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private File getStorageScript() {
@@ -80,13 +91,13 @@ public class ScriptActivity extends AppCompatActivity {
         sendBroadcast(scanFileIntent);
     }
 
-    public void onSendViaEmailButtonClick(View v) {
+    public void sendViaEmail(String text) {
         File f = getStorageScript();
         try {
             FileOutputStream stream = new FileOutputStream(f);
-            stream.write(scriptContent.getBytes());
+            stream.write(text.getBytes());
             stream.close();
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
         scanFile(f);
@@ -103,10 +114,6 @@ public class ScriptActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_TEXT, "");
         intent.putExtra(Intent.EXTRA_STREAM, attachmentUri);
         startActivity(Intent.createChooser(intent, getResources().getString(R.string.email)));
-    }
-
-    public void onCopyToClipboardButtonClick(View v) {
-        toClipboard(this.scriptContent);
     }
 
     private void toClipboard(String text) {

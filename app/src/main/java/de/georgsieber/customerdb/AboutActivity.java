@@ -38,6 +38,7 @@ import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -473,8 +474,34 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void onClickApacheLicenseLink(View v) {
-        Intent licenseViewIntent = new Intent(this, ScriptActivity.class);
-        licenseViewIntent.putExtra("content", "apache_license");
+        try {
+            InputStream in_s = getResources().openRawResource(R.raw.apache_license);
+            byte[] b = new byte[in_s.available()];
+            in_s.read(b);
+
+            Intent licenseViewIntent = new Intent(this, TextViewActivity.class);
+            licenseViewIntent.putExtra("content", new String(b));
+            startActivity(licenseViewIntent);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void onClickMoreInfoBackup(View v) {
+        Intent licenseViewIntent = new Intent(this, TextViewActivity.class);
+        licenseViewIntent.putExtra("title", getString(R.string.backup));
+        licenseViewIntent.putExtra("content", getString(R.string.backup_info));
+        startActivity(licenseViewIntent);
+    }
+    public void onClickMoreInfoInputOnlyMode(View v) {
+        Intent licenseViewIntent = new Intent(this, TextViewActivity.class);
+        licenseViewIntent.putExtra("title", getString(R.string.input_only_mode));
+        licenseViewIntent.putExtra("content", getString(R.string.input_only_mode_instructions));
+        startActivity(licenseViewIntent);
+    }
+    public void onClickMoreInfoCardDavApi(View v) {
+        Intent licenseViewIntent = new Intent(this, TextViewActivity.class);
+        licenseViewIntent.putExtra("title", getString(R.string.carddav_api));
+        licenseViewIntent.putExtra("content", getString(R.string.carddav_api_info));
         startActivity(licenseViewIntent);
     }
 

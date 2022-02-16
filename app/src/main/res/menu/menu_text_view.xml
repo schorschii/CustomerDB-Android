@@ -1,0 +1,17 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="de.georgsieber.customerdb.TextViewActivity">
+    <item
+        android:id="@+id/action_send_via_email"
+        android:icon="@drawable/ic_attach_email_white_24dp"
+        android:title="@string/send_via_email"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_copy_to_clipboard"
+        android:icon="@drawable/ic_copy_white_24dp"
+        android:title="@string/copy_to_clipboard"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+</menu>

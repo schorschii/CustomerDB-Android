@@ -64,8 +64,6 @@
         <item quantity="other">Keine Geburtstage in den nächsten %d Tagen.</item>
     </plurals>
     <string name="birthdaytodaynote">(heute)</string>
-    <string name="backup_title">Hinweise zum Backup</string>
-    <string name="backup_info">"Standardmäßig werden die Daten nur lokal auf Ihrem Gerät gespeichert. Bitte sichern Sie Ihre Datenbank regelmäßig, um die Daten im Falle eines Defekts oder Verlusts Ihres mobilen Endgerätes nicht zu verlieren. Dazu kopieren Sie einfach die Datenbankdateien unter /Android/data/de.georgsieber.customerdb/files auf Ihren Computer oder ein anderes externes Speichermedium.\n\nNoch einfacher geht das Backup, wenn Sie die Synchronisierungsfunktion verwenden. Hierbei werden die Daten auf Knopfdruck mit einem MySQL-Server abgeglichen. Weitere Informationen hierzu finden Sie in den Einstellungen."</string>
     <string name="fix">Beheben</string>
     <string name="export_single_csvonly">CSV-Datei speichern</string>
     <string name="export_single_title">Einzelnen Kundendatensatz exportieren</string>
@@ -390,9 +388,17 @@
     <string name="import_from_qr_code">Aus QR-Code importieren</string>
     <string name="digital_amp_analog_clock_screensaver"><![CDATA[Digital- & Analog-Uhr für Android]]></string>
     <string name="scan">Scannen</string>
-    <string name="view_apache_license">Apache License</string>
+    <string name="view_apache_license_button">Apache License »</string>
     <string name="birthday_preview">Geburtstagsvorschau</string>
     <string name="days">Tage</string>
     <string name="set_password">Passwort ändern…</string>
     <string name="please_set_password_first">Bitte legen Sie zuerst ein Passwort in den Einstellungen fest.</string>
+    <string name="backup_info_button">Backup »</string>
+    <string name="backup_info">"Standardmäßig werden die Daten nur lokal auf Ihrem Gerät gespeichert. Bitte sichern Sie Ihre Datenbank regelmäßig, um die Daten im Falle eines Defekts oder Verlusts Ihres mobilen Endgerätes nicht zu verlieren. Dazu kopieren Sie einfach die Datenbankdateien unter /Android/data/de.georgsieber.customerdb/files auf Ihren Computer oder ein anderes externes Speichermedium.\n\nNoch einfacher geht das Backup, wenn Sie die Synchronisierungsfunktion verwenden. Hierbei werden die Daten auf Knopfdruck mit einem MySQL-Server abgeglichen. Weitere Informationen hierzu finden Sie in den Einstellungen."</string>
+    <string name="more_information">Weitere Informationen</string>
+    <string name="backup">Backup</string>
+    <string name="input_only_mode_info_button">Nur-Eingabe-Modus »</string>
+    <string name="carddav_api_info_button">CardDAV-API »</string>
+    <string name="carddav_api">CardDAV-API</string>
+    <string name="carddav_api_info">Die Kundendatenbank-Cloud sowie die selbst-gehostete Server bieten eine nur-lesende CardDAV-API zur Synchronisierung Ihrer Kunden in eine AVM FRITZ!Box, Thunderbird (mit CardBook-Addon), Evolution oder in die macOS/iOS Kontakte-App (die Kunden können über diese Programme nur gelesen, jedoch nicht bearbeitet werden!).\n\nCardDAV-Server:\nhttps://customerdb.sieber.systems/carddav.php\n\nBenutzername:\n&lt;Ihre Kundendatenbank-Account E-Mailadresse&gt;\n\nPasswort:\n&lt;Ihr Kundendatenbank-Account Passwort&gt;</string>
 </resources>
