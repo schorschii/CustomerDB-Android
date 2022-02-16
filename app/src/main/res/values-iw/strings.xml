@@ -414,4 +414,5 @@
     <string name="carddav_api_info_button">CardDAV API »</string>
     <string name="carddav_api">CardDAV API</string>
     <string name="carddav_api_info">ענן מסד הנתונים של הלקוחות והשרת המתארח בעצמו מציעים API לקריאה בלבד של CardDAV לסנכרון הלקוחות שלך לתוך AVM FRITZ!Box, Thunderbird (עם תוסף CardBook), Evolution או אפליקציית אנשי הקשר של macOS/iOS (ניתן לקרוא את הלקוחות לתוכניות אלה בלבד , אך לא ערוך!).\n\nשרתי CardDAV:\nhttps://customerdb.sieber.systems/carddav.php\n\nשם משתמש:\n&lt;כתובת הדוא"ל של חשבון מסד הנתונים של הלקוחות שלך&gt;\n\nסיסמה:\n&lt;סיסמת חשבון מסד הנתונים של הלקוחות שלך&gt;</string>
+    <string name="eula_info_button">הסכם רישיון משתמש קצה »</string>
 </resources>

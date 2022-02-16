@@ -749,6 +749,13 @@
                     android:onClick="onClickMoreInfoCardDavApi"
                     android:text="@string/carddav_api_info_button"
                     android:textAllCaps="false" />
+                <Button
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onClickMoreInfoEula"
+                    android:text="@string/eula_info_button"
+                    android:textAllCaps="false" />
 
                 <Space
                     android:layout_width="wrap_content"

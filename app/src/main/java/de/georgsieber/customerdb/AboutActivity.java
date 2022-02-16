@@ -504,6 +504,12 @@ public class AboutActivity extends AppCompatActivity {
         licenseViewIntent.putExtra("content", getString(R.string.carddav_api_info));
         startActivity(licenseViewIntent);
     }
+    public void onClickMoreInfoEula(View v) {
+        Intent licenseViewIntent = new Intent(this, TextViewActivity.class);
+        licenseViewIntent.putExtra("title", getString(R.string.eula_title));
+        licenseViewIntent.putExtra("content", getString(R.string.eula));
+        startActivity(licenseViewIntent);
+    }
 
     public void onClickEmailLink(View v) {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
