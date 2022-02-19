@@ -398,7 +398,7 @@
     <string name="more_information">Weitere Informationen</string>
     <string name="backup">Backup</string>
     <string name="input_only_mode_info_button">Nur-Eingabe-Modus »</string>
-    <string name="carddav_api_info_button">CardDAV-API »</string>
+    <string name="carddav_api_info_button">CardDAV-API (nur lesender Zugriff) »</string>
     <string name="carddav_api">CardDAV-API</string>
     <string name="carddav_api_info">Die Kundendatenbank-Cloud sowie die selbst-gehostete Server bieten eine nur-lesende CardDAV-API zur Synchronisierung Ihrer Kunden in eine AVM FRITZ!Box, Thunderbird (mit CardBook-Addon), Evolution oder in die macOS/iOS Kontakte-App (die Kunden können über diese Programme nur gelesen, jedoch nicht bearbeitet werden!).\n\nCardDAV-Server:\nhttps://customerdb.sieber.systems/carddav.php\n\nBenutzername:\n&lt;Ihre Kundendatenbank-Account E-Mailadresse&gt;\n\nPasswort:\n&lt;Ihr Kundendatenbank-Account Passwort&gt;</string>
     <string name="eula_info_button">Endbenutzer-Lizenzvereinbarung »</string>

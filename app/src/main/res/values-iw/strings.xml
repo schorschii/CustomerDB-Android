@@ -401,7 +401,7 @@
     <string name="import_from_qr_code">ייבא מקוד QR</string>
     <string name="digital_amp_analog_clock_screensaver">שעון דיגיטלי ואנלוגי לאנדרואיד</string>
     <string name="scan">סוֹרֵק</string>
-    <string name="view_apache_license_button">Apache License »</string>
+    <string name="view_apache_license_button">« Apache License</string>
     <string name="birthday_preview">תצוגה מקדימה של יום הולדת</string>
     <string name="days">ימים</string>
     <string name="set_password">הגדר סיסמא…</string>
@@ -411,7 +411,7 @@
     <string name="more_information">עוד מידע</string>
     <string name="backup">גיבוי</string>
     <string name="input_only_mode_info_button">מצב קלט בלבד »</string>
-    <string name="carddav_api_info_button">CardDAV API »</string>
+    <string name="carddav_api_info_button">ממשק API של CardDAV לקריאה בלבד »</string>
     <string name="carddav_api">CardDAV API</string>
     <string name="carddav_api_info">ענן מסד הנתונים של הלקוחות והשרת המתארח בעצמו מציעים API לקריאה בלבד של CardDAV לסנכרון הלקוחות שלך לתוך AVM FRITZ!Box, Thunderbird (עם תוסף CardBook), Evolution או אפליקציית אנשי הקשר של macOS/iOS (ניתן לקרוא את הלקוחות לתוכניות אלה בלבד , אך לא ערוך!).\n\nשרתי CardDAV:\nhttps://customerdb.sieber.systems/carddav.php\n\nשם משתמש:\n&lt;כתובת הדוא"ל של חשבון מסד הנתונים של הלקוחות שלך&gt;\n\nסיסמה:\n&lt;סיסמת חשבון מסד הנתונים של הלקוחות שלך&gt;</string>
     <string name="eula_info_button">הסכם רישיון משתמש קצה »</string>
