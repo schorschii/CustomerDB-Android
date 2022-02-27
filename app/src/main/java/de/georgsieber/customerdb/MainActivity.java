@@ -62,6 +62,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -317,11 +318,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     private void refreshCustomersFromLocalDatabase(String search) {
         if(mCurrentGroup == null && mCurrentCity == null && mCurrentCountry == null) {
-            mCustomers = mDb.getCustomers(search, false, false);
+            mCustomers = mDb.getCustomers(search, false, false, null);
             resetActionBarTitle();
         } else {
             List<Customer> newCustomerList = new ArrayList<>();
-            for(Customer c : mDb.getCustomers(search, false, false)) {
+            for(Customer c : mDb.getCustomers(search, false, false, null)) {
                 if((mCurrentGroup == null || c.mCustomerGroup.equals(mCurrentGroup)) &&
                         (mCurrentCity == null || c.mCity.equals(mCurrentCity)) &&
                         (mCurrentCountry == null || c.mCountry.equals(mCurrentCountry))
@@ -351,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         refreshVouchersFromLocalDatabase(null);
     }
     private void refreshVouchersFromLocalDatabase(String search) {
-        mVouchers = mDb.getVouchers(search, false);
+        mVouchers = mDb.getVouchers(search, false, null);
         resetActionBarTitle();
 
         mCurrentVoucherAdapter = new VoucherAdapter(this, mVouchers, mCurrency, mVoucherCheckedChangedListener);
@@ -636,18 +637,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(mRemoteDatabaseConnType == 1 || mRemoteDatabaseConnType == 2) {
             if(isNetworkConnected()) {
                 dialogSyncProgress();
-                List<Customer> allCustomers = mDb.getCustomers(null, true, true);
-                List<Voucher> allVouchers = mDb.getVouchers(null,true);
-                List<CustomerCalendar> allCalendars = mDb.getCalendars(true);
-                List<CustomerAppointment> allAppointments = mDb.getAppointments(null,null, true);
-
+                CustomerDatabaseApi cda = null;
                 if(mRemoteDatabaseConnType == 1) {
-                    new CustomerDatabaseApi(this, mSettings.getString("sync-purchase-token", ""), mRemoteDatabaseConnUsername, mRemoteDatabaseConnPassword, allCustomers, allVouchers, allCalendars, allAppointments).execute();
+                    cda = new CustomerDatabaseApi(this,
+                            mSettings.getString("sync-purchase-token", ""),
+                            mRemoteDatabaseConnUsername, mRemoteDatabaseConnPassword,
+                            mDb
+                    );
                 }
                 else if(mRemoteDatabaseConnType == 2) {
-                    new CustomerDatabaseApi(this, mSettings.getString("sync-purchase-token", ""), mRemoteDatabaseConnURL, mRemoteDatabaseConnUsername, mRemoteDatabaseConnPassword, allCustomers, allVouchers, allCalendars, allAppointments).execute();
+                    cda = new CustomerDatabaseApi(this,
+                            mSettings.getString("sync-purchase-token", ""),
+                            mRemoteDatabaseConnURL, mRemoteDatabaseConnUsername, mRemoteDatabaseConnPassword,
+                            mDb
+                    );
                 }
-
+                cda.setReadyListener(new CustomerDatabaseApi.readyListener() {
+                    @Override
+                    public void ready(final Exception e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(e == null) {
+                                    mSettings.edit().putLong("last-successful-sync", new Date().getTime()).apply();
+                                    MainActivity.setChangesSynced(me);
+                                    refreshCustomersFromLocalDatabase();
+                                    refreshVouchersFromLocalDatabase();
+                                    refreshAppointmentsFromLocalDatabase();
+                                    dialogSyncSuccess();
+                                } else {
+                                    dialogSyncFail(e.getMessage());
+                                }
+                                refreshSyncIcon();
+                            }
+                        });
+                    }
+                });
+                cda.sync(new Date(mSettings.getLong("last-successful-sync", 0)));
             } else {
                 CommonDialog.show(this,
                         getResources().getString(R.string.no_network_conn_title),
@@ -756,13 +782,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
     private void sort(String fieldTitle, boolean ascending) {
-        mCustomers = mDb.getCustomers(null, false, false);
+        mCustomers = mDb.getCustomers(null, false, false, null);
         Collections.sort(mCustomers, new CustomerComparator(fieldTitle, ascending));
         mCurrentCustomerAdapter = new CustomerAdapter(this, mCustomers, mCustomerCheckedChangedListener);
         mListViewCustomers.setAdapter(mCurrentCustomerAdapter);
     }
     private void sort(CustomerComparator.FIELD field, boolean ascending) {
-        mCustomers = mDb.getCustomers(null, false, false);
+        mCustomers = mDb.getCustomers(null, false, false, null);
         Collections.sort(mCustomers, new CustomerComparator(field, ascending));
         mCurrentCustomerAdapter = new CustomerAdapter(this, mCustomers, mCustomerCheckedChangedListener);
         mListViewCustomers.setAdapter(mCurrentCustomerAdapter);
@@ -1072,8 +1098,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressLint("SetTextI18n")
     private void refreshCount() {
         if(mNavigationView != null) {
-            int customersCount = mDb.getCustomers(null, false, false).size();
-            int vouchersCount = mDb.getVouchers(null,false).size();
+            int customersCount = mDb.getCustomers(null, false, false, null).size();
+            int vouchersCount = mDb.getVouchers(null,false, null).size();
             String customerAmountString = getResources().getQuantityString(R.plurals.customersamount, customersCount, customersCount);
             String voucherAmountString = getResources().getQuantityString(R.plurals.vouchersamount, vouchersCount, vouchersCount);
             View headerView = mNavigationView.getHeaderView(0);
@@ -1239,7 +1265,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                     content = new CustomerVcfBuilder(exportCustomers);
                 } else {
-                    content = new CustomerVcfBuilder(mDb.getCustomers(null, false, true));
+                    content = new CustomerVcfBuilder(mDb.getCustomers(null, false, true, null));
                 }
                 File f = StorageControl.getStorageExportVcf(me);
                 if(content.saveVcfFile(f)) {
@@ -1422,7 +1448,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     CommonDialog.show(me, getString(R.string.error), getString(R.string.no_calendar_selected), CommonDialog.TYPE.WARN, false);
                     return;
                 }
-                CalendarIcsBuilder content = new CalendarIcsBuilder(mDb.getAppointments(calendar.mId, null, false));
+                CalendarIcsBuilder content = new CalendarIcsBuilder(mDb.getAppointments(calendar.mId, null, false, null));
                 File f = StorageControl.getStorageExportIcs(me);
                 if(content.saveIcsFile(f)) {
                     if(sendEmail) {
@@ -1446,7 +1472,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     CommonDialog.show(me, getString(R.string.error), getString(R.string.no_calendar_selected), CommonDialog.TYPE.WARN, false);
                     return;
                 }
-                CalendarCsvBuilder content = new CalendarCsvBuilder(mDb.getAppointments(calendar.mId, null, false));
+                CalendarCsvBuilder content = new CalendarCsvBuilder(mDb.getAppointments(calendar.mId, null, false, null));
                 File f = StorageControl.getStorageExportCsv(me);
                 if(content.saveCsvFile(f, mDb)) {
                     if(sendEmail) {
@@ -1701,7 +1727,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             groups.add(getResources().getString(R.string.all));
             groups.add(getResources().getString(R.string.empty));
         }
-        for(Customer c : mDb.getCustomers(null, false, false)) {
+        for(Customer c : mDb.getCustomers(null, false, false, null)) {
             if(!groups.contains(c.mCustomerGroup) && !c.mCustomerGroup.equals(""))
                 groups.add(c.mCustomerGroup);
         }
@@ -1715,7 +1741,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             groups.add(getResources().getString(R.string.all));
             groups.add(getResources().getString(R.string.empty));
         }
-        for(Customer c : mDb.getCustomers(null, false, false)) {
+        for(Customer c : mDb.getCustomers(null, false, false, null)) {
             if(!groups.contains(c.mCity) && !c.mCity.equals(""))
                 groups.add(c.mCity);
         }
@@ -1729,7 +1755,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             groups.add(getResources().getString(R.string.all));
             groups.add(getResources().getString(R.string.empty));
         }
-        for(Customer c : mDb.getCustomers(null, false, false)) {
+        for(Customer c : mDb.getCustomers(null, false, false, null)) {
             if(!groups.contains(c.mCountry) && !c.mCountry.equals(""))
                 groups.add(c.mCountry);
         }

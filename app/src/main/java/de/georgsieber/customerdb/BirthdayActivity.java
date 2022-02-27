@@ -56,7 +56,7 @@ public class BirthdayActivity extends AppCompatActivity {
         // show birthdays from intent extra
         try {
             int previewDays = BirthdayActivity.getBirthdayPreviewDays(settings);
-            ArrayList<Customer> birthdays = getSoonBirthdayCustomers(mDb.getCustomers(null, false, false), previewDays);
+            ArrayList<Customer> birthdays = getSoonBirthdayCustomers(mDb.getCustomers(null, false, false, null), previewDays);
             bindToListView(birthdays);
         } catch(Exception e) {
             e.printStackTrace();

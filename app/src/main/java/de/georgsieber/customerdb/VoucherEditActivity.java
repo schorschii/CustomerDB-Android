@@ -142,7 +142,7 @@ public class VoucherEditActivity extends AppCompatActivity {
 
     private boolean existsVoucherNo(String voucherNo) {
         CustomerDatabase db = new CustomerDatabase(this);
-        for(Voucher v : db.getVouchers(null, true)) {
+        for(Voucher v : db.getVouchers(null, true, null)) {
             if(v.mVoucherNo.equals(voucherNo)) {
                 return true;
             }
@@ -303,7 +303,7 @@ public class VoucherEditActivity extends AppCompatActivity {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
 
-        final List<Customer> customers = mDb.getCustomers(null, false, false);
+        final List<Customer> customers = mDb.getCustomers(null, false, false, null);
         final Button buttonOK = ad.findViewById(R.id.buttonOK);
         final ListView listView = ad.findViewById(R.id.listViewDialogList);
         listView.setAdapter(new CustomerAdapter(me, customers, null));

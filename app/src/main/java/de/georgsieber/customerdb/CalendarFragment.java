@@ -78,7 +78,7 @@ public class CalendarFragment extends Fragment {
 
         // add new entries
         for(CustomerCalendar c : mShowCalendars) {
-            for(CustomerAppointment a : mDb.getAppointments(c.mId, mShowDate, false)) {
+            for(CustomerAppointment a : mDb.getAppointments(c.mId, mShowDate, false, null)) {
                 a.mColor = c.mColor;
                 mAppointments.add(a);
             }

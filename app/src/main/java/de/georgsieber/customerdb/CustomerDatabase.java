@@ -404,7 +404,7 @@ public class CustomerDatabase {
         }
         return null;
     }
-    List<CustomerAppointment> getAppointments(Long calendarId, Date day, boolean showRemoved) {
+    List<CustomerAppointment> getAppointments(Long calendarId, Date day, boolean showRemoved, Date modifiedSince) {
         Cursor cursor;
         if(calendarId != null && day != null && !showRemoved) {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -435,21 +435,21 @@ public class CustomerDatabase {
                     try {
                         if(cursor.getString(4) != null && (!cursor.getString(4).equals("")))
                             startTime = parseDateRaw(cursor.getString(4));
-                    } catch (ParseException e) {
+                    } catch(ParseException e) {
                         Log.e("CAL", e.getLocalizedMessage());
                     }
                     Date endTime = null;
                     try {
                         if(cursor.getString(5) != null && (!cursor.getString(5).equals("")))
                             endTime = parseDateRaw(cursor.getString(5));
-                    } catch (ParseException e) {
+                    } catch(ParseException e) {
                         Log.e("CAL", e.getLocalizedMessage());
                     }
                     Date lastModified = new Date();
                     try {
                         if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
                             lastModified = parseDate(cursor.getString(10));
-                    } catch (ParseException ignored) {}
+                    } catch(ParseException ignored) {}
                     CustomerAppointment a = new CustomerAppointment(
                             cursor.getLong(0),
                             cursor.getLong(1),
@@ -464,10 +464,10 @@ public class CustomerDatabase {
                             lastModified,
                             cursor.getInt(11)
                     );
-                    al.add(a);
-                } while (cursor.moveToNext());
+                    if(modifiedSince == null || lastModified.after(modifiedSince)) al.add(a);
+                } while(cursor.moveToNext());
             }
-        } catch (SQLiteException e) {
+        } catch(SQLiteException e) {
             Log.e("SQLite Error", e.getMessage());
             return null;
         } finally {
@@ -675,7 +675,7 @@ public class CustomerDatabase {
         stmt.execute();
     }
 
-    List<Voucher> getVouchers(String search, boolean showRemoved) {
+    List<Voucher> getVouchers(String search, boolean showRemoved, Date modifiedSince) {
         Cursor cursor;
         String selectQuery = "SELECT id, current_value, original_value, voucher_no, from_customer, from_customer_id, for_customer, for_customer_id, issued, valid_until, redeemed, last_modified, notes, removed FROM voucher ORDER BY issued DESC";
         cursor = db.rawQuery(selectQuery, null);
@@ -688,28 +688,28 @@ public class CustomerDatabase {
                     try {
                         if(cursor.getString(8) != null && (!cursor.getString(8).equals("")))
                             issued = parseDate(cursor.getString(8));
-                    } catch (ParseException e) {
+                    } catch(ParseException e) {
                         e.printStackTrace();
                     }
                     Date validUntil = null;
                     try {
                         if(cursor.getString(9) != null && (!cursor.getString(9).equals("")))
                             validUntil = parseDate(cursor.getString(9));
-                    } catch (ParseException e) {
+                    } catch(ParseException e) {
                         e.printStackTrace();
                     }
                     Date redeemed = null;
                     try {
                         if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
                             redeemed = parseDate(cursor.getString(10));
-                    } catch (ParseException e) {
+                    } catch(ParseException e) {
                         e.printStackTrace();
                     }
                     Date lastModified = new Date();
                     try {
                         if(cursor.getString(11) != null && (!cursor.getString(11).equals("")))
                             lastModified = parseDate(cursor.getString(11));
-                    } catch (ParseException e) {
+                    } catch(ParseException e) {
                         e.printStackTrace();
                     }
                     Voucher v = new Voucher(
@@ -731,15 +731,15 @@ public class CustomerDatabase {
 
                     if(cursor.getInt(13) == 0 || showRemoved) {
                         if(search == null || search.equals("")) {
-                            vouchers.add(v);
+                            if(modifiedSince == null || lastModified.after(modifiedSince)) vouchers.add(v);
                         } else {
                             // filter
-                            if(
-                                    v.mNotes.toUpperCase().contains(search.toUpperCase()) ||
-                                            v.mVoucherNo.toUpperCase().contains(search.toUpperCase()) ||
-                                            v.mFromCustomer.toUpperCase().contains(search.toUpperCase()) ||
-                                            v.mForCustomer.toUpperCase().contains(search.toUpperCase())
-                                    ) vouchers.add(v);
+                            if(v.mNotes.toUpperCase().contains(search.toUpperCase())
+                            || v.mVoucherNo.toUpperCase().contains(search.toUpperCase())
+                            || v.mFromCustomer.toUpperCase().contains(search.toUpperCase())
+                            || v.mForCustomer.toUpperCase().contains(search.toUpperCase())) {
+                                if(modifiedSince == null || lastModified.after(modifiedSince)) vouchers.add(v);
+                            }
                         }
                     }
                 } while(cursor.moveToNext());
@@ -896,7 +896,7 @@ public class CustomerDatabase {
         stmt.execute();
     }
 
-    List<Customer> getCustomers(String search, boolean showRemoved, boolean withFiles) {
+    List<Customer> getCustomers(String search, boolean showRemoved, boolean withFiles, Date modifiedSince) {
         Cursor cursor;
         String selectQuery;
         if(showRemoved) {
@@ -913,14 +913,14 @@ public class CustomerDatabase {
                     try {
                         if(cursor.getString(12) != null && (!cursor.getString(12).equals("")))
                             birthday = storageFormatWithoutTime.parse(cursor.getString(12));
-                    } catch (ParseException e) {
+                    } catch(ParseException e) {
                         e.printStackTrace();
                     }
                     Date lastModified = new Date();
                     try {
                         if(cursor.getString(17) != null && (!cursor.getString(17).equals("")))
                             lastModified = parseDate(cursor.getString(17));
-                    } catch (ParseException e) {
+                    } catch(ParseException e) {
                         e.printStackTrace();
                     }
                     Customer c = new Customer(
@@ -945,7 +945,7 @@ public class CustomerDatabase {
                             cursor.getInt(18)
                     );
                     if(search == null || search.equals("")) {
-                        customers.add(c);
+                        if(modifiedSince == null || lastModified.after(modifiedSince)) customers.add(c);
                     } else {
                         // search in default fields
                         String searchUpperCase = search.toUpperCase();
@@ -962,12 +962,12 @@ public class CustomerDatabase {
                                 c.mCustomerGroup.toUpperCase().contains(searchUpperCase) ||
                                 c.mNotes.toUpperCase().contains(searchUpperCase)
                         ) {
-                            customers.add(c);
+                            if(modifiedSince == null || lastModified.after(modifiedSince)) customers.add(c);
                         } else {
                             // search in custom fields
                             for(CustomField cf : c.getCustomFields()) {
                                 if(cf.mValue.toUpperCase().contains(searchUpperCase)) {
-                                    customers.add(c);
+                                    if(modifiedSince == null || lastModified.after(modifiedSince)) customers.add(c);
                                     break;
                                 }
                             }
@@ -1025,7 +1025,7 @@ public class CustomerDatabase {
     }
 
     public Customer getCustomerByNumber(String number) {
-        List<Customer> allCustomers = getCustomers(null, false, false);
+        List<Customer> allCustomers = getCustomers(null, false, false, null);
         List<Customer> results = new ArrayList<>();
         for(Customer c : allCustomers) {
             if(PhoneNumberUtils.compare(c.mPhoneHome, number)
@@ -1050,7 +1050,7 @@ public class CustomerDatabase {
 
     public Customer getCustomerById(long id, boolean showDeleted, boolean withFiles) {
         // Do not fetch files for all customers! We'll fetch files only for the one ID match!
-        List<Customer> customers = getCustomers(null, showDeleted, false);
+        List<Customer> customers = getCustomers(null, showDeleted, false, null);
         for(Customer c : customers) {
             if(c.mId == id) {
                 if(withFiles) {
@@ -1066,7 +1066,7 @@ public class CustomerDatabase {
         return getVoucherById(id, false);
     }
     Voucher getVoucherById(long id, boolean showDeleted) {
-        List<Voucher> vouchers = getVouchers(null, showDeleted);
+        List<Voucher> vouchers = getVouchers(null, showDeleted, null);
         for(Voucher v : vouchers) {
             if(v.mId == id) {
                 return v;

@@ -529,7 +529,7 @@ public class CustomerEditActivity extends AppCompatActivity {
             return;
         }
 
-        if(mDb.getCustomers(null, false, false).size() >= 500 && !mFc.unlockedLargeCompany) {
+        if(mDb.getCustomers(null, false, false, null).size() >= 500 && !mFc.unlockedLargeCompany) {
             dialogInApp(getResources().getString(R.string.feature_locked), getResources().getString(R.string.feature_locked_large_company_text));
             return;
         }

@@ -1,6 +1,5 @@
 package de.georgsieber.customerdb;
 
-import android.os.AsyncTask;
 import android.util.Base64;
 
 import org.json.JSONArray;
@@ -14,8 +13,8 @@ import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 
 import de.georgsieber.customerdb.model.Customer;
@@ -24,7 +23,7 @@ import de.georgsieber.customerdb.model.CustomerCalendar;
 import de.georgsieber.customerdb.model.CustomerFile;
 import de.georgsieber.customerdb.model.Voucher;
 
-public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
+public class CustomerDatabaseApi {
 
     static String MANAGED_API = "https://customerdb.sieber.systems/api.php";
 
@@ -35,49 +34,52 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
     private String mUsername;
     private String mPassword;
 
-    private List<Customer> mCustomers;
-    private List<Voucher> mVouchers;
-    private List<CustomerCalendar> mCalendars;
-    private List<CustomerAppointment> mAppointments;
+    private CustomerDatabase mDb;
 
-    CustomerDatabaseApi(MainActivity context, String purchaseToken, String username, String password, List<Customer> customers, List<Voucher> vouchers, List<CustomerCalendar> calendars, List<CustomerAppointment> appointments) {
+    CustomerDatabaseApi(MainActivity context, String purchaseToken, String username, String password, CustomerDatabase db) {
         mMainActivityReference = new WeakReference<>(context);
         mPurchaseToken = purchaseToken;
         mApiUrl = MANAGED_API;
         mUsername = username;
         mPassword = password;
-        mCustomers = customers;
-        mVouchers = vouchers;
-        mCalendars = calendars;
-        mAppointments = appointments;
+        mDb = db;
     }
-    CustomerDatabaseApi(MainActivity context, String purchaseToken, String url, String username, String password, List<Customer> customers, List<Voucher> vouchers, List<CustomerCalendar> calendars, List<CustomerAppointment> appointments) {
+    CustomerDatabaseApi(MainActivity context, String purchaseToken, String url, String username, String password, CustomerDatabase db) {
         mMainActivityReference = new WeakReference<>(context);
         mPurchaseToken = purchaseToken;
         mApiUrl = url;
         mUsername = username;
         mPassword = password;
-        mCustomers = customers;
-        mVouchers = vouchers;
-        mCalendars = calendars;
-        mAppointments = appointments;
+        mDb = db;
     }
 
-    @Override
-    protected String doInBackground(Void... params) {
-        try {
-            putCustomers();
-            readCustomers();
-            return "";
-        } catch(Exception e) {
-            return e.getMessage();
-        }
+    private readyListener mReadyListener = null;
+    public interface readyListener {
+        void ready(Exception e);
+    }
+    void setReadyListener(readyListener listener) {
+        this.mReadyListener = listener;
     }
 
-    private void putCustomers() throws Exception {
+    protected void sync(final Date diffSince) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    putCustomers(diffSince);
+                    readCustomers();
+                    if(mReadyListener != null) mReadyListener.ready(null);
+                } catch(Exception e) {
+                    if(mReadyListener != null) mReadyListener.ready(e);
+                }
+            }
+        }).start();
+    }
+
+    private void putCustomers(Date diffSince) throws Exception {
         try {
             JSONArray jarrayCustomers = new JSONArray();
-            for(Customer c : mCustomers) {
+            for(Customer c : mDb.getCustomers(null, true, true, diffSince)) {
                 JSONArray jsonFiles = new JSONArray();
                 for(CustomerFile file : c.getFiles()) {
                     JSONObject jsonFile = new JSONObject();
@@ -113,7 +115,7 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
             }
 
             JSONArray jarrayCalendars = new JSONArray();
-            for(CustomerCalendar c : mCalendars) {
+            for(CustomerCalendar c : mDb.getCalendars(true)) {
                 JSONObject jc = new JSONObject();
                 jc.put("id", c.mId);
                 jc.put("title", c.mTitle);
@@ -125,7 +127,7 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
             }
 
             JSONArray jarrayAppointments = new JSONArray();
-            for(CustomerAppointment a : mAppointments) {
+            for(CustomerAppointment a : mDb.getAppointments(null,null, true, diffSince)) {
                 JSONObject jc = new JSONObject();
                 jc.put("id", a.mId);
                 jc.put("calendar_id", a.mCalendarId);
@@ -143,7 +145,7 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
             }
 
             JSONArray jarrayVouchers = new JSONArray();
-            for(Voucher v : mVouchers) {
+            for(Voucher v : mDb.getVouchers(null,true, diffSince)) {
                 JSONObject jc = new JSONObject();
                 jc.put("id", v.mId);
                 jc.put("original_value", v.mOriginalValue);
@@ -313,7 +315,7 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
                 reader = new BufferedReader(new InputStreamReader((conn).getErrorStream()));
             StringBuilder sb2 = new StringBuilder();
             String line;
-            while ((line = reader.readLine()) != null) {
+            while((line = reader.readLine()) != null) {
                 sb2.append(line).append("\n");
             }
             text = sb2.toString();
@@ -328,30 +330,13 @@ public class CustomerDatabaseApi extends AsyncTask<Void, Void, String> {
 
             if(reader != null) try {
                 reader.close();
-            } catch (IOException e) {
+            } catch(IOException e) {
                 e.printStackTrace();
             }
 
         }
 
         return text;
-    }
-
-    @Override
-    protected void onPostExecute(String result) {
-        // get a reference to the activity if it is still there
-        MainActivity activity = mMainActivityReference.get();
-        if(activity == null) return;
-        activity.refreshCustomersFromLocalDatabase();
-        activity.refreshVouchersFromLocalDatabase();
-        activity.refreshAppointmentsFromLocalDatabase();
-        if(result.trim().equals("")) {
-            activity.dialogSyncSuccess();
-            MainActivity.setChangesSynced(activity);
-        } else {
-            activity.dialogSyncFail(result);
-        }
-        activity.refreshSyncIcon();
     }
 
 }
