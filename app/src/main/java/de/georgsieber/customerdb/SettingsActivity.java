@@ -252,7 +252,7 @@ public class SettingsActivity extends AppCompatActivity {
         mBirthdayPreviewDays = mSettings.getInt("birthday-preview-days", BirthdayActivity.DEFAULT_BIRTHDAY_PREVIEW_DAYS);
         mCurrency = mSettings.getString("currency", "€");
         mAllowTextInPhoneNumbers = mSettings.getBoolean("phone-allow-text", false);
-        mDefaultCustomerTitle = mSettings.getString("default-customer-title", getResources().getString(R.string.titledefault));
+        mDefaultCustomerTitle = mSettings.getString("default-customer-title", "");
         mDefaultCustomerCity = mSettings.getString("default-customer-city", "");
         mDefaultCustomerCountry = mSettings.getString("default-customer-country", "");
         mDefaultCustomerGroup = mSettings.getString("default-customer-group", "");

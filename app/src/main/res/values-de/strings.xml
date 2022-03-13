@@ -14,7 +14,6 @@
     <string name="email">E-Mail:</string>
     <string name="person">Person</string>
     <string name="title">Anrede</string>
-    <string name="titledefault">Frau</string>
     <string name="firstname">Vorname</string>
     <string name="lastname">Nachname</string>
     <string name="contact">Kontaktmöglichkeiten</string>

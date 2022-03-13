@@ -192,7 +192,7 @@ public class CustomerEditActivity extends AppCompatActivity {
         }
 
         // load default values
-        mEditTextTitle.setText(settings.getString("default-customer-title", getResources().getString(R.string.titledefault)));
+        mEditTextTitle.setText(settings.getString("default-customer-title", ""));
         mEditTextCity.setText(settings.getString("default-customer-city", ""));
         mEditTextCountry.setText(settings.getString("default-customer-country", ""));
         mEditTextGroup.setText(settings.getString("default-customer-group", ""));
