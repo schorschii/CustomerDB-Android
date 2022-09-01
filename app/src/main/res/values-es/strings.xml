@@ -84,7 +84,7 @@
     <string name="email_template_long">Plantilla de correo electr&#243;nico (el CLIENTE ser&#225; reemplazado por el nombre del cliente)</string>
     <string name="text_templates">Plantillas de texto</string>
     <string name="email_subject_template"> </string>
-    <string name="email_text_template">Estimada cliente, \n \n Saludos cordiales</string>
+    <string name="email_text_template">Estimado CUSTOMER,\n\nSaludos cordiales</string>
     <string name="email_export_subject">Asunto de correo de exportaci&#243;n</string>
     <string name="email_export_template">Exportar texto de correo</string>
     <string name="email_export_subject_template">Informaci&#243;n sobre sus datos guardados en nuestra base de datos</string>

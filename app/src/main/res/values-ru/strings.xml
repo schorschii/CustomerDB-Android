@@ -73,7 +73,7 @@
     <string name="email_template_long">Шаблон электронной почты (CUSTOMER will be replaced with the customer name)</string>
     <string name="text_templates">Шаблоны текста</string>
     <string name="email_subject_template"> </string>
-    <string name="email_text_template">Dear CUSTOMER,\n\nBest regards</string>
+    <string name="email_text_template">Дорогой CUSTOMER,\n\nС наилучшими пожеланиями.</string>
     <string name="email_export_subject">Экспорт темы письма</string>
     <string name="email_export_template">Экспорт текста письма</string>
     <string name="email_export_subject_template">Информация о данных, хранящихся вами</string>

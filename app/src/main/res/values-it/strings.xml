@@ -84,7 +84,7 @@
     <string name="email_template_long">Modello e-mail (il CLIENTE verr&#224; sostituito con il nome del cliente)</string>
     <string name="text_templates">Modelli di testo</string>
     <string name="email_subject_template"> </string>
-    <string name="email_text_template">Gentile CLIENTE, \n \nServizi migliori</string>
+    <string name="email_text_template">Gentile CUSTOMER,\n\nServizi migliori</string>
     <string name="email_export_subject">Esporta l\'oggetto della posta</string>
     <string name="email_export_template">Esporta il testo della posta</string>
     <string name="email_export_subject_template">Informazioni sui tuoi dati salvati nel nostro database</string>
