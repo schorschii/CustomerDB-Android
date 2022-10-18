@@ -86,12 +86,17 @@ public class CallerIdProvider extends ContentProvider {
                 // check caller package - we only allow native android phone app
                 String callerPackage = uri.getQueryParameter("callerPackage");
                 if(callerPackage == null) return cursor;
+                // as of 2022, I only know the Google dialer app which supports this phone lookup feature
+                // so, we deny requests from other apps - feel free to open a pull request to add another compatible dialer app
                 if(!callerPackage.equals("com.android.dialer") && !callerPackage.equals("com.google.android.dialer")) return cursor;
 
                 // prevent bulk queries
+                // this seems not to work anymore with recent Google dialer versions
+                // they now do multiple lookups for one call for whatever reason
+                // since we restricted the packages which can query the information, I can switch this check off with a clear conscience
                 int currentTime = (int)(System.currentTimeMillis() / 1000L);
-                int lastLookup = mSettings.getInt("last-caller-id-lookup", 0);
-                if(currentTime - lastLookup < 4) return cursor;
+                //int lastLookup = mSettings.getInt("last-caller-id-lookup", 0);
+                //if(currentTime - lastLookup < 1) return cursor;
                 mSettings.edit().putInt("last-caller-id-lookup", currentTime).apply();
 
                 // do the lookup
