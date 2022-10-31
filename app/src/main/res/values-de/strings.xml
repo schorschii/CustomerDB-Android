@@ -239,7 +239,6 @@
     <string name="general">Allgemein</string>
     <string name="last_call">Letzter Anruf empfangen:</string>
     <string name="no_customer_found">kein passender Kunde gefunden</string>
-    <string name="call_log_permission_note">Um diese Funktion nutzen zu können ist auf einigen Geräten die Kundendatenbank-Plugin-App erforderlich.</string>
     <string name="no_details">Keine Kontaktdetails</string>
     <string name="select_all">Alle</string>
     <string name="deselect">Aufheben</string>
@@ -402,4 +401,5 @@
     <string name="carddav_api_info">Die Kundendatenbank-Cloud sowie die selbst-gehostete Server bieten eine nur-lesende CardDAV-API zur Synchronisierung Ihrer Kunden in eine AVM FRITZ!Box, Thunderbird (mit CardBook-Addon), Evolution oder in die macOS/iOS Kontakte-App (die Kunden können über diese Programme nur gelesen, jedoch nicht bearbeitet werden!).\n\nCardDAV-Server:\nhttps://customerdb.sieber.systems/carddav.php\n\nBenutzername:\n&lt;Ihre Kundendatenbank-Account E-Mailadresse&gt;\n\nPasswort:\n&lt;Ihr Kundendatenbank-Account Passwort&gt;</string>
     <string name="eula_info_button">Endbenutzer-Lizenzvereinbarung »</string>
     <string name="activations_remaining">%s Aktivierungen verbleiben</string>
+    <string name="caller_id_plugin_app_note">Die Anruferidentifizierung funktioniert direkt mit der Google-Telefon-App, welche auf vielen Geräten standardmäßig installiert ist. Andere Telefon-Apps (z.B. auf Samsung- oder HTC-Geräten) können die Kundendatenbank nicht abfragen. Bitte installieren Sie in diesem Fall die Google-Telefon-App aus dem Google Play Store oder die Customer Database Plugin App, die bei eingehenden Anrufen ein kleines Overlay mit dem Kundennamen anzeigen kann.</string>
 </resources>

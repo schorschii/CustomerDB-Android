@@ -239,7 +239,6 @@
     <string name="general">Generale</string>
     <string name="last_call">Ultima chiamata ricevuta:</string>
     <string name="no_customer_found">nessun cliente corrispondente trovato</string>
-    <string name="call_log_permission_note">Su alcuni dispositivi, questa funzionalità richiede l\'installazione dell\'app Customer Database Plugin.</string>
     <string name="no_details">Nessun dato di contatto</string>
     <string name="select_all">Seleziona tutto</string>
     <string name="deselect">Deseleziona</string>
@@ -402,4 +401,5 @@
     <string name="carddav_api_info">"Il cloud del database clienti e il server self-hosted offrono un'API CardDAV di sola lettura per sincronizzare i tuoi clienti nell'app AVM FRITZ!Box, Thunderbird (con CardBook addon), Evolution o nell'app contatti macOS/iOS (i clienti possono essere letti solo in questi programmi , ma non modificato!).\n\nServer CardDAV:\nhttps://customerdb.sieber.systems/carddav.php\n\nNome utente:\n&lt;indirizzo email dell'account del database clienti&gt;\n\nParola d'ordine:\n&lt;password dell'account del database clienti&gt;"</string>
     <string name="eula_info_button">Contratto di licenza per l\'utente »</string>
     <string name="activations_remaining">Rimangono %1$s attivazioni</string>
+    <string name="caller_id_plugin_app_note">L\'ID chiamante funziona immediatamente con l\'app Google Phone, che è preinstallata su molti dispositivi. Altre app telefoniche (ad es. su dispositivi Samsung o HTC) non sono in grado di interrogare il database clienti. In questo caso, installa l\'app del telefono di Google dal Google Play Store o l\'app del plug-in del database dei clienti, che può visualizzare una piccola sovrapposizione con il nome del cliente sulle chiamate in arrivo.</string>
 </resources>

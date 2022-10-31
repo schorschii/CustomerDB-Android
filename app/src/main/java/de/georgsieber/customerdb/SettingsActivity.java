@@ -1146,54 +1146,13 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onClickInstallPluginApp(View v) {
-        String packageName = "de.georgsieber.customerdb_plugin";
-        Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
-
+        Intent intent = getPackageManager().getLaunchIntentForPackage(getString(R.string.plugin_app_package_name));
         if(intent == null) {
-
-            // extract .apk file
-            InputStream in;
-            OutputStream out;
-            try {
-                in = getResources().openRawResource(R.raw.plugin);
-                out = new FileOutputStream(StorageControl.getStorageAppTemp(this));
-                byte[] buffer = new byte[1024];
-                int read;
-                while ((read = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, read);
-                }
-                in.close();
-                out.flush();
-                out.close();
-            } catch(Exception e) {
-                return;
-            }
-
-            if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                // install (file provider style)
-                try {
-                    Intent installIntent = new Intent(Intent.ACTION_VIEW);
-                    //intent.setDataAndType(Uri.fromFile(StorageControl.getStorageAppTemp(this)), "application/vnd.android.package-archive");
-                    Uri apkURI = FileProvider.getUriForFile(
-                            this, getApplicationContext().getPackageName() + ".provider", StorageControl.getStorageAppTemp(this)
-                    );
-                    installIntent.setDataAndType(apkURI, "application/vnd.android.package-archive");
-                    installIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    startActivity(installIntent);
-                } catch (Exception e) {
-                    dialog(e.getMessage(), false);
-                }
-            } else {
-                // install (old file style for Android 6 and lower)
-                Uri uri = Uri.parse("file://" + StorageControl.getStorageAppTemp(this));
-                Intent install = new Intent(Intent.ACTION_VIEW);
-                install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                install.setDataAndType(uri, "application/vnd.android.package-archive");
-                startActivity(install);
-            }
-
+            // open download page
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.plugin_app_url)));
+            startActivity(browserIntent);
         } else {
-            // start
+            // start plugin app
             startActivity(intent);
         }
     }

@@ -6,6 +6,8 @@
     <string name="server_repo_link" translatable="false">https://github.com/schorschii/CustomerDB-Server</string>
     <string name="unlock_api" translatable="false">"https://apps.sieber.systems/activate"</string>
     <string name="callerid_authority" translatable="false">de.georgsieber.customerdb.callerid</string>
+    <string name="plugin_app_package_name" translatable="false">de.georgsieber.customerdb_plugin</string>
+    <string name="plugin_app_url" translatable="false">https://github.com/schorschii/CustomerDB-Android-Plugin</string>
 
     <plurals name="customersamount">
         <item quantity="one">%d customer</item>
@@ -247,7 +249,6 @@
     <string name="general">General</string>
     <string name="last_call">Last call received:</string>
     <string name="no_customer_found">no matching customer found</string>
-    <string name="call_log_permission_note">On some devices, this feature requires the installation of the Customer Database Plugin app.</string>
     <string name="no_details">No contact details</string>
     <string name="select_all">Select All</string>
     <string name="deselect">Deselect</string>
@@ -410,4 +411,5 @@
     <string name="carddav_api_info">The customer database cloud and self-hosted server offers a read-only CardDAV API for syncing your customers into AVM FRITZ!Box, Thunderbird (with CardBook addon), Evolution or macOS/iOS contacts app (the customers can only be read into these programs, but not edited!).\n\nCardDAV Server:\nhttps://customerdb.sieber.systems/carddav.php\n\nUsername:\n&lt;your customer database account email address&gt;\n\nPassword:\n&lt;your customer database account password&gt;</string>
     <string name="eula_info_button">End User License Agreement »</string>
     <string name="activations_remaining">%1$s activations remaining</string>
+    <string name="caller_id_plugin_app_note">Caller ID works out-of-the-box with the Google phone app, which is preinstalled on many devices. Other phone apps (e.g. on Samsung or HTC devices) are not able to query the Customer Database. In this case, please install the Google phone app from the Google Play Store or the Customer Database Plugin App, which can display a tiny overlay with the customer name on incoming calls.</string>
 </resources>

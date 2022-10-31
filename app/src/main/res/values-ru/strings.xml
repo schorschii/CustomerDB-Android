@@ -240,7 +240,6 @@
     <string name="general">Общие</string>
     <string name="last_call">Последний полученный звонок:</string>
     <string name="no_customer_found">подходящий клиент не найден</string>
-    <string name="call_log_permission_note">На некоторых устройствах для этой функции требуется установка подключаемого модуля клиентской базы данных.</string>
     <string name="no_details">Нет контактных данных</string>
     <string name="select_all">Все</string>
     <string name="deselect">Отмените</string>
@@ -403,4 +402,5 @@
     <string name="carddav_api_info">Облако базы данных клиентов и собственный сервер предлагают CardDAV API только для чтения для синхронизации ваших клиентов с AVM FRITZ!Box, Thunderbird (с надстройкой CardBook), Evolution или приложением контактов macOS/iOS (клиенты могут быть прочитаны только в этих программах). , но не редактируется!).\n\nСерверы CardDAV:\nhttps://customerdb.sieber.systems/carddav.php\n\nИмя пользователя:\n&lt;адрес электронной почты вашей базы данных клиентов&gt;\n\nПароль:\n&lt;пароль вашей учетной записи базы данных клиентов&gt;</string>
     <string name="eula_info_button">Лицензионное соглашение конечного пользователя »</string>
     <string name="activations_remaining">Осталось %1$s активаций</string>
+    <string name="caller_id_plugin_app_note">Идентификатор звонящего по умолчанию работает с телефонным приложением Google, которое предустановлено на многих устройствах. Другие приложения для телефонов (например, на устройствах Samsung или HTC) не могут запрашивать базу данных клиентов. В этом случае установите приложение Google для телефона из магазина Google Play или приложение-плагин базы данных клиентов, которое может отображать крошечное наложение с именем клиента при входящих вызовах.</string>
 </resources>

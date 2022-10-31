@@ -239,7 +239,6 @@
     <string name="general">Algemeen</string>
     <string name="last_call">Laatst ontvangen oproep:</string>
     <string name="no_customer_found">geen overeenkomende klant gevonden</string>
-    <string name="call_log_permission_note">Op sommige apparaten vereist deze functie de installatie van de Customer Database Plugin-app.</string>
     <string name="no_details">Geen contactgegevens</string>
     <string name="select_all">Selecteer alles</string>
     <string name="deselect">Deselecteren</string>
@@ -402,4 +401,5 @@
     <string name="carddav_api_info">De klantendatabase-cloud en zelf-gehoste server biedt een alleen-lezen CardDAV-API voor het synchroniseren van uw klanten met AVM FRITZ!Box, Thunderbird (met CardBook-add-on), Evolution of macOS/iOS-contacten-app (de klanten kunnen alleen in deze programma\'s worden ingelezen , maar niet bewerkt!).\n\nCardDAV-server:\nhttps://customerdb.sieber.systems/carddav.php\n\nGebruikersnaam:\n&lt;e-mailadres van uw klantendatabase-account&gt;\n\nWachtwoord:\n&lt; het wachtwoord van uw klantendatabase-account&gt;</string>
     <string name="eula_info_button">Licentieovereenkomst voor eindgebruikers \"</string>
     <string name="activations_remaining">Nog %1$s activaties</string>
+    <string name="caller_id_plugin_app_note">Beller-ID werkt out-of-the-box met de Google Phone-app, die op veel apparaten vooraf is geïnstalleerd. Andere telefoon-apps (bijvoorbeeld op Samsung- of HTC-apparaten) kunnen de klantendatabase niet doorzoeken. Installeer in dit geval de Google Phone-app uit de Google Play Store of de Customer Database Plugin-app, die bij inkomende oproepen een kleine overlay met de naam van de klant kan weergeven.</string>
 </resources>

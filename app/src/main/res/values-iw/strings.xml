@@ -252,7 +252,6 @@
     <string name="general">כללי</string>
     <string name="last_call">:השיחה האחרונה התקבל</string>
     <string name="no_customer_found">שום לקוח תואמות נמצאו</string>
-    <string name="call_log_permission_note">במכשירים מסוימים, תכונה זו דורשת התקנה של אפליקציית הפלאגין של מסד הנתונים של הלקוח.</string>
     <string name="no_details">אין פרטים ליצירת קשר</string>
     <string name="select_all">את כל</string>
     <string name="deselect">בטל בחירה</string>
@@ -415,4 +414,5 @@
     <string name="carddav_api_info">ענן מסד הנתונים של הלקוחות והשרת המתארח בעצמו מציעים API לקריאה בלבד של CardDAV לסנכרון הלקוחות שלך לתוך AVM FRITZ!Box, Thunderbird (עם תוסף CardBook), Evolution או אפליקציית אנשי הקשר של macOS/iOS (ניתן לקרוא את הלקוחות לתוכניות אלה בלבד , אך לא ערוך!).\n\nשרתי CardDAV:\nhttps://customerdb.sieber.systems/carddav.php\n\nשם משתמש:\n&lt;כתובת הדוא"ל של חשבון מסד הנתונים של הלקוחות שלך&gt;\n\nסיסמה:\n&lt;סיסמת חשבון מסד הנתונים של הלקוחות שלך&gt;</string>
     <string name="eula_info_button">הסכם רישיון משתמש קצה »</string>
     <string name="activations_remaining"> נותרו %1$s הפעלות</string>
+    <string name="caller_id_plugin_app_note">זיהוי מתקשר פועל מחוץ לקופסה עם אפליקציית הטלפון של Google, המותקנת מראש במכשירים רבים. אפליקציות טלפון אחרות (למשל במכשירי Samsung או HTC) אינן מסוגלות לבצע שאילתות במסד הנתונים של הלקוחות. במקרה זה, התקן את אפליקציית הטלפון של Google מחנות Google Play או אפליקציית תוסף מסד הנתונים של לקוחות, שיכולה להציג שכבת-על זעירה עם שם הלקוח בשיחות נכנסות.</string>
 </resources>
