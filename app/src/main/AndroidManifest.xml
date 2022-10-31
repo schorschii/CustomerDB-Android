@@ -147,4 +147,8 @@
         </receiver>
     </application>
 
+    <queries>
+        <package android:name="de.georgsieber.customerdb_plugin" />
+    </queries>
+
 </manifest>
