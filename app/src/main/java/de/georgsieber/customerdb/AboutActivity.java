@@ -8,12 +8,16 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.ProductDetails;
+import com.android.billingclient.api.ProductDetailsResponseListener;
+import com.android.billingclient.api.QueryProductDetailsParams;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -34,13 +39,13 @@ import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
-import com.android.billingclient.api.SkuDetails;
-import com.android.billingclient.api.SkuDetailsParams;
-import com.android.billingclient.api.SkuDetailsResponseListener;
+
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
@@ -125,17 +130,30 @@ public class AboutActivity extends AppCompatActivity {
         fc.setFeatureCheckReadyListener(new FeatureCheck.featureCheckReadyListener() {
             @Override
             public void featureCheckReady(boolean fetchSuccess) {
-                if(fc.unlockedCommercialUsage) unlockPurchase("cu");
-                if(fc.unlockedLargeCompany) unlockPurchase("lc");
-                if(fc.unlockedInputOnlyMode) unlockPurchase("iom");
-                if(fc.unlockedDesignOptions) unlockPurchase("do");
-                if(fc.unlockedCustomFields) unlockPurchase("cf");
-                if(fc.unlockedFiles) unlockPurchase("fs");
-                if(fc.unlockedCalendar) unlockPurchase("cl");
-                if(fc.activeSync) unlockPurchase("sync");
+                runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        if(fc.unlockedCommercialUsage) unlockPurchase("cu", null);
+                        if(fc.unlockedLargeCompany) unlockPurchase("lc", null);
+                        if(fc.unlockedInputOnlyMode) unlockPurchase("iom", null);
+                        if(fc.unlockedDesignOptions) unlockPurchase("do", null);
+                        if(fc.unlockedCustomFields) unlockPurchase("cf", null);
+                        if(fc.unlockedFiles) unlockPurchase("fs", null);
+                        if(fc.unlockedCalendar) unlockPurchase("cl", null);
+                        if(fc.activeSync) unlockPurchase("sync", null);
+                    }
+                });
             }
         });
         fc.init();
+
+        // show licensee
+        String licensee = mSettings.getString("licensee", "");
+        if(licensee != null && !licensee.equals("")) {
+            findViewById(R.id.spaceLicensee).setVisibility(View.VISIBLE);
+            findViewById(R.id.textViewLicensee).setVisibility(View.VISIBLE);
+            ((TextView) findViewById(R.id.textViewLicensee)).setText(licensee);
+        }
 
         // init billing client
         mBillingClient = BillingClient.newBuilder(this)
@@ -145,15 +163,16 @@ public class AboutActivity extends AppCompatActivity {
             public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> purchases) {
                 int responseCode = billingResult.getResponseCode();
                 if(responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
-                    for(Purchase purchase : purchases) {
+                    for(final Purchase purchase : purchases) {
                         if(purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
-                            if(purchase.getSku().equals("sync")) {
-                                SharedPreferences.Editor editor = mSettings.edit();
-                                editor.putString("sync-purchase-token", purchase.getPurchaseToken());
-                                //Log.e("TOKEN", purchase.getPurchaseToken());
-                                editor.apply();
+                            for(final String sku : purchase.getProducts()) {
+                                runOnUiThread(new Runnable(){
+                                    @Override
+                                    public void run() {
+                                        unlockPurchase(sku, purchase);
+                                    }
+                                });
                             }
-                            unlockPurchase(purchase.getSku());
                             FeatureCheck.acknowledgePurchase(mBillingClient, purchase);
                         }
                     }
@@ -164,18 +183,7 @@ public class AboutActivity extends AppCompatActivity {
                             CommonDialog.TYPE.WARN,
                             false
                     );
-                } else if(responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
-                    try {
-                        CommonDialog.show(me,
-                            getResources().getString(R.string.purchase_already_done),
-                            getResources().getString(R.string.purchase_already_done_description),
-                            CommonDialog.TYPE.OK,
-                            false
-                        );
-                    } catch(Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
+                } else if(responseCode != BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
                     try {
                         CommonDialog.show(me,
                                 getResources().getString(R.string.purchase_failed),
@@ -221,7 +229,7 @@ public class AboutActivity extends AppCompatActivity {
         mBillingClient.endConnection();
     }
 
-    private void unlockPurchase(String sku) {
+    private void unlockPurchase(String sku, Purchase purchase) {
         SharedPreferences.Editor editor = mSettings.edit();
         switch(sku) {
             case "cu":
@@ -261,69 +269,48 @@ public class AboutActivity extends AppCompatActivity {
                 break;
             case "sync":
                 ((ImageView) findViewById(R.id.imageViewBuySync)).setImageResource(R.drawable.ic_tick_green_24dp);
+                if(purchase != null) {
+                    // store the sync subscription token in order to send it to the Customer Database Cloud API for access validation
+                    editor.putString("sync-purchase-token", purchase.getPurchaseToken());
+                    editor.apply();
+                }
                 break;
         }
     }
 
     @SuppressLint("SetTextI18n")
     private void querySkus() {
-        ArrayList<String> skuList = new ArrayList<>();
-        skuList.add("cu");
-        skuList.add("lc");
-        skuList.add("iom");
-        skuList.add("do");
-        skuList.add("cf");
-        skuList.add("fs");
-        skuList.add("cl");
-        SkuDetailsParams.Builder params = SkuDetailsParams
-                .newBuilder()
-                .setSkusList(skuList)
-                .setType(BillingClient.SkuType.INAPP);
-        mBillingClient.querySkuDetailsAsync(params.build(), new SkuDetailsResponseListener() {
+        ArrayList<QueryProductDetailsParams.Product> productList = new ArrayList<>();
+        productList.add(QueryProductDetailsParams.Product.newBuilder()
+                .setProductId("cu").setProductType(BillingClient.ProductType.INAPP).build());
+        productList.add(QueryProductDetailsParams.Product.newBuilder()
+                .setProductId("lc").setProductType(BillingClient.ProductType.INAPP).build());
+        productList.add(QueryProductDetailsParams.Product.newBuilder()
+                .setProductId("iom").setProductType(BillingClient.ProductType.INAPP).build());
+        productList.add(QueryProductDetailsParams.Product.newBuilder()
+                .setProductId("do").setProductType(BillingClient.ProductType.INAPP).build());
+        productList.add(QueryProductDetailsParams.Product.newBuilder()
+                .setProductId("cf").setProductType(BillingClient.ProductType.INAPP).build());
+        productList.add(QueryProductDetailsParams.Product.newBuilder()
+                .setProductId("fs").setProductType(BillingClient.ProductType.INAPP).build());
+        productList.add(QueryProductDetailsParams.Product.newBuilder()
+                .setProductId("cl").setProductType(BillingClient.ProductType.INAPP).build());
+        QueryProductDetailsParams params = QueryProductDetailsParams.newBuilder()
+                .setProductList(productList)
+                .build();
+        mBillingClient.queryProductDetailsAsync(params, new ProductDetailsResponseListener() {
             @Override
-            public void onSkuDetailsResponse(@NonNull BillingResult billingResult, @Nullable List<SkuDetails> skuDetailsList) {
-                int responseCode = billingResult.getResponseCode();
-                if(responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
-                    for(SkuDetails skuDetails : skuDetailsList) {
-                        String sku = skuDetails.getSku();
-                        String price = skuDetails.getPrice();
-                        switch(sku) {
-                            case "cu":
-                                mSkuDetailsCommercialUse = skuDetails;
-                                ((Button) findViewById(R.id.buttonBuyCommercialUse)).setText(price+"\n"+getResources().getString(R.string.buy_now));
-                                ((Button) findViewById(R.id.buttonBuyCommercialUse)).setEnabled(true);
-                                break;
-                            case "lc":
-                                mSkuDetailsLargeCompany = skuDetails;
-                                ((Button) findViewById(R.id.buttonBuyLargeCompany)).setText(price+"\n"+getResources().getString(R.string.buy_now));
-                                ((Button) findViewById(R.id.buttonBuyLargeCompany)).setEnabled(true);
-                                break;
-                            case "iom":
-                                mSkuDetailsInputOnlyMode = skuDetails;
-                                ((Button) findViewById(R.id.buttonBuyInputOnlyMode)).setText(price+"\n"+getResources().getString(R.string.buy_now));
-                                ((Button) findViewById(R.id.buttonBuyInputOnlyMode)).setEnabled(true);
-                                break;
-                            case "do":
-                                getmSkuDetailsDesignOptions = skuDetails;
-                                ((Button) findViewById(R.id.buttonBuyDesignOptions)).setText(price+"\n"+getResources().getString(R.string.buy_now));
-                                ((Button) findViewById(R.id.buttonBuyDesignOptions)).setEnabled(true);
-                                break;
-                            case "cf":
-                                mSkuDetailsCustomFields = skuDetails;
-                                ((Button) findViewById(R.id.buttonBuyCustomFields)).setText(price+"\n"+getResources().getString(R.string.buy_now));
-                                ((Button) findViewById(R.id.buttonBuyCustomFields)).setEnabled(true);
-                                break;
-                            case "fs":
-                                mSkuDetailsFiles = skuDetails;
-                                ((Button) findViewById(R.id.buttonBuyFiles)).setText(price+"\n"+getResources().getString(R.string.buy_now));
-                                ((Button) findViewById(R.id.buttonBuyFiles)).setEnabled(true);
-                                break;
-                            case "cl":
-                                mSkuDetailsCalendar = skuDetails;
-                                ((Button) findViewById(R.id.buttonBuyCalendar)).setText(price+"\n"+getResources().getString(R.string.buy_now));
-                                ((Button) findViewById(R.id.buttonBuyCalendar)).setEnabled(true);
-                                break;
-                        }
+            public void onProductDetailsResponse(@NonNull BillingResult billingResult, @NonNull List<ProductDetails> productDetailsList) {
+                if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    for(final ProductDetails skuDetails : productDetailsList) {
+                        final String sku = skuDetails.getProductId();
+                        final String price = Objects.requireNonNull(skuDetails.getOneTimePurchaseOfferDetails()).getFormattedPrice();
+                        runOnUiThread(new Runnable(){
+                            @Override
+                            public void run() {
+                                setupPayButton(sku, price, skuDetails);
+                            }
+                        });
                     }
                 } else {
                     CommonDialog.show(me,
@@ -336,73 +323,130 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
-        ArrayList<String> skuList2 = new ArrayList<>();
-        skuList2.add("sync");
-        SkuDetailsParams.Builder params2 = SkuDetailsParams
-                .newBuilder()
-                .setSkusList(skuList2)
-                .setType(BillingClient.SkuType.SUBS);
-        mBillingClient.querySkuDetailsAsync(params2.build(), new SkuDetailsResponseListener() {
+        ArrayList<QueryProductDetailsParams.Product> productList2 = new ArrayList<>();
+        productList2.add(QueryProductDetailsParams.Product.newBuilder()
+                .setProductId("sync").setProductType(BillingClient.ProductType.SUBS).build());
+        QueryProductDetailsParams params2 = QueryProductDetailsParams.newBuilder()
+                .setProductList(productList2)
+                .build();
+        mBillingClient.queryProductDetailsAsync(params2, new ProductDetailsResponseListener() {
             @Override
-            public void onSkuDetailsResponse(@NonNull BillingResult billingResult, @Nullable List<SkuDetails> skuDetailsList) {
-                int responseCode = billingResult.getResponseCode();
-                if(responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
-                    for(SkuDetails skuDetails : skuDetailsList) {
-                        String sku = skuDetails.getSku();
-                        String price = skuDetails.getPrice();
-                        switch(sku) {
-                            case "sync":
-                                mSkuDetailsSync = skuDetails;
-                                ((Button) findViewById(R.id.buttonSubCloud)).setText(price+"\n"+getResources().getString(R.string.buy_now));
-                                ((Button) findViewById(R.id.buttonSubCloud)).setEnabled(true);
-                                break;
-                        }
+            public void onProductDetailsResponse(@NonNull BillingResult billingResult, @NonNull List<ProductDetails> productDetailsList) {
+                if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    for(final ProductDetails skuDetails : productDetailsList) {
+                        final String sku = skuDetails.getProductId();
+                        Log.e("PURCHASE", sku);
+                        final List<ProductDetails.SubscriptionOfferDetails> offers = Objects.requireNonNull(skuDetails.getSubscriptionOfferDetails());
+                        if(offers.isEmpty()) continue;
+                        mSkuDetailsSyncOfferToken = offers.get(0).getOfferToken();
+                        final List<ProductDetails.PricingPhase> pricingPhaseList = offers.get(0).getPricingPhases().getPricingPhaseList();
+                        if(pricingPhaseList.isEmpty()) continue;
+                        final String price = pricingPhaseList.get(0).getFormattedPrice();
+                        Log.e("PURCHASE", price);
+                        runOnUiThread(new Runnable(){
+                            @Override
+                            public void run() {
+                                setupPayButton(sku, price, skuDetails);
+                            }
+                        });
                     }
                 }
             }
         });
     }
 
+    @SuppressLint("SetTextI18n")
+    private void setupPayButton(String sku, String price, ProductDetails skuDetails) {
+        switch(sku) {
+            case "cu":
+                mSkuDetailsCommercialUse = skuDetails;
+                ((Button) findViewById(R.id.buttonBuyCommercialUse)).setText(price+"\n"+getResources().getString(R.string.buy_now));
+                ((Button) findViewById(R.id.buttonBuyCommercialUse)).setEnabled(true);
+                break;
+            case "lc":
+                mSkuDetailsLargeCompany = skuDetails;
+                ((Button) findViewById(R.id.buttonBuyLargeCompany)).setText(price+"\n"+getResources().getString(R.string.buy_now));
+                ((Button) findViewById(R.id.buttonBuyLargeCompany)).setEnabled(true);
+                break;
+            case "iom":
+                mSkuDetailsInputOnlyMode = skuDetails;
+                ((Button) findViewById(R.id.buttonBuyInputOnlyMode)).setText(price+"\n"+getResources().getString(R.string.buy_now));
+                ((Button) findViewById(R.id.buttonBuyInputOnlyMode)).setEnabled(true);
+                break;
+            case "do":
+                getmSkuDetailsDesignOptions = skuDetails;
+                ((Button) findViewById(R.id.buttonBuyDesignOptions)).setText(price+"\n"+getResources().getString(R.string.buy_now));
+                ((Button) findViewById(R.id.buttonBuyDesignOptions)).setEnabled(true);
+                break;
+            case "cf":
+                mSkuDetailsCustomFields = skuDetails;
+                ((Button) findViewById(R.id.buttonBuyCustomFields)).setText(price+"\n"+getResources().getString(R.string.buy_now));
+                ((Button) findViewById(R.id.buttonBuyCustomFields)).setEnabled(true);
+                break;
+            case "fs":
+                mSkuDetailsFiles = skuDetails;
+                ((Button) findViewById(R.id.buttonBuyFiles)).setText(price+"\n"+getResources().getString(R.string.buy_now));
+                ((Button) findViewById(R.id.buttonBuyFiles)).setEnabled(true);
+                break;
+            case "cl":
+                mSkuDetailsCalendar = skuDetails;
+                ((Button) findViewById(R.id.buttonBuyCalendar)).setText(price+"\n"+getResources().getString(R.string.buy_now));
+                ((Button) findViewById(R.id.buttonBuyCalendar)).setEnabled(true);
+                break;
+            case "sync":
+                mSkuDetailsSync = skuDetails;
+                ((Button) findViewById(R.id.buttonSubCloud)).setText(price+"\n"+getResources().getString(R.string.buy_now));
+                ((Button) findViewById(R.id.buttonSubCloud)).setEnabled(true);
+                break;
+        }
+    }
+
     @SuppressWarnings("UnusedReturnValue")
-    private BillingResult doBuy(SkuDetails sku) {
+    private BillingResult doBuy(ProductDetails sku, String offerToken) {
+        if(sku == null) return null;
+        BillingFlowParams.ProductDetailsParams.Builder builder = BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(sku);
+        if(offerToken != null) builder.setOfferToken(offerToken);
+        List<BillingFlowParams.ProductDetailsParams> productDetailsParamsList = new ArrayList<>();
+        productDetailsParamsList.add(builder.build());
         BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                .setSkuDetails(sku)
+                .setProductDetailsParamsList(productDetailsParamsList)
                 .build();
         return mBillingClient.launchBillingFlow(this, flowParams);
     }
 
-    SkuDetails mSkuDetailsSync;
-    SkuDetails mSkuDetailsCommercialUse;
-    SkuDetails mSkuDetailsLargeCompany;
-    SkuDetails mSkuDetailsInputOnlyMode;
-    SkuDetails getmSkuDetailsDesignOptions;
-    SkuDetails mSkuDetailsCustomFields;
-    SkuDetails mSkuDetailsFiles;
-    SkuDetails mSkuDetailsCalendar;
+    ProductDetails mSkuDetailsSync;
+    String mSkuDetailsSyncOfferToken;
+    ProductDetails mSkuDetailsCommercialUse;
+    ProductDetails mSkuDetailsLargeCompany;
+    ProductDetails mSkuDetailsInputOnlyMode;
+    ProductDetails getmSkuDetailsDesignOptions;
+    ProductDetails mSkuDetailsCustomFields;
+    ProductDetails mSkuDetailsFiles;
+    ProductDetails mSkuDetailsCalendar;
 
     public void doSubCloud(View v) {
-        doBuy(mSkuDetailsSync);
+        doBuy(mSkuDetailsSync, mSkuDetailsSyncOfferToken);
     }
     public void doBuyCommercialUse(View v) {
-        doBuy(mSkuDetailsCommercialUse);
+        doBuy(mSkuDetailsCommercialUse, null);
     }
     public void doBuyLargeCompany(View v) {
-        doBuy(mSkuDetailsLargeCompany);
+        doBuy(mSkuDetailsLargeCompany, null);
     }
     public void doBuyInputOnlyMode(View v) {
-        doBuy(mSkuDetailsInputOnlyMode);
+        doBuy(mSkuDetailsInputOnlyMode, null);
     }
     public void doBuyDesignOptions(View v) {
-        doBuy(getmSkuDetailsDesignOptions);
+        doBuy(getmSkuDetailsDesignOptions, null);
     }
     public void doBuyCustomFields(View v) {
-        doBuy(mSkuDetailsCustomFields);
+        doBuy(mSkuDetailsCustomFields, null);
     }
     public void doBuyFiles(View v) {
-        doBuy(mSkuDetailsFiles);
+        doBuy(mSkuDetailsFiles, null);
     }
     public void doBuyCalendar(View v) {
-        doBuy(mSkuDetailsCalendar);
+        doBuy(mSkuDetailsCalendar, null);
     }
 
     @Override
@@ -417,7 +461,6 @@ public class AboutActivity extends AppCompatActivity {
         }
     }
 
-    private final static String ACTIVATE_URL = "https://apps.georg-sieber.de/activate/app.php";
     public void openUnlockSelection() {
         // collect all available inapp purchases
         final String[][] inappPurchases = new String[][] {
@@ -455,7 +498,7 @@ public class AboutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 ad.dismiss();
                 String text = ((EditText) ad.findViewById(R.id.editTextInputBox)).getText().toString().trim();
-                HttpRequest hr = new HttpRequest(ACTIVATE_URL, null);
+                HttpRequest hr = new HttpRequest(getResources().getString(R.string.unlock_api), null);
                 ArrayList<HttpRequest.KeyValueItem> headers = new ArrayList<>();
                 headers.add(new HttpRequest.KeyValueItem("X-Unlock-Feature",requestFeature));
                 headers.add(new HttpRequest.KeyValueItem("X-Unlock-Code",text));
@@ -463,10 +506,30 @@ public class AboutActivity extends AppCompatActivity {
                 hr.setReadyListener(new HttpRequest.readyListener() {
                     @Override
                     public void ready(int statusCode, String responseBody) {
-                        if(statusCode == 999 && responseBody.trim().equals("")) {
-                            unlockPurchase(sku);
-                            CommonDialog.show(me, getResources().getString(R.string.success), "", CommonDialog.TYPE.OK, false);
-                        } else {
+                        try {
+                            if(statusCode != 999) {
+                                throw new Exception("Invalid status code: " + statusCode);
+                            }
+                            JSONObject licenseInfo = new JSONObject(responseBody);
+                            String licensee = licenseInfo.getString("licensee");
+                            String remaining = licenseInfo.getString("remaining");
+
+                            final SharedPreferences.Editor editor = mSettings.edit();
+                            editor.putString("licensee", licensee);
+                            editor.apply();
+
+                            unlockPurchase(sku, null);
+                            CommonDialog.show(me,
+                                    getResources().getString(R.string.success),
+                                    licensee + "\n\n" + String.format(getString(R.string.activations_remaining), remaining),
+                                    CommonDialog.TYPE.OK, false
+                            );
+                        } catch(Exception e) {
+                            Log.e("ACTIVATION",  e.getMessage() + " - " + responseBody);
+                            if(me == null || me.isFinishing()) return;
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                                if(me.isDestroyed()) return;
+                            }
                             CommonDialog.show(me, getResources().getString(R.string.error), getResources().getString(R.string.activation_failed_description), CommonDialog.TYPE.FAIL, false);
                         }
                     }

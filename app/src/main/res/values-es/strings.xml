@@ -401,4 +401,5 @@
     <string name="carddav_api">CardDAV API</string>
     <string name="carddav_api_info">La nube de la base de datos de clientes y el servidor autohospedado ofrecen una API CardDAV de solo lectura para sincronizar a sus clientes con AVM FRITZ!Box, Thunderbird (con el complemento CardBook), Evolution o la aplicación de contactos macOS/iOS (los clientes solo pueden ser leídos en estos programas , ¡pero no editado!).\n\nServidores CardDAV:\nhttps://customerdb.sieber.systems/carddav.php\n\nNombre de usuario:\n&lt;la dirección de correo electrónico de su cuenta de la base de datos de clientes&gt;\n\nContraseña:\n&lt;la contraseña de su cuenta de la base de datos de clientes&gt;</string>
     <string name="eula_info_button">Acuerdo de licencia de usuario final »</string>
+    <string name="activations_remaining">Quedan %1$s activaciones</string>
 </resources>

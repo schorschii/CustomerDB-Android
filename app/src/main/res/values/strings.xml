@@ -4,6 +4,7 @@
     <string name="developer_email" translatable="false">support@georg-sieber.de</string>
     <string name="repo_link" translatable="false">https://github.com/schorschii/CustomerDB-Android</string>
     <string name="server_repo_link" translatable="false">https://github.com/schorschii/CustomerDB-Server</string>
+    <string name="unlock_api" translatable="false">"https://apps.sieber.systems/activate"</string>
     <string name="callerid_authority" translatable="false">de.georgsieber.customerdb.callerid</string>
 
     <plurals name="customersamount">
@@ -408,4 +409,5 @@
     <string name="carddav_api">CardDAV API</string>
     <string name="carddav_api_info">The customer database cloud and self-hosted server offers a read-only CardDAV API for syncing your customers into AVM FRITZ!Box, Thunderbird (with CardBook addon), Evolution or macOS/iOS contacts app (the customers can only be read into these programs, but not edited!).\n\nCardDAV Server:\nhttps://customerdb.sieber.systems/carddav.php\n\nUsername:\n&lt;your customer database account email address&gt;\n\nPassword:\n&lt;your customer database account password&gt;</string>
     <string name="eula_info_button">End User License Agreement »</string>
+    <string name="activations_remaining">%1$s activations remaining</string>
 </resources>
