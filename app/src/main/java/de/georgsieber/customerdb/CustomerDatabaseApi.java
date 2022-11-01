@@ -67,7 +67,7 @@ public class CustomerDatabaseApi {
             public void run() {
                 try {
                     putCustomers(diffSince);
-                    readCustomers();
+                    readCustomers(diffSince);
                     if(mReadyListener != null) mReadyListener.ready(null);
                 } catch(Exception e) {
                     if(mReadyListener != null) mReadyListener.ready(e);
@@ -195,10 +195,11 @@ public class CustomerDatabaseApi {
         }
     }
 
-    private void readCustomers() throws Exception {
+    private void readCustomers(Date diffSince) throws Exception {
         MainActivity activity = mMainActivityReference.get();
         try {
             JSONObject jparams = new JSONObject();
+            jparams.put("diff_since", CustomerDatabase.dateToString(diffSince));
             jparams.put("playstore_token", mPurchaseToken);
             jparams.put("username", mUsername);
             jparams.put("password", mPassword);
@@ -215,6 +216,15 @@ public class CustomerDatabaseApi {
 
             try {
                 JSONObject jresult = new JSONObject(result);
+                if(jresult.isNull("result") || !jresult.isNull("error")) {
+                    throw new Exception(jresult.getString("error"));
+                }
+            } catch(JSONException e) {
+                throw new Exception(result);
+            }
+
+            try {
+                JSONObject jresult = new JSONObject(result);
                 JSONObject jresults = jresult.getJSONObject("result");
                 JSONArray jcustomers = jresults.getJSONArray("customers");
                 JSONArray jvouchers = jresults.getJSONArray("vouchers");
@@ -222,10 +232,6 @@ public class CustomerDatabaseApi {
                 JSONArray jappointments = jresults.getJSONArray("appointments");
 
                 activity.mDb.beginTransaction();
-                activity.mDb.truncateCustomers();
-                activity.mDb.truncateVouchers();
-                activity.mDb.truncateCalendars();
-                activity.mDb.truncateAppointments();
 
                 for(int i = 0; i < jcustomers.length(); i++) {
                     JSONObject jo = jcustomers.getJSONObject(i);
@@ -237,7 +243,12 @@ public class CustomerDatabaseApi {
                         String value = jo.getString(key);
                         c.putCustomerAttribute(key, value);
                     }
-                    if(c.mId > 0) activity.mDb.addCustomer(c);
+                    if(c.mId <= 0) continue;
+                    if(activity.mDb.getCustomerById(c.mId, true, false) == null) {
+                        activity.mDb.addCustomer(c);
+                    } else {
+                        activity.mDb.updateCustomer(c);
+                    }
                 }
                 for(int i = 0; i < jcalendars.length(); i++) {
                     JSONObject jo = jcalendars.getJSONObject(i);
@@ -249,7 +260,12 @@ public class CustomerDatabaseApi {
                         String value = jo.getString(key);
                         c.putAttribute(key, value);
                     }
-                    if(c.mId > 0) activity.mDb.addCalendar(c);
+                    if(c.mId <= 0) continue;
+                    if(activity.mDb.getCalendarById(c.mId, true) == null) {
+                        activity.mDb.addCalendar(c);
+                    } else {
+                        activity.mDb.updateCalendar(c);
+                    }
                 }
                 for(int i = 0; i < jappointments.length(); i++) {
                     JSONObject jo = jappointments.getJSONObject(i);
@@ -261,7 +277,12 @@ public class CustomerDatabaseApi {
                         String value = jo.getString(key);
                         a.putAttribute(key, value);
                     }
-                    if(a.mId > 0) activity.mDb.addAppointment(a);
+                    if(a.mId <= 0) continue;
+                    if(activity.mDb.getAppointmentById(a.mId, true) == null) {
+                        activity.mDb.addAppointment(a);
+                    } else {
+                        activity.mDb.updateAppointment(a);
+                    }
                 }
                 for(int i = 0; i < jvouchers.length(); i++) {
                     JSONObject jo = jvouchers.getJSONObject(i);
@@ -273,7 +294,12 @@ public class CustomerDatabaseApi {
                         String value = jo.getString(key);
                         v.putVoucherAttribute(key, value);
                     }
-                    if(v.mId > 0) activity.mDb.addVoucher(v);
+                    if(v.mId <= 0) continue;
+                    if(activity.mDb.getVoucherById(v.mId, true) == null) {
+                        activity.mDb.addVoucher(v);
+                    } else {
+                        activity.mDb.updateVoucher(v);
+                    }
                 }
 
                 activity.mDb.commitTransaction();

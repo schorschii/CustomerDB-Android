@@ -133,7 +133,7 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
         // get extra from parent intent
         Intent intent = getIntent();
         mCurrentAppointmentId = intent.getLongExtra("appointment-id", -1);
-        mCurrentAppointment = mDb.getAppointmentById(mCurrentAppointmentId);
+        mCurrentAppointment = mDb.getAppointmentById(mCurrentAppointmentId, false);
         if(mCurrentAppointment != null) {
             fillFields(mCurrentAppointment);
             getSupportActionBar().setTitle(getResources().getString(R.string.edit_appointment));

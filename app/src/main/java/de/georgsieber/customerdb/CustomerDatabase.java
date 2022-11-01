@@ -281,6 +281,15 @@ public class CustomerDatabase {
     }
 
 
+    CustomerCalendar getCalendarById(long id, boolean showRemoved) {
+        List<CustomerCalendar> calendars = getCalendars(showRemoved);
+        for(CustomerCalendar c : calendars) {
+            if(c.mId == id) {
+                return c;
+            }
+        }
+        return null;
+    }
     List<CustomerCalendar> getCalendars(boolean showRemoved) {
         String sql = "SELECT id, title, color, notes, last_modified, removed FROM calendar WHERE removed = 0";
         if(showRemoved) sql = "SELECT id, title, color, notes, last_modified, removed FROM calendar";
@@ -353,9 +362,9 @@ public class CustomerDatabase {
         stmt2.execute();
     }
 
-    CustomerAppointment getAppointmentById(long id) {
+    CustomerAppointment getAppointmentById(long id, boolean showRemoved) {
         Cursor cursor = db.rawQuery(
-                "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, customer_id, location, last_modified, removed FROM appointment WHERE removed = 0 AND id = ?",
+                "SELECT id, calendar_id, title, notes, time_start, time_end, fullday, customer, customer_id, location, last_modified, removed FROM appointment WHERE id = ?",
                 new String[]{ Long.toString(id) }
         );
         try {
@@ -380,7 +389,7 @@ public class CustomerDatabase {
                         if(cursor.getString(10) != null && (!cursor.getString(10).equals("")))
                             lastModified = parseDate(cursor.getString(10));
                     } catch (ParseException ignored) {}
-                    return new CustomerAppointment(
+                    CustomerAppointment appointment = new CustomerAppointment(
                             cursor.getLong(0),
                             cursor.getLong(1),
                             cursor.getString(2),
@@ -394,6 +403,7 @@ public class CustomerDatabase {
                             lastModified,
                             cursor.getInt(11)
                     );
+                    if(showRemoved || appointment.mRemoved == 0) return appointment;
                 } while (cursor.moveToNext());
             }
         } catch (SQLiteException e) {
@@ -1048,9 +1058,9 @@ public class CustomerDatabase {
         return null;
     }
 
-    public Customer getCustomerById(long id, boolean showDeleted, boolean withFiles) {
+    public Customer getCustomerById(long id, boolean showRemoved, boolean withFiles) {
         // Do not fetch files for all customers! We'll fetch files only for the one ID match!
-        List<Customer> customers = getCustomers(null, showDeleted, false, null);
+        List<Customer> customers = getCustomers(null, showRemoved, false, null);
         for(Customer c : customers) {
             if(c.mId == id) {
                 if(withFiles) {
@@ -1065,8 +1075,8 @@ public class CustomerDatabase {
     Voucher getVoucherById(long id) {
         return getVoucherById(id, false);
     }
-    Voucher getVoucherById(long id, boolean showDeleted) {
-        List<Voucher> vouchers = getVouchers(null, showDeleted, null);
+    Voucher getVoucherById(long id, boolean showRemoved) {
+        List<Voucher> vouchers = getVouchers(null, showRemoved, null);
         for(Voucher v : vouchers) {
             if(v.mId == id) {
                 return v;

@@ -1913,7 +1913,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         if(newAppointments.size() > 0) {
                             int counter = 0;
                             for(CustomerAppointment ca : newAppointments) {
-                                if(ca.mId < 1 || mDb.getAppointmentById(ca.mId) != null) {
+                                if(ca.mId < 1 || mDb.getAppointmentById(ca.mId, true) != null) {
                                     ca.mId = Customer.generateID(counter);
                                 }
                                 ca.mCalendarId = mCurrentCalendarImportSelectedId;
