@@ -121,7 +121,7 @@
     <string name="not_supported_printing">La stampa non &#232; supportata sulla tua versione Android.</string>
     <string name="sync_not_configured_title">Sincronizzazione non configurata</string>
     <string name="sync_not_configured_text">Configura la sincronizzazione nelle impostazioni.</string>
-    <string name="vouchers">Buone</string>
+    <string name="vouchers">Buoni</string>
     <string name="redeem">Riscattare</string>
     <string name="close">Vicina</string>
     <string name="redeem_value">Riscatta valore</string>
