@@ -61,6 +61,7 @@
     <string name="apiconnection">Synchronization</string>
     <string name="apiurl">URL to Web-API</string>
     <string name="name">Name</string>
+    <string name="name_cannot_be_empty">Name cannot be empty</string>
     <string name="lastchanged">Last changed</string>
     <string name="search">Search …</string>
     <string name="settings">Settings</string>

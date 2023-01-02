@@ -51,6 +51,7 @@
     <string name="apiconnection">Sincronizaci&#243;n</string>
     <string name="apiurl">URL a la API web</string>
     <string name="name">Nombre</string>
+    <string name="name_cannot_be_empty">La etiqueta no puede estar vacía</string>
     <string name="lastchanged">&#218;ltimo cambio</string>
     <string name="search">Buscar &#8230;</string>
     <string name="settings">Configuraciones</string>

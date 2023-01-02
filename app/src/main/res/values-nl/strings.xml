@@ -51,6 +51,7 @@
     <string name="apiconnection">Synchronisatie</string>
     <string name="apiurl">URL naar web-API</string>
     <string name="name">Naam</string>
+    <string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
     <string name="lastchanged">Laatst gewijzigd</string>
     <string name="search">Zoekopdracht &#8230;</string>
     <string name="settings">Instellingen</string>

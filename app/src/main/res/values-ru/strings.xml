@@ -32,6 +32,7 @@
     <string name="apiconnection">Синхронизация</string>
     <string name="apiurl">URL к веб-API</string>
     <string name="name">Имя и фамилия</string>
+    <string name="name_cannot_be_empty">Ярлык не может быть пустым</string>
     <string name="lastchanged">Последнее изменение</string>
     <string name="search">Поиск …</string>
     <string name="settings">Настройки</string>

@@ -44,6 +44,7 @@ import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.CustomerCalendar;
 import de.georgsieber.customerdb.tools.ColorControl;
+import de.georgsieber.customerdb.tools.CommonDialog;
 import de.georgsieber.customerdb.tools.StorageControl;
 
 
@@ -622,7 +623,12 @@ public class SettingsActivity extends AppCompatActivity {
         ad.findViewById(R.id.buttonNewCustomFieldOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ad.dismiss();
                 String input = ((EditText) ad.findViewById(R.id.editTextCustomFieldTitle)).getText().toString();
+                if(input.trim().equals("")) {
+                    CommonDialog.show(me, getString(R.string.error), getString(R.string.name_cannot_be_empty), CommonDialog.TYPE.FAIL, false);
+                    return;
+                }
                 int type = -1;
                 if(((RadioButton) ad.findViewById(R.id.radioButtonNewFieldAlphanumeric)).isChecked())
                     type = 0;
@@ -634,8 +640,7 @@ public class SettingsActivity extends AppCompatActivity {
                     type = 3;
                 if(((RadioButton) ad.findViewById(R.id.radioButtonNewFieldAlphanumericMultiLine)).isChecked())
                     type = 4;
-                if(!input.equals("")) mDb.addCustomField(new CustomField(input, type));
-                ad.dismiss();
+                mDb.addCustomField(new CustomField(input, type));
                 reloadCustomFields();
             }
         });
@@ -657,6 +662,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }});
             ad.setNegativeButton(getResources().getString(R.string.abort), null);
             ad.setTitle(getResources().getString(R.string.reallydelete_title));
+            ad.setMessage(((CustomField) mSpinnerCustomFields.getSelectedItem()).mTitle);
             ad.show();
         }
     }
@@ -683,6 +689,8 @@ public class SettingsActivity extends AppCompatActivity {
         ad.findViewById(R.id.buttonNewCustomFieldOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ad.dismiss();
+
                 String input = ((EditText) ad.findViewById(R.id.editTextCustomFieldTitle)).getText().toString();
                 int type = -1;
                 if(radioButtonAlphanumeric.isChecked()) type = 0;
@@ -691,11 +699,13 @@ public class SettingsActivity extends AppCompatActivity {
                 if(radioButtonDate.isChecked()) type = 3;
                 if(radioButtonAlphanumericMultiLine.isChecked()) type = 4;
 
-                if(!input.equals("")) {
-                    currentCustomField.mTitle = input;
-                    currentCustomField.mType = type;
-                    mDb.updateCustomField(currentCustomField);
+                if(input.trim().equals("")) {
+                    CommonDialog.show(me, getString(R.string.error), getString(R.string.name_cannot_be_empty), CommonDialog.TYPE.FAIL, false);
+                    return;
                 }
+                currentCustomField.mTitle = input;
+                currentCustomField.mType = type;
+                mDb.updateCustomField(currentCustomField);
 
                 // rebase custom fields in customer objects
                 if(!oldFieldTitle.equals(input)) {
@@ -714,7 +724,6 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 }
 
-                ad.dismiss();
                 reloadCustomFields();
             }
         });
@@ -743,9 +752,9 @@ public class SettingsActivity extends AppCompatActivity {
         ad.findViewById(R.id.buttonInputBoxOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String input = ((EditText) ad.findViewById(R.id.editTextInputBox)).getText().toString();
-                if(!input.equals("")) mDb.addCustomFieldPreset(fieldId, input);
                 ad.dismiss();
+                String input = ((EditText) ad.findViewById(R.id.editTextInputBox)).getText().toString();
+                mDb.addCustomFieldPreset(fieldId, input);
                 reloadCustomFieldPresets();
             }
         });
@@ -768,6 +777,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }});
             ad.setNegativeButton(getResources().getString(R.string.abort), null);
             ad.setTitle(getResources().getString(R.string.reallydelete_title));
+            ad.setMessage(((CustomField) s.getSelectedItem()).mTitle);
             ad.show();
         }
     }
@@ -891,6 +901,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ad.dismiss();
+                if(editTextTitle.getText().toString().trim().equals("")) {
+                    CommonDialog.show(me, getString(R.string.error), getString(R.string.name_cannot_be_empty), CommonDialog.TYPE.FAIL, false);
+                    return;
+                }
                 CustomerCalendar c = new CustomerCalendar();
                 c.mId = CustomerCalendar.generateID();
                 c.mTitle = editTextTitle.getText().toString();
@@ -917,6 +931,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }});
             ad.setNegativeButton(getResources().getString(R.string.abort), null);
             ad.setTitle(getResources().getString(R.string.reallydelete_title));
+            ad.setMessage(((CustomerCalendar) mSpinnerCalendars.getSelectedItem()).mTitle);
             ad.show();
         }
     }
@@ -972,13 +987,15 @@ public class SettingsActivity extends AppCompatActivity {
         ad.findViewById(R.id.buttonOK).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!editTextTitle.getText().toString().equals("")) {
-                    currentCalendar.mTitle = editTextTitle.getText().toString();
-                    currentCalendar.mColor = ColorControl.getHexColor(Color.rgb(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress()));
-                    currentCalendar.mLastModified = new Date();
-                    mDb.updateCalendar(currentCalendar);
-                }
                 ad.dismiss();
+                if(editTextTitle.getText().toString().trim().equals("")) {
+                    CommonDialog.show(me, getString(R.string.error), getString(R.string.name_cannot_be_empty), CommonDialog.TYPE.FAIL, false);
+                    return;
+                }
+                currentCalendar.mTitle = editTextTitle.getText().toString();
+                currentCalendar.mColor = ColorControl.getHexColor(Color.rgb(seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress()));
+                currentCalendar.mLastModified = new Date();
+                mDb.updateCalendar(currentCalendar);
                 reloadCalendars();
             }
         });

@@ -51,6 +51,7 @@
     <string name="apiconnection">Synchronisation</string>
     <string name="apiurl">URL vers Web-API</string>
     <string name="name">Nom</string>
+    <string name="name_cannot_be_empty">L\'étiquette ne peut pas être vide</string>
     <string name="lastchanged">Derni&#232;re modification</string>
     <string name="search">Chercher &#8230;</string>
     <string name="settings">R&#233;glages</string>
