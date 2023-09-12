@@ -13,6 +13,7 @@ import java.io.OutputStreamWriter;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
@@ -200,6 +201,7 @@ public class CustomerDatabaseApi {
         try {
             JSONObject jparams = new JSONObject();
             jparams.put("diff_since", CustomerDatabase.dateToString(diffSince));
+            jparams.put("files", false);
             jparams.put("playstore_token", mPurchaseToken);
             jparams.put("username", mUsername);
             jparams.put("password", mPassword);
@@ -236,6 +238,7 @@ public class CustomerDatabaseApi {
                 for(int i = 0; i < jcustomers.length(); i++) {
                     JSONObject jo = jcustomers.getJSONObject(i);
                     Customer c = new Customer();
+                    c.mFiles = new ArrayList<>();
                     Iterator<String> iter = jo.keys();
                     while(iter.hasNext()) {
                         String key = iter.next();
@@ -248,6 +251,9 @@ public class CustomerDatabaseApi {
                         activity.mDb.addCustomer(c);
                     } else {
                         activity.mDb.updateCustomer(c);
+                    }
+                    if(!jo.isNull("files")) {
+                        readCustomer(c.mId);
                     }
                 }
                 for(int i = 0; i < jcalendars.length(); i++) {
@@ -316,6 +322,47 @@ public class CustomerDatabaseApi {
         } catch(JSONException ex) {
             throw new Exception(ex.getMessage());
         }
+    }
+
+    private void readCustomer(long customerId) throws Exception {
+        MainActivity activity = mMainActivityReference.get();
+
+        JSONObject jparams = new JSONObject();
+        jparams.put("customer_id", customerId);
+        jparams.put("playstore_token", mPurchaseToken);
+        jparams.put("username", mUsername);
+        jparams.put("password", mPassword);
+
+        JSONObject jroot = new JSONObject();
+        jroot.put("jsonrpc", "2.0");
+        jroot.put("id", 1);
+        jroot.put("method", "customerdb.read.customer");
+        jroot.put("params", jparams);
+
+        String result = openConnection(jroot.toString());
+        //Log.e("API", jroot.toString());
+        //Log.e("API", result);
+
+        try {
+            JSONObject jresult = new JSONObject(result);
+            if (jresult.isNull("result") || !jresult.isNull("error")) {
+                throw new Exception(jresult.getString("error"));
+            }
+        } catch (JSONException e) {
+            throw new Exception(result);
+        }
+
+        JSONObject jresult = new JSONObject(result);
+        JSONObject jo = jresult.getJSONObject("result");
+        Customer c = new Customer();
+        Iterator<String> iter = jo.keys();
+        while(iter.hasNext()) {
+            String key = iter.next();
+            if(jo.isNull(key)) continue;
+            String value = jo.getString(key);
+            c.putCustomerAttribute(key, value);
+        }
+        activity.mDb.updateCustomer(c);
     }
 
     private String openConnection(String send) throws Exception {
