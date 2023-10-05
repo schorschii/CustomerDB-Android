@@ -410,7 +410,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ColorControl.updateActionBarColor(this, mSettings);
         ColorControl.updateAccentColor(findViewById(R.id.mainInputOnlyOverlay), mSettings);
         ColorControl.updateAccentColor(findViewById(R.id.mainLockOverlay), mSettings);
-        ColorControl.updateAccentColor(findViewById(R.id.mainStartupOverlay), mSettings);
         ColorControl.updateAccentColor(findViewById(R.id.fabAdd), mSettings);
         ColorControl.updateAccentColor(findViewById(R.id.buttonCalendarChangeDay), mSettings);
         ColorStateList colorStates = new ColorStateList(
@@ -451,35 +450,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // init logo image
         File logo = StorageControl.getStorageLogo(this);
+        ImageView backgroundLogo = findViewById(R.id.imageBackgroundLogo);
         if(logo.exists()) {
             try {
                 Bitmap myBitmap = BitmapFactory.decodeFile(logo.getAbsolutePath());
                 ((ImageView) findViewById(R.id.imageViewInputOnlyModeLogo)).setImageBitmap(myBitmap);
                 ((ImageView) findViewById(R.id.imageViewLockLogo)).setImageBitmap(myBitmap);
-                final ImageView startupOverlay = findViewById(R.id.mainStartupOverlay);
-                startupOverlay.setImageBitmap(myBitmap);
-                startupOverlay.setVisibility(View.VISIBLE);
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                startupOverlay.animate().alpha(0.0f).setListener(new AnimatorListenerAdapter() {
-                                    @Override
-                                    public void onAnimationEnd(Animator animation) {
-                                        super.onAnimationEnd(animation);
-                                        startupOverlay.setVisibility(View.GONE);
-                                    }
-                                });
-                            }
-                        });
-                    }
-                }, 2000);
+                backgroundLogo.setImageBitmap(myBitmap);
+                backgroundLogo.setAlpha(0.2f);
             } catch(Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            backgroundLogo.setImageResource(R.drawable.ic_customerdb_gray);
+            backgroundLogo.setAlpha(0.05f);
         }
     }
 
