@@ -390,7 +390,7 @@ public class SettingsActivity extends AppCompatActivity {
                         stream.close();
                         scanFile(fl);
                         showHideLogoButtons();
-                    } catch (Exception e) {
+                    } catch(Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -519,6 +519,7 @@ public class SettingsActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     switch(which) {
                         case DialogInterface.BUTTON_POSITIVE:
+                            mSettings.edit().putLong("last-successful-sync", 0).apply();
                             mDb.truncateCustomers();
                             mDb.truncateVouchers();
                             mDb.truncateCalendars();
