@@ -345,10 +345,10 @@ public class CustomerDatabaseApi {
 
         try {
             JSONObject jresult = new JSONObject(result);
-            if (jresult.isNull("result") || !jresult.isNull("error")) {
+            if(jresult.isNull("result") || !jresult.isNull("error")) {
                 throw new Exception(jresult.getString("error"));
             }
-        } catch (JSONException e) {
+        } catch(JSONException e) {
             throw new Exception(result);
         }
 
