@@ -48,7 +48,9 @@ public class CustomerVcfBuilder {
     }
 
     @SuppressLint("SimpleDateFormat")
-    private static DateFormat formatWithoutDashes = new SimpleDateFormat("yyyyMMdd");
+    final private static DateFormat formatWithoutDashes = new SimpleDateFormat("yyyyMMdd"); // vCard 4.0
+    @SuppressLint("SimpleDateFormat")
+    final private static DateFormat formatWithDashes = new SimpleDateFormat("yyyy-MM-dd"); // vCard 2.1, 3.0, 4.0
 
     private String buildVcfContent() {
         StringBuilder content = new StringBuilder();
@@ -96,7 +98,7 @@ public class CustomerVcfBuilder {
             stream.write(buildVcfContent().getBytes());
             stream.close();
             return true;
-        } catch (IOException e) {
+        } catch(IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
         return false;
@@ -194,7 +196,7 @@ public class CustomerVcfBuilder {
                 if(QuotedPrintable.isVcfFieldQuotedPrintableEncoded(options)) {
                     // decode quoted printable encoded fields
                     ArrayList<String> decodedValuesList = new ArrayList<>();
-                    for (String v : values) {
+                    for(String v : values) {
                         decodedValuesList.add(QuotedPrintable.decode(v));
                     }
                     tempVcfEntry.mFields.add(new VcfField(options, decodedValuesList.toArray(new String[0])));
@@ -267,9 +269,15 @@ public class CustomerVcfBuilder {
                         break;
 
                     case "BDAY":
-                        try {
-                            newCustomer.mBirthday = formatWithoutDashes.parse(f.mValues[0]);
-                        } catch (Exception ignored) {}
+                        if(f.mValues[0].trim().length() == 10) {
+                            try {
+                                newCustomer.mBirthday = formatWithDashes.parse(f.mValues[0]);
+                            } catch(Exception ignored) { }
+                        } else {
+                            try {
+                                newCustomer.mBirthday = formatWithoutDashes.parse(f.mValues[0]);
+                            } catch(Exception ignored) { }
+                        }
                         break;
 
                     case "PHOTO":

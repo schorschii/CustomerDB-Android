@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 class QuotedPrintable {
 
+    static String ASCII_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 ";
+
     @SuppressWarnings("CharsetObjectCanBeUsed")
     static String decode(String str) {
         ArrayList<Byte> bytes = new ArrayList<>();
@@ -33,11 +35,30 @@ class QuotedPrintable {
     static String encode(String str) {
         StringBuilder encoded = new StringBuilder();
         try {
-            for(byte b : str.getBytes("UTF-8")) {
-                encoded.append("=").append(String.format("%02X", b));
+            for(String s : splitToCodePoints(str)) {
+                if(ASCII_CHARS.contains(s)) {
+                    // append standard ASCII chars directly (should be human readable)
+                    encoded.append(s);
+                } else {
+                    // append all bytes of char quoted-printable encoded
+                    for(byte b : s.getBytes("UTF-8")) {
+                        encoded.append("=").append(String.format("%02X", b));
+                    }
+                }
             }
         } catch(UnsupportedEncodingException ignored) {}
         return encoded.toString();
+    }
+
+    private static ArrayList<String> splitToCodePoints(String str) {
+        ArrayList<String> list = new ArrayList<>();
+        int count = 0;
+        while(count < str.length()) {
+            int cp = str.codePointAt(count);
+            list.add(new String(Character.toChars(cp)));
+            count += Character.charCount(cp);
+        }
+        return list;
     }
 
     private static byte[] toByteArray(ArrayList<Byte> in) {
