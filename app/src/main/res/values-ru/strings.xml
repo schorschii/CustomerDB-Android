@@ -198,7 +198,8 @@
     <string name="new_custom_field">Новое настраиваемое поле</string>
     <string name="remove_custom_field">Удалить пользовательское поле</string>
     <string name="custom_field_title">Имя поля</string>
-    <string name="alphanumeric">Алфавитно-цифровой</string>
+    <string name="alphanumeric">Текст</string>
+    <string name="alphanumeric_multi_line">Текст (многострочный)</string>
     <string name="drop_down">Короткий список</string>
     <string name="numeric">Числовой</string>
     <string name="date">Дата</string>
@@ -267,7 +268,6 @@
     <string name="show_email_field">Показать поле электронной почты</string>
     <string name="show_phone_fields">Показать поля телефона</string>
     <string name="apiusername">Имя пользователя / электронная почта</string>
-    <string name="alphanumeric_multi_line">Буквенно-цифровая (Multi Line)</string>
     <string name="ios_app_available">Доступно приложение для iOS</string>
     <string name="sync_data_with_your_ios_device">Синхронизируйте данные с вашим устройством iOS!</string>
     <string name="new_version">Новая версия</string>

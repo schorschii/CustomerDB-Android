@@ -205,7 +205,8 @@
     <string name="new_custom_field">Nieuw aangepast veld</string>
     <string name="remove_custom_field">Aangepast veld verwijderen</string>
     <string name="custom_field_title">Veldnaam</string>
-    <string name="alphanumeric">Alfanumeriek</string>
+    <string name="alphanumeric">Tekst</string>
+    <string name="alphanumeric_multi_line">Tekst (meerdere regels)</string>
     <string name="drop_down">Vervolgkeuzelijst</string>
     <string name="numeric">Numeriek</string>
     <string name="date">Datum</string>
@@ -266,7 +267,6 @@
     <string name="show_email_field">E-mailveld tonen</string>
     <string name="show_phone_fields">Toon telefoonvelden</string>
     <string name="apiusername">Gebruikersnaam / e-mail</string>
-    <string name="alphanumeric_multi_line">Alfanumeriek (meerdere regels)</string>
     <string name="ios_app_available">iOS-app beschikbaar</string>
     <string name="sync_data_with_your_ios_device">Synchroniseer gegevens met uw iOS-apparaat!</string>
     <string name="new_version">Nieuwe versie</string>

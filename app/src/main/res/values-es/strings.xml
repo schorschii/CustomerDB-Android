@@ -205,7 +205,8 @@
     <string name="new_custom_field">Nuevo campo personalizado</string>
     <string name="remove_custom_field">Eliminar campo personalizado</string>
     <string name="custom_field_title">Nombre del campo</string>
-    <string name="alphanumeric">Alfanum&#233;rica</string>
+    <string name="alphanumeric">Texto</string>
+    <string name="alphanumeric_multi_line">Texto (multilínea)</string>
     <string name="drop_down">Lista desplegable de selecci&#243;n</string>
     <string name="numeric">Num&#233;rica</string>
     <string name="date">Fecha</string>
@@ -266,7 +267,6 @@
     <string name="show_email_field">Mostrar campo de correo electr&#243;nico</string>
     <string name="show_phone_fields">Mostrar campos de tel&#233;fono</string>
     <string name="apiusername">Nombre de usuario / correo electr&#243;nico</string>
-    <string name="alphanumeric_multi_line">Alfanum&#233;rico (l&#237;nea m&#250;ltiple)</string>
     <string name="ios_app_available">Aplicaci&#243;n iOS disponible</string>
     <string name="sync_data_with_your_ios_device">&#161;Sincronice datos con su dispositivo iOS!</string>
     <string name="new_version">Nueva versi&#243;n</string>

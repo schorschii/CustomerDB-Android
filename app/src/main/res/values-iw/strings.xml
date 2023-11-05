@@ -206,7 +206,8 @@
     <string name="new_custom_field">שדה מותאם אישית חדש</string>
     <string name="remove_custom_field">הסר שדה מותאם אישית</string>
     <string name="custom_field_title">שם השדה</string>
-    <string name="alphanumeric">אלפא-נומריים</string>
+    <string name="alphanumeric">טֶקסט</string>
+    <string name="alphanumeric_multi_line">טקסט (רב שורות)</string>
     <string name="drop_down">הבחירה ברשימה הנפתחת</string>
     <string name="numeric">מספריים</string>
     <string name="date">תאריך</string>
@@ -279,7 +280,6 @@
     <string name="show_email_field">הצג שדה דוא"ל</string>
     <string name="show_phone_fields">הצג שדות טלפון</string>
     <string name="apiusername">שם משתמש / דואר אלקטרוני</string>
-    <string name="alphanumeric_multi_line">אלפאנומרי (רב קו)</string>
     <string name="ios_app_available">אפליקציית iOS זמינה</string>
     <string name="sync_data_with_your_ios_device">סנכרן נתונים עם מכשיר ה- iOS שלך!</string>
     <string name="new_version">גרסה חדשה</string>

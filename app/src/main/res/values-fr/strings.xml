@@ -205,7 +205,8 @@
     <string name="new_custom_field">Nouveau champ personnalis&#233;</string>
     <string name="remove_custom_field">Supprimer un champ personnalis&#233;</string>
     <string name="custom_field_title">Nom de domaine</string>
-    <string name="alphanumeric">Alphanum&#233;rique</string>
+    <string name="alphanumeric">Texte</string>
+    <string name="alphanumeric_multi_line">Texte (multiligne)</string>
     <string name="drop_down">Liste d&#233;roulante de s&#233;lection</string>
     <string name="numeric">Num&#233;rique</string>
     <string name="date">Date</string>
@@ -266,7 +267,6 @@
     <string name="show_email_field">Afficher le champ e-mail</string>
     <string name="show_phone_fields">Afficher les champs du t&#233;l&#233;phone</string>
     <string name="apiusername">Nom d\'utilisateur / eMail</string>
-    <string name="alphanumeric_multi_line">Alphanum&#233;rique (multiligne)</string>
     <string name="ios_app_available">Application iOS disponible</string>
     <string name="sync_data_with_your_ios_device">Synchronisez les donn&#233;es avec votre appareil iOS!</string>
     <string name="new_version">Nouvelle version</string>

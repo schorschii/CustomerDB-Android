@@ -205,7 +205,8 @@
     <string name="new_custom_field">Nuovo campo personalizzato</string>
     <string name="remove_custom_field">Rimuovi campo personalizzato</string>
     <string name="custom_field_title">Nome campo</string>
-    <string name="alphanumeric">Alfanumerica</string>
+    <string name="alphanumeric">Testo</string>
+    <string name="alphanumeric_multi_line">Testo (multilinea)</string>
     <string name="drop_down">Elenco a discesa</string>
     <string name="numeric">Numerica</string>
     <string name="date">Data</string>
@@ -266,7 +267,6 @@
     <string name="show_email_field">Mostra campo e-mail</string>
     <string name="show_phone_fields">Mostra campi telefonici</string>
     <string name="apiusername">Nome utente / e-mail</string>
-    <string name="alphanumeric_multi_line">Alfanumerico (multi linea)</string>
     <string name="ios_app_available">App per iOS disponibile</string>
     <string name="sync_data_with_your_ios_device">Sincronizza i dati con il tuo dispositivo iOS!</string>
     <string name="new_version">Nuova versione</string>

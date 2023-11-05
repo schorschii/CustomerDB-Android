@@ -215,7 +215,8 @@
     <string name="new_custom_field">New Custom Field</string>
     <string name="remove_custom_field">Remove Custom Field</string>
     <string name="custom_field_title">Field Name</string>
-    <string name="alphanumeric">Alphanumeric</string>
+    <string name="alphanumeric">Text</string>
+    <string name="alphanumeric_multi_line">Text (Multiline)</string>
     <string name="drop_down">Drop Down Selection List</string>
     <string name="numeric">Numeric</string>
     <string name="date">Date</string>
@@ -276,7 +277,6 @@
     <string name="show_email_field">Show Email Field</string>
     <string name="show_phone_fields">Show Phone Fields</string>
     <string name="apiusername">Username / eMail</string>
-    <string name="alphanumeric_multi_line">Alphanumeric (Multi Line)</string>
     <string name="ios_app_available">iOS App Available</string>
     <string name="sync_data_with_your_ios_device">Sync data with your iOS device!</string>
     <string name="new_version">New Version</string>
