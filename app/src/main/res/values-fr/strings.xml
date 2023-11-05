@@ -171,8 +171,6 @@
     <string name="new_customer">Nouveau client</string>
     <string name="edit_customer">Modifier le client</string>
     <string name="new_voucher">Nouveau bon</string>
-    <string name="purchase_already_done">Achat d&#233;j&#224; fait</string>
-    <string name="purchase_already_done_description">Vous poss&#233;dez d&#233;j&#224; cet article.</string>
     <string name="purchase_canceled">Achat annul&#233;</string>
     <string name="purchase_canceled_description">Vous pouvez continuer cet achat &#224; tout moment.</string>
     <string name="purchase_failed">Achat rat&#233;</string>
@@ -194,7 +192,6 @@
     <string name="green">Verte</string>
     <string name="blue">Bleue</string>
     <string name="reset_color">R&#233;initialiser la couleur</string>
-    <string name="confirm">Confirmer</string>
     <string name="send_via_email">Envoyer par e-mail</string>
     <string name="remove_logo">Supprimer le logo</string>
     <string name="passwords_not_matching">Les mots de passe ne correspondent pas</string>
@@ -202,8 +199,6 @@
     <string name="removed_logo_failed">Le logo n\'a pas pu &#234;tre supprim&#233;</string>
     <string name="custom_fields">Les champs personnalis&#233;s</string>
     <string name="custom_fields_description">Vous permet d\'ajouter un nombre quelconque de champs personnalis&#233;s aux enregistrements client. Vous pouvez &#233;galement ajouter des listes d&#233;roulantes et trier la liste des clients en fonction de vos champs personnalis&#233;s. Paiement unique.</string>
-    <string name="new_custom_field">Nouveau champ personnalis&#233;</string>
-    <string name="remove_custom_field">Supprimer un champ personnalis&#233;</string>
     <string name="custom_field_title">Nom de domaine</string>
     <string name="alphanumeric">Texte</string>
     <string name="alphanumeric_multi_line">Texte (multiligne)</string>
@@ -212,7 +207,6 @@
     <string name="date">Date</string>
     <string name="filter">Filtre</string>
     <string name="sort">Trier</string>
-    <string name="remove_drop_down_value">Supprimer la valeur d&#233;roulante</string>
     <string name="new_drop_down_value">Nouvelle valeur d&#233;roulante</string>
     <string name="sort_asc">Trier par ordre croissant</string>
     <string name="sort_desc">Trier par ordre d&#233;croissant</string>
@@ -327,7 +321,7 @@
     <string name="light_mode">Mode d\'&#233;clairage</string>
     <string name="custom_field">Champ personnalis&#233;</string>
     <string name="last_name_default">Nom (par d&#233;faut)</string>
-    <string name="edit_custom_field">Modifier un champ personnalis&#233;</string>
+    <string name="edit">Modifier</string>
     <string name="im_export_all_voucher_text">Avec cette fonction, vous pouvez importer des bons ou exporter tous les enregistrements dans un seul fichier.</string>
     <string name="import_csv_note_voucher">Veuillez noter les informations importantes suivantes pour l\'importation CSV.\n\nLa première ligne est interprétée comme le titre de la colonne. Votre fichier CSV doit contenir les colonnes suivantes: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportant: veuillez utiliser une virgule (,) comme séparateur de champ. L\'ID client est généré lorsque le champ est vide ou que l\'ID existe déjà. Le format de la date doit être \"YYYY-MM-JJ HH:MM:SS\".\n\nVous pouvez éditer votre fichier CSV par exemple avec un logiciel comme LibreOffice Calc avant de démarrer l\'importation.</string>
     <string name="files">Des dossiers</string>
@@ -349,9 +343,6 @@
     <string name="remove_appointment">Supprimer un rendez-vous</string>
     <string name="end_date_before_start_date">La date de fin est antérieure à la date de début!</string>
     <string name="appointment_too_short">Rendez-vous trop court! Veuillez créer un rendez-vous d\'une durée d\'au moins 5 minutes.</string>
-    <string name="add_calendar">Ajouter un calendrier</string>
-    <string name="edit_calendar">Modifier le calendrier</string>
-    <string name="remove_calendar">Supprimer le calendrier</string>
     <string name="attach_files_to_customer_records">Joindre des fichiers aux enregistrements des clients (maximum 20 fichiers et 1 Mo par fichier). Paiement unique.</string>
     <string name="unlocks_the_calendar_features">Déverrouille les fonctionnalités du calendrier. Paiement unique.</string>
     <string name="no_calendar_selected">Aucun calendrier sélectionné! Veuillez créer un calendrier dans les paramètres.</string>

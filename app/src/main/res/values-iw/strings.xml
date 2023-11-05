@@ -172,8 +172,6 @@
     <string name="new_customer">יצירת לקוח חדש</string>
     <string name="edit_customer">עריכת לקוח</string>
     <string name="new_voucher">ליצור שובר חדש</string>
-    <string name="purchase_already_done">הרכישה כבר עשיתי</string>
-    <string name="purchase_already_done_description">כבר בבעלותך פריט זה.</string>
     <string name="purchase_canceled">הרכישה בוטלה</string>
     <string name="purchase_canceled_description">אתה יכול להמשיך רכישה זו בכל עת.</string>
     <string name="purchase_failed">רכישה נכשל</string>
@@ -195,7 +193,6 @@
     <string name="green">ירוק</string>
     <string name="blue">כחול</string>
     <string name="reset_color">איפוס צבע</string>
-    <string name="confirm">לאשר</string>
     <string name="send_via_email">שלח בדואר אלקטרוני</string>
     <string name="remove_logo">הסרת לוגו</string>
     <string name="passwords_not_matching">סיסמאות אינן מתאימות</string>
@@ -203,8 +200,6 @@
     <string name="removed_logo_failed">לא היתה אפשרות להסיר את הלוגו</string>
     <string name="custom_fields">שדות מותאמים אישית</string>
     <string name="custom_fields_description">מאפשר לך להוסיף כל מספר של שדות מותאמים אישית רשומות של לקוחות. באפשרותך גם להוסיף רשימות נפתחות, למיין את רשימת לקוחות לפי השדות המותאמים אישית. תשלום חד פעמי.</string>
-    <string name="new_custom_field">שדה מותאם אישית חדש</string>
-    <string name="remove_custom_field">הסר שדה מותאם אישית</string>
     <string name="custom_field_title">שם השדה</string>
     <string name="alphanumeric">טֶקסט</string>
     <string name="alphanumeric_multi_line">טקסט (רב שורות)</string>
@@ -213,7 +208,6 @@
     <string name="date">תאריך</string>
     <string name="filter">מסנן</string>
     <string name="sort">מיון</string>
-    <string name="remove_drop_down_value">הסר הנפתחת ערך</string>
     <string name="new_drop_down_value">חדש הנפתח ערך</string>
     <string name="sort_asc">מיין בסדר עולה</string>
     <string name="sort_desc">מיין בסדר יורד</string>
@@ -340,7 +334,7 @@
     <string name="light_mode">מצב אור</string>
     <string name="custom_field">שדה מותאם</string>
     <string name="last_name_default">שם משפחה (ברירת מחדל)</string>
-    <string name="edit_custom_field">ערוך שדה מותאם אישית</string>
+    <string name="edit">לַעֲרוֹך</string>
     <string name="im_export_all_voucher_text">בעזרת פונקציה זו תוכלו לייבא שוברים או לייצא את כל הרשומות לקובץ יחיד.</string>
     <string name="import_csv_note_voucher">Please note the following important information for the CSV import.\n\nThe first line is interpreted as column title. Your CSV file should contain the following columns: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportant: Please use a comma (,) as field separator. The customer ID is generated when the field is empty or the ID already exists. The date format must be \"YYYY-MM-DD HH:MM:SS\".\n\nYou can edit your CSV file for example with a software like LibreOffice Calc before you start the import.</string>
     <string name="files">קבצים</string>
@@ -362,9 +356,6 @@
     <string name="remove_appointment">הסר פגישה</string>
     <string name="end_date_before_start_date">תאריך הסיום הוא לפני תאריך ההתחלה!</string>
     <string name="appointment_too_short">המינוי קצר מדי! אנא צור פגישה באורך של חמש דקות לפחות.</string>
-    <string name="add_calendar">הוסף לוח שנה</string>
-    <string name="edit_calendar">ערוך את לוח השנה</string>
-    <string name="remove_calendar">הסר את לוח השנה</string>
     <string name="attach_files_to_customer_records">צרף קבצים לרשומות לקוחות (מקסימום 20 קבצים ו- 1MB לכל קובץ). תשלום חד פעמי.</string>
     <string name="unlocks_the_calendar_features">מבטל את נעילת תכונות היומן. תשלום חד פעמי.</string>
     <string name="no_calendar_selected">לא נבחר לוח שנה! אנא צור לוח שנה בהגדרות.</string>

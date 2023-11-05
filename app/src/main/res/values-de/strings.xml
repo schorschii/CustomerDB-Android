@@ -163,8 +163,6 @@
     <string name="new_customer">Neuer Kunde</string>
     <string name="edit_customer">Kunden bearbeiten</string>
     <string name="new_voucher">Neuer Gutschein</string>
-    <string name="purchase_already_done">Einkauf bereits durchgeführt</string>
-    <string name="purchase_already_done_description">Sie besitzen dieses Element bereits.</string>
     <string name="purchase_canceled">Einkauf abgebrochen</string>
     <string name="purchase_canceled_description">Sie können den Einkauf jederzeit wiederholen.</string>
     <string name="purchase_failed">Einkauf fehlgeschlagen</string>
@@ -186,7 +184,6 @@
     <string name="green">Grün</string>
     <string name="blue">Blau</string>
     <string name="reset_color">Farbe zurücksetzen</string>
-    <string name="confirm">Bestätigen</string>
     <string name="send_via_email">Per E-Mail senden</string>
     <string name="remove_logo">Logo entfernen</string>
     <string name="passwords_not_matching">Kennwörter stimmen nicht überein</string>
@@ -194,8 +191,6 @@
     <string name="removed_logo_failed">Logo konnte nicht entfernt werden</string>
     <string name="custom_fields">Benutzerdefinierte Felder</string>
     <string name="custom_fields_description">Ermöglicht es beliebig viele eigene Felder zu Kundendatensätzen hinzuzufügen. Sie können auch Auswahllisten erstellen und die Kundenliste nach benutzerdefinierten Feldern sortieren. Einmalige Zahlung.</string>
-    <string name="new_custom_field">Neues benutzerdefiniertes Feld</string>
-    <string name="remove_custom_field">Beutzerdefiniertes Feld entfernen</string>
     <string name="custom_field_title">Feldbezeichnung</string>
     <string name="alphanumeric">Text</string>
     <string name="alphanumeric_multi_line">Text (mehrzeilig)</string>
@@ -204,7 +199,6 @@
     <string name="date">Datum</string>
     <string name="filter">Filtern</string>
     <string name="sort">Sortieren</string>
-    <string name="remove_drop_down_value">Auswahlfeld-Eintrag entfernen</string>
     <string name="new_drop_down_value">Neuer Auswahlfeld-Eintrag</string>
     <string name="sort_asc">Aufsteigend sortieren</string>
     <string name="sort_desc">Absteigend sortieren</string>
@@ -327,7 +321,7 @@
     <string name="light_mode">Hell</string>
     <string name="custom_field">Benutzerdefiniertes Feld</string>
     <string name="last_name_default">Nachname (Standard)</string>
-    <string name="edit_custom_field">Benutzerdefiniertes Feld bearbeiten</string>
+    <string name="edit">Bearbeiten</string>
     <string name="im_export_all_voucher_text">Mit dieser Funktion können Sie Gutscheindaten importieren oder alle Datensätze in eine Datei exportieren.</string>
     <string name="import_csv_note_voucher">Bitte beachten Sie folgende wichtige Hinweise zum CSV-Import.\n\nDie erste Zeile wird als Spaltentitel interpretiert. Ihre CSV-Datei sollte folgende Spalten enthalten: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nWichtig: Bitte verwenden Sie als Feldtrennzeichen ein Komma (,). Die Kunden-ID wird generiert wenn das Feld leer ist oder die ID bereits existiert. Als Datumsformat muss \"YYYY-MM-DD HH:MM:SS\" verwendet werden.\n\nSie können Ihre CSV-Datei z.B. mit einer Software wie LibreOffice Calc vorher bearbeiten, bevor Sie den Import starten.</string>
     <string name="files">Dateien</string>
@@ -349,9 +343,6 @@
     <string name="remove_appointment">Termin löschen</string>
     <string name="end_date_before_start_date">Das Enddatum liegt vor dem Startdatum!</string>
     <string name="appointment_too_short">Termin zu kurz! Termine müssen mindestend 5 Minuten lang sein.</string>
-    <string name="add_calendar">Neuer Kalender</string>
-    <string name="edit_calendar">Kalender bearbeiten</string>
-    <string name="remove_calendar">Kalender entfernen</string>
     <string name="attach_files_to_customer_records">Fügen Sie Dateien an Kundendatensätze an (maximal 20 Dateien und 1MB pro Datei). Einmalige Zahlung.</string>
     <string name="unlocks_the_calendar_features">Schaltet die Kalenderfunktionen frei. Einmalige Zahlung.</string>
     <string name="no_calendar_selected">Kein Kalender ausgewählt! Bitte erstellen Sie einen Kalender in den Einstellungen.</string>

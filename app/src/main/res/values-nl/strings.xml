@@ -171,8 +171,6 @@
     <string name="new_customer">Nieuwe klant</string>
     <string name="edit_customer">Klant bewerken</string>
     <string name="new_voucher">Nieuwe voucher</string>
-    <string name="purchase_already_done">Aankoop al gedaan</string>
-    <string name="purchase_already_done_description">Je bent al in het bezit van dit item.</string>
     <string name="purchase_canceled">Aankoop geannuleerd</string>
     <string name="purchase_canceled_description">U kunt deze aankoop op elk moment voortzetten.</string>
     <string name="purchase_failed">Aankoop mislukt</string>
@@ -194,7 +192,6 @@
     <string name="green">Groente</string>
     <string name="blue">Blauw</string>
     <string name="reset_color">Kleur resetten</string>
-    <string name="confirm">Bevestigen</string>
     <string name="send_via_email">Verzenden via e-mail</string>
     <string name="remove_logo">Logo verwijderen</string>
     <string name="passwords_not_matching">Wachtwoorden komen niet overeen</string>
@@ -202,8 +199,6 @@
     <string name="removed_logo_failed">Logo kan niet worden verwijderd</string>
     <string name="custom_fields">Aangepaste velden</string>
     <string name="custom_fields_description">Hiermee kunt u een willekeurig aantal aangepaste velden toevoegen aan klantrecords. U kunt ook vervolgkeuzelijsten toevoegen en de klantenlijst sorteren op uw aangepaste velden. Eenmalige aankoop.</string>
-    <string name="new_custom_field">Nieuw aangepast veld</string>
-    <string name="remove_custom_field">Aangepast veld verwijderen</string>
     <string name="custom_field_title">Veldnaam</string>
     <string name="alphanumeric">Tekst</string>
     <string name="alphanumeric_multi_line">Tekst (meerdere regels)</string>
@@ -212,7 +207,6 @@
     <string name="date">Datum</string>
     <string name="filter">Filter</string>
     <string name="sort">Soort</string>
-    <string name="remove_drop_down_value">Vervolgkeuzelijst verwijderen</string>
     <string name="new_drop_down_value">Nieuwe dropdown-waarde</string>
     <string name="sort_asc">Oplopend sorteren</string>
     <string name="sort_desc">Aflopend sorteren</string>
@@ -327,7 +321,7 @@
     <string name="light_mode">Lichtmodus</string>
     <string name="custom_field">Aangepast veld</string>
     <string name="last_name_default">Achternaam (standaard)</string>
-    <string name="edit_custom_field">Aangepast veld bewerken</string>
+    <string name="edit">Bewerking</string>
     <string name="im_export_all_voucher_text">Met deze functie kunt u bonnen importeren of alle records naar &#233;&#233;n bestand exporteren.</string>
     <string name="import_csv_note_voucher">Let op de volgende belangrijke informatie voor de CSV-import.\n\nDe eerste regel wordt ge&#239;nterpreteerd als kolomtitel. Uw CSV-bestand moet de volgende kolommen bevatten: id, number, original_value, current_value, from_customer, for_customer, uitgegeven, valid_until, ingewisseld, last_modified, opmerkingen\n\nBelangrijk: gebruik een komma (,) als veldscheidingsteken. De klant-ID wordt gegenereerd wanneer het veld leeg is of de ID al bestaat. Het datumformaat moet \\"JJJJ-MM-DD HH:MM:SS\\" zijn.\n\nU kunt uw CSV-bestand bijvoorbeeld bewerken met software zoals LibreOffice Calc voordat u met importeren begint.</string>
     <string name="files">Bestanden</string>
@@ -349,9 +343,6 @@
     <string name="remove_appointment">Afspraak verwijderen</string>
     <string name="end_date_before_start_date">De einddatum is voor de startdatum!</string>
     <string name="appointment_too_short">Afspraak te kort! Maak dan een afspraak met een lengte van minimaal 5 minuten.</string>
-    <string name="add_calendar">Nieuwe kalender</string>
-    <string name="edit_calendar">Agenda bewerken</string>
-    <string name="remove_calendar">Kalender verwijderen</string>
     <string name="attach_files_to_customer_records">Voeg bestanden toe aan klantrecords (maximaal 20 bestanden en 1 MB per bestand). Eenmalige aankoop.</string>
     <string name="unlocks_the_calendar_features">Ontgrendelt de kalenderfuncties. Eenmalige aankoop.</string>
     <string name="no_calendar_selected">Geen kalender geselecteerd! Maak een kalender aan in de instellingen.</string>

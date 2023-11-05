@@ -181,8 +181,6 @@
     <string name="new_customer">New Customer</string>
     <string name="edit_customer">Edit Customer</string>
     <string name="new_voucher">New Voucher</string>
-    <string name="purchase_already_done">Purchase already done</string>
-    <string name="purchase_already_done_description">You already own this item.</string>
     <string name="purchase_canceled">Purchase canceled</string>
     <string name="purchase_canceled_description">You can continue this purchase at any time.</string>
     <string name="purchase_failed">Purchase failed</string>
@@ -204,7 +202,6 @@
     <string name="green">Green</string>
     <string name="blue">Blue</string>
     <string name="reset_color">Reset Color</string>
-    <string name="confirm">Confirm</string>
     <string name="send_via_email">Send via email</string>
     <string name="remove_logo">Remove Logo</string>
     <string name="passwords_not_matching">Passwords do not match</string>
@@ -212,8 +209,6 @@
     <string name="removed_logo_failed">Logo could not be removed</string>
     <string name="custom_fields">Custom Fields</string>
     <string name="custom_fields_description">Allows you to add any number of custom fields to customer records. You can also add drop down lists and sort the customer list by your custom fields. One time purchase.</string>
-    <string name="new_custom_field">New Custom Field</string>
-    <string name="remove_custom_field">Remove Custom Field</string>
     <string name="custom_field_title">Field Name</string>
     <string name="alphanumeric">Text</string>
     <string name="alphanumeric_multi_line">Text (Multiline)</string>
@@ -222,7 +217,6 @@
     <string name="date">Date</string>
     <string name="filter">Filter</string>
     <string name="sort">Sort</string>
-    <string name="remove_drop_down_value">Remove Drop Down Value</string>
     <string name="new_drop_down_value">New Drop Down Value</string>
     <string name="sort_asc">Sort Ascending</string>
     <string name="sort_desc">Sort Descending</string>
@@ -337,7 +331,7 @@
     <string name="light_mode">Light Mode</string>
     <string name="custom_field">Custom Field</string>
     <string name="last_name_default">Last Name (Default)</string>
-    <string name="edit_custom_field">Edit Custom Field</string>
+    <string name="edit">Edit</string>
     <string name="im_export_all_voucher_text">With this function, you can import vouchers or export all records into a single file.</string>
     <string name="import_csv_note_voucher">Please note the following important information for the CSV import.\n\nThe first line is interpreted as column title. Your CSV file should contain the following columns: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nImportant: Please use a comma (,) as field separator. The customer ID is generated when the field is empty or the ID already exists. The date format must be \"YYYY-MM-DD HH:MM:SS\".\n\nYou can edit your CSV file for example with a software like LibreOffice Calc before you start the import.</string>
     <string name="files">Files</string>
@@ -359,9 +353,6 @@
     <string name="remove_appointment">Remove Appointment</string>
     <string name="end_date_before_start_date">The end date is before the start date!</string>
     <string name="appointment_too_short">Appointment too short! Please create an appointment with a length of at least 5 minutes.</string>
-    <string name="add_calendar">New Calendar</string>
-    <string name="edit_calendar">Edit Calendar</string>
-    <string name="remove_calendar">Remove Calendar</string>
     <string name="attach_files_to_customer_records">Attach files to customer records (maximum 20 files and 1MB per file). One time purchase.</string>
     <string name="unlocks_the_calendar_features">Unlocks the calendar features. One time purchase.</string>
     <string name="no_calendar_selected">No calendar selected! Please create a calendar in the settings.</string>

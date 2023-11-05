@@ -195,7 +195,6 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
                     <Button
-                        android:id="@+id/buttonSettingsSetPassword"
                         style="@style/Widget.AppCompat.Button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -504,29 +503,34 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_spinner"
                         android:spinnerMode="dropdown" />
-
-                    <Button
-                        style="@style/Widget.AppCompat.Button"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="onAddCustomFieldButtonClick"
-                        android:text="@string/new_custom_field" />
-
-                    <Button
-                        android:id="@+id/buttonEditCustomFieldSettings"
-                        style="@style/Widget.AppCompat.Button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="onEditCustomFieldButtonClick"
-                        android:text="@string/edit_custom_field" />
-
-                    <Button
-                        android:id="@+id/buttonRemoveCustomFieldSettings"
-                        style="@style/Widget.AppCompat.Button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="onRemoveCustomFieldButtonClick"
-                        android:text="@string/remove_custom_field" />
+                        android:orientation="horizontal">
+                        <Button
+                            style="@style/Widget.AppCompat.Button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="onAddCustomFieldButtonClick"
+                            android:text="@string/add" />
+                        <Button
+                            android:id="@+id/buttonEditCustomFieldSettings"
+                            style="@style/Widget.AppCompat.Button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="onEditCustomFieldButtonClick"
+                            android:text="@string/edit" />
+                        <Button
+                            android:id="@+id/buttonRemoveCustomFieldSettings"
+                            style="@style/Widget.AppCompat.Button"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:onClick="onRemoveCustomFieldButtonClick"
+                            android:text="@string/remove" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/linearLayoutCustomFieldsSettingsDropDownValues"
@@ -544,21 +548,26 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/background_spinner"
                             android:spinnerMode="dropdown" />
-
-                        <Button
-                            style="@style/Widget.AppCompat.Button"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:onClick="onAddCustomFieldValueButtonClick"
-                            android:text="@string/new_drop_down_value" />
-
-                        <Button
-                            android:id="@+id/buttonRemoveCustomFieldValueSettings"
-                            style="@style/Widget.AppCompat.Button"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:onClick="onRemoveCustomFieldValueButtonClick"
-                            android:text="@string/remove_drop_down_value" />
+                            android:orientation="horizontal">
+                            <Button
+                                style="@style/Widget.AppCompat.Button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="onAddCustomFieldValueButtonClick"
+                                android:text="@string/add" />
+                            <Button
+                                android:id="@+id/buttonRemoveCustomFieldValueSettings"
+                                style="@style/Widget.AppCompat.Button"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="onRemoveCustomFieldValueButtonClick"
+                                android:text="@string/remove" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -583,29 +592,34 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/background_spinner"
                     android:spinnerMode="dropdown" />
-
-                <Button
-                    style="@style/Widget.AppCompat.Button"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="onAddCalendarButtonClick"
-                    android:text="@string/add_calendar" />
-
-                <Button
-                    android:id="@+id/buttonEditCalendarSettings"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onEditCalendarButtonClick"
-                    android:text="@string/edit_calendar" />
-
-                <Button
-                    android:id="@+id/buttonRemoveCalendarSettings"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="onRemoveCalendarButtonClick"
-                    android:text="@string/remove_calendar" />
+                    android:orientation="horizontal">
+                    <Button
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onAddCalendarButtonClick"
+                        android:text="@string/add" />
+                    <Button
+                        android:id="@+id/buttonEditCalendarSettings"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onEditCalendarButtonClick"
+                        android:text="@string/edit" />
+                    <Button
+                        android:id="@+id/buttonRemoveCalendarSettings"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:onClick="onRemoveCalendarButtonClick"
+                        android:text="@string/remove" />
+                </LinearLayout>
             </LinearLayout>
 
                 <Space

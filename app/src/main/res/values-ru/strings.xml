@@ -164,8 +164,6 @@
     <string name="new_customer">Создать нового клиента</string>
     <string name="edit_customer">Редактировать клиентов</string>
     <string name="new_voucher">Создать новый ваучер</string>
-    <string name="purchase_already_done">Покупка уже сделана</string>
-    <string name="purchase_already_done_description">Вы уже владеете этим элементом.</string>
     <string name="purchase_canceled">Покупка отменена</string>
     <string name="purchase_canceled_description">Вы можете повторить покупку в любое время.</string>
     <string name="purchase_failed">Покупка не удалась</string>
@@ -187,7 +185,6 @@
     <string name="green">Зеленый</string>
     <string name="blue">Синий</string>
     <string name="reset_color">Сбросить цвет</string>
-    <string name="confirm">Подтвердить</string>
     <string name="send_via_email">Отправить по электронной почте</string>
     <string name="remove_logo">Удалить логотип</string>
     <string name="passwords_not_matching">Пароли не совпадают</string>
@@ -195,8 +192,6 @@
     <string name="removed_logo_failed">Логотип не может быть удален</string>
     <string name="custom_fields">Пользовательские поля</string>
     <string name="custom_fields_description">Позволяет добавлять любое количество настраиваемых полей в записи клиентов. Вы также можете создавать списки выбора и сортировать список клиентов по настраиваемым полям. Одноразовый платеж.</string>
-    <string name="new_custom_field">Новое настраиваемое поле</string>
-    <string name="remove_custom_field">Удалить пользовательское поле</string>
     <string name="custom_field_title">Имя поля</string>
     <string name="alphanumeric">Текст</string>
     <string name="alphanumeric_multi_line">Текст (многострочный)</string>
@@ -205,7 +200,6 @@
     <string name="date">Дата</string>
     <string name="filter">Фильтр</string>
     <string name="sort">Сортировать</string>
-    <string name="remove_drop_down_value">Удалить поле выбора</string>
     <string name="new_drop_down_value">Новая запись в окне выбора</string>
     <string name="sort_asc">Сортировать по возрастанию</string>
     <string name="sort_desc">Сортировать по убыванию</string>
@@ -328,7 +322,7 @@
     <string name="light_mode">Легкий режим</string>
     <string name="custom_field">Пользовательское поле</string>
     <string name="last_name_default">Фамилия (по умолчанию)</string>
-    <string name="edit_custom_field">Изменить настраиваемое поле</string>
+    <string name="edit">Редактировать</string>
     <string name="im_export_all_voucher_text">С помощью этой функции вы можете импортировать ваучеры или экспортировать все записи в один файл.</string>
     <string name="import_csv_note_voucher">Обратите внимание на следующую важную информацию для импорта CSV.\n\nПервая строка интерпретируется как заголовок столбца. Ваш CSV-файл должен содержать следующие столбцы: id, number, original_value, current_value, from_customer, for_customer, issued, valid_until, redeemed, last_modified, notes\n\nВажно: Пожалуйста, используйте запятую (,) в качестве разделителя полей. Идентификатор клиента генерируется, когда поле пустое или идентификатор уже существует. Формат даты должен быть \"ГГГГ-ММ-ДД ЧЧ:ММ:СС\".\n\nВы можете отредактировать свой CSV-файл, например, с помощью программного обеспечения, такого как LibreOffice Calc, прежде чем начать импорт.</string>
     <string name="files">файлы</string>
@@ -350,9 +344,6 @@
     <string name="remove_appointment">Удалить встречу</string>
     <string name="end_date_before_start_date">Дата окончания предшествует дате начала!</string>
     <string name="appointment_too_short">Назначение слишком короткое! Пожалуйста, назначьте встречу продолжительностью не менее 5 минут.</string>
-    <string name="add_calendar">Добавить календарь</string>
-    <string name="edit_calendar">Изменить календарь</string>
-    <string name="remove_calendar">Удалить календарь</string>
     <string name="attach_files_to_customer_records">Прикрепляйте файлы к записям о клиентах (максимум 20 файлов и 1 МБ на файл). Одноразовый платеж.</string>
     <string name="unlocks_the_calendar_features">Разблокирует функции календаря. Одноразовый платеж.</string>
     <string name="no_calendar_selected">Календарь не выбран! Пожалуйста, создайте календарь в настройках.</string>
