@@ -12,8 +12,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
@@ -670,6 +672,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
+    private void lockCurrentOrientation(boolean lock) {
+        if(lock) {
+            int currentOrientation = getResources().getConfiguration().orientation;
+            if(currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+            } else {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+            }
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+        }
+    }
+
     private void removeSelectedDialog() {
         switch(mBottomNavigationView.getSelectedItemId()) {
             case R.id.bottomnav_customers:
@@ -1104,14 +1120,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ad.setContentView(R.layout.dialog_syncprogress);
         ad.show();
         dialogObjSyncProgress = ad;
+        lockCurrentOrientation(true);
     }
 
     public void dialogSyncSuccess() {
+        lockCurrentOrientation(false);
         if(dialogObjSyncProgress != null) dialogObjSyncProgress.dismiss();
         CommonDialog.show(this, getResources().getString(R.string.syncsuccess), null, CommonDialog.TYPE.OK, false);
     }
 
     public void dialogSyncFail(String errorMessage) {
+        lockCurrentOrientation(false);
         if(dialogObjSyncProgress != null) dialogObjSyncProgress.dismiss();
         CommonDialog.show(this, getResources().getString(R.string.syncfail), errorMessage, CommonDialog.TYPE.FAIL, false);
     }
