@@ -7,4 +7,5 @@
     <color name="bottomNavigationViewInactiveColor">#737373</color>
     <color name="colorTextLink">#126C88</color> <!-- original: #5EA3B9 -->
     <color name="colorDivider">#999</color>
+    <color name="colorBackground">#FAFAFA</color>
 </resources>
