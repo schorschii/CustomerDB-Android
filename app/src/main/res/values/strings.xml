@@ -40,8 +40,8 @@
     <string name="app_name">Customer Database</string>
     <string name="version">v%1$s</string>
     <string name="simplecustomermanagement">Simple Customer Management</string>
-    <string name="website">Website:</string>
-    <string name="email">E-Mail:</string>
+    <string name="about_website">Website:</string>
+    <string name="about_email">E-Mail:</string>
     <string name="person">Person</string>
     <string name="title">Title</string>
     <string name="firstname">First Name</string>
@@ -50,7 +50,7 @@
     <string name="phonehome">Phone Home</string>
     <string name="phonemobile">Phone Mobile</string>
     <string name="phonework">Phone Work</string>
-    <string name="emailfield">E-Mail</string>
+    <string name="email">E-Mail</string>
     <string name="address">Address</string>
     <string name="streetnumber">Street and House Number</string>
     <string name="zipcode">Zipcode</string>
@@ -202,7 +202,6 @@
     <string name="green">Green</string>
     <string name="blue">Blue</string>
     <string name="reset_color">Reset Color</string>
-    <string name="send_via_email">Send via email</string>
     <string name="remove_logo">Remove Logo</string>
     <string name="passwords_not_matching">Passwords do not match</string>
     <string name="removed_logo">Logo removed</string>
@@ -230,7 +229,7 @@
     <string name="nothing_selected">Nothing Selected</string>
     <string name="select_at_least_one">Please select at least one item.</string>
     <string name="export_only_selected">Export only selected items</string>
-    <string name="send_exported_file_via_email">Send exported file via email</string>
+    <string name="move">Move</string>
     <string name="export_as_pdf_file">Export as PDF file (print)</string>
     <string name="selected_records">Selected records</string>
     <string name="use_group">Use group (only customers who agreed the newsletter)</string>

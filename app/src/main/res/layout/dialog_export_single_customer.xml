@@ -52,11 +52,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/export_single_vcfonly" />
-            <CheckBox
-                android:id="@+id/checkBoxExportSendEmailSingle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/send_exported_file_via_email"/>
             <Button
                 android:id="@+id/buttonExportSingleCancel"
                 style="@style/Widget.AppCompat.Button"

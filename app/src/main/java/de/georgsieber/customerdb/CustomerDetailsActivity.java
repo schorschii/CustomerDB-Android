@@ -20,6 +20,10 @@ import android.print.PrintManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +39,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -95,6 +98,9 @@ public class CustomerDetailsActivity extends AppCompatActivity {
     ImageButton mButtonGroupMore;
     ImageButton mButtonNotesMore;
 
+    private ActivityResultLauncher<Intent> mResultHandlerExportMoveFile;
+    private File mCurrentExportFile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // init settings
@@ -136,6 +142,26 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         mButtonAddressMore = findViewById(R.id.buttonAddressMore);
         mButtonGroupMore = findViewById(R.id.buttonGroupMore);
         mButtonNotesMore = findViewById(R.id.buttonNotesMore);
+
+        // init activity result handler
+        mResultHandlerExportMoveFile = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == RESULT_OK) {
+                            Uri uri = result.getData().getData();
+                            if(uri != null) {
+                                try {
+                                    StorageControl.moveFile(mCurrentExportFile, uri, me);
+                                } catch(Exception e) {
+                                    CommonDialog.show(me, getString(R.string.error), e.getMessage(), CommonDialog.TYPE.FAIL, false);
+                                }
+                            }
+                        }
+                    }
+                }
+        );
 
         // init context menus
         View.OnClickListener contextMenuClickListener = new View.OnClickListener() {
@@ -442,18 +468,14 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ad.dismiss();
-                boolean sendMail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmailSingle)).isChecked();
                 if(new CustomerCsvBuilder(mCurrentCustomer, mDb.getCustomFields()).saveCsvFile(getStorageExportCSV())) {
-                    if(sendMail) {
-                        StorageControl.emailFile(
-                                getStorageExportCSV(), me, new String[]{mCurrentCustomer.mEmail},
-                                mSettings.getString("email-export-subject", getResources().getString(R.string.email_export_subject_template)),
-                                mSettings.getString("email-export-template", getResources().getString(R.string.email_export_text_template))
-                                        .replace("CUSTOMER", mCurrentCustomer.getFullName(false)) + "\n\n"
-                        );
-                    } else {
-                        CommonDialog.show(me, getResources().getString(R.string.export_ok), getStorageExportCSV().getPath(), CommonDialog.TYPE.OK, false);
-                    }
+                    mCurrentExportFile = getStorageExportCSV();
+                    CommonDialog.exportFinishedDialog(me, getStorageExportCSV(), "text/csv",
+                            new String[]{mCurrentCustomer.mEmail},
+                            mSettings.getString("email-export-subject", getResources().getString(R.string.email_export_subject_template)),
+                            mSettings.getString("email-export-template", getResources().getString(R.string.email_export_text_template)).replace("CUSTOMER", mCurrentCustomer.getFullName(false)) + "\n\n",
+                            mResultHandlerExportMoveFile
+                    );
                 } else {
                     CommonDialog.show(me, getResources().getString(R.string.export_fail), getStorageExportCSV().getPath(), CommonDialog.TYPE.FAIL, false);
                 }
@@ -464,18 +486,14 @@ public class CustomerDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ad.dismiss();
-                boolean sendMail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmailSingle)).isChecked();
                 if(new CustomerVcfBuilder(mCurrentCustomer).saveVcfFile(getStorageExportVCF())) {
-                    if(sendMail) {
-                        StorageControl.emailFile(
-                                getStorageExportVCF(), me, new String[]{mCurrentCustomer.mEmail},
-                                mSettings.getString("email-export-subject", getResources().getString(R.string.email_export_subject_template)),
-                                mSettings.getString("email-export-template", getResources().getString(R.string.email_export_text_template))
-                                        .replace("CUSTOMER", mCurrentCustomer.getFullName(false)) + "\n\n"
-                        );
-                    } else {
-                        CommonDialog.show(me, getResources().getString(R.string.export_ok), getStorageExportVCF().getPath(), CommonDialog.TYPE.OK, false);
-                    }
+                    mCurrentExportFile = getStorageExportVCF();
+                    CommonDialog.exportFinishedDialog(me, getStorageExportVCF(), "text/vcard",
+                            new String[]{mCurrentCustomer.mEmail},
+                            mSettings.getString("email-export-subject", getResources().getString(R.string.email_export_subject_template)),
+                            mSettings.getString("email-export-template", getResources().getString(R.string.email_export_text_template)).replace("CUSTOMER", mCurrentCustomer.getFullName(false)) + "\n\n",
+                            mResultHandlerExportMoveFile
+                    );
                 } else {
                     CommonDialog.show(me, getResources().getString(R.string.export_fail), getStorageExportVCF().getPath(), CommonDialog.TYPE.FAIL, false);
                 }

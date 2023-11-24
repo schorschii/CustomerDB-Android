@@ -15,8 +15,8 @@
         <item quantity="many">%d שוברים</item>
         <item quantity="other">%d שוברים</item>
     </plurals>
-    <string name="website">:אתר אינטרנט</string>
-    <string name="email">:דואר</string>
+    <string name="about_website">:אתר אינטרנט</string>
+    <string name="about_email">:דואר</string>
     <string name="person">אדם</string>
     <string name="title">כותרת</string>
     <string name="firstname">השם הפרטי</string>
@@ -25,7 +25,7 @@
     <string name="phonehome">טלפון בית</string>
     <string name="phonemobile">טלפון נייד</string>
     <string name="phonework">טלפון בעבודה</string>
-    <string name="emailfield">:דואר</string>
+    <string name="email">:דואר</string>
     <string name="address">כתובת</string>
     <string name="streetnumber">רחוב ומספר בית</string>
     <string name="zipcode">מיקוד</string>
@@ -193,7 +193,6 @@
     <string name="green">ירוק</string>
     <string name="blue">כחול</string>
     <string name="reset_color">איפוס צבע</string>
-    <string name="send_via_email">שלח בדואר אלקטרוני</string>
     <string name="remove_logo">הסרת לוגו</string>
     <string name="passwords_not_matching">סיסמאות אינן מתאימות</string>
     <string name="removed_logo">לוגו הוסר</string>
@@ -221,7 +220,6 @@
     <string name="nothing_selected">שום דבר לא נבחר</string>
     <string name="select_at_least_one">נא בחר פריט אחד לפחות.</string>
     <string name="export_only_selected">לייצא את הפריטים הנבחרים בלבד</string>
-    <string name="send_exported_file_via_email">לשלוח קובץ מיוצא בדואר</string>
     <string name="export_as_pdf_file">ייצוא כקובץ PDF (הדפס)</string>
     <string name="selected_records">רשומות נבחרות</string>
     <string name="use_group">השתמש בקבוצה (רק לקוחות שהסכימו הידיעון)</string>

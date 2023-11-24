@@ -6,7 +6,7 @@
     <item
         android:id="@+id/action_send_via_email"
         android:icon="@drawable/ic_attach_email_white_24dp"
-        android:title="@string/send_via_email"
+        android:title="@string/email"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_copy_to_clipboard"

@@ -11,8 +11,8 @@
         <item quantity="one">%d ваучер</item>
         <item quantity="other">%d ваучеры</item>
     </plurals>
-    <string name="website">веб-сайт:</string>
-    <string name="email">Электронная почта:</string>
+    <string name="about_website">веб-сайт:</string>
+    <string name="about_email">Электронная почта:</string>
     <string name="person">Лицо</string>
     <string name="title">Приветствие</string>
     <string name="firstname">Имя</string>
@@ -21,7 +21,7 @@
     <string name="phonehome">Номер домашнего телефона</string>
     <string name="phonemobile">Номер мобильника</string>
     <string name="phonework">Номер служебного телефона</string>
-    <string name="emailfield">Электронная почта</string>
+    <string name="email">Электронная почта</string>
     <string name="address">Адрес</string>
     <string name="streetnumber">Улица, Дом</string>
     <string name="zipcode">Почтовый индекс</string>
@@ -185,7 +185,6 @@
     <string name="green">Зеленый</string>
     <string name="blue">Синий</string>
     <string name="reset_color">Сбросить цвет</string>
-    <string name="send_via_email">Отправить по электронной почте</string>
     <string name="remove_logo">Удалить логотип</string>
     <string name="passwords_not_matching">Пароли не совпадают</string>
     <string name="removed_logo">Логотип был удален</string>
@@ -213,7 +212,6 @@
     <string name="nothing_selected">Ничего не выбрано</string>
     <string name="select_at_least_one">Пожалуйста, выберите хотя бы один элемент.</string>
     <string name="export_only_selected">Экспортировать только выбранные товары</string>
-    <string name="send_exported_file_via_email">Экспортированный файл по электронной почте</string>
     <string name="export_as_pdf_file">Экспорт в PDF-файл (распечатать)</string>
     <string name="selected_records">Выбранные записи</string>
     <string name="use_group">Использовать группу (только клиенты, которые подписались на рассылку)</string>

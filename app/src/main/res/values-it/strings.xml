@@ -30,8 +30,8 @@
     <string name="app_name">Database dei clienti</string>
     <string name="version">v%1$s</string>
     <string name="simplecustomermanagement">Semplice gestione dei clienti</string>
-    <string name="website">Sito web:</string>
-    <string name="email">E-mail:</string>
+    <string name="about_website">Sito web:</string>
+    <string name="about_email">E-mail:</string>
     <string name="person">Persona</string>
     <string name="title">Titolo</string>
     <string name="firstname">Nome di battesimo</string>
@@ -40,7 +40,7 @@
     <string name="phonehome">Telefono casa</string>
     <string name="phonemobile">Cellulare</string>
     <string name="phonework">Telefono</string>
-    <string name="emailfield">E-mail</string>
+    <string name="email">E-mail</string>
     <string name="address">Indirizzo</string>
     <string name="streetnumber">Via e numero civico</string>
     <string name="zipcode">Cap</string>
@@ -192,7 +192,6 @@
     <string name="green">verde</string>
     <string name="blue">Blu</string>
     <string name="reset_color">Ripristina colore</string>
-    <string name="send_via_email">Invia via email</string>
     <string name="remove_logo">Rimuovi logo</string>
     <string name="passwords_not_matching">Le password non corrispondono</string>
     <string name="removed_logo">Logo rimosso</string>
@@ -220,7 +219,6 @@
     <string name="nothing_selected">Niente di selezionato</string>
     <string name="select_at_least_one">Seleziona almeno un articolo.</string>
     <string name="export_only_selected">Esporta solo gli elementi selezionati</string>
-    <string name="send_exported_file_via_email">Invia il file esportato via e-mail</string>
     <string name="export_as_pdf_file">Esporta come file PDF (stampa)</string>
     <string name="selected_records">Record selezionati</string>
     <string name="use_group">Usa gruppo (solo clienti che hanno accettato la newsletter)</string>

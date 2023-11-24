@@ -30,8 +30,8 @@
     <string name="app_name">Base de donn&#233;es clients</string>
     <string name="version">v%1$s</string>
     <string name="simplecustomermanagement">Gestion simple du client</string>
-    <string name="website">Site Internet:</string>
-    <string name="email">Email:</string>
+    <string name="about_website">Site Internet:</string>
+    <string name="about_email">Email:</string>
     <string name="person">La personne</string>
     <string name="title">Titre</string>
     <string name="firstname">Pr&#233;nom</string>
@@ -40,7 +40,7 @@
     <string name="phonehome">T&#233;l&#233;phone domicile</string>
     <string name="phonemobile">T&#233;l&#233;phone portable</string>
     <string name="phonework">T&#233;l&#233;phone</string>
-    <string name="emailfield">Email</string>
+    <string name="email">Email</string>
     <string name="address">Adresse</string>
     <string name="streetnumber">Rue et num&#233;ro de maison</string>
     <string name="zipcode">Code postal</string>
@@ -192,7 +192,6 @@
     <string name="green">Verte</string>
     <string name="blue">Bleue</string>
     <string name="reset_color">R&#233;initialiser la couleur</string>
-    <string name="send_via_email">Envoyer par e-mail</string>
     <string name="remove_logo">Supprimer le logo</string>
     <string name="passwords_not_matching">Les mots de passe ne correspondent pas</string>
     <string name="removed_logo">Logo supprim&#233;</string>
@@ -220,7 +219,6 @@
     <string name="nothing_selected">Rien de s&#233;lectionn&#233;</string>
     <string name="select_at_least_one">Veuillez s&#233;lectionner au moins un &#233;l&#233;ment.</string>
     <string name="export_only_selected">Exporter uniquement les &#233;l&#233;ments s&#233;lectionn&#233;s</string>
-    <string name="send_exported_file_via_email">Envoyer le fichier export&#233; par e-mail</string>
     <string name="export_as_pdf_file">Exporter en fichier PDF (imprimer)</string>
     <string name="selected_records">Enregistrements s&#233;lectionn&#233;s</string>
     <string name="use_group">Utiliser le groupe (uniquement les clients ayant accept&#233; la newsletter)</string>

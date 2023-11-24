@@ -30,8 +30,8 @@
     <string name="app_name">Base de datos de cliente</string>
     <string name="version">v%1$s</string>
     <string name="simplecustomermanagement">Gesti&#243;n simple de clientes</string>
-    <string name="website">Sitio web:</string>
-    <string name="email">Correo electr&#243;nico:</string>
+    <string name="about_website">Sitio web:</string>
+    <string name="about_email">Correo electr&#243;nico:</string>
     <string name="person">Persona</string>
     <string name="title">T&#237;tulo</string>
     <string name="firstname">Nombre de pila</string>
@@ -40,7 +40,7 @@
     <string name="phonehome">Tel&#233;fono de casa</string>
     <string name="phonemobile">Tel&#233;fono m&#243;vil</string>
     <string name="phonework">Tel&#233;fono de trabajo</string>
-    <string name="emailfield">Correo electr&#243;nico</string>
+    <string name="email">Correo electr&#243;nico</string>
     <string name="address">Habla a</string>
     <string name="streetnumber">Calle y n&#250;mero de casa</string>
     <string name="zipcode">C&#243;digo postal</string>
@@ -192,7 +192,6 @@
     <string name="green">Verde</string>
     <string name="blue">Azul</string>
     <string name="reset_color">Restablecer color</string>
-    <string name="send_via_email">Enviar por correo electr&#243;nico</string>
     <string name="remove_logo">Eliminar logotipo</string>
     <string name="passwords_not_matching">Las contrase&#241;as no coinciden</string>
     <string name="removed_logo">Logo eliminado</string>
@@ -220,7 +219,6 @@
     <string name="nothing_selected">Nada seleccionado</string>
     <string name="select_at_least_one">Por favor seleccione al menos un art&#237;culo.</string>
     <string name="export_only_selected">Exportar solo elementos seleccionados</string>
-    <string name="send_exported_file_via_email">Enviar archivo exportado por correo electr&#243;nico</string>
     <string name="export_as_pdf_file">Exportar como archivo PDF (imprimir)</string>
     <string name="selected_records">Registros seleccionados</string>
     <string name="use_group">Usar grupo (solo clientes que aceptaron el bolet&#237;n)</string>

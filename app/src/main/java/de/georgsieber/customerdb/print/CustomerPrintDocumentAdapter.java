@@ -123,7 +123,7 @@ public class CustomerPrintDocumentAdapter extends PrintDocumentAdapter {
         c.drawText(mCurrentCustomer.mPhoneWork, x1, y, p);
 
         y += lineHeight;
-        c.drawText(mCurrentContext.getResources().getString(R.string.emailfield), x0, y, p_gray);
+        c.drawText(mCurrentContext.getResources().getString(R.string.email), x0, y, p_gray);
         c.drawText(mCurrentCustomer.mEmail, x1, y, p);
 
         y += lineHeight;

@@ -1,13 +1,13 @@
 package de.georgsieber.customerdb.tools;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import androidx.core.content.FileProvider;
-
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
 
 import de.georgsieber.customerdb.R;
@@ -32,9 +32,6 @@ public class StorageControl {
     }
     public static File getStorageImageTemp(Context c) {
         return getFile(DIR_TEMP, "image.tmp.jpg", c);
-    }
-    public static File getStorageAppTemp(Context c) {
-        return getFile(DIR_TEMP, "plugin.apk", c);
     }
     public static File getStorageFileTemp(Context c, String filename) {
         return getFile(DIR_TEMP, filename, c);
@@ -77,18 +74,23 @@ public class StorageControl {
         return true;
     }
 
-    public static void emailFile(File f, Activity a, String[] receiver, String subject, String text) {
-        // this opens app chooser instead of system email app
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("message/rfc822");
-        intent.putExtra(Intent.EXTRA_EMAIL, receiver);
-        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_TEXT, text);
-        if(f != null) {
-            Uri attachmentUri = FileProvider.getUriForFile(a, "de.georgsieber.customerdb.provider", f);
-            intent.putExtra(Intent.EXTRA_STREAM, attachmentUri);
+    public static void moveFile(File sourceFile, Uri destinationUri, Context c) throws Exception {
+        InputStream in = new FileInputStream(sourceFile);
+        OutputStream out = c.getContentResolver().openOutputStream(destinationUri);
+
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
         }
-        a.startActivity(Intent.createChooser(intent, a.getResources().getString(R.string.emailtocustomer)));
+        in.close();
+
+        // write the output file
+        out.flush();
+        out.close();
+
+        // delete the original file
+        sourceFile.delete();
     }
 
 }

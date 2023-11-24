@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,7 +20,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -28,6 +28,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -76,6 +80,9 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
     TimePicker mTimePickerEnd;
     ImageView mImageViewQrCode;
 
+    private ActivityResultLauncher<Intent> mResultHandlerExportMoveFile;
+    private File mCurrentExportFile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // init settings
@@ -111,6 +118,26 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
         mTimePickerStart.setIs24HourView(true);
         mTimePickerEnd = findViewById(R.id.timePickerEnd);
         mTimePickerEnd.setIs24HourView(true);
+
+        // init activity result handler
+        mResultHandlerExportMoveFile = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == RESULT_OK) {
+                            Uri uri = result.getData().getData();
+                            if(uri != null) {
+                                try {
+                                    StorageControl.moveFile(mCurrentExportFile, uri, me);
+                                } catch(Exception e) {
+                                    CommonDialog.show(me, getString(R.string.error), e.getMessage(), CommonDialog.TYPE.FAIL, false);
+                                }
+                            }
+                        }
+                    }
+                }
+        );
 
         // register events
         Timer timer = new Timer();
@@ -390,13 +417,11 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ad.dismiss();
-                boolean sendMail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmailSingle)).isChecked();
                 if(new CalendarCsvBuilder(mCurrentAppointment).saveCsvFile(getStorageExportCSV(), mDb)) {
-                    if(sendMail) {
-                        StorageControl.emailFile(getStorageExportCSV(), me, new String[]{}, "", "");
-                    } else {
-                        CommonDialog.show(me, getResources().getString(R.string.export_ok), getStorageExportCSV().getPath(), CommonDialog.TYPE.OK, false);
-                    }
+                    mCurrentExportFile = getStorageExportCSV();
+                    CommonDialog.exportFinishedDialog(me, getStorageExportCSV(), "text/csv",
+                            new String[]{}, "", "", mResultHandlerExportMoveFile
+                    );
                 } else {
                     CommonDialog.show(me, getResources().getString(R.string.export_fail), getStorageExportCSV().getPath(), CommonDialog.TYPE.FAIL, false);
                 }
@@ -407,13 +432,11 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ad.dismiss();
-                boolean sendMail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmailSingle)).isChecked();
                 if(new CalendarIcsBuilder(mCurrentAppointment).saveIcsFile(getStorageExportICS())) {
-                    if(sendMail) {
-                        StorageControl.emailFile(getStorageExportICS(), me, new String[]{}, "", "");
-                    } else {
-                        CommonDialog.show(me, getResources().getString(R.string.export_ok), getStorageExportICS().getPath(), CommonDialog.TYPE.OK, false);
-                    }
+                    mCurrentExportFile = getStorageExportICS();
+                    CommonDialog.exportFinishedDialog(me, getStorageExportICS(), "text/calendar",
+                            new String[]{}, "", "", mResultHandlerExportMoveFile
+                    );
                 } else {
                     CommonDialog.show(me, getResources().getString(R.string.export_fail), getStorageExportICS().getPath(), CommonDialog.TYPE.FAIL, false);
                 }

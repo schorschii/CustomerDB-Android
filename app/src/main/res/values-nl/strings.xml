@@ -30,8 +30,8 @@
     <string name="app_name">Klantendatabase</string>
     <string name="version">v%1$s</string>
     <string name="simplecustomermanagement">Eenvoudig klantenbeheer</string>
-    <string name="website">Website:</string>
-    <string name="email">E-mailadres:</string>
+    <string name="about_website">Website:</string>
+    <string name="about_email">E-mailadres:</string>
     <string name="person">Persoon</string>
     <string name="title">Titel</string>
     <string name="firstname">Voornaam</string>
@@ -40,7 +40,7 @@
     <string name="phonehome">Bel naar huis</string>
     <string name="phonemobile">Telefoon Mobiel</string>
     <string name="phonework">Telefoon Werk</string>
-    <string name="emailfield">E-mail</string>
+    <string name="email">E-mail</string>
     <string name="address">Adres</string>
     <string name="streetnumber">Straat en huisnummer</string>
     <string name="zipcode">Postcode</string>
@@ -192,7 +192,6 @@
     <string name="green">Groente</string>
     <string name="blue">Blauw</string>
     <string name="reset_color">Kleur resetten</string>
-    <string name="send_via_email">Verzenden via e-mail</string>
     <string name="remove_logo">Logo verwijderen</string>
     <string name="passwords_not_matching">Wachtwoorden komen niet overeen</string>
     <string name="removed_logo">Logo verwijderd</string>
@@ -220,7 +219,6 @@
     <string name="nothing_selected">Niets geselecteerd</string>
     <string name="select_at_least_one">Selecteer ten minste &#233;&#233;n item.</string>
     <string name="export_only_selected">Alleen geselecteerde items exporteren</string>
-    <string name="send_exported_file_via_email">Ge&#235;xporteerd bestand via e-mail verzenden</string>
     <string name="export_as_pdf_file">Exporteren als pdf-bestand (printen)</string>
     <string name="selected_records">Geselecteerde records</string>
     <string name="use_group">Gebruik groep (alleen klanten die akkoord zijn gegaan met de nieuwsbrief)</string>

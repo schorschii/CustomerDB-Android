@@ -94,7 +94,7 @@
                         android:layout_row="0"
                         android:layout_column="0"
                         android:onClick="onClickWebLink"
-                        android:text="@string/website"
+                        android:text="@string/about_website"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <Button
@@ -113,7 +113,7 @@
                         android:layout_row="1"
                         android:layout_column="0"
                         android:onClick="onClickEmailLink"
-                        android:text="@string/email"
+                        android:text="@string/about_email"
                         android:textAllCaps="false"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 

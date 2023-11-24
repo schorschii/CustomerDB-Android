@@ -226,14 +226,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/emailfield" />
+                            android:text="@string/email" />
                         <TextView
                             android:id="@+id/textViewEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textIsSelectable="true"
                             android:autoLink=""
-                            android:text="@string/emailfield"
+                            android:text="@string/email"
                             android:onClick="onClickEmailLink"
                             android:textAppearance="@style/TextAppearance.AppCompat"
                             android:textSize="18sp" />

@@ -24,6 +24,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.print.PrintAttributes;
 import android.print.PrintManager;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,7 +36,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -66,8 +70,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import de.georgsieber.customerdb.importexport.CalendarCsvBuilder;
 import de.georgsieber.customerdb.importexport.CalendarIcsBuilder;
@@ -137,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final static int PICK_CALENDAR_CSV_REQUEST = 13;
     private final static int SCAN_REQUEST = 14;
 
+    private ActivityResultLauncher<Intent> mResultHandlerExportMoveFile;
+    private File mCurrentExportFile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // init settings
@@ -161,6 +166,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // init local database
         mDb = new CustomerDatabase(this);
+
+        // init activity result handler
+        mResultHandlerExportMoveFile = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if(result.getResultCode() == RESULT_OK) {
+                            Uri uri = result.getData().getData();
+                            if(uri != null) {
+                                try {
+                                    StorageControl.moveFile(mCurrentExportFile, uri, me);
+                                } catch(Exception e) {
+                                    CommonDialog.show(me, getString(R.string.error), e.getMessage(), CommonDialog.TYPE.FAIL, false);
+                                }
+                            }
+                        }
+                    }
+                }
+        );
 
         // init bottom navigation
         mBottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -1259,7 +1284,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 ad.dismiss();
                 boolean onlySelected = ((CheckBox) ad.findViewById(R.id.checkBoxExportOnlySelected)).isChecked();
-                boolean sendEmail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmail)).isChecked();
                 CustomerVcfBuilder content;
                 if(onlySelected) {
                     List<Customer> exportCustomers = new ArrayList<>();
@@ -1272,11 +1296,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
                 File f = StorageControl.getStorageExportVcf(me);
                 if(content.saveVcfFile(f)) {
-                    if(sendEmail) {
-                        emailFile(f);
-                    } else {
-                        CommonDialog.show(me, getResources().getString(R.string.export_ok), f.getPath(), CommonDialog.TYPE.OK, false);
-                    }
+                    mCurrentExportFile = f;
+                    CommonDialog.exportFinishedDialog(me, f, "text/vcard", new String[]{}, "", "", mResultHandlerExportMoveFile);
                 } else {
                     CommonDialog.show(me, getResources().getString(R.string.export_fail), f.getPath(), CommonDialog.TYPE.FAIL, false);
                 }
@@ -1288,7 +1309,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 ad.dismiss();
                 boolean onlySelected = ((CheckBox) ad.findViewById(R.id.checkBoxExportOnlySelected)).isChecked();
-                boolean sendEmail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmail)).isChecked();
                 CustomerCsvBuilder content;
                 if(onlySelected)
                     content = new CustomerCsvBuilder(mCurrentCustomerAdapter.getCheckedItems(), mDb.getCustomFields());
@@ -1296,11 +1316,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     content = new CustomerCsvBuilder(mCustomers, mDb.getCustomFields());
                 File f = StorageControl.getStorageExportCsv(me);
                 if(content.saveCsvFile(f)) {
-                    if(sendEmail) {
-                        emailFile(f);
-                    } else {
-                        CommonDialog.show(me, getResources().getString(R.string.export_ok), f.getPath(), CommonDialog.TYPE.OK, false);
-                    }
+                    mCurrentExportFile = f;
+                    CommonDialog.exportFinishedDialog(me, f, "text/csv", new String[]{}, "", "", mResultHandlerExportMoveFile);
                 } else {
                     CommonDialog.show(me, getResources().getString(R.string.export_fail), f.getPath(), CommonDialog.TYPE.FAIL, false);
                 }
@@ -1362,7 +1379,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View v) {
                 ad.dismiss();
                 boolean onlySelected = ((CheckBox) ad.findViewById(R.id.checkBoxExportOnlySelected)).isChecked();
-                boolean sendEmail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmail)).isChecked();
                 VoucherCsvBuilder content;
                 if(onlySelected)
                     content = new VoucherCsvBuilder(mCurrentVoucherAdapter.getCheckedItems());
@@ -1370,11 +1386,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     content = new VoucherCsvBuilder(mVouchers);
                 File f = StorageControl.getStorageExportCsv(me);
                 if(content.saveCsvFile(f, mDb)) {
-                    if(sendEmail) {
-                        emailFile(f);
-                    } else {
-                        CommonDialog.show(me, getResources().getString(R.string.export_ok), f.getPath(), CommonDialog.TYPE.OK, false);
-                    }
+                    mCurrentExportFile = f;
+                    CommonDialog.exportFinishedDialog(me, f, "text/csv", new String[]{}, "", "", mResultHandlerExportMoveFile);
                 } else {
                     CommonDialog.show(me, getResources().getString(R.string.export_fail), f.getPath(), CommonDialog.TYPE.FAIL, false);
                 }
@@ -1445,7 +1458,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 ad.dismiss();
-                boolean sendEmail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmail)).isChecked();
                 CustomerCalendar calendar = (CustomerCalendar) spinnerCalendar.getSelectedItem();
                 if(calendar == null) {
                     CommonDialog.show(me, getString(R.string.error), getString(R.string.no_calendar_selected), CommonDialog.TYPE.WARN, false);
@@ -1454,11 +1466,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 CalendarIcsBuilder content = new CalendarIcsBuilder(mDb.getAppointments(calendar.mId, null, false, null));
                 File f = StorageControl.getStorageExportIcs(me);
                 if(content.saveIcsFile(f)) {
-                    if(sendEmail) {
-                        emailFile(f);
-                    } else {
-                        CommonDialog.show(me, getResources().getString(R.string.export_ok), f.getPath(), CommonDialog.TYPE.OK, false);
-                    }
+                    mCurrentExportFile = f;
+                    CommonDialog.exportFinishedDialog(me, f, "text/calendar", new String[]{}, "", "", mResultHandlerExportMoveFile);
                 } else {
                     CommonDialog.show(me, getResources().getString(R.string.export_fail), f.getPath(), CommonDialog.TYPE.FAIL, false);
                 }
@@ -1469,7 +1478,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 ad.dismiss();
-                boolean sendEmail = ((CheckBox) ad.findViewById(R.id.checkBoxExportSendEmail)).isChecked();
                 CustomerCalendar calendar = (CustomerCalendar) spinnerCalendar.getSelectedItem();
                 if(calendar == null) {
                     CommonDialog.show(me, getString(R.string.error), getString(R.string.no_calendar_selected), CommonDialog.TYPE.WARN, false);
@@ -1478,11 +1486,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 CalendarCsvBuilder content = new CalendarCsvBuilder(mDb.getAppointments(calendar.mId, null, false, null));
                 File f = StorageControl.getStorageExportCsv(me);
                 if(content.saveCsvFile(f, mDb)) {
-                    if(sendEmail) {
-                        emailFile(f);
-                    } else {
-                        CommonDialog.show(me, getResources().getString(R.string.export_ok), f.getPath(), CommonDialog.TYPE.OK, false);
-                    }
+                    mCurrentExportFile = f;
+                    CommonDialog.exportFinishedDialog(me, f, "text/csv", new String[]{}, "", "", mResultHandlerExportMoveFile);
                 } else {
                     CommonDialog.show(me, getResources().getString(R.string.export_fail), f.getPath(), CommonDialog.TYPE.FAIL, false);
                 }
@@ -1496,18 +1501,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         ad.show();
-    }
-    private void emailFile(File f) {
-        Uri attachmentUri = FileProvider.getUriForFile(
-                this,
-                "de.georgsieber.customerdb.provider",
-                f
-        );
-        // this opens app chooser instead of system email app
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("message/rfc822");
-        intent.putExtra(Intent.EXTRA_STREAM, attachmentUri);
-        startActivity(Intent.createChooser(intent, getResources().getString(R.string.emailtocustomer)));
     }
     private void print(Customer currentCustomer) {
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {

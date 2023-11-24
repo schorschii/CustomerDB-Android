@@ -10,8 +10,8 @@
         <item quantity="one">%d Gutschein</item>
         <item quantity="other">%d Gutscheine</item>
     </plurals>
-    <string name="website">Webseite:</string>
-    <string name="email">E-Mail:</string>
+    <string name="about_website">Webseite:</string>
+    <string name="about_email">E-Mail:</string>
     <string name="person">Person</string>
     <string name="title">Anrede</string>
     <string name="firstname">Vorname</string>
@@ -20,7 +20,7 @@
     <string name="phonehome">Telefon zu Hause</string>
     <string name="phonemobile">Telefon Mobil</string>
     <string name="phonework">Telefon Arbeit</string>
-    <string name="emailfield">E-Mail</string>
+    <string name="email">E-Mail</string>
     <string name="address">Adresse</string>
     <string name="streetnumber">Straße und Hausnummer</string>
     <string name="zipcode">PLZ</string>
@@ -184,7 +184,6 @@
     <string name="green">Grün</string>
     <string name="blue">Blau</string>
     <string name="reset_color">Farbe zurücksetzen</string>
-    <string name="send_via_email">Per E-Mail senden</string>
     <string name="remove_logo">Logo entfernen</string>
     <string name="passwords_not_matching">Kennwörter stimmen nicht überein</string>
     <string name="removed_logo">Logo wurde entfernt</string>
@@ -212,7 +211,7 @@
     <string name="nothing_selected">Nichts ausgewählt</string>
     <string name="select_at_least_one">Bitte wählen Sie mindestens ein Element aus.</string>
     <string name="export_only_selected">Nur ausgewählte Elemente exportieren</string>
-    <string name="send_exported_file_via_email">Exportierte Datei per E-Mail versenden</string>
+    <string name="move">Verschieben</string>
     <string name="export_as_pdf_file">Als PDF-Datei exportieren (drucken)</string>
     <string name="selected_records">Ausgewählte Einträge</string>
     <string name="use_group">Gruppe verwenden (nur Kunden, die dem Newsletter zugestimmt haben)</string>

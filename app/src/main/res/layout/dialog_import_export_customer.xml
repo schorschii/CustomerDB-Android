@@ -116,11 +116,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/export_only_selected"/>
-            <CheckBox
-                android:id="@+id/checkBoxExportSendEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/send_exported_file_via_email"/>
 
             <Space
                 android:layout_width="match_parent"
