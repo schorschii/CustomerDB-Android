@@ -219,6 +219,7 @@
     <string name="nothing_selected">Niets geselecteerd</string>
     <string name="select_at_least_one">Selecteer ten minste &#233;&#233;n item.</string>
     <string name="export_only_selected">Alleen geselecteerde items exporteren</string>
+    <string name="move">Beweging</string>
     <string name="export_as_pdf_file">Exporteren als pdf-bestand (printen)</string>
     <string name="selected_records">Geselecteerde records</string>
     <string name="use_group">Gebruik groep (alleen klanten die akkoord zijn gegaan met de nieuwsbrief)</string>

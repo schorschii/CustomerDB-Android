@@ -219,6 +219,7 @@
     <string name="nothing_selected">Niente di selezionato</string>
     <string name="select_at_least_one">Seleziona almeno un articolo.</string>
     <string name="export_only_selected">Esporta solo gli elementi selezionati</string>
+    <string name="move">Mossa</string>
     <string name="export_as_pdf_file">Esporta come file PDF (stampa)</string>
     <string name="selected_records">Record selezionati</string>
     <string name="use_group">Usa gruppo (solo clienti che hanno accettato la newsletter)</string>

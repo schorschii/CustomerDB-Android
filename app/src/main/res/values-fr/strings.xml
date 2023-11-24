@@ -219,6 +219,7 @@
     <string name="nothing_selected">Rien de s&#233;lectionn&#233;</string>
     <string name="select_at_least_one">Veuillez s&#233;lectionner au moins un &#233;l&#233;ment.</string>
     <string name="export_only_selected">Exporter uniquement les &#233;l&#233;ments s&#233;lectionn&#233;s</string>
+    <string name="move">Se déplacer</string>
     <string name="export_as_pdf_file">Exporter en fichier PDF (imprimer)</string>
     <string name="selected_records">Enregistrements s&#233;lectionn&#233;s</string>
     <string name="use_group">Utiliser le groupe (uniquement les clients ayant accept&#233; la newsletter)</string>

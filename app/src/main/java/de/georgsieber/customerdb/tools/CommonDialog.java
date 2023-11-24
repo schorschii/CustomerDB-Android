@@ -78,7 +78,7 @@ public class CommonDialog {
             }
         });
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            ad.setButton(DialogInterface.BUTTON_NEGATIVE, "Move", new DialogInterface.OnClickListener() {
+            ad.setButton(DialogInterface.BUTTON_NEGATIVE, context.getResources().getString(R.string.move), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();

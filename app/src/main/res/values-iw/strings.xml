@@ -220,6 +220,7 @@
     <string name="nothing_selected">שום דבר לא נבחר</string>
     <string name="select_at_least_one">נא בחר פריט אחד לפחות.</string>
     <string name="export_only_selected">לייצא את הפריטים הנבחרים בלבד</string>
+    <string name="move">העבר קובץ</string>
     <string name="export_as_pdf_file">ייצוא כקובץ PDF (הדפס)</string>
     <string name="selected_records">רשומות נבחרות</string>
     <string name="use_group">השתמש בקבוצה (רק לקוחות שהסכימו הידיעון)</string>
