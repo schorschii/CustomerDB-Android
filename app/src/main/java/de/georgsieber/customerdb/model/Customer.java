@@ -280,15 +280,10 @@ public class Customer {
     }
 
     public String getAddress() {
-        if((this.mStreet == null && this.mZipcode == null && this.mCity == null && this.mCountry == null)
-                || (this.mStreet.equals("") && this.mZipcode.equals("") && this.mCity.equals("") && this.mCountry.equals("")))
+        if(this.mStreet == null || this.mZipcode == null || this.mCity == null || this.mCountry == null)
             return "";
-        else if(!this.mStreet.equals("") && !this.mZipcode.equals("") && this.mCity.equals("") && this.mCountry.equals(""))
-            return this.mStreet + "\n" + this.mZipcode;
-        else if(this.mStreet.equals("") && this.mZipcode.equals("") && !this.mCity.equals("") && !this.mCountry.equals(""))
-            return this.mCity + " " + this.mCountry;
         else
-            return this.mStreet + "\n" + this.mZipcode + ", " + this.mCity + " " + this.mCountry;
+            return (this.mStreet + "\n" + this.mZipcode + " " + this.mCity + "\n" + this.mCountry).trim();
     }
 
     private static boolean isSameDay(Date date1, Date date2) {
