@@ -6,8 +6,8 @@ android {
         minSdk 15
         targetSdk 34
         compileSdk 34
-        versionCode 94
-        versionName "3.11.1"
+        versionCode 95
+        versionName "3.11.2"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
