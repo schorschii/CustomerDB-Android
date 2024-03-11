@@ -406,4 +406,5 @@
     <string name="eula_info_button">הסכם רישיון משתמש קצה »</string>
     <string name="activations_remaining"> נותרו %1$s הפעלות</string>
     <string name="caller_id_plugin_app_note">זיהוי מתקשר פועל מחוץ לקופסה עם אפליקציית הטלפון של Google, המותקנת מראש במכשירים רבים. אפליקציות טלפון אחרות (למשל במכשירי Samsung או HTC) אינן מסוגלות לבצע שאילתות במסד הנתונים של הלקוחות. במקרה זה, התקן את אפליקציית הטלפון של Google מחנות Google Play או אפליקציית תוסף מסד הנתונים של לקוחות, שיכולה להציג שכבת-על זעירה עם שם הלקוח בשיחות נכנסות.</string>
+    <string name="help">עזרה / שאלות נפוצות</string>
 </resources>

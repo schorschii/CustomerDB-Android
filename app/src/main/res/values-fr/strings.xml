@@ -393,4 +393,5 @@
     <string name="eula_info_button">Contrat de licence de l\'utilisateur final »</string>
     <string name="activations_remaining">%1$s activations restantes</string>
     <string name="caller_id_plugin_app_note">L\'identification de l\'appelant est prête à l\'emploi avec l\'application Google Phone, qui est préinstallée sur de nombreux appareils. Les autres applications téléphoniques (par exemple sur les appareils Samsung ou HTC) ne peuvent pas interroger la base de données clients. Dans ce cas, veuillez installer l\'application Google Phone depuis le Google Play Store ou l\'application Customer Database Plugin, qui peut afficher une petite superposition avec le nom du client sur les appels entrants.</string>
+    <string name="help">Aide / FAQ</string>
 </resources>

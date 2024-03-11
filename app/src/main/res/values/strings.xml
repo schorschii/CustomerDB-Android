@@ -2,6 +2,8 @@
     <string name="copyright" translatable="false">© 2017–2023 Georg Sieber</string>
     <string name="developer_website" translatable="false">https://georg-sieber.de</string>
     <string name="developer_email" translatable="false">support@georg-sieber.de</string>
+    <string name="help_website" translatable="false">https://georg-sieber.de/?page=app-customerdb</string>
+    <string name="terms_website" translatable="false">https://georg-sieber.de/?page=app-customerdb-terms</string>
     <string name="repo_link" translatable="false">https://github.com/schorschii/CustomerDB-Android</string>
     <string name="server_repo_link" translatable="false">https://github.com/schorschii/CustomerDB-Server</string>
     <string name="unlock_api" translatable="false">"https://apps.sieber.systems/activate"</string>
@@ -403,4 +405,5 @@
     <string name="eula_info_button">End User License Agreement »</string>
     <string name="activations_remaining">%1$s activations remaining</string>
     <string name="caller_id_plugin_app_note">Caller ID works out-of-the-box with the Google phone app, which is preinstalled on many devices. Other phone apps (e.g. on Samsung or HTC devices) are not able to query the Customer Database. In this case, please install the Google phone app from the Google Play Store or the Customer Database Plugin App, which can display a tiny overlay with the customer name on incoming calls.</string>
+    <string name="help">Help / FAQs</string>
 </resources>

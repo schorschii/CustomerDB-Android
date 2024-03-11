@@ -2,16 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="de.georgsieber.customerdb.SettingsActivity">
+    tools:context="systems.sieber.itinventory.ViewActivity">
     <item
         android:id="@+id/action_settings_help"
         android:title="@string/help"
         android:icon="@drawable/ic_help_outline_white_24dp"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
-    <item
-        android:id="@+id/action_settings_done"
-        android:title="@string/apply"
-        android:icon="@drawable/ic_check_white_24dp"
-        app:showAsAction="always|withText" />
 </menu>

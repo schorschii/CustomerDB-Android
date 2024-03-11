@@ -393,4 +393,5 @@
     <string name="eula_info_button">Acuerdo de licencia de usuario final »</string>
     <string name="activations_remaining">Quedan %1$s activaciones</string>
     <string name="caller_id_plugin_app_note">El identificador de llamadas funciona de forma inmediata con la aplicación de teléfono de Google, que está preinstalada en muchos dispositivos. Otras aplicaciones de teléfono (p. ej., en dispositivos Samsung o HTC) no pueden consultar la base de datos de clientes. En este caso, instale la aplicación de teléfono de Google desde Google Play Store o la aplicación del complemento de base de datos de clientes, que puede mostrar una pequeña superposición con el nombre del cliente en las llamadas entrantes.</string>
+    <string name="help">Ayuda/Preguntas frecuentes</string>
 </resources>

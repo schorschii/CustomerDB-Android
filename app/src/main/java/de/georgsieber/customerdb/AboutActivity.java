@@ -26,6 +26,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -450,11 +451,21 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_about, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //noinspection SwitchStatementWithTooFewBranches
         switch(item.getItemId()) {
             case android.R.id.home:
                 finish();
+                return true;
+            case R.id.action_settings_help:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.help_website)));
+                startActivity(browserIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

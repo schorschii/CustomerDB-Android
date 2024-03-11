@@ -72,7 +72,7 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     public void onMoreInfoClick(View v) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://georg-sieber.de/?page=app-customerdb")));
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.help_website))));
     }
 
     public void onOpenAboutClick(View v) {
@@ -93,7 +93,7 @@ public class InfoActivity extends AppCompatActivity {
         buttonCloudTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://georg-sieber.de/?page=app-customerdb-terms"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.terms_website)));
                 startActivity(browserIntent);
             }
         });

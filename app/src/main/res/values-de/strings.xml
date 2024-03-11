@@ -393,4 +393,5 @@
     <string name="eula_info_button">Endbenutzer-Lizenzvereinbarung »</string>
     <string name="activations_remaining">%s Aktivierungen verbleiben</string>
     <string name="caller_id_plugin_app_note">Die Anruferidentifizierung funktioniert direkt mit der Google-Telefon-App, welche auf vielen Geräten standardmäßig installiert ist. Andere Telefon-Apps (z.B. auf Samsung- oder HTC-Geräten) können die Kundendatenbank nicht abfragen. Bitte installieren Sie in diesem Fall die Google-Telefon-App aus dem Google Play Store oder die Customer Database Plugin App, die bei eingehenden Anrufen ein kleines Overlay mit dem Kundennamen anzeigen kann.</string>
+    <string name="help">Hilfe / FAQs</string>
 </resources>

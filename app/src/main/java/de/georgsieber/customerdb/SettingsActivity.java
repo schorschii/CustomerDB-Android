@@ -362,6 +362,10 @@ public class SettingsActivity extends AppCompatActivity {
             case R.id.action_settings_done:
                 onSetMiscButtonClick();
                 return true;
+            case R.id.action_settings_help:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.help_website)));
+                startActivity(browserIntent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
