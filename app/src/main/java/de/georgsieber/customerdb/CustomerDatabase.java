@@ -933,6 +933,10 @@ public class CustomerDatabase {
                     } catch(ParseException e) {
                         e.printStackTrace();
                     }
+                    if(modifiedSince != null && lastModified.before(modifiedSince)) {
+                        continue;
+                    }
+
                     Customer c = new Customer(
                             cursor.getLong(0),
                             cursor.getString(1),
@@ -954,35 +958,28 @@ public class CustomerDatabase {
                             lastModified,
                             cursor.getInt(18)
                     );
-                    if(search == null || search.equals("")) {
-                        if(modifiedSince == null || lastModified.after(modifiedSince)) customers.add(c);
-                    } else {
-                        // search in default fields
+
+                    if(search != null && !search.equals("")) {
                         String searchUpperCase = search.toUpperCase();
-                        if(c.mTitle.toUpperCase().contains(searchUpperCase) ||
-                                c.mFirstName.toUpperCase().contains(searchUpperCase) ||
-                                c.mLastName.toUpperCase().contains(searchUpperCase) ||
-                                c.mPhoneHome.toUpperCase().contains(searchUpperCase) ||
-                                c.mPhoneMobile.toUpperCase().contains(searchUpperCase) ||
-                                c.mPhoneWork.toUpperCase().contains(searchUpperCase) ||
-                                c.mEmail.toUpperCase().contains(searchUpperCase) ||
-                                c.mStreet.toUpperCase().contains(searchUpperCase) ||
-                                c.mZipcode.toUpperCase().contains(searchUpperCase) ||
-                                c.mCity.toUpperCase().contains(searchUpperCase) ||
-                                c.mCustomerGroup.toUpperCase().contains(searchUpperCase) ||
-                                c.mNotes.toUpperCase().contains(searchUpperCase)
+                        if(!c.mTitle.toUpperCase().contains(searchUpperCase)
+                                && !c.mFirstName.toUpperCase().contains(searchUpperCase)
+                                && !c.mLastName.toUpperCase().contains(searchUpperCase)
+                                && !c.mPhoneHome.toUpperCase().contains(searchUpperCase)
+                                && !c.mPhoneMobile.toUpperCase().contains(searchUpperCase)
+                                && !c.mPhoneWork.toUpperCase().contains(searchUpperCase)
+                                && !c.mEmail.toUpperCase().contains(searchUpperCase)
+                                && !c.mStreet.toUpperCase().contains(searchUpperCase)
+                                && !c.mZipcode.toUpperCase().contains(searchUpperCase)
+                                && !c.mCity.toUpperCase().contains(searchUpperCase)
+                                && !c.mCustomerGroup.toUpperCase().contains(searchUpperCase)
+                                && !c.mNotes.toUpperCase().contains(searchUpperCase)
+                                && !findInCustomFields(searchUpperCase, c.getCustomFields())
                         ) {
-                            if(modifiedSince == null || lastModified.after(modifiedSince)) customers.add(c);
-                        } else {
-                            // search in custom fields
-                            for(CustomField cf : c.getCustomFields()) {
-                                if(cf.mValue.toUpperCase().contains(searchUpperCase)) {
-                                    if(modifiedSince == null || lastModified.after(modifiedSince)) customers.add(c);
-                                    break;
-                                }
-                            }
+                            continue;
                         }
                     }
+
+                    customers.add(c);
                 } while(cursor.moveToNext());
             }
         } catch(SQLiteException e) {
@@ -1001,6 +998,15 @@ public class CustomerDatabase {
         }
 
         return customers;
+    }
+
+    boolean findInCustomFields(String searchUpperCase, List<CustomField> fields) {
+        for(CustomField cf : fields) {
+            if(cf.mValue.toUpperCase().contains(searchUpperCase)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     Customer getCustomerFiles(Customer c) {
