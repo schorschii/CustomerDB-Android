@@ -616,7 +616,7 @@ public class CustomerDatabase {
         stmt.execute();
     }
 
-    List<CustomField> getCustomFields() {
+    public List<CustomField> getCustomFields() {
         Cursor cursor = db.rawQuery("SELECT id, title, type FROM customer_extra_fields", null);
         ArrayList<CustomField> cf = new ArrayList<>();
         try {
@@ -638,7 +638,7 @@ public class CustomerDatabase {
         }
         return cf;
     }
-    List<CustomField> getCustomFieldPresets(int customFieldId) {
+    public List<CustomField> getCustomFieldPresets(int customFieldId) {
         Cursor cursor = db.rawQuery("SELECT id, title FROM customer_extra_presets WHERE extra_field_id = ?", new String[]{Integer.toString(customFieldId)});
         ArrayList<CustomField> presets = new ArrayList<>();
         try {

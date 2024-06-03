@@ -1513,7 +1513,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .setResolution(new PrintAttributes.Resolution("customerdb", PRINT_SERVICE, 300, 300))
                         .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
                         .build();
-                printManager.print(jobName, new CustomerPrintDocumentAdapter(this,currentCustomer), pa);
+                printManager.print(jobName, new CustomerPrintDocumentAdapter(this, currentCustomer, mDb, mSettings), pa);
             }
         }
     }
