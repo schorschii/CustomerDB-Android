@@ -394,4 +394,5 @@
     <string name="activations_remaining">Rimangono %1$s attivazioni</string>
     <string name="caller_id_plugin_app_note">L\'ID chiamante funziona immediatamente con l\'app Google Phone, che è preinstallata su molti dispositivi. Altre app telefoniche (ad es. su dispositivi Samsung o HTC) non sono in grado di interrogare il database clienti. In questo caso, installa l\'app del telefono di Google dal Google Play Store o l\'app del plug-in del database dei clienti, che può visualizzare una piccola sovrapposizione con il nome del cliente sulle chiamate in arrivo.</string>
     <string name="help">Aiuto/Domande frequenti</string>
+    <string name="print_font_size">Stampa dimensione carattere</string>
 </resources>

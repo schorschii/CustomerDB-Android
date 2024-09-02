@@ -37,23 +37,29 @@ public class CustomerPrintDocumentAdapter extends PrintDocumentAdapter {
 
     private PrintedPdfDocument mPdfDocument;
 
+    private final int mFontSize;
+    private final int mLineHeight;
+
     public CustomerPrintDocumentAdapter(Context context, Customer customer, CustomerDatabase database, SharedPreferences settings) {
         mCurrentCustomer = customer;
         mCurrentContext = context;
         mDb = database;
         mSettings = settings;
+
+        mFontSize = mSettings.getInt("print-font-size", 44);
+        mLineHeight = Math.round(mFontSize/1.55f);
     }
 
     @Override
     public void onLayout(PrintAttributes oldAttributes, PrintAttributes newAttributes, CancellationSignal cancellationSignal, LayoutResultCallback callback, Bundle extras) {
-        if(cancellationSignal.isCanceled() ) {
+        if(cancellationSignal.isCanceled()) {
             callback.onLayoutCancelled();
             return;
         }
 
         mPdfDocument = new PrintedPdfDocument(mCurrentContext, newAttributes);
 
-        if(cancellationSignal.isCanceled() ) {
+        if(cancellationSignal.isCanceled()) {
             callback.onLayoutCancelled();
             return;
         }
@@ -61,24 +67,18 @@ public class CustomerPrintDocumentAdapter extends PrintDocumentAdapter {
         PrintDocumentInfo info = new PrintDocumentInfo
                 .Builder("printcustomer.tmp.pdf")
                 .setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT)
-                .setPageCount(1)
                 .build();
         callback.onLayoutFinished(info, true);
     }
 
     @Override
     public void onWrite(PageRange[] pages, ParcelFileDescriptor destination, CancellationSignal cancellationSignal, WriteResultCallback callback) {
-        PdfDocument.Page page = mPdfDocument.startPage(1);
-        // Draw page content for printing
-        drawPage(page);
-        // Rendering is complete, so page can be finalized.
-        mPdfDocument.finishPage(page);
+        drawCustomer();
 
         // Write PDF document to file
         try {
-            mPdfDocument.writeTo(new FileOutputStream(
-                    destination.getFileDescriptor()));
-        } catch (IOException e) {
+            mPdfDocument.writeTo(new FileOutputStream( destination.getFileDescriptor() ));
+        } catch(IOException e) {
             callback.onWriteFailed(e.toString());
             return;
         } finally {
@@ -91,22 +91,35 @@ public class CustomerPrintDocumentAdapter extends PrintDocumentAdapter {
         callback.onWriteFinished(pr);
     }
 
-    private void drawPage(PdfDocument.Page page) {
-        Canvas c = page.getCanvas();
+    private PdfDocument.Page mPage;
+    private Canvas mCanvas;
+    private Integer mY;
 
-        float fontSize = (float) page.getInfo().getPageWidth()/14;
-        int lineHeight = Math.round(fontSize/1.55f);
+    private void incrementLine() {
+        if(mY != null) mY += mLineHeight;
+        if(mY == null
+                || (mPage != null && mY + mLineHeight > mPage.getCanvas().getHeight())) {
+            int prevPageNumber = mPage==null ? 0 : mPage.getInfo().getPageNumber();
+            if(mPage != null) mPdfDocument.finishPage(mPage);
+            mPage = mPdfDocument.startPage(prevPageNumber + 1);
+            mCanvas = mPage.getCanvas();
+            mY = mLineHeight * 2;
+        }
+    }
+
+    private void drawCustomer() {
+        incrementLine();
+
         int x0 = 15;
-        int x1 = Math.round(page.getInfo().getPageWidth()/2.8f);
-        int y = lineHeight*2;
-        int charsPerLine = Math.round((page.getInfo().getPageWidth() - x1 - 10) / (fontSize/4));
+        int x1 = Math.round(mPage.getInfo().getPageWidth()/2.8f);
+        int charsPerLine = Math.round((mPage.getInfo().getPageWidth() - x1 - 10) / (mFontSize/4));
 
         if(mSettings.getBoolean("show-customer-picture", true)) {
-            if (mCurrentCustomer.getImage().length != 0) {
+            if(mCurrentCustomer.getImage().length != 0) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(mCurrentCustomer.getImage(), 0, mCurrentCustomer.getImage().length);
-                int width = (int) (fontSize * 1.5);
-                Rect dstRect = new Rect(c.getWidth() - width - x0, x0, c.getWidth() - x0, x0 + width);
-                c.drawBitmap(bitmap, null, dstRect, null);
+                int width = (int) (mFontSize * 1.5);
+                Rect dstRect = new Rect(mCanvas.getWidth() - width - x0, x0, mCanvas.getWidth() - x0, x0 + width);
+                mCanvas.drawBitmap(bitmap, null, dstRect, null);
             }
         }
 
@@ -114,91 +127,94 @@ public class CustomerPrintDocumentAdapter extends PrintDocumentAdapter {
         Paint p_gray = new Paint();
         p.setColor(Color.BLACK);
         p_gray.setColor(Color.GRAY);
-        p.setTextSize(fontSize);
-        c.drawText(mCurrentCustomer.getFullName(false), x0, y, p);
-        y += lineHeight;
+        p.setTextSize(mFontSize);
+        mCanvas.drawText(mCurrentCustomer.getFullName(false), x0, mY, p);
+        incrementLine();
 
-        p.setTextSize(fontSize /2);
-        p_gray.setTextSize(fontSize /2);
+        p.setTextSize(mFontSize /2);
+        p_gray.setTextSize(mFontSize /2);
 
         if(mSettings.getBoolean("show-phone-field", true)) {
-            y += lineHeight;
-            c.drawText(mCurrentContext.getResources().getString(R.string.phonehome), x0, y, p_gray);
-            c.drawText(mCurrentCustomer.mPhoneHome, x1, y, p);
+            incrementLine();
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.phonehome), x0, mY, p_gray);
+            mCanvas.drawText(mCurrentCustomer.mPhoneHome, x1, mY, p);
 
-            y += lineHeight;
-            c.drawText(mCurrentContext.getResources().getString(R.string.phonemobile), x0, y, p_gray);
-            c.drawText(mCurrentCustomer.mPhoneMobile, x1, y, p);
+            incrementLine();
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.phonemobile), x0, mY, p_gray);
+            mCanvas.drawText(mCurrentCustomer.mPhoneMobile, x1, mY, p);
 
-            y += lineHeight;
-            c.drawText(mCurrentContext.getResources().getString(R.string.phonework), x0, y, p_gray);
-            c.drawText(mCurrentCustomer.mPhoneWork, x1, y, p);
+            incrementLine();
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.phonework), x0, mY, p_gray);
+            mCanvas.drawText(mCurrentCustomer.mPhoneWork, x1, mY, p);
         }
 
         if(mSettings.getBoolean("show-email-field", true)) {
-            y += lineHeight;
-            c.drawText(mCurrentContext.getResources().getString(R.string.email), x0, y, p_gray);
-            c.drawText(mCurrentCustomer.mEmail, x1, y, p);
+            incrementLine();
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.email), x0, mY, p_gray);
+            mCanvas.drawText(mCurrentCustomer.mEmail, x1, mY, p);
         }
 
         if(mSettings.getBoolean("show-address-field", true)) {
-            y += lineHeight;
-            c.drawText(mCurrentContext.getResources().getString(R.string.address), x0, y, p_gray);
+            incrementLine();
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.address), x0, mY, p_gray);
             for(String s : mCurrentCustomer.getAddress().split("\n")) {
-                c.drawText(s, x1, y, p);
-                y += lineHeight;
+                mCanvas.drawText(s, x1, mY, p);
+                incrementLine();
             }
         }
 
         if(mSettings.getBoolean("show-group-field", true)) {
-            y += lineHeight;
-            c.drawText(mCurrentContext.getResources().getString(R.string.group), x0, y, p_gray);
-            c.drawText(mCurrentCustomer.mCustomerGroup, x1, y, p);
+            incrementLine();
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.group), x0, mY, p_gray);
+            mCanvas.drawText(mCurrentCustomer.mCustomerGroup, x1, mY, p);
         }
 
         if(mSettings.getBoolean("show-notes-field", true)) {
-            y += lineHeight; y += lineHeight;
-            c.drawText(mCurrentContext.getResources().getString(R.string.notes), x0, y, p_gray);
+            incrementLine(); incrementLine();
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.notes), x0, mY, p_gray);
             for(String s : PrintTools.wordWrap(mCurrentCustomer.mNotes, charsPerLine).split("\n")) {
-                c.drawText(s, x1, y, p);
-                y += lineHeight;
+                mCanvas.drawText(s, x1, mY, p);
+                incrementLine();
             }
         }
 
-        y += lineHeight;
+        incrementLine();
         List<CustomField> customFields = mDb.getCustomFields();
         for(CustomField cf : customFields) {
-            c.drawText(cf.mTitle, x0, y, p_gray);
+            mCanvas.drawText(cf.mTitle, x0, mY, p_gray);
             String value = mCurrentCustomer.getCustomField(cf.mTitle);
             if(value != null) {
                 for(String s : PrintTools.wordWrap(value, charsPerLine).split("\n")) {
-                    c.drawText(s, x1, y, p);
-                    y += lineHeight;
+                    mCanvas.drawText(s, x1, mY, p);
+                    incrementLine();
                 }
             }
-            y += lineHeight;
+            incrementLine();
         }
 
         if(mSettings.getBoolean("show-birthday-field", true)) {
             if(mCurrentCustomer.mBirthday != null) {
-                y += lineHeight;
-                c.drawText(mCurrentContext.getResources().getString(R.string.birthday), x0, y, p_gray);
-                c.drawText(mCurrentCustomer.getBirthdayString(), x1, y, p);
+                incrementLine();
+                mCanvas.drawText(mCurrentContext.getResources().getString(R.string.birthday), x0, mY, p_gray);
+                mCanvas.drawText(mCurrentCustomer.getBirthdayString(), x1, mY, p);
             }
         }
 
-        y += lineHeight;
-        c.drawText(mCurrentContext.getResources().getString(R.string.lastchanged), x0, y, p_gray);
-        c.drawText(DateControl.displayDateFormat.format(mCurrentCustomer.mLastModified), x1, y, p);
+        incrementLine();
+        mCanvas.drawText(mCurrentContext.getResources().getString(R.string.lastchanged), x0, mY, p_gray);
+        mCanvas.drawText(DateControl.displayDateFormat.format(mCurrentCustomer.mLastModified), x1, mY, p);
 
         if(mSettings.getBoolean("show-files", true)) {
-            y += lineHeight; y += lineHeight;
-            c.drawText(mCurrentContext.getResources().getString(R.string.files), x0, y, p_gray);
+            incrementLine(); incrementLine();
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.files), x0, mY, p_gray);
             for(CustomerFile file : mCurrentCustomer.getFiles()) {
-                c.drawText(file.mName, x1, y, p);
-                y += lineHeight;
+                mCanvas.drawText(file.mName, x1, mY, p);
+                incrementLine();
             }
         }
+
+        mPdfDocument.finishPage(mPage);
+        mY = null; mPage = null;
     }
 
     @SuppressWarnings("SameParameterValue")

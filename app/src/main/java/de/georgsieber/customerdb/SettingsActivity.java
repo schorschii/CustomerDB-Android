@@ -64,6 +64,7 @@ public class SettingsActivity extends AppCompatActivity {
     EditText mEditTextPassword;
     EditText mEditTextBirthdayPreviewDays;
     EditText mEditTextCurrency;
+    EditText mEditTextPrintFontSize;
     CheckBox mCheckBoxAllowTextInPhoneNumbers;
     RadioGroup mRadioGroupTheme;
     RadioButton mRadioButtonDarkModeSystem;
@@ -90,6 +91,7 @@ public class SettingsActivity extends AppCompatActivity {
     private String mRemoteDatabaseConnPassword = "";
     private int mBirthdayPreviewDays = 0;
     private String mCurrency = "";
+    private int mPrintFontSize = 0;
     private Boolean mAllowTextInPhoneNumbers = false;
     private String mDefaultCustomerTitle = "";
     private String mDefaultCustomerCity = "";
@@ -146,6 +148,7 @@ public class SettingsActivity extends AppCompatActivity {
         mEditTextPassword = findViewById(R.id.editTextPassword);
         mEditTextBirthdayPreviewDays = findViewById(R.id.editTextBirthdayPreviewDays);
         mEditTextCurrency = findViewById(R.id.editTextCurrency);
+        mEditTextPrintFontSize = findViewById(R.id.editTextPrintFontSize);
         mCheckBoxAllowTextInPhoneNumbers = findViewById(R.id.checkBoxAllowTextInPhoneNumbers);
         mRadioGroupTheme = findViewById(R.id.radioGroupTheme);
         mRadioButtonDarkModeSystem = findViewById(R.id.radioButtonDarkModeSystem);
@@ -247,6 +250,7 @@ public class SettingsActivity extends AppCompatActivity {
         mRemoteDatabaseConnPassword = mSettings.getString("webapi-password","");
         mBirthdayPreviewDays = mSettings.getInt("birthday-preview-days", BirthdayActivity.DEFAULT_BIRTHDAY_PREVIEW_DAYS);
         mCurrency = mSettings.getString("currency", "€");
+        mPrintFontSize = mSettings.getInt("print-font-size", 44);
         mAllowTextInPhoneNumbers = mSettings.getBoolean("phone-allow-text", false);
         mDefaultCustomerTitle = mSettings.getString("default-customer-title", "");
         mDefaultCustomerCity = mSettings.getString("default-customer-city", "");
@@ -303,6 +307,7 @@ public class SettingsActivity extends AppCompatActivity {
         mEditTextPassword.setText(mRemoteDatabaseConnPassword);
         mEditTextBirthdayPreviewDays.setText(Integer.toString(mBirthdayPreviewDays));
         mEditTextCurrency.setText(mCurrency);
+        mEditTextPrintFontSize.setText(Integer.toString(mPrintFontSize));
         mCheckBoxAllowTextInPhoneNumbers.setChecked(mAllowTextInPhoneNumbers);
         mSeekBarRed.setProgress(mColorRed);
         mSeekBarGreen.setProgress(mColorGreen);
@@ -429,6 +434,7 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putString("webapi-password", mRemoteDatabaseConnPassword);
         editor.putInt("birthday-preview-days", mBirthdayPreviewDays);
         editor.putString("currency", mCurrency);
+        editor.putInt("print-font-size", mPrintFontSize);
         editor.putBoolean("phone-allow-text", mAllowTextInPhoneNumbers);
         editor.putString("default-customer-title", mDefaultCustomerTitle);
         editor.putString("default-customer-city", mDefaultCustomerCity);
@@ -503,6 +509,10 @@ public class SettingsActivity extends AppCompatActivity {
             mBirthdayPreviewDays = Integer.parseInt(mEditTextBirthdayPreviewDays.getText().toString());
         } catch(NumberFormatException ignored) {}
         mCurrency = mEditTextCurrency.getText().toString();
+        try {
+            mPrintFontSize = Integer.parseInt(mEditTextPrintFontSize.getText().toString());
+            mPrintFontSize = Math.max(10, Math.min(100, mPrintFontSize));
+        } catch(NumberFormatException ignored) {}
         mAllowTextInPhoneNumbers = mCheckBoxAllowTextInPhoneNumbers.isChecked();
         showCustomerPicture = mCheckBoxShowPicture.isChecked();
         showPhoneField = mCheckBoxShowPhoneField.isChecked();
@@ -577,16 +587,14 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void setTextFieldsFocusable(boolean focusable) {
-        mEditTextUrl.setFocusable(focusable);
-        mEditTextUsername.setFocusable(focusable);
-        mEditTextPassword.setFocusable(focusable);
-        mEditTextBirthdayPreviewDays.setFocusable(focusable);
-        mEditTextCurrency.setFocusable(focusable);
-
-        mEditTextUrl.setFocusableInTouchMode(focusable);
-        mEditTextUsername.setFocusableInTouchMode(focusable);
-        mEditTextPassword.setFocusableInTouchMode(focusable);
-        mEditTextCurrency.setFocusableInTouchMode(focusable);
+        View[] editViews = {
+                mEditTextUrl, mEditTextUsername, mEditTextPassword,
+                mEditTextBirthdayPreviewDays, mEditTextCurrency, mEditTextPrintFontSize
+        };
+        for(View v : editViews) {
+            v.setFocusable(focusable);
+            v.setFocusableInTouchMode(focusable);
+        }
     }
 
     public void onSetPasswordButtonClick(View v) {

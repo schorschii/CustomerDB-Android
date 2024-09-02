@@ -299,7 +299,7 @@ public class VoucherDetailsActivity extends AppCompatActivity {
                         .setResolution(new PrintAttributes.Resolution("customerdb", PRINT_SERVICE, 300, 300))
                         .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
                         .build();
-                printManager.print(jobName, new VoucherPrintDocumentAdapter(this, v, currency), pa);
+                printManager.print(jobName, new VoucherPrintDocumentAdapter(this, v, currency, mSettings), pa);
             }
         } else {
             CommonDialog.show(this, getResources().getString(R.string.not_supported), getResources().getString(R.string.not_supported_printing), CommonDialog.TYPE.FAIL, false);

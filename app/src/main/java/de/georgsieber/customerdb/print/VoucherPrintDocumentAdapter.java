@@ -1,6 +1,7 @@
 package de.georgsieber.customerdb.print;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -24,25 +25,33 @@ import de.georgsieber.customerdb.model.Voucher;
 public class VoucherPrintDocumentAdapter extends PrintDocumentAdapter {
     private Voucher mCurrentVoucher;
     private Context mCurrentContext;
+    private SharedPreferences mSettings;
     private PrintedPdfDocument mPdfDocument;
     private String mCurrency;
 
-    public VoucherPrintDocumentAdapter(Context context, Voucher voucher, String currency) {
+    private final int mFontSize;
+    private final float mLineHeight;
+
+    public VoucherPrintDocumentAdapter(Context context, Voucher voucher, String currency, SharedPreferences settings) {
         mCurrentVoucher = voucher;
         mCurrentContext = context;
         mCurrency = currency;
+        mSettings = settings;
+
+        mFontSize = mSettings.getInt("print-font-size", 44);
+        mLineHeight = Math.round(mFontSize/1.55f);
     }
 
     @Override
     public void onLayout(PrintAttributes oldAttributes, PrintAttributes newAttributes, CancellationSignal cancellationSignal, LayoutResultCallback callback, Bundle extras) {
-        if(cancellationSignal.isCanceled() ) {
+        if(cancellationSignal.isCanceled()) {
             callback.onLayoutCancelled();
             return;
         }
 
         mPdfDocument = new PrintedPdfDocument(mCurrentContext, newAttributes);
 
-        if(cancellationSignal.isCanceled() ) {
+        if(cancellationSignal.isCanceled()) {
             callback.onLayoutCancelled();
             return;
         }
@@ -50,23 +59,17 @@ public class VoucherPrintDocumentAdapter extends PrintDocumentAdapter {
         PrintDocumentInfo info = new PrintDocumentInfo
                 .Builder("printvoucher.tmp.pdf")
                 .setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT)
-                .setPageCount(1)
                 .build();
         callback.onLayoutFinished(info, true);
     }
 
     @Override
     public void onWrite(PageRange[] pages, ParcelFileDescriptor destination, CancellationSignal cancellationSignal, WriteResultCallback callback) {
-        PdfDocument.Page page = mPdfDocument.startPage(1);
-        // Draw page content for printing
-        drawPage(page);
-        // Rendering is complete, so page can be finalized.
-        mPdfDocument.finishPage(page);
+        drawVoucher();
 
         // Write PDF document to file
         try {
-            mPdfDocument.writeTo(new FileOutputStream(
-                    destination.getFileDescriptor()));
+            mPdfDocument.writeTo(new FileOutputStream( destination.getFileDescriptor() ));
         } catch (IOException e) {
             callback.onWriteFailed(e.toString());
             return;
@@ -80,82 +83,97 @@ public class VoucherPrintDocumentAdapter extends PrintDocumentAdapter {
         callback.onWriteFinished(pr);
     }
 
-    private void drawPage(PdfDocument.Page page) {
-        Canvas c = page.getCanvas();
+    private PdfDocument.Page mPage;
+    private Canvas mCanvas;
+    private Float mY;
 
-        int fontSize = page.getInfo().getPageWidth()/15;
-        int lineHeight = Math.round(fontSize/1.55f);
+    private void incrementLine(float factor) {
+        if(mY != null) mY += mLineHeight * factor;
+        if(mY == null
+                || (mPage != null && mY + mLineHeight > mPage.getCanvas().getHeight())) {
+            int prevPageNumber = mPage==null ? 0 : mPage.getInfo().getPageNumber();
+            if(mPage != null) mPdfDocument.finishPage(mPage);
+            mPage = mPdfDocument.startPage(prevPageNumber + 1);
+            mCanvas = mPage.getCanvas();
+            mY = mLineHeight * 2;
+        }
+    }
+
+    private void drawVoucher() {
+        incrementLine(1);
+
         int x0 = 15;
-        int x1 = Math.round(page.getInfo().getPageWidth()/2.8f);
-        int y = lineHeight*2;
-        int charsPerLine = Math.round((page.getInfo().getPageWidth() - 10) / (fontSize/4));
+        int charsPerLine = Math.round((mPage.getInfo().getPageWidth() - 10) / (mFontSize/4));
 
         Paint p = new Paint();
         Paint p_gray = new Paint();
         p.setColor(Color.BLACK);
         p_gray.setColor(Color.GRAY);
-        p.setTextSize(fontSize);
-        c.drawText(mCurrentVoucher.getCurrentValueString()+mCurrency, x0, y, p);
+        p.setTextSize(mFontSize);
+        mCanvas.drawText(mCurrentVoucher.getCurrentValueString()+mCurrency, x0, mY, p);
 
-        p.setTextSize(fontSize/2);
-        p_gray.setTextSize(fontSize/2);
+        p.setTextSize(mFontSize /2);
+        p_gray.setTextSize(mFontSize /2);
 
-        y += lineHeight*2;
+        incrementLine(2);
         if(!mCurrentVoucher.mVoucherNo.equals("")) {
-            c.drawText(mCurrentContext.getResources().getString(R.string.voucher_number)+": "+mCurrentVoucher.mVoucherNo, x0, y, p_gray);
-            y += lineHeight*1.25f;
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.voucher_number)+": "+mCurrentVoucher.mVoucherNo, x0, mY, p_gray);
+            incrementLine(1.25f);
         }
-        c.drawText(mCurrentContext.getResources().getString(R.string.id)+": "+mCurrentVoucher.getIdString(), x0, y, p_gray);
+        mCanvas.drawText(mCurrentContext.getResources().getString(R.string.id)+": "+mCurrentVoucher.getIdString(), x0, mY, p_gray);
 
         if(mCurrentVoucher.mCurrentValue != mCurrentVoucher.mOriginalValue) {
-            y += lineHeight*1.25f;
-            c.drawText(mCurrentContext.getResources().getString(R.string.original_value), x0, y, p_gray);
-            y += lineHeight;
-            c.drawText(mCurrentVoucher.getOriginalValueString()+mCurrency, x0, y, p);
+            incrementLine(1.25f);
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.original_value), x0, mY, p_gray);
+            incrementLine(1);
+            mCanvas.drawText(mCurrentVoucher.getOriginalValueString()+mCurrency, x0, mY, p);
         }
 
         if(mCurrentVoucher.mIssued != null) {
-            y += lineHeight*1.25f;
-            c.drawText(mCurrentContext.getResources().getString(R.string.issued), x0, y, p_gray);
-            y += lineHeight;
-            c.drawText(DateControl.displayDateFormat.format(mCurrentVoucher.mIssued), x0, y, p);
+            incrementLine(1.25f);
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.issued), x0, mY, p_gray);
+            incrementLine(1);
+            mCanvas.drawText(DateControl.displayDateFormat.format(mCurrentVoucher.mIssued), x0, mY, p);
         }
 
         if(mCurrentVoucher.mValidUntil != null) {
-            y += lineHeight*1.25f;
-            c.drawText(mCurrentContext.getResources().getString(R.string.valid_until), x0, y, p_gray);
-            y += lineHeight;
-            c.drawText(DateControl.displayDateFormat.format(mCurrentVoucher.mValidUntil), x0, y, p);
+            incrementLine(1.25f);
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.valid_until), x0, mY, p_gray);
+            incrementLine(1);
+            mCanvas.drawText(DateControl.displayDateFormat.format(mCurrentVoucher.mValidUntil), x0, mY, p);
         }
 
         if(mCurrentVoucher.mRedeemed != null) {
-            y += lineHeight*1.25f;
-            c.drawText(mCurrentContext.getResources().getString(R.string.redeemed), x0, y, p_gray);
-            y += lineHeight;
-            c.drawText(DateControl.displayDateFormat.format(mCurrentVoucher.mRedeemed), x0, y, p);
+            incrementLine(1.25f);
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.redeemed), x0, mY, p_gray);
+            incrementLine(1);
+            mCanvas.drawText(DateControl.displayDateFormat.format(mCurrentVoucher.mRedeemed), x0, mY, p);
         }
 
         if(!mCurrentVoucher.mFromCustomer.equals("")) {
-            y += lineHeight*1.25f;
-            c.drawText(mCurrentContext.getResources().getString(R.string.from_customer), x0, y, p_gray);
-            y += lineHeight;
-            c.drawText(mCurrentVoucher.mFromCustomer, x0, y, p);
+            incrementLine(1.25f);
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.from_customer), x0, mY, p_gray);
+            incrementLine(1);
+            mCanvas.drawText(mCurrentVoucher.mFromCustomer, x0, mY, p);
         }
 
         if(!mCurrentVoucher.mForCustomer.equals("")) {
-            y += lineHeight*1.25f;
-            c.drawText(mCurrentContext.getResources().getString(R.string.for_customer), x0, y, p_gray);
-            y += lineHeight;
-            c.drawText(mCurrentVoucher.mForCustomer, x0, y, p);
+            incrementLine(1.25f);
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.for_customer), x0, mY, p_gray);
+            incrementLine(1);
+            mCanvas.drawText(mCurrentVoucher.mForCustomer, x0, mY, p);
         }
 
         if(!mCurrentVoucher.mNotes.equals("")) {
-            y += lineHeight*1.25f;
-            c.drawText(mCurrentContext.getResources().getString(R.string.notes), x0, y, p_gray);
+            incrementLine(1.25f);
+            mCanvas.drawText(mCurrentContext.getResources().getString(R.string.notes), x0, mY, p_gray);
             for(String s : PrintTools.wordWrap(mCurrentVoucher.mNotes, charsPerLine).split("\n")) {
-                y += lineHeight;
-                c.drawText(s, x0, y, p);
+                incrementLine(1);
+                mCanvas.drawText(s, x0, mY, p);
             }
         }
+
+        mPdfDocument.finishPage(mPage);
+        mY = null; mPage = null;
     }
 }

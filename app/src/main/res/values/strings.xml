@@ -406,4 +406,5 @@
     <string name="activations_remaining">%1$s activations remaining</string>
     <string name="caller_id_plugin_app_note">Caller ID works out-of-the-box with the Google phone app, which is preinstalled on many devices. Other phone apps (e.g. on Samsung or HTC devices) are not able to query the Customer Database. In this case, please install the Google phone app from the Google Play Store or the Customer Database Plugin App, which can display a tiny overlay with the customer name on incoming calls.</string>
     <string name="help">Help / FAQs</string>
+    <string name="print_font_size">Print Font Size</string>
 </resources>
