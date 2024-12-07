@@ -1,12 +1,18 @@
 package de.georgsieber.customerdb;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -25,9 +31,14 @@ import de.georgsieber.customerdb.tools.DateControl;
 public class CalendarFragment extends Fragment {
 
     private CustomerDatabase mDb;
+    private SharedPreferences mSettings;
+    private SharedPreferences.Editor mSettingsEditor;
+
     private Date mShowDate = new Date();
     private List<CustomerCalendar> mShowCalendars = new ArrayList<>();
+
     private RelativeLayout relativeLayoutCalendarRoot;
+    private ScrollView scrollViewCalendarContainer;
 
     private static final int MINUTES_IN_A_HOUR = 24 * 60;
     private static List<CustomerAppointment> mAppointments = new ArrayList<>();
@@ -43,11 +54,32 @@ public class CalendarFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_calendar, container, false);
+
         // init db
         mDb = new CustomerDatabase(getContext());
+        mSettings = getContext().getSharedPreferences(MainActivity.PREFS_NAME, MODE_PRIVATE);
+        mSettingsEditor = mSettings.edit();
+
+        // save scroll position
+        scrollViewCalendarContainer = v.findViewById(R.id.sv_calendar_container);
+        scrollViewCalendarContainer.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollViewCalendarContainer.scrollTo(0, mSettings.getInt("calendar-day-scroll", 0));
+            }
+        });
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            scrollViewCalendarContainer.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    mSettingsEditor.putInt("calendar-day-scroll", scrollY);
+                    mSettingsEditor.apply();
+                }
+            });
+        }
 
         // register event for redraw
-        View v = inflater.inflate(R.layout.fragment_calendar, container, false);
         relativeLayoutCalendarRoot = (RelativeLayout)v.findViewById(R.id.rl_calendar_root);
         relativeLayoutCalendarRoot.post(new Runnable() {
             @Override
