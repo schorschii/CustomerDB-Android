@@ -128,7 +128,8 @@
         <provider
             android:name=".tools.CallerIdProvider"
             android:authorities="@string/callerid_authority"
-            android:readPermission="android.permission.READ_CONTACTS"
+            android:readPermission="android.permission.BIND_DIRECTORY_SEARCH"
+            android:grantUriPermissions="true"
             android:enabled="true"
             android:exported="true">
             <meta-data

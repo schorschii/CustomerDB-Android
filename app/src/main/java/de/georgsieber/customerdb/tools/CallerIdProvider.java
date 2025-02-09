@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.content.res.AssetFileDescriptor;
@@ -115,18 +116,18 @@ public class CallerIdProvider extends ContentProvider {
                                 values.add(customer.mCustomerGroup); break;
                             case(ContactsContract.PhoneLookup.PHOTO_THUMBNAIL_URI):
                             case(ContactsContract.PhoneLookup.PHOTO_URI):
-                                values.add(
+                                Uri u = Uri.withAppendedPath(
                                         Uri.withAppendedPath(
                                                 Uri.withAppendedPath(
-                                                        Uri.withAppendedPath(
-                                                                authorityUri,
-                                                                "photo"
-                                                        ),
-                                                        "primary_photo"
+                                                        authorityUri,
+                                                        "photo"
                                                 ),
-                                                incomingNumber
-                                        )
+                                                "primary_photo"
+                                        ),
+                                        incomingNumber
                                 );
+                                values.add(u);
+                                getContext().grantUriPermission(callerPackage, u, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 break;
                             default: values.add(null);
                         }
