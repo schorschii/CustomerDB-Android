@@ -395,4 +395,6 @@
     <string name="caller_id_plugin_app_note">Beller-ID werkt out-of-the-box met de Google Phone-app, die op veel apparaten vooraf is geïnstalleerd. Andere telefoon-apps (bijvoorbeeld op Samsung- of HTC-apparaten) kunnen de klantendatabase niet doorzoeken. Installeer in dit geval de Google Phone-app uit de Google Play Store of de Customer Database Plugin-app, die bij inkomende oproepen een kleine overlay met de naam van de klant kan weergeven.</string>
     <string name="help">Hulp / Veelgestelde vragen</string>
     <string name="print_font_size">Afdrukken Lettergrootte</string>
+    <string name="custom_color">Aangepaste kleur</string>
+    <string name="use_custom_color">Gebruik aangepaste kleur</string>
 </resources>

@@ -10,4 +10,6 @@
     <color name="colorTextLink">#126C88</color> <!-- original: #5EA3B9 -->
     <color name="colorDivider">#999</color>
     <color name="colorBackground">#FAFAFA</color>
+    <color name="colorSettingsCheckBoxes">#222</color>
+    <color name="colorPreviewBorder">#757575</color> <!-- should look like checkboxes -->
 </resources>

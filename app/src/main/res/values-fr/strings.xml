@@ -395,4 +395,6 @@
     <string name="caller_id_plugin_app_note">L\'identification de l\'appelant est prête à l\'emploi avec l\'application Google Phone, qui est préinstallée sur de nombreux appareils. Les autres applications téléphoniques (par exemple sur les appareils Samsung ou HTC) ne peuvent pas interroger la base de données clients. Dans ce cas, veuillez installer l\'application Google Phone depuis le Google Play Store ou l\'application Customer Database Plugin, qui peut afficher une petite superposition avec le nom du client sur les appels entrants.</string>
     <string name="help">Aide / FAQ</string>
     <string name="print_font_size">Taille de la police d\'impression</string>
+    <string name="custom_color">Couleur personnalisée</string>
+    <string name="use_custom_color">Utiliser une couleur personnalisée</string>
 </resources>

@@ -7,4 +7,10 @@
     <dimen name="hour_divider_margin_top">85dp</dimen>
     <dimen name="appointment_min_height">30dp</dimen>
     <dimen name="appointment_padding">5dp</dimen>
+
+    <dimen name="space_color_preview">8dp</dimen>
+    <dimen name="width_color_preview">18dp</dimen>
+    <dimen name="padding_setting">7dp</dimen>
+    <dimen name="color_preview_border">2dp</dimen>
+    <dimen name="color_preview_radius">2dp</dimen>
 </resources>

@@ -2,4 +2,6 @@
 <resources>
     <color name="colorTextLink">#5EA3B9</color> <!-- original: #126C88 -->
     <color name="colorBackground">#181818</color> <!-- original: #303030 -->
+    <color name="colorSettingsCheckBoxes">#fff</color>
+    <color name="colorPreviewBorder">#BABABA</color> <!-- should look like checkboxes -->
 </resources>

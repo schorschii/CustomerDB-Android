@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,8 +23,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -70,9 +75,7 @@ public class SettingsActivity extends AppCompatActivity {
     RadioButton mRadioButtonDarkModeSystem;
     RadioButton mRadioButtonDarkModeOn;
     RadioButton mRadioButtonDarkModeOff;
-    SeekBar mSeekBarRed;
-    SeekBar mSeekBarGreen;
-    SeekBar mSeekBarBlue;
+    View mViewColorChanger;
     View mViewColorPreview;
     CheckBox mCheckBoxShowPicture;
     CheckBox mCheckBoxShowPhoneField;
@@ -106,9 +109,7 @@ public class SettingsActivity extends AppCompatActivity {
     private String mDefaultAppointmentLocation = "";
     private String mIomPassword = "";
     private int mColorDarkMode = -1;
-    private int mColorRed = 0;
-    private int mColorGreen = 0;
-    private int mColorBlue = 0;
+    private int mColor = 0;
     private boolean showCustomerPicture;
     private boolean showPhoneField;
     private boolean showEmailField;
@@ -154,9 +155,7 @@ public class SettingsActivity extends AppCompatActivity {
         mRadioButtonDarkModeSystem = findViewById(R.id.radioButtonDarkModeSystem);
         mRadioButtonDarkModeOn = findViewById(R.id.radioButtonDarkModeOn);
         mRadioButtonDarkModeOff = findViewById(R.id.radioButtonDarkModeOff);
-        mSeekBarRed = findViewById(R.id.seekBarRed);
-        mSeekBarGreen = findViewById(R.id.seekBarGreen);
-        mSeekBarBlue = findViewById(R.id.seekBarBlue);
+        mViewColorChanger = findViewById(R.id.viewColorChanger);
         mViewColorPreview = findViewById(R.id.viewColorPreview);
         mCheckBoxShowPicture = findViewById(R.id.checkBoxShowPicture);
         mCheckBoxShowPhoneField = findViewById(R.id.checkBoxShowPhoneField);
@@ -175,45 +174,31 @@ public class SettingsActivity extends AppCompatActivity {
         reloadCalendars();
 
         // register events
-        mSeekBarRed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        mViewColorChanger.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mColorRed = progress;
-                updateColorPreview(mColorRed, mColorGreen, mColorBlue, mViewColorPreview);
+            public void onClick(View view) {
+                if(mFc == null || !mFc.unlockedDesignOptions) {
+                    dialogInApp(getResources().getString(R.string.feature_locked), getResources().getString(R.string.feature_locked_text));
+                    return;
+                }
+                int defaultColor = Color.argb(0xff, ColorControl.DEFAULT_COLOR_R, ColorControl.DEFAULT_COLOR_G, ColorControl.DEFAULT_COLOR_B);
+                showColorDialog(mColor!=defaultColor, mColor, new ColorDialogCallback() {
+                    @Override
+                    public void ok(boolean customColor, int red, int green, int blue) {
+                        if(customColor)
+                            mColor = Color.argb(0xff, red, green, blue);
+                        else
+                            mColor = defaultColor;
+                        updateColorPreviewButton(mColor, mViewColorPreview, null);
+                    }
+                });
             }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
-        });
-        mSeekBarGreen.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mColorGreen = progress;
-                updateColorPreview(mColorRed, mColorGreen, mColorBlue, mViewColorPreview);
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
-        });
-        mSeekBarBlue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mColorBlue = progress;
-                updateColorPreview(mColorRed, mColorGreen, mColorBlue, mViewColorPreview);
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
         // load settings
         loadSettings();
 
         // update color
-        updateColorPreview(mColorRed, mColorGreen, mColorBlue, mViewColorPreview);
         ColorControl.updateActionBarColor(this, mSettings);
 
         // init logo buttons
@@ -225,17 +210,14 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void featureCheckReady(boolean fetchSuccess) {
                 if(mFc.unlockedInputOnlyMode) {
-                    (findViewById(R.id.linearLayoutPassword)).setVisibility(View.VISIBLE);
+                    findViewById(R.id.linearLayoutPassword).setVisibility(View.VISIBLE);
                 } else {
-                    (findViewById(R.id.linearLayoutPassword)).setVisibility(View.GONE);
+                    findViewById(R.id.linearLayoutPassword).setVisibility(View.GONE);
                 }
                 if(!mFc.unlockedDesignOptions) {
-                    (findViewById(R.id.seekBarRed)).setEnabled(false);
-                    (findViewById(R.id.seekBarGreen)).setEnabled(false);
-                    (findViewById(R.id.seekBarBlue)).setEnabled(false);
-                    (findViewById(R.id.radioButtonDarkModeSystem)).setEnabled(false);
-                    (findViewById(R.id.radioButtonDarkModeOn)).setEnabled(false);
-                    (findViewById(R.id.radioButtonDarkModeOff)).setEnabled(false);
+                    findViewById(R.id.radioButtonDarkModeSystem).setEnabled(false);
+                    findViewById(R.id.radioButtonDarkModeOn).setEnabled(false);
+                    findViewById(R.id.radioButtonDarkModeOff).setEnabled(false);
                 }
             }
         });
@@ -265,9 +247,10 @@ public class SettingsActivity extends AppCompatActivity {
         mDefaultAppointmentLocation = mSettings.getString("default-appointment-location", "");
         mIomPassword = mSettings.getString("iom-password", "");
         mColorDarkMode = mSettings.getInt("dark-mode-native", -1);
-        mColorRed = mSettings.getInt("design-red", ColorControl.DEFAULT_COLOR_R);
-        mColorGreen = mSettings.getInt("design-green", ColorControl.DEFAULT_COLOR_G);
-        mColorBlue = mSettings.getInt("design-blue", ColorControl.DEFAULT_COLOR_B);
+        mColor = Color.argb(0xff,
+                mSettings.getInt("design-red", ColorControl.DEFAULT_COLOR_R),
+                mSettings.getInt("design-green", ColorControl.DEFAULT_COLOR_G),
+                mSettings.getInt("design-blue", ColorControl.DEFAULT_COLOR_B));
         showCustomerPicture = mSettings.getBoolean("show-customer-picture", true);
         showPhoneField = mSettings.getBoolean("show-phone-field", true);
         showEmailField = mSettings.getBoolean("show-email-field", true);
@@ -309,9 +292,7 @@ public class SettingsActivity extends AppCompatActivity {
         mEditTextCurrency.setText(mCurrency);
         mEditTextPrintFontSize.setText(Integer.toString(mPrintFontSize));
         mCheckBoxAllowTextInPhoneNumbers.setChecked(mAllowTextInPhoneNumbers);
-        mSeekBarRed.setProgress(mColorRed);
-        mSeekBarGreen.setProgress(mColorGreen);
-        mSeekBarBlue.setProgress(mColorBlue);
+        updateColorPreviewButton(mColor, mViewColorPreview, null);
         mCheckBoxShowPicture.setChecked(showCustomerPicture);
         mCheckBoxShowPhoneField.setChecked(showPhoneField);
         mCheckBoxShowEmailField.setChecked(showEmailField);
@@ -416,14 +397,114 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    private void updateColorPreview(int red, int green, int blue, View v) {
+        v.setBackgroundColor(Color.argb(0xff, red, green, blue));
+    }
+    private void updateColorPreviewButton(int color, View previewView, EditText hexTextBox) {
+        previewView.setBackgroundColor(Color.argb(0xff, Color.red(color), Color.green(color), Color.blue(color)));
+        if(hexTextBox != null) hexTextBox.setText(String.format("#%06X", (0xFFFFFF & color)));
+    }
+    interface ColorDialogCallback {
+        void ok(boolean customColor, int red, int green, int blue);
+    }
+    private void showColorDialog(Boolean customColor, int initialColor, final ColorDialogCallback colorDialogFinished) {
+        final Dialog ad = new Dialog(this);
+        ad.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ad.setContentView(R.layout.dialog_color);
+        final CheckBox checkBoxCustomColor = ad.findViewById(R.id.checkBoxCustomColor);
+        final EditText editTextColorHex = ad.findViewById(R.id.editTextColorHex);
+        final SeekBar seekBarRed = ad.findViewById(R.id.seekBarRed);
+        final SeekBar seekBarGreen = ad.findViewById(R.id.seekBarGreen);
+        final SeekBar seekBarBlue = ad.findViewById(R.id.seekBarBlue);
+        final View colorPreview = ad.findViewById(R.id.viewColorPreview);
+        final Button buttonOK = ad.findViewById(R.id.buttonOK);
+        if(customColor == null) {
+            checkBoxCustomColor.setVisibility(View.GONE);
+        } else {
+            checkBoxCustomColor.setChecked(customColor);
+            if(!customColor) {
+                seekBarRed.setEnabled(false);
+                seekBarGreen.setEnabled(false);
+                seekBarBlue.setEnabled(false);
+                editTextColorHex.setEnabled(false);
+            }
+        }
+        checkBoxCustomColor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                seekBarRed.setEnabled(b);
+                seekBarGreen.setEnabled(b);
+                seekBarBlue.setEnabled(b);
+                editTextColorHex.setEnabled(b);
+            }
+        });
+        seekBarRed.setProgress(Color.red(initialColor));
+        seekBarGreen.setProgress(Color.green(initialColor));
+        seekBarBlue.setProgress(Color.blue(initialColor));
+        seekBarRed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColorPreviewButton(Color.argb(0xff, seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress()), colorPreview, editTextColorHex);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+        seekBarGreen.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColorPreviewButton(Color.argb(0xff, seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress()), colorPreview, editTextColorHex);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+        seekBarBlue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                updateColorPreviewButton(Color.argb(0xff, seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress()), colorPreview, editTextColorHex);
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+        editTextColorHex.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                try {
+                    int newColor = Color.parseColor(charSequence.toString());
+                    seekBarRed.setProgress(Color.red(newColor));
+                    seekBarGreen.setProgress(Color.green(newColor));
+                    seekBarBlue.setProgress(Color.blue(newColor));
+                    //updateColorPreview(Color.argb(0xff, seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress()), colorPreview, null);
+                } catch(Exception ignored) { }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) { }
+        });
+        updateColorPreviewButton(Color.argb(0xff, seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress()), colorPreview, editTextColorHex);
+        ad.show();
+        ad.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        buttonOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(colorDialogFinished != null) {
+                    colorDialogFinished.ok(checkBoxCustomColor.isChecked(), seekBarRed.getProgress(), seekBarGreen.getProgress(), seekBarBlue.getProgress());
+                }
+                ad.dismiss();
+            }
+        });
+    }
+
     private void scanFile(File f) {
         Uri uri = Uri.fromFile(f);
         Intent scanFileIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri);
         sendBroadcast(scanFileIntent);
-    }
-
-    private void updateColorPreview(int red, int green, int blue, View v) {
-        v.setBackgroundColor(Color.argb(0xff, red, green, blue));
     }
 
     protected void saveSettings() {
@@ -449,9 +530,9 @@ public class SettingsActivity extends AppCompatActivity {
         editor.putString("default-appointment-location", mDefaultAppointmentLocation);
         editor.putString("iom-password", mIomPassword);
         editor.putInt("dark-mode-native", mColorDarkMode);
-        editor.putInt("design-red", mColorRed);
-        editor.putInt("design-green", mColorGreen);
-        editor.putInt("design-blue", mColorBlue);
+        editor.putInt("design-red", Color.red(mColor));
+        editor.putInt("design-green", Color.green(mColor));
+        editor.putInt("design-blue", Color.blue(mColor));
         editor.putBoolean("show-customer-picture", showCustomerPicture);
         editor.putBoolean("show-phone-field", showPhoneField);
         editor.putBoolean("show-email-field", showEmailField);
@@ -869,11 +950,11 @@ public class SettingsActivity extends AppCompatActivity {
         ad.setContentView(R.layout.dialog_new_calendar);
         if(ad.getWindow() != null) ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
-        final EditText editTextTitle = (EditText) ad.findViewById(R.id.editTextTitle);
+        final EditText editTextTitle = ad.findViewById(R.id.editTextTitle);
         final View colorPreviewCalendar = ad.findViewById(R.id.viewColorPreview);
-        final SeekBar seekBarRed = ((SeekBar) ad.findViewById(R.id.seekBarRed));
-        final SeekBar seekBarGreen = ((SeekBar) ad.findViewById(R.id.seekBarGreen));
-        final SeekBar seekBarBlue = ((SeekBar) ad.findViewById(R.id.seekBarBlue));
+        final SeekBar seekBarRed = ad.findViewById(R.id.seekBarRed);
+        final SeekBar seekBarGreen = ad.findViewById(R.id.seekBarGreen);
+        final SeekBar seekBarBlue = ad.findViewById(R.id.seekBarBlue);
         seekBarRed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -1018,14 +1099,14 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void onChooseLogoButtonClick(View v) {
-        if(mFc != null && mFc.unlockedDesignOptions) {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
-        } else {
+        if(mFc == null || !mFc.unlockedDesignOptions) {
             dialogInApp(getResources().getString(R.string.feature_locked), getResources().getString(R.string.feature_locked_text));
+            return;
         }
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
     }
 
     public void onRemoveLogoButtonClick(View v) {
@@ -1039,12 +1120,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
         showHideLogoButtons();
-    }
-
-    public void onResetColorButtonClick(View v) {
-        ((SeekBar) findViewById(R.id.seekBarRed)).setProgress(ColorControl.DEFAULT_COLOR_R);
-        ((SeekBar) findViewById(R.id.seekBarGreen)).setProgress(ColorControl.DEFAULT_COLOR_G);
-        ((SeekBar) findViewById(R.id.seekBarBlue)).setProgress(ColorControl.DEFAULT_COLOR_B);
     }
 
     public void changeDefaultCustomerTitle(View v) {
