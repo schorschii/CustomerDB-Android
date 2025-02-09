@@ -40,17 +40,20 @@ public class CallerIdProvider extends ContentProvider {
 
     private CustomerDatabase mDb;
     private SharedPreferences mSettings;
+    private Context mContext;
 
     @Override
     public boolean onCreate() {
-        String authority = getContext().getString(R.string.callerid_authority);
+        mContext = getContext();
+
+        String authority = mContext.getString(R.string.callerid_authority);
         authorityUri = Uri.parse("content://"+authority);
         uriMatcher.addURI(authority, "directories", DIRECTORIES);
         uriMatcher.addURI(authority, "phone_lookup/*", PHONE_LOOKUP);
         uriMatcher.addURI(authority, "photo/primary_photo/*", PRIMARY_PHOTO);
-        mSettings = getContext().getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        mSettings = mContext.getSharedPreferences(MainActivity.PREFS_NAME, 0);
         try {
-            mDb = new CustomerDatabase(getContext());
+            mDb = new CustomerDatabase(mContext);
         } catch(Exception ex) {
             return false;
         }
@@ -71,7 +74,7 @@ public class CallerIdProvider extends ContentProvider {
                         case(ContactsContract.Directory.ACCOUNT_NAME):
                         case(ContactsContract.Directory.ACCOUNT_TYPE):
                         case(ContactsContract.Directory.DISPLAY_NAME):
-                            values.add(getContext().getString(R.string.app_name)); break;
+                            values.add(mContext.getString(R.string.app_name)); break;
                         case(ContactsContract.Directory.TYPE_RESOURCE_ID):
                             values.add(R.string.app_name); break;
                         case(ContactsContract.Directory.EXPORT_SUPPORT):
@@ -127,14 +130,14 @@ public class CallerIdProvider extends ContentProvider {
                                         incomingNumber
                                 );
                                 values.add(u);
-                                getContext().grantUriPermission(callerPackage, u, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                mContext.grantUriPermission(callerPackage, u, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 break;
                             default: values.add(null);
                         }
                     }
                     cursor.addRow(values.toArray());
                 } else {
-                    saveLastCallInfo(getContext(), incomingNumber, null);
+                    saveLastCallInfo(mContext, incomingNumber, null);
                 }
                 return cursor;
         }
@@ -151,7 +154,7 @@ public class CallerIdProvider extends ContentProvider {
                 return bytesToAssetFileDescriptor(customer.getImage());
             } else {
                 // fallback image from resources
-                return getContext().getResources().openRawResourceFd(R.drawable.logo_customerdb_raw);
+                return mContext.getResources().openRawResourceFd(R.drawable.logo_customerdb_raw);
             }
         }
         return null;
