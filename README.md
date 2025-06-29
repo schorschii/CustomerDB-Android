@@ -1,5 +1,6 @@
 # Customer Database Android
 [![Play Store](.github/playstore-badge.svg)](https://play.google.com/store/apps/details?id=de.georgsieber.customerdb)
+[![IzzyOnDroid](.github/izzy-badge.svg)](https://apt.izzysoft.de/fdroid/index/apk/de.georgsieber.customerdb)
 [![APK Download](.github/apk-badge.svg)](https://github.com/schorschii/customerdb-Android/releases)
 
 With this Android app you can manage your customers separated from the private contacts, business appointments and vouchers. It is also available for [iOS](https://github.com/schorschii/customerdb-ios).
