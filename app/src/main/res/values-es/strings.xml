@@ -72,7 +72,6 @@
     <string name="syncsuccess">Sincronizaci&#243;n exitosa</string>
     <string name="syncfail">La sincronizaci&#243;n fall&#243;</string>
     <string name="ok">Okay</string>
-    <string name="eulaaccept">estoy de acuerdo</string>
     <string name="eula_title">Acuerdo de licencia de usuario final</string>
     <string name="eula">No hay garant&#237;a para este software, en la medida permitida por la ley aplicable. Los titulares de los derechos de autor proporcionan el programa \"tal cual\", sin ninguna garant&#237;a, ni expresa ni impl&#237;citamente, incluidas, entre otras, las garant&#237;as impl&#237;citas de comerciabilidad e idoneidad para un prop&#243;sito particular. Todo el riesgo en cuanto a la calidad y el rendimiento del programa est&#225; con usted. Si el programa resultara defectuoso, usted asume el costo de todos los servicios, reparaciones o correcciones necesarias. En ning&#250;n caso, a menos que lo exija la ley aplicable o se acuerde por escrito, cualquier titular de derechos de autor, o cualquier otra parte que modifique y / o transmita el programa, ser&#225; responsable ante usted por los da&#241;os. \n \nAseg&#250;rese de informar a sus clientes sobre el procesamiento digital de datos personales de acuerdo con el Reglamento General de Protecci&#243;n de Datos (EU GDPR).</string>
     <string name="birthdaytodaynote">(hoy)</string>

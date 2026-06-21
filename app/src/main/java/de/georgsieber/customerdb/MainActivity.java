@@ -302,7 +302,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // show dialogs
         //dialogNews();
-        dialogEula();
     }
 
     private void refreshView(Integer itemId) {
@@ -1556,28 +1555,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         ad.show();
-    }
-
-    public void dialogEula() {
-        final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        if(!settings.getBoolean("eulaok", false)) {
-            final AlertDialog.Builder ad = new AlertDialog.Builder(me);
-            ad.setPositiveButton(getResources().getString(R.string.eulaaccept), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean("eulaok", true);
-                    editor.apply();
-                }});
-            ad.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    me.finish();
-                }
-            });
-            ad.setTitle(getResources().getString(R.string.eula_title));
-            ad.setMessage(getResources().getString(R.string.eula));
-            ad.show();
-        }
     }
 
     public void dialogNews() {

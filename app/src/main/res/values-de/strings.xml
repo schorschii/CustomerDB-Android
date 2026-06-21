@@ -52,7 +52,6 @@
     <string name="syncsuccess">Synchronisierung erfolgreich</string>
     <string name="syncfail">Synchronisierung fehlgeschlagen</string>
     <string name="ok">OK</string>
-    <string name="eulaaccept">Ich stimme zu</string>
     <string name="eula_title">Endbenutzer-Lizenzvereinbarung</string>
     <string name="eula">Es besteht keinerlei Gewährleistung für diese Software, soweit dies gesetzlich zulässig ist. Die Copyright-Inhaber stellen das Programm so zur Verfügung, „wie es ist“, ohne irgendeine Gewährleistung, weder ausdrücklich noch implizit, einschließlich – aber nicht begrenzt auf – Marktreife oder Verwendbarkeit für einen bestimmten Zweck. Das volle Risiko bezüglich Qualität und Leistungsfähigkeit des Programms liegt bei Ihnen. Sollte sich das Programm als fehlerhaft herausstellen, liegen die Kosten für notwendigen Service, Reparatur oder Korrektur bei Ihnen. In keinem Fall, außer wenn durch geltendes Recht gefordert oder schriftlich zugesichert, ist irgendein Copyright-Inhaber Ihnen gegenüber für irgendwelche Schäden haftbar.\n\nBitte achten Sie darauf, Ihre Kunden laut Datenschutz-Grundverordnung (EU-DSGVO) auf die digitale Verarbeitung personenbezogener Daten zu unterrichten.</string>
     <plurals name="birthdayssoon">

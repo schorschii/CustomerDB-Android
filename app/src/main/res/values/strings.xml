@@ -84,7 +84,6 @@
     <string name="syncsuccess">Sync successful</string>
     <string name="syncfail">Sync failed</string>
     <string name="ok">OK</string>
-    <string name="eulaaccept">I agree</string>
     <string name="eula_title">End User License Agreement</string>
     <string name="eula">There is no warranty for this software, to the extent permitted by applicable law. The copyright holders provide the program "as is", without any guarantee, neither expressly nor implicitly, including - but not limited to - the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the program is with you. Should the program prove defective, you assume the cost of all necessary servicing, repair or correction. In no event unless required by applicable law or agreed to in writing will any copyright holder, or any other party who modifies and/or conveys the program, be liable to you for damages.\n\nPlease make sure to inform your customers about the digital processing of personal data in accordance with the General Data Protection Regulation (EU GDPR).</string>
     <string name="birthdaytodaynote">(today)</string>

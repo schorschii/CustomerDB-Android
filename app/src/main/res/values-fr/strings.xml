@@ -72,7 +72,6 @@
     <string name="syncsuccess">Synchronisation r&#233;ussie</string>
     <string name="syncfail">&#201;chec de la synchronisation</string>
     <string name="ok">D\'accord</string>
-    <string name="eulaaccept">je suis d\'accord</string>
     <string name="eula_title">Contrat de licence de l\'utilisateur final</string>
     <string name="eula">Il n\'y a aucune garantie pour ce logiciel, dans la mesure permise par la loi applicable. Les titulaires des droits d\'auteur fournissent le programme &#171;tel quel&#187;, sans aucune garantie, ni express&#233;ment ni implicitement, y compris - mais sans s\'y limiter - les garanties implicites de qualit&#233; marchande et d\'ad&#233;quation &#224; un usage particulier. Le risque entier quant &#224; la qualit&#233; et la performance du programme est avec vous. Si le programme s\'av&#233;rait d&#233;fectueux, vous assumez le co&#251;t de tous les services, r&#233;parations ou corrections n&#233;cessaires. En aucun cas, sauf si requis par la loi applicable ou accept&#233; par &#233;crit, tout d&#233;tenteur de droits d\'auteur ou toute autre partie qui modifie et / ou transmet le programme sera responsable envers vous des dommages et int&#233;r&#234;ts. \n \nVeuillez vous assurer d\'informer vos clients des traitement num&#233;rique des donn&#233;es personnelles conform&#233;ment au r&#232;glement g&#233;n&#233;ral sur la protection des donn&#233;es (RGPD UE).</string>
     <string name="birthdaytodaynote">(aujourd\'hui)</string>
