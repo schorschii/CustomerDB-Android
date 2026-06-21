@@ -375,6 +375,7 @@
     <string name="do_you_want_to_import_this_customer">Wilt u deze klant importeren?</string>
     <string name="import_from_qr_code">Importeren van QR-code</string>
     <string name="digital_amp_analog_clock_screensaver">Digitale en analoge klok voor Android</string>
+    <string name="video_screensaver">Video-screensaver voor Android</string>
     <string name="scan">Scannen</string>
     <string name="view_apache_license_button">Apache-licentie &#187;</string>
     <string name="birthday_preview">Verjaardagsvoorbeeld</string>

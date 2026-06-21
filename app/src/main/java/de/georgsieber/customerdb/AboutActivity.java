@@ -639,6 +639,9 @@ public class AboutActivity extends AppCompatActivity {
     public void onClickFsClockAndroidApp(View v) {
         MainActivity.openPlayStore(this, "systems.sieber.fsclock");
     }
+    public void onClickVideoScreensaverAndroidApp(View v) {
+        MainActivity.openPlayStore(this, "systems.sieber.vscreensaver");
+    }
     public void onClickBallBreakAndroidApp(View v) {
         MainActivity.openPlayStore(this, "de.georgsieber.ballbreak");
     }

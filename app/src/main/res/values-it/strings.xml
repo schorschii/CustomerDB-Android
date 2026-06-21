@@ -375,6 +375,7 @@
     <string name="do_you_want_to_import_this_customer">Vuoi importare questo cliente?</string>
     <string name="import_from_qr_code">Importa da codice QR</string>
     <string name="digital_amp_analog_clock_screensaver">Orologio digitale e analogico per Android</string>
+    <string name="video_screensaver">Salvaschermo video per Android</string>
     <string name="scan">Scanner</string>
     <string name="view_apache_license_button">Apache License »</string>
     <string name="birthday_preview">Anteprima di compleanno</string>
