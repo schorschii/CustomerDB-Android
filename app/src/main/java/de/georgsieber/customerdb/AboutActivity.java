@@ -15,9 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.PendingPurchasesParams;
 import com.android.billingclient.api.ProductDetails;
 import com.android.billingclient.api.ProductDetailsResponseListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
+import com.android.billingclient.api.QueryProductDetailsResult;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -158,7 +160,7 @@ public class AboutActivity extends AppCompatActivity {
 
         // init billing client
         mBillingClient = BillingClient.newBuilder(this)
-                .enablePendingPurchases()
+                .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
                 .setListener(new PurchasesUpdatedListener() {
             @Override
             public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> purchases) {
@@ -301,9 +303,9 @@ public class AboutActivity extends AppCompatActivity {
                 .build();
         mBillingClient.queryProductDetailsAsync(params, new ProductDetailsResponseListener() {
             @Override
-            public void onProductDetailsResponse(@NonNull BillingResult billingResult, @NonNull List<ProductDetails> productDetailsList) {
+            public void onProductDetailsResponse(@NonNull BillingResult billingResult, @NonNull QueryProductDetailsResult queryProductDetailsResult) {
                 if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                    for(final ProductDetails skuDetails : productDetailsList) {
+                    for(final ProductDetails skuDetails : queryProductDetailsResult.getProductDetailsList()) {
                         final String sku = skuDetails.getProductId();
                         final String price = Objects.requireNonNull(skuDetails.getOneTimePurchaseOfferDetails()).getFormattedPrice();
                         runOnUiThread(new Runnable(){
@@ -332,9 +334,9 @@ public class AboutActivity extends AppCompatActivity {
                 .build();
         mBillingClient.queryProductDetailsAsync(params2, new ProductDetailsResponseListener() {
             @Override
-            public void onProductDetailsResponse(@NonNull BillingResult billingResult, @NonNull List<ProductDetails> productDetailsList) {
+            public void onProductDetailsResponse(@NonNull BillingResult billingResult, @NonNull QueryProductDetailsResult queryProductDetailsResult) {
                 if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                    for(final ProductDetails skuDetails : productDetailsList) {
+                    for(final ProductDetails skuDetails : queryProductDetailsResult.getProductDetailsList()) {
                         final String sku = skuDetails.getProductId();
                         Log.e("PURCHASE", sku);
                         final List<ProductDetails.SubscriptionOfferDetails> offers = Objects.requireNonNull(skuDetails.getSubscriptionOfferDetails());

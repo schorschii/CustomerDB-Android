@@ -35,6 +35,7 @@ android {
         }
         google {
             dimension "appstore"
+            minSdkVersion 21 // for Play billing library >= 7.0.0
         }
     }
     namespace 'de.georgsieber.customerdb'
@@ -48,5 +49,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
-    googleImplementation 'com.android.billingclient:billing:6.0.1'
+    googleImplementation 'com.android.billingclient:billing:8.0.0'
 }
