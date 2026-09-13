@@ -4,36 +4,36 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import de.georgsieber.customerdb.tools.ColorControl;
+import de.georgsieber.customerdb.tools.Material3AppCompatActivity;
 
-public class TextViewActivity extends AppCompatActivity {
+public class TextViewActivity extends Material3AppCompatActivity {
 
     String mTitle = "";
     String mContent = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // init settings
-        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
-
-        // init activity view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_view);
 
@@ -41,9 +41,6 @@ public class TextViewActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // init colors
-        ColorControl.updateActionBarColor(this, settings);
 
         // load text
         mTitle = getIntent().getStringExtra("title");
@@ -53,6 +50,20 @@ public class TextViewActivity extends AppCompatActivity {
         mContent = getIntent().getStringExtra("content");
         if(mContent != null)
             ((TextView) findViewById(R.id.textViewScript)).setText(mContent);
+
+        // apply the insets as a margin to the view, so that elements at the bottom
+        // of the ScrollView do not get hidden behind the navigation bar
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.spaceBottom), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom;
+            v.setLayoutParams(mlp);
+            // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
+        EdgeToEdge.enable(this);
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+                .setAppearanceLightStatusBars(false);
     }
 
     @Override
@@ -121,7 +132,7 @@ public class TextViewActivity extends AppCompatActivity {
         ClipData clip = ClipData.newPlainText("phone", text);
         clipboard.setPrimaryClip(clip);
 
-        Snackbar.make(findViewById(R.id.linearLayoutScriptActivityMainView), getResources().getString(R.string.copied_to_clipboard), Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(R.id.scrollViewText), getResources().getString(R.string.copied_to_clipboard), Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .show();
     }

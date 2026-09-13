@@ -7,11 +7,17 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -29,25 +35,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Locale;
 
-import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
+import de.georgsieber.customerdb.tools.Material3AppCompatActivity;
 
 
-public class InfoActivity extends AppCompatActivity {
+public class InfoActivity extends Material3AppCompatActivity {
 
     InfoActivity me = this;
-
-    FeatureCheck mFc;
 
     String mRegisteredUsername = "";
     String mRegisteredPassword = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // init settings
-        SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
-
-        // init activity view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
@@ -56,8 +56,19 @@ public class InfoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // init colors
-        ColorControl.updateActionBarColor(this, settings);
+        // apply the insets as a margin to the view, so that elements at the bottom
+        // of the ScrollView do not get hidden behind the navigation bar
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.spaceBottom), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom * 2;
+            v.setLayoutParams(mlp);
+            // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
+        EdgeToEdge.enable(this);
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+                .setAppearanceLightStatusBars(false);
     }
 
     @Override

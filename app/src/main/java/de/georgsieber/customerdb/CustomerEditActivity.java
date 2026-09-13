@@ -18,12 +18,16 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
@@ -34,6 +38,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -60,15 +65,15 @@ import java.util.List;
 import de.georgsieber.customerdb.model.CustomField;
 import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.CustomerFile;
-import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
 import de.georgsieber.customerdb.tools.DateControl;
+import de.georgsieber.customerdb.tools.Material3AppCompatActivity;
 import de.georgsieber.customerdb.tools.NumTools;
 import de.georgsieber.customerdb.tools.StorageControl;
 
 
 @SuppressWarnings("TryFinallyCanBeTryWithResources")
-public class CustomerEditActivity extends AppCompatActivity {
+public class CustomerEditActivity extends Material3AppCompatActivity {
 
     private CustomerEditActivity me;
 
@@ -109,6 +114,10 @@ public class CustomerEditActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_customer_edit);
+        me = this;
+
         // init settings
         SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
 
@@ -119,18 +128,10 @@ public class CustomerEditActivity extends AppCompatActivity {
         mFc = new FeatureCheck(this);
         mFc.init();
 
-        // init activity view
-        super.onCreate(savedInstanceState);
-        me = this;
-        setContentView(R.layout.activity_customer_edit);
-
         // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // init colors
-        ColorControl.updateActionBarColor(this, settings);
 
         // find views
         mEditTextTitle = findViewById(R.id.editTextTitle);
@@ -300,6 +301,20 @@ public class CustomerEditActivity extends AppCompatActivity {
             linearLayout.addView(descriptionView);
             linearLayout.addView(valueView);
         }
+
+        // apply the insets as a margin to the view, so that elements at the bottom
+        // of the ScrollView do not get hidden behind the navigation bar
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.spaceBottom), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom;
+            v.setLayoutParams(mlp);
+            // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
+        EdgeToEdge.enable(this);
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+                .setAppearanceLightStatusBars(false);
     }
 
     @Override

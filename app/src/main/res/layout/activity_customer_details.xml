@@ -8,11 +8,12 @@
     tools:context="de.georgsieber.customerdb.CustomerDetailsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarView"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/toolbarStyle" />
@@ -508,6 +509,7 @@
             </LinearLayout>
 
             <Space
+                android:id="@+id/spaceBottom"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp" />
 
@@ -525,6 +527,7 @@
         app:fabSize="normal"
         app:srcCompat="@drawable/ic_edit_white_24dp"
         app:maxImageSize="26dp"
+        app:tint="@android:color/white"
         android:scaleType="center"
         android:contentDescription="@string/edit_customer" />
 

@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -28,12 +29,16 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -53,12 +58,12 @@ import de.georgsieber.customerdb.importexport.CalendarIcsBuilder;
 import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.CustomerAppointment;
 import de.georgsieber.customerdb.model.CustomerCalendar;
-import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
 import de.georgsieber.customerdb.tools.DateControl;
+import de.georgsieber.customerdb.tools.Material3AppCompatActivity;
 import de.georgsieber.customerdb.tools.StorageControl;
 
-public class CalendarAppointmentEditActivity extends AppCompatActivity {
+public class CalendarAppointmentEditActivity extends Material3AppCompatActivity {
 
     private CalendarAppointmentEditActivity me;
 
@@ -85,24 +90,20 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_calendar_appointment_edit);
+        me = this;
+
         // init settings
         mSettings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
 
         // init database
         mDb = new CustomerDatabase(this);
 
-        // init activity view
-        super.onCreate(savedInstanceState);
-        me = this;
-        setContentView(R.layout.activity_calendar_appointment_edit);
-
         // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // init colors
-        ColorControl.updateActionBarColor(this, mSettings);
 
         // find views
         mButtonShowCustomer = findViewById(R.id.buttonShowCustomer);
@@ -185,6 +186,20 @@ public class CalendarAppointmentEditActivity extends AppCompatActivity {
         }
         refreshDisplayDate();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // apply the insets as a margin to the view, so that elements at the bottom
+        // of the ScrollView do not get hidden behind the navigation bar
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.spaceBottom), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom;
+            v.setLayoutParams(mlp);
+            // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
+        EdgeToEdge.enable(this);
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+                .setAppearanceLightStatusBars(false);
     }
 
     @Override

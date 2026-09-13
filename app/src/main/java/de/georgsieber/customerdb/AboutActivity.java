@@ -23,7 +23,9 @@ import com.android.billingclient.api.QueryProductDetailsResult;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.SystemClock;
@@ -31,12 +33,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
@@ -50,12 +54,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
 import de.georgsieber.customerdb.tools.HttpRequest;
+import de.georgsieber.customerdb.tools.Material3AppCompatActivity;
 
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends Material3AppCompatActivity {
 
     public static abstract class DoubleClickListener implements View.OnClickListener {
         // The time in which the second tap should be done in order to qualify as
@@ -93,33 +97,29 @@ public class AboutActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // init settings
-        mSettings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
-
-        // init activity view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        findViewById(R.id.imageVendorLogo).setOnClickListener(new DoubleClickListener() {
+        findViewById(R.id.textViewVersion).setOnClickListener(new DoubleClickListener() {
             @Override
             public void onDoubleClick() {
                 openUnlockSelection();
             }
         });
 
+        // init settings
+        mSettings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+
         // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // init colors
-        ColorControl.updateActionBarColor(this, mSettings);
 
         // get version
         String versionString = "v?";
         try {
             PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
             versionString = String.format(getResources().getString(R.string.version), pInfo.versionName);
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch(PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -152,7 +152,7 @@ public class AboutActivity extends AppCompatActivity {
 
         // show licensee
         String licensee = mSettings.getString("licensee", "");
-        if(licensee != null && !licensee.equals("")) {
+        if(!licensee.isEmpty()) {
             findViewById(R.id.spaceLicensee).setVisibility(View.VISIBLE);
             findViewById(R.id.textViewLicensee).setVisibility(View.VISIBLE);
             ((TextView) findViewById(R.id.textViewLicensee)).setText(licensee);
@@ -223,6 +223,17 @@ public class AboutActivity extends AppCompatActivity {
                         true
                 );
             }
+        });
+
+        // apply the insets as a margin to the view, so that elements at the bottom
+        // of the ScrollView do not get hidden behind the navigation bar
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.spaceBottom), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom;
+            v.setLayoutParams(mlp);
+            // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
         });
     }
 

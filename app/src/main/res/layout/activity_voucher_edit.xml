@@ -8,6 +8,7 @@
     tools:context="de.georgsieber.customerdb.VoucherEditActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -93,6 +94,7 @@
 
                     <ImageButton
                         android:id="@+id/buttonInsertVoucherNumber"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:onClick="insertVoucherNumber"
@@ -144,16 +146,19 @@
                         tools:ignore="TextFields" />
                     <ImageButton
                         android:id="@+id/buttonShowFromCustomer"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:onClick="onClickShowFromCustomer"
                         android:src="@drawable/ic_baseline_person_dynamic_24dp" />
                     <ImageButton
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:onClick="onClickAddFromCustomer"
                         android:src="@drawable/ic_baseline_people_dynamic_24dp" />
                     <ImageButton
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:onClick="onClickRemoveFromCustomer"
@@ -185,16 +190,19 @@
                         tools:ignore="TextFields" />
                     <ImageButton
                         android:id="@+id/buttonShowForCustomer"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:onClick="onClickShowForCustomer"
                         android:src="@drawable/ic_baseline_person_dynamic_24dp" />
                     <ImageButton
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:onClick="onClickAddForCustomer"
                         android:src="@drawable/ic_baseline_people_dynamic_24dp" />
                     <ImageButton
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
                         android:onClick="onClickRemoveForCustomer"
@@ -234,6 +242,7 @@
 
                     <Button
                         android:id="@+id/buttonValidUntil"
+                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -241,6 +250,7 @@
                         android:text="@string/no_date_set" />
 
                     <ImageButton
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
@@ -250,6 +260,7 @@
                 </LinearLayout>
 
                 <Space
+                    android:id="@+id/spaceBottom"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp" />
 

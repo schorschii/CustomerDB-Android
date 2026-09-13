@@ -3,7 +3,6 @@ package de.georgsieber.customerdb;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -30,14 +28,13 @@ import java.util.List;
 
 import de.georgsieber.customerdb.importexport.CustomerVcfBuilder;
 import de.georgsieber.customerdb.model.Customer;
-import de.georgsieber.customerdb.tools.ColorControl;
+import de.georgsieber.customerdb.tools.Material3AppCompatActivity;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class ScanActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class ScanActivity extends Material3AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private ScanActivity me;
     private CustomerDatabase mDb;
-    private SharedPreferences mSettings;
     private ZXingScannerView mScannerView;
     private int currentCameraId = 0;
 
@@ -54,14 +51,8 @@ public class ScanActivity extends AppCompatActivity implements ZXingScannerView.
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // init settings
-        mSettings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
-
         // init database
         mDb = new CustomerDatabase(this);
-
-        // init colors
-        ColorControl.updateActionBarColor(this, mSettings);
 
         // init scanner
         mScannerView = findViewById(R.id.scannerView);

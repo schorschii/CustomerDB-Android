@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.georgsieber.customerdb.SettingsActivity">
+    tools:context=".SettingsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -24,7 +25,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -107,7 +108,7 @@
                     android:inputType="textPassword" />
 
                 <Button
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onApiHelpButtonClick"
@@ -220,7 +221,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
                     <Button
-                        style="@style/Widget.AppCompat.Button"
+                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:onClick="onSetPasswordButtonClick"
@@ -283,7 +284,7 @@
 
                         <Button
                             android:id="@+id/buttonSettingsSetLogo"
-                            style="@style/Widget.AppCompat.Button"
+                            style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -291,7 +292,7 @@
                             android:text="@string/choose_logo" />
                         <Button
                             android:id="@+id/buttonSettingsRemoveLogo"
-                            style="@style/Widget.AppCompat.Button"
+                            style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -338,66 +339,77 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="changeDefaultCustomerTitle"
                     android:text="@string/default_customer_title" />
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="changeDefaultCustomerCity"
                     android:text="@string/default_customer_city" />
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="changeDefaultCustomerCountry"
                     android:text="@string/default_customer_country" />
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="changeDefaultCustomerGroup"
                     android:text="@string/default_customer_group" />
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="changeEmailSubject"
                     android:text="@string/email_subject" />
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="changeEmailTemplate"
                     android:text="@string/email_template" />
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="changeNewsletterTemplate"
                     android:text="@string/newsletter_template" />
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="changeExportSubject"
                     android:text="@string/email_export_subject" />
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="changeExportTemplate"
                     android:text="@string/email_export_template" />
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="changeDefaultAppointmentTitle"
                     android:text="@string/default_appointment_title" />
 
                 <Button
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="changeDefaultAppointmentLocation"
@@ -505,7 +517,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <Button
-                            style="@style/Widget.AppCompat.Button"
+                            style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -513,7 +525,7 @@
                             android:text="@string/add" />
                         <Button
                             android:id="@+id/buttonEditCustomFieldSettings"
-                            style="@style/Widget.AppCompat.Button"
+                            style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -521,7 +533,7 @@
                             android:text="@string/edit" />
                         <Button
                             android:id="@+id/buttonRemoveCustomFieldSettings"
-                            style="@style/Widget.AppCompat.Button"
+                            style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -550,7 +562,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <Button
-                                style="@style/Widget.AppCompat.Button"
+                                style="@style/Widget.Material3.Button.TonalButton"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -558,7 +570,7 @@
                                 android:text="@string/add" />
                             <Button
                                 android:id="@+id/buttonRemoveCustomFieldValueSettings"
-                                style="@style/Widget.AppCompat.Button"
+                                style="@style/Widget.Material3.Button.TonalButton"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -594,7 +606,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <Button
-                        style="@style/Widget.AppCompat.Button"
+                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -602,7 +614,7 @@
                         android:text="@string/add" />
                     <Button
                         android:id="@+id/buttonEditCalendarSettings"
-                        style="@style/Widget.AppCompat.Button"
+                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -610,7 +622,7 @@
                         android:text="@string/edit" />
                     <Button
                         android:id="@+id/buttonRemoveCalendarSettings"
-                        style="@style/Widget.AppCompat.Button"
+                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -643,19 +655,20 @@
                     android:text="@string/last_call" />
 
                 <Button
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onClickInstallPluginApp"
                     android:text="@string/install_plugin_app" />
 
                 <Space
+                    android:id="@+id/spaceBottom"
                     android:layout_width="match_parent"
                     android:layout_height="32dp" />
 
             </LinearLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

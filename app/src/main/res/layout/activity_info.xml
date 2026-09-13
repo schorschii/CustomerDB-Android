@@ -8,6 +8,7 @@
     tools:context="de.georgsieber.customerdb.InfoActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -50,7 +51,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onMoreInfoClick"
@@ -84,7 +85,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:onClick="onCreateAccountClick"
@@ -92,14 +93,14 @@
                         android:textStyle="bold" />
 
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:onClick="onResetPasswordClick"
                         android:text="@string/reset_password" />
 
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:onClick="onDeleteAccountClick"
@@ -112,7 +113,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:onClick="onOpenAboutClick"
@@ -148,7 +149,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAllCaps="false"
@@ -158,6 +159,7 @@
                 </LinearLayout>
 
                 <Space
+                    android:id="@+id/spaceBottom"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp" />
 

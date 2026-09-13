@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.georgsieber.customerdb.MainActivity">
+    tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -74,6 +75,7 @@
                     android:orientation="horizontal"
                     android:layout_gravity="top">
                     <ImageButton
+                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:onClick="onClickPrevCalendarViewDay"
@@ -88,6 +90,7 @@
                         android:onClick="onClickChangeCalendarViewDay"
                         android:text="@string/calendar" />
                     <ImageButton
+                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:onClick="onClickNextCalendarViewDay"
@@ -139,6 +142,7 @@
                     android:layout_height="36dp" />
                 <Button
                     android:id="@+id/buttonAddCustomerInputOnlyMode"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:padding="24dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -151,6 +155,7 @@
                     android:layout_weight="1"/>
                 <Button
                     android:id="@+id/buttonInputOnlyModeUnlock"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:padding="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -207,6 +212,7 @@
                     android:layout_weight="1"/>
                 <Button
                     android:id="@+id/buttonLockUnlock"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:padding="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -225,6 +231,7 @@
                 app:fabSize="normal"
                 app:srcCompat="@drawable/ic_add_white_36dp"
                 app:maxImageSize="36dp"
+                app:tint="@android:color/white"
                 android:scaleType="center"
                 android:contentDescription="@string/new_customer" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

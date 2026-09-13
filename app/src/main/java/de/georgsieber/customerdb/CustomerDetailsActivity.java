@@ -20,14 +20,18 @@ import android.print.PrintManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.URLSpan;
@@ -37,6 +41,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -60,11 +65,12 @@ import de.georgsieber.customerdb.model.Voucher;
 import de.georgsieber.customerdb.print.CustomerPrintDocumentAdapter;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
+import de.georgsieber.customerdb.tools.Material3AppCompatActivity;
 import de.georgsieber.customerdb.tools.StorageControl;
 import de.georgsieber.customerdb.tools.DateControl;
 
 
-public class CustomerDetailsActivity extends AppCompatActivity {
+public class CustomerDetailsActivity extends Material3AppCompatActivity {
 
     private CustomerDetailsActivity me;
 
@@ -103,14 +109,16 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_customer_details);
+        me = this;
+
         // init settings
         mSettings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
+        ColorControl.updateAccentColor(findViewById(R.id.fabEdit), mSettings);
 
-        // init activity view
-        super.onCreate(savedInstanceState);
-        me = this;
-        setContentView(R.layout.activity_customer_details);
-        setSupportActionBar((Toolbar)findViewById(R.id.toolbarView));
+        // init toolbar
+        setSupportActionBar(findViewById(R.id.toolbar));
         if(getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getResources().getString(R.string.detailview));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -118,10 +126,6 @@ public class CustomerDetailsActivity extends AppCompatActivity {
 
         // local database init
         mDb = new CustomerDatabase(this);
-
-        // init colors
-        ColorControl.updateActionBarColor(this, mSettings);
-        ColorControl.updateAccentColor(findViewById(R.id.fabEdit), mSettings);
 
         // find views
         mTextViewName = findViewById(R.id.textViewName);
@@ -229,6 +233,28 @@ public class CustomerDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mCurrentCustomerId = intent.getLongExtra("customer-id", -1);
         loadCustomer();
+
+        // apply the insets as a margin to the view, so that elements at the bottom
+        // of the ScrollView do not get hidden behind the navigation bar
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.spaceBottom), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom;
+            v.setLayoutParams(mlp);
+            // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
+        ViewCompat.setOnApplyWindowInsetsListener(fab, (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom;
+            v.setLayoutParams(mlp);
+            // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
+        EdgeToEdge.enable(this);
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+                .setAppearanceLightStatusBars(false);
     }
 
     private void loadCustomer() {

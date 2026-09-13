@@ -54,7 +54,7 @@
                 android:text="@string/export_as_ics_file" />
             <Button
                 android:id="@+id/buttonExportSingleCancel"
-                style="@style/Widget.AppCompat.Button"
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/abort" />

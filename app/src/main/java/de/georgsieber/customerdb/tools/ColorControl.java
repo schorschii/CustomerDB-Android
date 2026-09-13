@@ -5,8 +5,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 public class ColorControl {
@@ -19,15 +17,6 @@ public class ColorControl {
         int g = settings.getInt("design-green", DEFAULT_COLOR_G);
         int b = settings.getInt("design-blue", DEFAULT_COLOR_B);
         return Color.argb(0xff,r,g,b);
-    }
-
-    public static void updateActionBarColor(AppCompatActivity a, SharedPreferences settings) {
-        int color = getColorFromSettings(settings);
-        ActionBar ab = a.getSupportActionBar();
-        if(ab != null) ab.setBackgroundDrawable(new ColorDrawable(color));
-        if(Build.VERSION.SDK_INT >= 21) {
-            a.getWindow().setStatusBarColor(color);
-        }
     }
 
     public static void updateAccentColor(View v, SharedPreferences settings) {

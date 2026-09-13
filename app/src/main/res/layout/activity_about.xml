@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.georgsieber.customerdb.AboutActivity">
+    tools:context=".AboutActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -26,7 +27,7 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -34,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="0dp"
                 android:orientation="vertical"
@@ -42,20 +43,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/imageVendorLogo"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:contentDescription="Georg Sieber Logo"
-                    app:srcCompat="@drawable/logo_vendor_text"
-                    tools:ignore="HardcodedText" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp" />
 
                 <TextView
                     android:id="@+id/textViewVersion"
@@ -98,7 +85,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_row="0"
@@ -118,7 +105,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_row="1"
@@ -700,7 +687,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
@@ -724,7 +711,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <Button
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
@@ -742,28 +729,28 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
                 <Button
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onClickMoreInfoBackup"
                     android:text="@string/backup_info_button"
                     android:textAllCaps="false" />
                 <Button
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onClickMoreInfoInputOnlyMode"
                     android:text="@string/input_only_mode_info_button"
                     android:textAllCaps="false" />
                 <Button
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onClickMoreInfoCardDavApi"
                     android:text="@string/carddav_api_info_button"
                     android:textAllCaps="false" />
                 <Button
-                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="onClickMoreInfoEula"
@@ -790,7 +777,7 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/logo_customerdb" />
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -808,7 +795,7 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/logo_remotepointer" />
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -826,7 +813,7 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/logo_fsclock" />
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -844,7 +831,7 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/logo_video_screensaver" />
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -862,7 +849,7 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/logo_ballbreak" />
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -880,7 +867,7 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/logo_oco" />
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -898,7 +885,7 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/logo_masterplan" />
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -908,12 +895,13 @@
                 </LinearLayout>
 
                 <Space
+                    android:id="@+id/spaceBottom"
                     android:layout_width="wrap_content"
                     android:layout_height="16dp" />
 
             </LinearLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

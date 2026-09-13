@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.MenuItem;
@@ -20,10 +19,10 @@ import java.util.Date;
 import java.util.List;
 
 import de.georgsieber.customerdb.model.Customer;
-import de.georgsieber.customerdb.tools.ColorControl;
+import de.georgsieber.customerdb.tools.Material3AppCompatActivity;
 
 
-public class BirthdayActivity extends AppCompatActivity {
+public class BirthdayActivity extends Material3AppCompatActivity {
 
     final static int DEFAULT_BIRTHDAY_PREVIEW_DAYS = 14;
 
@@ -34,24 +33,20 @@ public class BirthdayActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_birthday);
+        me = this;
+
         // init settings
         SharedPreferences settings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
 
         // init db
         mDb = new CustomerDatabase(this);
 
-        // init activity view
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_birthday);
-        me = this;
-
         // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // init colors
-        ColorControl.updateActionBarColor(this, settings);
 
         // show birthdays from intent extra
         try {

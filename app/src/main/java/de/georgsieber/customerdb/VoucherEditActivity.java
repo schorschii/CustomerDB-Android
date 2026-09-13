@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,8 +21,12 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -31,11 +36,11 @@ import java.util.Locale;
 
 import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.Voucher;
-import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
+import de.georgsieber.customerdb.tools.Material3AppCompatActivity;
 import de.georgsieber.customerdb.tools.NumTools;
 
-public class VoucherEditActivity extends AppCompatActivity {
+public class VoucherEditActivity extends Material3AppCompatActivity {
 
     private VoucherEditActivity me;
 
@@ -58,24 +63,20 @@ public class VoucherEditActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_voucher_edit);
+        me = this;
+
         // init settings
         mSettings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
 
         // init database
         mDb = new CustomerDatabase(this);
 
-        // init activity view
-        super.onCreate(savedInstanceState);
-        me = this;
-        setContentView(R.layout.activity_voucher_edit);
-
         // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // init colors
-        ColorControl.updateActionBarColor(this, mSettings);
 
         // set currency label
         ((TextView) findViewById(R.id.textViewCurrency)).setText(mSettings.getString("currency", "€"));
@@ -109,6 +110,20 @@ public class VoucherEditActivity extends AppCompatActivity {
             }
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // apply the insets as a margin to the view, so that elements at the bottom
+        // of the ScrollView do not get hidden behind the navigation bar
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.spaceBottom), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom;
+            v.setLayoutParams(mlp);
+            // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
+        EdgeToEdge.enable(this);
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+                .setAppearanceLightStatusBars(false);
     }
 
     @Override

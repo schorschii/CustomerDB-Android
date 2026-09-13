@@ -7,11 +7,12 @@
     tools:context="de.georgsieber.customerdb.VoucherDetailsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarView"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/toolbarStyle" />
@@ -296,6 +297,7 @@
                 </LinearLayout>
 
                 <Space
+                    android:id="@+id/spaceBottom"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp" />
 
@@ -315,6 +317,7 @@
         android:scaleType="center"
         app:fabSize="normal"
         app:maxImageSize="26dp"
+        app:tint="@android:color/white"
         app:srcCompat="@drawable/ic_edit_white_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

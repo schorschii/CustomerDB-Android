@@ -10,15 +10,20 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -45,10 +50,11 @@ import de.georgsieber.customerdb.model.Customer;
 import de.georgsieber.customerdb.model.CustomerCalendar;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
+import de.georgsieber.customerdb.tools.Material3AppCompatActivity;
 import de.georgsieber.customerdb.tools.StorageControl;
 
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends Material3AppCompatActivity {
 
     private final static int PICK_IMAGE_REQUEST = 1;
     private final static int INAPP_REQUEST = 2;
@@ -124,14 +130,13 @@ public class SettingsActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // init settings
-        mSettings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
-
-        // init activity view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         me = this;
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        // init settings
+        mSettings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
 
         // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -198,9 +203,6 @@ public class SettingsActivity extends AppCompatActivity {
         // load settings
         loadSettings();
 
-        // update color
-        ColorControl.updateActionBarColor(this, mSettings);
-
         // init logo buttons
         showHideLogoButtons();
 
@@ -222,6 +224,20 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         mFc.init();
+
+        // apply the insets as a margin to the view, so that elements at the bottom
+        // of the ScrollView do not get hidden behind the navigation bar
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.spaceBottom), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            mlp.bottomMargin = insets.bottom;
+            v.setLayoutParams(mlp);
+            // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
+            return WindowInsetsCompat.CONSUMED;
+        });
+        EdgeToEdge.enable(this);
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+                .setAppearanceLightStatusBars(false);
     }
 
     void loadSettings() {

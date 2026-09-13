@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+    <style name="AppTheme" parent="Theme.Material3.DayNight">
         <!-- Colors -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,11 +14,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="toolbarStyle" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="toolbarStyle" parent="@style/ThemeOverlay.Material3.Dark">
         <item name="colorAccent">#fff</item>
     </style>
 
-    <style name="Widget.AppCompat.Button.Colored" parent="@style/ThemeOverlay.AppCompat.DayNight">
+    <style name="Widget.AppCompat.Button.Colored" parent="@style/ThemeOverlay.Material3.Button.TonalButton">
         <item name="android:textColor">@color/color_button_text</item>
         <item name="backgroundTint">@color/color_button_background</item>
     </style>

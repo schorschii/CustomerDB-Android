@@ -8,6 +8,7 @@
     tools:context="de.georgsieber.customerdb.TextViewActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,26 +20,32 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayoutScriptActivityMainView"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    <ScrollView
+        android:id="@+id/scrollViewText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".TextViewActivity">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".TextViewActivity">
 
             <TextView
                 android:id="@+id/textViewScript"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:textIsSelectable="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-        </ScrollView>
-    </LinearLayout>
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textIsSelectable="true" />
+
+            <Space
+                android:id="@+id/spaceBottom"
+                android:layout_width="match_parent"
+                android:layout_height="32dp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

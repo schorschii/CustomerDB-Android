@@ -35,7 +35,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -85,9 +84,10 @@ import de.georgsieber.customerdb.print.CustomerPrintDocumentAdapter;
 import de.georgsieber.customerdb.tools.ColorControl;
 import de.georgsieber.customerdb.tools.CommonDialog;
 import de.georgsieber.customerdb.tools.DateControl;
+import de.georgsieber.customerdb.tools.Material3AppCompatActivity;
 import de.georgsieber.customerdb.tools.StorageControl;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends Material3AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     MainActivity me = this;
 
@@ -144,12 +144,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // init settings
-        mSettings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-
-        // init activity view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // init settings
+        mSettings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -433,7 +432,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         // init colors
-        ColorControl.updateActionBarColor(this, mSettings);
         ColorControl.updateAccentColor(findViewById(R.id.mainInputOnlyOverlay), mSettings);
         ColorControl.updateAccentColor(findViewById(R.id.mainLockOverlay), mSettings);
         ColorControl.updateAccentColor(findViewById(R.id.fabAdd), mSettings);
@@ -619,7 +617,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @SuppressWarnings("SwitchStatementWithTooFewBranches")
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case R.id.action_sync:
                 doSync();

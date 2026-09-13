@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.georgsieber.customerdb.CustomerEditActivity">
+    tools:context=".CustomerEditActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -104,6 +105,7 @@
                             android:src="@drawable/ic_person_black_96dp" />
 
                         <Button
+                            style="@style/Widget.Material3.Button.TextButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
@@ -299,6 +301,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:onClick="setCustomerBirthday"
+                            style="@style/Widget.Material3.Button.TonalButton"
                             android:text="@string/no_date_set" />
 
                         <ImageButton
@@ -306,6 +309,7 @@
                             android:layout_width="wrap_content"
                             android:onClick="removeCustomerBirthday"
                             android:src="@drawable/ic_baseline_clear_dynamic_24dp"
+                            style="@style/Widget.Material3.Button.TextButton"
                             android:contentDescription="@string/remove" />
                     </LinearLayout>
                 </LinearLayout>
@@ -340,7 +344,7 @@
                             android:layout_height="wrap_content"
                             android:minWidth="120dp"
                             android:onClick="onClickAddFile"
-                            android:src="@drawable/ic_add_green_36dp"
+                            style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_gravity="center"
                             android:text="@string/add" />
                     </LinearLayout>
@@ -376,6 +380,7 @@
                 </LinearLayout>
 
                 <Space
+                    android:id="@+id/spaceBottom"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp" />
 
