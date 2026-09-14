@@ -1,6 +1,7 @@
 package de.georgsieber.customerdb.tools;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -24,9 +25,11 @@ public class Material3AppCompatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // init edge-to-edge & action bar insets
-        EdgeToEdge.enable(this);
-        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
-                .setAppearanceLightStatusBars(false);
+        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            EdgeToEdge.enable(this);
+            WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+                    .setAppearanceLightStatusBars(false);
+        }
     }
 
     @Override
