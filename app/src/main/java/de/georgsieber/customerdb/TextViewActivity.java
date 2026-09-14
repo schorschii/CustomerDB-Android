@@ -7,12 +7,10 @@ import android.content.Intent;
 import android.net.Uri;
 import com.google.android.material.snackbar.Snackbar;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import android.os.Bundle;
@@ -61,9 +59,6 @@ public class TextViewActivity extends Material3AppCompatActivity {
             // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
             return WindowInsetsCompat.CONSUMED;
         });
-        EdgeToEdge.enable(this);
-        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
-                .setAppearanceLightStatusBars(false);
     }
 
     @Override
