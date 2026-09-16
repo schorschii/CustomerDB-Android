@@ -28,7 +28,7 @@
         <item quantity="other">%d articoli selezionati</item>
     </plurals>
     <string name="app_name">Database dei clienti</string>
-    <string name="version">v%1$s</string>
+    <string name="version">Versione %1$s</string>
     <string name="simplecustomermanagement">Semplice gestione dei clienti</string>
     <string name="about_website">Sito web:</string>
     <string name="about_email">E-mail:</string>

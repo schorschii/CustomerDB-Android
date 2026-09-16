@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">База данных клиентов</string>
-    <string name="version">версия %1$s</string>
+    <string name="version">Версия %1$s</string>
     <string name="simplecustomermanagement">Простое управление данными клиентов</string>
     <plurals name="customersamount">
         <item quantity="one">%d клиент</item>

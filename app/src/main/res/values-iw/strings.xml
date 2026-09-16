@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">מסד נתונים של הלקוחות</string>
-    <string name="version">v%1$s</string>
+    <string name="version">%1$s גִרְסָה</string>
     <string name="simplecustomermanagement">ניהול לקוחות פשוט</string>
     <plurals name="customersamount">
         <item quantity="one">%d לקוחות</item>
