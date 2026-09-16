@@ -129,22 +129,22 @@
                         tools:ignore="TextFields" />
                     <ImageButton
                         android:id="@+id/buttonShowCustomer"
-                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:onClick="onClickShowCustomer"
+                        android:background="?attr/selectableItemBackground"
                         android:src="@drawable/ic_baseline_person_dynamic_24dp" />
                     <ImageButton
-                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:onClick="onClickAddCustomer"
+                        android:background="?attr/selectableItemBackground"
                         android:src="@drawable/ic_baseline_people_dynamic_24dp" />
                     <ImageButton
-                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:onClick="onClickRemoveCustomer"
+                        android:background="?attr/selectableItemBackground"
                         android:src="@drawable/ic_baseline_clear_dynamic_24dp" />
                 </LinearLayout>
 

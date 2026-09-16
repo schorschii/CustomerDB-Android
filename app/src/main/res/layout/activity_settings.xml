@@ -664,7 +664,7 @@
                 <Space
                     android:id="@+id/spaceBottom"
                     android:layout_width="match_parent"
-                    android:layout_height="32dp" />
+                    android:layout_height="16dp" />
 
             </LinearLayout>
 

@@ -94,10 +94,13 @@
 
                     <ImageButton
                         android:id="@+id/buttonInsertVoucherNumber"
-                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
+                        android:layout_row="1"
+                        android:layout_column="2"
+                        android:layout_gravity="fill"
                         android:onClick="insertVoucherNumber"
+                        android:background="?attr/selectableItemBackground"
                         android:src="@drawable/ic_sync_dynamic_24dp" />
                 </GridLayout>
 
@@ -146,22 +149,22 @@
                         tools:ignore="TextFields" />
                     <ImageButton
                         android:id="@+id/buttonShowFromCustomer"
-                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:onClick="onClickShowFromCustomer"
+                        android:background="?attr/selectableItemBackground"
                         android:src="@drawable/ic_baseline_person_dynamic_24dp" />
                     <ImageButton
-                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:onClick="onClickAddFromCustomer"
+                        android:background="?attr/selectableItemBackground"
                         android:src="@drawable/ic_baseline_people_dynamic_24dp" />
                     <ImageButton
-                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:onClick="onClickRemoveFromCustomer"
+                        android:background="?attr/selectableItemBackground"
                         android:src="@drawable/ic_baseline_clear_dynamic_24dp"
                         android:contentDescription="@string/remove" />
                 </LinearLayout>
@@ -190,22 +193,22 @@
                         tools:ignore="TextFields" />
                     <ImageButton
                         android:id="@+id/buttonShowForCustomer"
-                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:onClick="onClickShowForCustomer"
+                        android:background="?attr/selectableItemBackground"
                         android:src="@drawable/ic_baseline_person_dynamic_24dp" />
                     <ImageButton
-                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:onClick="onClickAddForCustomer"
+                        android:background="?attr/selectableItemBackground"
                         android:src="@drawable/ic_baseline_people_dynamic_24dp" />
                     <ImageButton
-                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:onClick="onClickRemoveForCustomer"
+                        android:background="?attr/selectableItemBackground"
                         android:src="@drawable/ic_baseline_clear_dynamic_24dp"
                         android:contentDescription="@string/remove" />
                 </LinearLayout>
@@ -250,12 +253,12 @@
                         android:text="@string/no_date_set" />
 
                     <ImageButton
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal"
                         android:onClick="removeValidUntil"
                         android:contentDescription="@string/remove"
+                        android:background="?attr/selectableItemBackground"
                         android:src="@drawable/ic_baseline_clear_dynamic_24dp" />
                 </LinearLayout>
 

@@ -306,10 +306,10 @@
 
                         <ImageButton
                             android:layout_height="match_parent"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/imagebutton_width"
                             android:onClick="removeCustomerBirthday"
                             android:src="@drawable/ic_baseline_clear_dynamic_24dp"
-                            style="@style/Widget.Material3.Button.TextButton"
+                            android:background="?attr/selectableItemBackground"
                             android:contentDescription="@string/remove" />
                     </LinearLayout>
                 </LinearLayout>

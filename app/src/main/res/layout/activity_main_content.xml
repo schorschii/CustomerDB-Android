@@ -75,11 +75,11 @@
                     android:orientation="horizontal"
                     android:layout_gravity="top">
                     <ImageButton
-                        style="@style/Widget.Material3.Button.TonalButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:layout_height="match_parent"
                         android:onClick="onClickPrevCalendarViewDay"
-                        android:src="@drawable/ic_baseline_arrow_back_dynamic_24dp" />
+                        android:src="@drawable/ic_baseline_arrow_back_dynamic_24dp"
+                        android:background="?attr/selectableItemBackground" />
                     <Button
                         android:id="@+id/buttonCalendarChangeDay"
                         style="@style/Widget.AppCompat.Button.Colored"
@@ -90,11 +90,11 @@
                         android:onClick="onClickChangeCalendarViewDay"
                         android:text="@string/calendar" />
                     <ImageButton
-                        style="@style/Widget.Material3.Button.TonalButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/imagebutton_width"
                         android:layout_height="match_parent"
                         android:onClick="onClickNextCalendarViewDay"
-                        android:src="@drawable/ic_baseline_arrow_forward_dynamic_24dp" />
+                        android:src="@drawable/ic_baseline_arrow_forward_dynamic_24dp"
+                        android:background="?attr/selectableItemBackground" />
                 </LinearLayout>
                 <fragment
                     android:id="@+id/fragmentCalendar"
