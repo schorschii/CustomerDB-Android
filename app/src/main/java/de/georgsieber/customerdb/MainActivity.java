@@ -1905,8 +1905,8 @@ public class MainActivity extends Material3AppCompatActivity implements Navigati
             }
             case(ABOUT_REQUEST):
             case(SETTINGS_REQUEST): {
-                //loadSettings();
-                recreate();
+                loadSettings();
+                refreshActionBarColor();
                 break;
             }
             case(SCAN_REQUEST): {

@@ -38,7 +38,7 @@ public class Material3AppCompatActivity extends AppCompatActivity {
 
         if(mSharedSettings == null) {
             mSharedSettings = getSharedPreferences(MainActivity.PREFS_NAME, 0);
-            findViewById(R.id.appBarLayout).setBackgroundColor( ColorControl.getColorFromSettings(mSharedSettings) );
+            refreshActionBarColor();
 
             ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.toolbar), (v, windowInsets) -> {
                 Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -49,6 +49,13 @@ public class Material3AppCompatActivity extends AppCompatActivity {
                 return WindowInsetsCompat.CONSUMED;
             });
         }
+    }
+
+    protected void refreshActionBarColor() {
+        if(mSharedSettings != null)
+            findViewById(R.id.appBarLayout).setBackgroundColor(
+                    ColorControl.getColorFromSettings(mSharedSettings)
+            );
     }
 
 }

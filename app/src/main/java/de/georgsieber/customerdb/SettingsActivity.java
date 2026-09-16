@@ -209,11 +209,6 @@ public class SettingsActivity extends Material3AppCompatActivity {
         mFc.setFeatureCheckReadyListener(new FeatureCheck.featureCheckReadyListener() {
             @Override
             public void featureCheckReady(boolean fetchSuccess) {
-                if(mFc.unlockedInputOnlyMode) {
-                    findViewById(R.id.linearLayoutPassword).setVisibility(View.VISIBLE);
-                } else {
-                    findViewById(R.id.linearLayoutPassword).setVisibility(View.GONE);
-                }
                 if(!mFc.unlockedDesignOptions) {
                     findViewById(R.id.radioButtonDarkModeSystem).setEnabled(false);
                     findViewById(R.id.radioButtonDarkModeOn).setEnabled(false);
