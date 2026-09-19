@@ -308,19 +308,23 @@ public class VoucherEditActivity extends Material3AppCompatActivity {
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
 
-        final List<Customer> customers = mDb.getCustomers(null, false, false, null);
         final Button buttonOK = ad.findViewById(R.id.buttonOK);
         final ListView listView = ad.findViewById(R.id.listViewDialogList);
-        listView.setAdapter(new CustomerAdapter(me, customers, null));
         final EditText textBoxSearch = ad.findViewById(R.id.editTextDialogListSearch);
 
-        textBoxSearch.addTextChangedListener(new TextWatcher() { // future search implementation
+        List<Customer> customers = mDb.getCustomers(null, false, false, null);
+        listView.setAdapter(new CustomerAdapter(me, customers));
+
+        textBoxSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+                List<Customer> customers = mDb.getCustomers(s.toString(), false, false, null);
+                listView.setAdapter(new CustomerAdapter(me, customers));
+            }
         });
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
