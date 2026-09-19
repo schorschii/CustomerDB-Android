@@ -23,7 +23,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -72,10 +71,9 @@ public class CalendarAppointmentEditActivity extends Material3AppCompatActivity 
     private Calendar mCalendar = Calendar.getInstance();
     private List<CustomerCalendar> mCustomerCalendars;
 
-    ImageButton mButtonShowCustomer;
+    Button mButtonShowCustomer;
     Spinner mSpinnerCalendar;
     EditText mEditTextTitle;
-    EditText mEditTextCustomer;
     EditText mEditTextNotes;
     EditText mEditTextLocation;
     Button mButtonDay;
@@ -110,7 +108,6 @@ public class CalendarAppointmentEditActivity extends Material3AppCompatActivity 
         mSpinnerCalendar = findViewById(R.id.spinnerCalendar);
         mEditTextTitle = findViewById(R.id.editTextTitle);
         mEditTextNotes = findViewById(R.id.editTextNotes);
-        mEditTextCustomer = findViewById(R.id.editTextCustomer);
         mEditTextLocation = findViewById(R.id.editTextLocation);
         mButtonDay = findViewById(R.id.buttonDay);
         mTimePickerStart = findViewById(R.id.timePickerStart);
@@ -290,13 +287,13 @@ public class CalendarAppointmentEditActivity extends Material3AppCompatActivity 
         if(a.mCustomerId != null) {
             Customer relatedCustomer = mDb.getCustomerById(a.mCustomerId, false, false);
             if(relatedCustomer != null) {
-                mEditTextCustomer.setText(relatedCustomer.getFullName(false));
+                mButtonShowCustomer.setText(relatedCustomer.getFullName(false));
                 mButtonShowCustomer.setEnabled(true);
             } else {
-                mEditTextCustomer.setText(getString(R.string.removed_placeholder));
+                mButtonShowCustomer.setText(getString(R.string.removed_placeholder));
             }
-        } else {
-            mEditTextCustomer.setText(a.mCustomer);
+        } else if(!a.mCustomer.isEmpty()) {
+            mButtonShowCustomer.setText(a.mCustomer);
         }
 
         mCalendar.setTime(a.mTimeEnd);
@@ -484,7 +481,7 @@ public class CalendarAppointmentEditActivity extends Material3AppCompatActivity 
     public void onClickRemoveCustomer(View v) {
         mCurrentAppointment.mCustomer = "";
         mCurrentAppointment.mCustomerId = null;
-        mEditTextCustomer.setText("");
+        mButtonShowCustomer.setText(getString(R.string.customer));
         mButtonShowCustomer.setEnabled(false);
     }
 
@@ -524,9 +521,9 @@ public class CalendarAppointmentEditActivity extends Material3AppCompatActivity 
                 if(listView.getCheckedItemPosition() < 0) return;
                 Customer newCustomer = (Customer) listView.getAdapter().getItem(listView.getCheckedItemPosition());
                 mButtonShowCustomer.setEnabled(true);
+                mButtonShowCustomer.setText(newCustomer.getFullName(false));
                 mCurrentAppointment.mCustomerId = newCustomer.mId;
                 mCurrentAppointment.mCustomer = "";
-                mEditTextCustomer.setText(newCustomer.getFullName(false));
             }
         });
 

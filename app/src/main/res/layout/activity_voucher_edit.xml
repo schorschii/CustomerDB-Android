@@ -138,22 +138,14 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/editTextFromCustomer"
-                        android:enabled="false"
-                        android:layout_gravity="fill_horizontal"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        tools:ignore="TextFields" />
-                    <ImageButton
+                    <Button
                         android:id="@+id/buttonShowFromCustomer"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:textAlignment="textStart"
                         android:layout_height="match_parent"
-                        android:layout_width="@dimen/imagebutton_width"
-                        android:onClick="onClickShowFromCustomer"
-                        android:background="?attr/selectableItemBackground"
-                        android:src="@drawable/ic_baseline_person_dynamic_24dp" />
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:onClick="onClickShowFromCustomer" />
                     <ImageButton
                         android:layout_height="match_parent"
                         android:layout_width="@dimen/imagebutton_width"
@@ -182,22 +174,14 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/editTextForCustomer"
-                        android:enabled="false"
-                        android:layout_gravity="fill_horizontal"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        tools:ignore="TextFields" />
-                    <ImageButton
+                    <Button
                         android:id="@+id/buttonShowForCustomer"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:textAlignment="textStart"
                         android:layout_height="match_parent"
-                        android:layout_width="@dimen/imagebutton_width"
-                        android:onClick="onClickShowForCustomer"
-                        android:background="?attr/selectableItemBackground"
-                        android:src="@drawable/ic_baseline_person_dynamic_24dp" />
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:onClick="onClickShowForCustomer" />
                     <ImageButton
                         android:layout_height="match_parent"
                         android:layout_width="@dimen/imagebutton_width"

@@ -117,23 +117,15 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <EditText
-                        android:id="@+id/editTextCustomer"
-                        android:enabled="false"
-                        android:layout_gravity="fill_horizontal"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="textCapSentences"
-                        android:hint="@string/customer"
-                        tools:ignore="TextFields" />
-                    <ImageButton
+                    <Button
                         android:id="@+id/buttonShowCustomer"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:textAlignment="textStart"
                         android:layout_height="match_parent"
-                        android:layout_width="@dimen/imagebutton_width"
-                        android:onClick="onClickShowCustomer"
-                        android:background="?attr/selectableItemBackground"
-                        android:src="@drawable/ic_baseline_person_dynamic_24dp" />
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/customer"
+                        android:onClick="onClickShowCustomer" />
                     <ImageButton
                         android:layout_height="match_parent"
                         android:layout_width="@dimen/imagebutton_width"

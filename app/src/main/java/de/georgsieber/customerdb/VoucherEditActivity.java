@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,13 +49,11 @@ public class VoucherEditActivity extends Material3AppCompatActivity {
     private DateFormat mDateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
     private Calendar mValidUntilCalendar;
 
-    ImageButton mButtonShowFromCustomer;
-    ImageButton mButtonShowForCustomer;
+    Button mButtonShowFromCustomer;
+    Button mButtonShowForCustomer;
     EditText mEditTextValue;
     EditText mEditTextVoucherNo;
     Button mButtonValidUntil;
-    EditText mEditTextFromCustomer;
-    EditText mEditTextForCustomer;
     EditText mEditTextNotes;
 
     @Override
@@ -87,8 +84,6 @@ public class VoucherEditActivity extends Material3AppCompatActivity {
         mEditTextValue = findViewById(R.id.editTextValue);
         mEditTextVoucherNo = findViewById(R.id.editTextVoucherNo);
         mButtonValidUntil = findViewById(R.id.buttonValidUntil);
-        mEditTextFromCustomer = findViewById(R.id.editTextFromCustomer);
-        mEditTextForCustomer = findViewById(R.id.editTextForCustomer);
         mEditTextNotes = findViewById(R.id.editTextNotes);
 
         // get extra from parent intent
@@ -195,24 +190,24 @@ public class VoucherEditActivity extends Material3AppCompatActivity {
         if(v.mFromCustomerId != null) {
             Customer relatedCustomer = mDb.getCustomerById(v.mFromCustomerId, false, false);
             if(relatedCustomer != null) {
-                mEditTextFromCustomer.setText(relatedCustomer.getFullName(false));
+                mButtonShowFromCustomer.setText(relatedCustomer.getFullName(false));
                 mButtonShowFromCustomer.setEnabled(true);
             } else {
-                mEditTextFromCustomer.setText(getString(R.string.removed_placeholder));
+                mButtonShowFromCustomer.setText(getString(R.string.removed_placeholder));
             }
         } else {
-            mEditTextFromCustomer.setText(v.mFromCustomer);
+            mButtonShowFromCustomer.setText(v.mFromCustomer);
         }
         if(v.mForCustomerId != null) {
             Customer relatedCustomer = mDb.getCustomerById(v.mForCustomerId, false, false);
             if(relatedCustomer != null) {
-                mEditTextForCustomer.setText(relatedCustomer.getFullName(false));
+                mButtonShowForCustomer.setText(relatedCustomer.getFullName(false));
                 mButtonShowForCustomer.setEnabled(true);
             } else {
-                mEditTextForCustomer.setText(getString(R.string.removed_placeholder));
+                mButtonShowForCustomer.setText(getString(R.string.removed_placeholder));
             }
         } else {
-            mEditTextForCustomer.setText(v.mFromCustomer);
+            mButtonShowForCustomer.setText(v.mFromCustomer);
         }
         if(v.mValidUntil == null) {
             mValidUntilCalendar = null;
@@ -279,7 +274,7 @@ public class VoucherEditActivity extends Material3AppCompatActivity {
     public void onClickRemoveFromCustomer(View v) {
         mCurrentVoucher.mFromCustomer = "";
         mCurrentVoucher.mFromCustomerId = null;
-        mEditTextFromCustomer.setText("");
+        mButtonShowFromCustomer.setText("");
         mButtonShowFromCustomer.setEnabled(false);
     }
 
@@ -294,7 +289,7 @@ public class VoucherEditActivity extends Material3AppCompatActivity {
     public void onClickRemoveForCustomer(View v) {
         mCurrentVoucher.mForCustomer = "";
         mCurrentVoucher.mForCustomerId = null;
-        mEditTextForCustomer.setText("");
+        mButtonShowForCustomer.setText("");
         mButtonShowForCustomer.setEnabled(false);
     }
 
@@ -335,14 +330,14 @@ public class VoucherEditActivity extends Material3AppCompatActivity {
                 Customer newCustomer = (Customer) listView.getAdapter().getItem(listView.getCheckedItemPosition());
                 if(setFromCustomer) {
                     mButtonShowFromCustomer.setEnabled(true);
+                    mButtonShowFromCustomer.setText(newCustomer.getFullName(false));
                     mCurrentVoucher.mFromCustomerId = newCustomer.mId;
                     mCurrentVoucher.mFromCustomer = "";
-                    mEditTextFromCustomer.setText(newCustomer.getFullName(false));
                 } else {
                     mButtonShowForCustomer.setEnabled(true);
+                    mButtonShowForCustomer.setText(newCustomer.getFullName(false));
                     mCurrentVoucher.mForCustomerId = newCustomer.mId;
                     mCurrentVoucher.mForCustomer = "";
-                    mEditTextForCustomer.setText(newCustomer.getFullName(false));
                 }
             }
         });
