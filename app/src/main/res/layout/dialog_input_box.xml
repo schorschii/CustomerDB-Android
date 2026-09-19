@@ -23,4 +23,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/apply" />
+    <Button
+        android:id="@+id/buttonBuyCode"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/buy_a_code" />
 </LinearLayout>

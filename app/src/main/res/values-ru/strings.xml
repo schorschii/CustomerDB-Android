@@ -398,4 +398,5 @@
     <string name="print_font_size">Размер шрифта печати</string>
     <string name="custom_color">Пользовательский цвет</string>
     <string name="use_custom_color">Использовать пользовательский цвет</string>
+    <string name="buy_a_code">Купить код…</string>
 </resources>

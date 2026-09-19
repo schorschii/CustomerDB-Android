@@ -397,4 +397,5 @@
     <string name="print_font_size">Afdrukken Lettergrootte</string>
     <string name="custom_color">Aangepaste kleur</string>
     <string name="use_custom_color">Gebruik aangepaste kleur</string>
+    <string name="buy_a_code">Koop een code…</string>
 </resources>

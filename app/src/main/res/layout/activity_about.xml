@@ -184,7 +184,6 @@
                         android:layout_column="4"
                         android:layout_gravity="center_vertical"
                         android:enabled="false"
-                        android:onClick="doSubCloud"
                         android:text="@string/buy_now" />
                 </GridLayout>
 
@@ -251,7 +250,6 @@
                         android:layout_column="4"
                         android:layout_gravity="center_vertical"
                         android:enabled="false"
-                        android:onClick="doBuyCommercialUse"
                         android:text="@string/buy_now" />
                 </GridLayout>
 
@@ -318,7 +316,6 @@
                         android:layout_column="4"
                         android:layout_gravity="center_vertical"
                         android:enabled="false"
-                        android:onClick="doBuyLargeCompany"
                         android:text="@string/buy_now" />
                 </GridLayout>
 
@@ -385,7 +382,6 @@
                         android:layout_column="4"
                         android:layout_gravity="center_vertical"
                         android:enabled="false"
-                        android:onClick="doBuyInputOnlyMode"
                         android:text="@string/buy_now" />
                 </GridLayout>
 
@@ -452,7 +448,6 @@
                         android:layout_column="4"
                         android:layout_gravity="center_vertical"
                         android:enabled="false"
-                        android:onClick="doBuyDesignOptions"
                         android:text="@string/buy_now" />
                 </GridLayout>
 
@@ -519,7 +514,6 @@
                         android:layout_column="4"
                         android:layout_gravity="center_vertical"
                         android:enabled="false"
-                        android:onClick="doBuyCustomFields"
                         android:text="@string/buy_now" />
                 </GridLayout>
 
@@ -586,7 +580,6 @@
                         android:layout_column="4"
                         android:layout_gravity="center_vertical"
                         android:enabled="false"
-                        android:onClick="doBuyFiles"
                         android:text="@string/buy_now" />
                 </GridLayout>
 
@@ -653,7 +646,6 @@
                         android:layout_column="4"
                         android:layout_gravity="center_vertical"
                         android:enabled="false"
-                        android:onClick="doBuyCalendar"
                         android:text="@string/buy_now" />
                 </GridLayout>
 

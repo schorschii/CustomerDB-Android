@@ -397,4 +397,5 @@
     <string name="print_font_size">Taille de la police d\'impression</string>
     <string name="custom_color">Couleur personnalisée</string>
     <string name="use_custom_color">Utiliser une couleur personnalisée</string>
+    <string name="buy_a_code">Achetez un code…</string>
 </resources>

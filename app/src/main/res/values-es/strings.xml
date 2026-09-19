@@ -397,4 +397,5 @@
     <string name="print_font_size">Tamaño de fuente de impresión</string>
     <string name="custom_color">Color personalizado</string>
     <string name="use_custom_color">Utilice un color personalizado</string>
+    <string name="buy_a_code">Compra un código…</string>
 </resources>
