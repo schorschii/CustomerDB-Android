@@ -24,7 +24,6 @@
         tools:targetApi="m">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,35 +36,35 @@
         </activity>
         <activity
             android:name=".CustomerDetailsActivity"
-            android:label="@string/app_name">
+            android:label="@string/detailview">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.georgsieber.customerdb.MainActivity" />
         </activity>
         <activity
             android:name=".CustomerEditActivity"
-            android:label="@string/app_name">
+            android:label="@string/edit_customer">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.georgsieber.customerdb.MainActivity" />
         </activity>
         <activity
             android:name=".VoucherDetailsActivity"
-            android:label="@string/app_name">
+            android:label="@string/detailview">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.georgsieber.customerdb.MainActivity" />
         </activity>
         <activity
             android:name=".VoucherEditActivity"
-            android:label="@string/app_name">
+            android:label="@string/edit_voucher">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.georgsieber.customerdb.MainActivity" />
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:label="@string/app_name">
+            android:label="@string/information">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.georgsieber.customerdb.MainActivity" />
