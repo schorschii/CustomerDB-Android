@@ -142,7 +142,7 @@
                     android:layout_height="36dp" />
                 <Button
                     android:id="@+id/buttonAddCustomerInputOnlyMode"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:padding="24dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
                     android:layout_weight="1"/>
                 <Button
                     android:id="@+id/buttonInputOnlyModeUnlock"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:padding="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -212,7 +212,7 @@
                     android:layout_weight="1"/>
                 <Button
                     android:id="@+id/buttonLockUnlock"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:padding="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
