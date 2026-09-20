@@ -271,7 +271,7 @@
                         android:id="@+id/checkBoxEditNewsletter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/newsletter_accepted" />
+                        android:text="@string/newsletter_accepted" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -376,7 +376,7 @@
                         android:id="@+id/checkBoxEditConsent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/i_consent_processing" />
+                        android:text="@string/i_consent_processing" />
                 </LinearLayout>
 
                 <Space
