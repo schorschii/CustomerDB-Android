@@ -112,7 +112,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.georgsieber.customerdb.MainActivity" />
         </activity>
-        <activity android:name=".DrawActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

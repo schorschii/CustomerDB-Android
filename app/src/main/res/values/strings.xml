@@ -249,7 +249,6 @@
     <string name="select_all">Select All</string>
     <string name="deselect">Deselect</string>
     <string name="clear">Clear</string>
-    <string name="draw_on_screen">Draw on Screen</string>
     <string name="choose_from_gallery">Choose from Gallery</string>
     <string name="image_from_camera">Image from Camera</string>
     <string name="install_plugin_app">Install Plugin App</string>

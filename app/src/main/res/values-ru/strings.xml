@@ -238,7 +238,6 @@
     <string name="select_all">Все</string>
     <string name="deselect">Отмените</string>
     <string name="clear">чистый</string>
-    <string name="draw_on_screen">Рисовать на экране</string>
     <string name="choose_from_gallery">Выберите из галереи</string>
     <string name="image_from_camera">Изображение с камеры</string>
     <string name="install_plugin_app">Установить плагин приложение</string>

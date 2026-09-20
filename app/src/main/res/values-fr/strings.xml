@@ -237,7 +237,6 @@
     <string name="select_all">Tout s&#233;lectionner</string>
     <string name="deselect">D&#233;s&#233;lectionner</string>
     <string name="clear">Claire</string>
-    <string name="draw_on_screen">Dessiner &#224; l\'&#233;cran</string>
     <string name="choose_from_gallery">Choisir depuis la galerie</string>
     <string name="image_from_camera">Image de la cam&#233;ra</string>
     <string name="install_plugin_app">Installer l\'application plugin</string>

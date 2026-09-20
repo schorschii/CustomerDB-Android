@@ -88,7 +88,6 @@ public class CustomerEditActivity extends Material3AppCompatActivity {
     private final static int ABOUT_REQUEST = 3;
     private final static int FILE_CAMERA_REQUEST = 4;
     private final static int FILE_PICK_REQUEST = 5;
-    private final static int FILE_DRAW_REQUEST = 6;
     private final static int CAMERA_PERMISSION_REQUEST = 7;
 
     Calendar mBirthdayCalendar = null;
@@ -387,17 +386,6 @@ public class CustomerEditActivity extends Material3AppCompatActivity {
                             byte[] dataBytes = getByteArrayFromInputStream(is);
                             mCurrentCustomer.addFile(new CustomerFile(filename, dataBytes), this);
                         }
-                    } catch(Exception e) {
-                        CommonDialog.show(me, getString(R.string.error), e.getLocalizedMessage(), CommonDialog.TYPE.FAIL, false);
-                    }
-                }
-                refreshFiles();
-                break;
-            }
-            case(FILE_DRAW_REQUEST) : {
-                if(resultCode == RESULT_OK && data != null && data.getExtras() != null) {
-                    try {
-                        mCurrentCustomer.addFile(new CustomerFile(StorageControl.getNewDrawingFilename(this), Base64.decode(data.getExtras().getString("image"), Base64.DEFAULT)), this);
                     } catch(Exception e) {
                         CommonDialog.show(me, getString(R.string.error), e.getLocalizedMessage(), CommonDialog.TYPE.FAIL, false);
                     }
@@ -793,14 +781,6 @@ public class CustomerEditActivity extends Material3AppCompatActivity {
                 intent.setType("*/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, getString(R.string.choose_from_gallery)), FILE_PICK_REQUEST);
-            }
-        });
-        ad.findViewById(R.id.buttonConsentFromTouchscreen).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ad.dismiss();
-                Intent intent = new Intent(me, DrawActivity.class);
-                startActivityForResult(intent, FILE_DRAW_REQUEST);
             }
         });
         ad.findViewById(R.id.buttonConsentCancel).setOnClickListener(new View.OnClickListener() {

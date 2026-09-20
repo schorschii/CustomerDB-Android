@@ -237,7 +237,6 @@
     <string name="select_all">Alle</string>
     <string name="deselect">Aufheben</string>
     <string name="clear">Leeren</string>
-    <string name="draw_on_screen">Auf Bildschirm zeichnen</string>
     <string name="choose_from_gallery">AUs Galerie auswählen</string>
     <string name="image_from_camera">Mit Kamera aufnehmen</string>
     <string name="install_plugin_app">Plugin-App installieren</string>
