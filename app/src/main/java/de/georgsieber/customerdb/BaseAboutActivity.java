@@ -109,14 +109,15 @@ public class BaseAboutActivity extends Material3AppCompatActivity {
         if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // get version
-        String versionString = "v?";
         try {
             PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
-            versionString = String.format(getResources().getString(R.string.version), pInfo.versionName);
+            ((TextView) findViewById(R.id.textViewVersion)).setText(
+                    String.format(getResources().getString(R.string.version), pInfo.versionName)
+                    + " (" + BuildConfig.FLAVOR + ")"
+            );
         } catch(PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        ((TextView) findViewById(R.id.textViewVersion)).setText( versionString );
 
         // find views
         mButtonDoSubCloud = findViewById(R.id.buttonSubCloud);
