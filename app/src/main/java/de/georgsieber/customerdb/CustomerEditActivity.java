@@ -30,7 +30,6 @@ import androidx.core.view.WindowInsetsCompat;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.text.InputType;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -302,9 +301,10 @@ public class CustomerEditActivity extends Material3AppCompatActivity {
         // apply the insets as a margin to the view, so that elements at the bottom
         // of the ScrollView do not get hidden behind the navigation bar
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.spaceBottom), (v, windowInsets) -> {
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            Insets insetsBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            Insets insetsIme = windowInsets.getInsets(WindowInsetsCompat.Type.ime());
             ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-            mlp.bottomMargin = insets.bottom;
+            mlp.bottomMargin = insetsBars.bottom + insetsIme.bottom;
             v.setLayoutParams(mlp);
             // Return CONSUMED if you don't want the window insets to keep passing down to descendant views.
             return WindowInsetsCompat.CONSUMED;
