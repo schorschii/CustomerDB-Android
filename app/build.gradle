@@ -6,8 +6,8 @@ android {
         minSdk 21
         targetSdk 37
         compileSdk 36
-        versionCode 101
-        versionName "3.12.1"
+        versionCode 102
+        versionName "3.12.2"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
