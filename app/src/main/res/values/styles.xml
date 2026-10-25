@@ -2,20 +2,40 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Material3.DayNight">
-        <!-- Colors -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorLink">@color/colorTextLink</item>
         <item name="android:colorBackground">@color/colorBackground</item>
 
-        <!-- No Action Bar -->
+        <!-- no action bar -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <!-- global widget styles -->
+        <item name="drawerArrowStyle">@style/AppDrawerArrow</item>
+        <item name="toolbarStyle">@style/AppToolbar</item>
+        <item name="appBarLayoutStyle">@style/AppAppBar</item>
     </style>
 
-    <style name="toolbarStyle" parent="@style/ThemeOverlay.Material3.Dark">
-        <item name="colorAccent">#fff</item>
+    <style name="AppDrawerArrow" parent="Widget.AppCompat.DrawerArrowToggle">
+        <!-- drawer menu (hamburger) icon -->
+        <item name="color">@android:color/white</item>
+    </style>
+    <style name="AppToolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="subtitleTextColor">@android:color/white</item>
+        <item name="materialThemeOverlay">@style/AppToolbarOverlay</item>
+        <!-- back arrow button color -->
+        <item name="navigationIconTint">@android:color/white</item>
+    </style>
+    <style name="AppToolbarOverlay" parent="ThemeOverlay.Material3.Dark">
+        <!-- 3 dots (more) button color -->
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+    <style name="AppAppBar" parent="Widget.Material3.AppBarLayout">
+        <!--<item name="android:background">@color/colorPrimaryDark</item>-->
+        <item name="android:background">@color/colorPrimaryDark</item>
     </style>
 
     <style name="Widget.AppCompat.Button.Colored" parent="@style/ThemeOverlay.Material3.Button.TonalButton">
